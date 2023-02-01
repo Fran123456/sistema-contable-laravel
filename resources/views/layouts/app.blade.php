@@ -11,23 +11,23 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
 
         <!-- Styles -->
-       
+
         @livewireStyles
 
         <!-- Scripts -->
-       
+
         @vite(['resources/sass/app.scss','resources/js/app.js'])
     </head>
     <body class="font-sans antialiased bg-light">
-        <x-jet-banner />
+
         @livewire('navigation-menu')
 
         <!-- Page Heading -->
-        <header class="d-flex py-3 bg-white shadow-sm border-bottom">
+      <!--  <header class="d-flex py-3 bg-white shadow-sm border-bottom">
             <div class="container">
-                {{ $header }}
+                {{-- $header --}}
             </div>
-        </header>
+        </header>-->
 
         <!-- Page Content -->
         <main class="container my-5">
@@ -38,6 +38,6 @@
 
         @livewireScripts
 
-        
+
     </body>
 </html>

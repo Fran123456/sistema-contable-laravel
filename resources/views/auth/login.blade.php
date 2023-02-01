@@ -17,11 +17,11 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
-                    <x-jet-label value="{{ __('Email') }}" />
+                    <x-jet-label value="{{ __('DUI') }}" />
 
-                    <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email"
-                                 name="email" :value="old('email')" required />
-                    <x-jet-input-error for="email"></x-jet-input-error>
+                    <x-jet-input class="{{ $errors->has('dui') ? 'is-invalid' : '' }}" type="text"
+                                 name="dui" :value="old('dui')" required />
+                    <x-jet-input-error for="dui"></x-jet-input-error>
                 </div>
 
                 <div class="mb-3">
