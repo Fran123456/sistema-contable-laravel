@@ -1,9 +1,12 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white     border-bottom sticky-top">
     <div class="container">
         <!-- Logo -->
-        <a class="navbar-brand me-4" href="/">
-            <x-jet-application-mark width="36" />
+       
+
+        <a href="" class="navbar-brand me-4">
+            <img src="{{asset('banners/benvenida.jpg')}}" alt="" width="45">
         </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,7 +15,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
                 <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
+                    {{ __('Dashboard') }} 
                 </x-jet-nav-link>
             </ul>
 
