@@ -1,10 +1,10 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+
 
         <div class="card-body">
+
+           <img class="img-fluid" src="{{ asset('banners/SIN-FONDO.png') }}" />
 
             <x-jet-validation-errors class="mb-3 rounded-0" />
 
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <x-jet-label value="{{ __('Password') }}" />
+                    <x-jet-label value="{{ __('Contraseña') }}" />
 
                     <x-jet-input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password"
                                  name="password" required autocomplete="current-password" />
@@ -36,7 +36,7 @@
                     <div class="custom-control custom-checkbox">
                         <x-jet-checkbox id="remember_me" name="remember" />
                         <label class="custom-control-label" for="remember_me">
-                            {{ __('Remember Me') }}
+                            {{ __('Recuerdame') }}
                         </label>
                     </div>
                 </div>
@@ -45,12 +45,12 @@
                     <div class="d-flex justify-content-end align-items-baseline">
                         @if (Route::has('password.request'))
                             <a class="text-muted me-3" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
+                                {{ __('Has olvidado tu contraseña?') }}
                             </a>
                         @endif
 
                         <x-jet-button>
-                            {{ __('Log in') }}
+                            {{ __('Accede') }}
                         </x-jet-button>
                     </div>
                 </div>

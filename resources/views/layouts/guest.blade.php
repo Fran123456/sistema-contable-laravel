@@ -11,12 +11,17 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
 
         <!-- Styles -->
-        
+
 
         <!-- Scripts -->
         @vite(['resources/sass/app.scss','resources/js/app.js'])
+        <style media="screen">
+          .black{
+            background-color: #1C5589;
+          }
+        </style>
     </head>
-    <body class="bg-light font-sans antialiased">
+    <body class="black font-sans antialiased ">
         {{ $slot }}
     </body>
 </html>
