@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-md-6 col-xs-12 col-sm-6 mt-3 ">
             <div class="card bg-dark text-white ">
-              <a href="#">
+              <a href="{!! route('blog-dashboard') !!}">
                 <img src="{!! asset('banners/informacion.jpg') !!}" class="card-img" alt="...">
               </a>
             </div>

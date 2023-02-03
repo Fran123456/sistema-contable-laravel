@@ -29,4 +29,4 @@ Route::middleware([
 });
 
 
-Route::get('/blog', [BlogController::class, 'obtenerInformacion']);
+Route::get('/blog', [BlogController::class, 'dashboard'])->name('blog-dashboard');
