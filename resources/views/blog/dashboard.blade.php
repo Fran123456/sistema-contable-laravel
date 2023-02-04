@@ -46,6 +46,33 @@
 
       <div class="col-md-4 col-xs-12 xol-sm-12">
 
+        <div class="alert alert-primary" role="alert">
+          Tipo de publicaciones
+        </div>
+ 
+        <ul class="list-group list-group-light">
+
+          @for ( $i =0 ; $i < count($tipos) ; $i++)
+
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt=""
+                style="width: 45px; height: 45px" />
+              <div class="ms-3">
+                <p class="fw-bold mb-1">Kate Hunington</p>
+                <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+              </div>
+            </div>
+        
+            <a class="btn btn-link btn-rounded btn-sm" href="#" role="button">View</a>
+          </li>
+              
+          @endfor
+          
+          
+          
+        </ul>
+
       </div>
 
     </div>

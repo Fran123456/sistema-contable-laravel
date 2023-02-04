@@ -1,16 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Http;
+
 use Illuminate\Http\Request;
+use App\Help\HttpClient;
+
 
 class BlogController extends Controller
 {
+    
+    
+       
     public function dashboard(Request $request){
 
-        $response = Http::post('http://ccpcatalana.com/api/public/api/tipos/tipo-posts');
-
-        return view('blog.dashboard');
+        $tipos =HttpClient::post('api/tipos/tipo-posts');
+        
+    
+        return view('blog.dashboard', compact('tipos'));
 
     }
 }
