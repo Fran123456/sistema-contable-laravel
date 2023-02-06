@@ -3,10 +3,15 @@
   <div class="container">
     <div class="row">
 
+      <div class="col-md-12">
+        @include('blog.nav')
+        
+      </div>
+
       <div class="col-md-8 col-xs-12 xol-sm-12">
-        <div class="alert alert-primary" role="alert">
-          Publicaciones más recientes
-        </div>
+
+        <x-alert titulo=" Publicaciones más recientes" tipo="primary"></x-alert>
+       
         <div class="row row-cols-1 row-cols-md-3 g-4">
           
         @for ($i =0 ; $i < count($blogs) ; $i++)
@@ -21,7 +26,7 @@
                 <h6 class="card-title">{{$blogs[$i]['titulo']}}</h6>
               </div>
               <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">{{ Help::date($blogs[$i]['created_at'])}}</small>
               </div>
             </div>
           </div>
@@ -32,9 +37,7 @@
 
       <div class="col-md-4 col-xs-12 xol-sm-12">
 
-        <div class="alert alert-primary" role="alert">
-          Tipo de publicaciones
-        </div>
+        <x-alert titulo="Tipo de publicaciones" tipo="primary"></x-alert>
           
         <ul class="list-group list-group-light">
 

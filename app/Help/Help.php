@@ -3,6 +3,7 @@
 namespace App\Help;
 use Illuminate\Support\Facades\Storage;
 use App\Help\HttpClient;
+use Carbon\Carbon;
 
 class Help
 {
@@ -14,6 +15,11 @@ class Help
       return $url;
    }
 
+   public static function date($fecha){
+      $c =  substr($fecha, 0, 10);
+      $date = new \DateTime($c);
+      return $date->format('d/m/Y') ;
+   }
 
 
 
