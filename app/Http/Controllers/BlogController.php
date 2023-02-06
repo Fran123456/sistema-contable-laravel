@@ -14,9 +14,11 @@ class BlogController extends Controller
     public function dashboard(Request $request){
 
         $tipos =HttpClient::post('api/tipos/tipo-posts');
-        
-    
-        return view('blog.dashboard', compact('tipos'));
+       
+        $blogs = HttpClient::get('api/post/ultimos/9');
+        return view('blog.dashboard', compact('tipos', 'blogs'));
 
     }
+
+    
 }

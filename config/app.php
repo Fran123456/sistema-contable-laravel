@@ -182,6 +182,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        App\Providers\HelperServiceProvider::class,
+
+
         /*
          * Package Service Providers...
          */
@@ -211,6 +214,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Help' => App\Help\Help::class,
+
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
