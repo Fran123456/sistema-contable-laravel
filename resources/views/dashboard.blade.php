@@ -15,7 +15,7 @@
 
           <div class="col-md-6 col-xs-12 col-sm-6 mt-3" >
             <div class="card bg-dark text-white">
-              <a href="#">
+              <a href="{{route('nominas-dashboard')}}">
                 <img src="{!! asset('banners/nominas.jpg') !!}" class="card-img" alt="...">
               </a>
             </div>

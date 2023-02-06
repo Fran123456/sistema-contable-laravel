@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
-
+use App\Http\Controllers\NominasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,3 +30,7 @@ Route::middleware([
 
 
 Route::get('/blog', [BlogController::class, 'dashboard'])->name('blog-dashboard');
+
+
+Route::get('/nominas', [NominasController::class, 'dashboard'])->name('nominas-dashboard');
+Route::get('/nominas/boletas', [NominasController::class, 'boletasPago'])->name('nominas-boletas');
