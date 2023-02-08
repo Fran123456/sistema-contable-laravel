@@ -39,3 +39,5 @@ Route::get('/nominas/boleta/{id}', [NominasController::class, 'boletaPago'])->na
 
 
 Route::get('/beneficios', [BeneficiosController::class, 'dashboard'])->name('beneficios-dashboard');
+Route::get('/beneficios/tienda', [BeneficiosController::class, 'catalogoTienda'])->name('beneficios-tienda');
+Route::get('/beneficios/tienda/producto/{id}', [BeneficiosController::class, 'detalleProducto'])->name('beneficios-tienda-producto');

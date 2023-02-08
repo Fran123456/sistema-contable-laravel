@@ -12,4 +12,13 @@ class BeneficiosController extends Controller
         return view('beneficios.dashboard');
     }
 
+    public function catalogoTienda(){
+
+        return view('beneficios.tienda.tienda');
+    }
+
+    public function detalleProducto($id){
+        return view('beneficios.tienda.producto');
+    }
+
 }
