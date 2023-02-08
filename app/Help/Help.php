@@ -22,6 +22,11 @@ class Help
    }
 
 
+   public static function year(){
+      $hoy = getdate();
+      return $hoy['year'];
+   }
+
 
 
 }
