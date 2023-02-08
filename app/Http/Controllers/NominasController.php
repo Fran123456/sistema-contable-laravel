@@ -19,4 +19,13 @@ class NominasController extends Controller
 
         return view('nominas.boletas.boletas');
     }
+
+    public function boletaPago($id){
+
+        return view('nominas.boletas.boleta', compact('id'));
+    }
+
+    public function firmarBoleta($id){
+
+    }
 }

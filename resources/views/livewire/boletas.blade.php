@@ -58,7 +58,7 @@
                         <span style="font-size: 26px; color: #c5444a;"><i class="fa fa-times"></i> </span>
                       @endif
                     </p>
-                    <button  type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                    <a  href="{{route('nominas-boleta', $data[$i]['id'])}}" class="btn btn-primary"><i class="far fa-eye"></i></a>
                     </div>
                 </div>
                 @endfor
