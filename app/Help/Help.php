@@ -45,7 +45,6 @@ class Help
      $inicial = $parciales[0].'/'.$parciales[2];
      for ($i=2; $i < count( $parciales) ; $i++) {
        $inicial = '';
-
         $url = null;
         if($i==2){
             $paths[  $pathCounter]  =$inicial.'/dashboard' ;
@@ -56,27 +55,16 @@ class Help
             $pathPartial = $url;
             $paths[  $pathCounter-1]  =  $inicial . $url ;
             $objPaths [$pathCounter-1]['url' ] = $paths[  $pathCounter-1] ;
-
-
           }else{
             $pathPartial =  $pathPartial .'/'. $parciales[$i] ;
             $url =$inicial . $pathPartial;
             array_push($paths,   $url );
-
             array_push($objPaths, array('url'=> $url, 'nombre'=> $parciales[$i]    ));
            }
         }
-
         $pathCounter++;
-
      }
-
-
-
-
      return $objPaths;
-
-
    }
 
    public static function isNumber($str){

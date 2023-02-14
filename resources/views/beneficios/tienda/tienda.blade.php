@@ -4,7 +4,7 @@
       <div class="row">
 
         <div class="col-md-12 col-xs-12 col-sm-12 mt-3">
-            <x-commonnav page="Tienda" ></x-commonnav>
+            <x-commonnav ></x-commonnav>
         </div>
 
         <div class="col-md-12 col-xs-12 col-sm-12 mt-3">

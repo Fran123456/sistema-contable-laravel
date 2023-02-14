@@ -8,6 +8,13 @@
 
         </div>
 
+        <div class="col-md-12 col-xs-12 col-sm-12 " style="text-align: right;">
+
+          <x-carrito numero="4"></x-carrito>
+          <x-favoritos numero="4"></x-favoritos>
+
+        </div>
+
         <div class="col-md-5 col-xs-6 col-sm-5 mt-3 ">
 
             <div class="card" >
