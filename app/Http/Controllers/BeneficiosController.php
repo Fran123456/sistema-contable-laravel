@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Help\HttpClient;
+use App\Help\Tienda;
 
 class BeneficiosController extends Controller
 {
@@ -12,13 +13,20 @@ class BeneficiosController extends Controller
         return view('beneficios.dashboard');
     }
 
+   //TIENDA
     public function catalogoTienda(){
-
-        return view('beneficios.tienda.tienda');
+        $productos = Tienda::productos();
+        return view('beneficios.tienda.tienda', compact('productos'));
     }
 
     public function detalleProducto($id){
-        return view('beneficios.tienda.producto');
+        $producto = Tienda::producto($id);
+        return view('beneficios.tienda.producto', compact('producto'));
     }
 
+    public function carrito(){
+       return view('beneficios.tienda.carrito');
+    }
+
+     //TIENDA
 }
