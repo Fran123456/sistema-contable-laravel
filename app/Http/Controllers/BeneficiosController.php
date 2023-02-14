@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Help\HttpClient;
 use App\Help\Tienda;
+use App\Help\Help;
 
 class BeneficiosController extends Controller
 {
@@ -19,7 +20,8 @@ class BeneficiosController extends Controller
         return view('beneficios.tienda.tienda', compact('productos'));
     }
 
-    public function detalleProducto($id){
+    public function detalleProducto(Request $request, $id){
+         //return Help::routerNav($request);
         $producto = Tienda::producto($id);
         return view('beneficios.tienda.producto', compact('producto'));
     }

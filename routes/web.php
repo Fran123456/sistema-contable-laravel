@@ -38,7 +38,13 @@ Route::get('/nominas/boletas', [NominasController::class, 'boletasPago'])->name(
 Route::get('/nominas/boleta/{id}', [NominasController::class, 'boletaPago'])->name('nominas-boleta');
 
 
-Route::get('/beneficios', [BeneficiosController::class, 'dashboard'])->name('beneficios-dashboard');
-Route::get('/beneficios/tienda', [BeneficiosController::class, 'catalogoTienda'])->name('beneficios-tienda');
-Route::get('/beneficios/tienda/producto/{id}', [BeneficiosController::class, 'detalleProducto'])->name('beneficios-tienda-producto');
-Route::get('/beneficios/tienda/carrito', [BeneficiosController::class, 'carrito'])->name('beneficios-tienda-carrito');
+
+
+
+
+Route::prefix('beneficios')->group(function () {
+  Route::get('/', [BeneficiosController::class, 'dashboard'])->name('beneficios-dashboard');
+  Route::get('/tienda', [BeneficiosController::class, 'catalogoTienda'])->name('beneficios-tienda');
+  Route::get('/tienda/producto/{id}', [BeneficiosController::class, 'detalleProducto'])->name('beneficios-tienda-producto');
+  Route::get('/tienda/carrito', [BeneficiosController::class, 'carrito'])->name('beneficios-tienda-carrito');
+});

@@ -4,7 +4,7 @@
       <div class="row">
 
         <div class="col-md-12">
-            <x-commonnav page="Tienda" ></x-commonnav>
+            <x-commonnav current="{{$producto['producto']}}" ></x-commonnav>
 
         </div>
 
