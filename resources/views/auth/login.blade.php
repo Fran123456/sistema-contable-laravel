@@ -4,7 +4,7 @@
 
         <div class="card-body">
 
-           <img class="img-fluid" src="{{ asset('banners/SIN-FONDO.png') }}" />
+          <!-- <img class="img-fluid" src="{{ asset('banners/SIN-FONDO.png') }}" />-->
 
             <x-jet-validation-errors class="mb-3 rounded-0" />
 
@@ -17,11 +17,11 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
-                    <x-jet-label value="{{ __('DUI') }}" />
+                    <x-jet-label value="{{ __('Email') }}" />
 
-                    <x-jet-input class="{{ $errors->has('dui') ? 'is-invalid' : '' }}" type="text"
-                                 name="dui" :value="old('dui')" required />
-                    <x-jet-input-error for="dui"></x-jet-input-error>
+                    <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="mail"
+                                 name="email" :value="old('email')" required />
+                    <x-jet-input-error for="email"></x-jet-input-error>
                 </div>
 
                 <div class="mb-3">

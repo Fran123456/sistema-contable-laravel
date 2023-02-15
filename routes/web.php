@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\NominasController;
-use App\Http\Controllers\BeneficiosController;
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
+/*Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
@@ -27,24 +26,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-});
+});*/
 
 
-Route::get('/blog', [BlogController::class, 'dashboard'])->name('blog-dashboard');
-
-
-Route::get('/nominas', [NominasController::class, 'dashboard'])->name('nominas-dashboard');
-Route::get('/nominas/boletas', [NominasController::class, 'boletasPago'])->name('nominas-boletas');
-Route::get('/nominas/boleta/{id}', [NominasController::class, 'boletaPago'])->name('nominas-boleta');
-
-
-
-
-
-
-Route::prefix('beneficios')->group(function () {
-  Route::get('/', [BeneficiosController::class, 'dashboard'])->name('beneficios-dashboard');
-  Route::get('/tienda', [BeneficiosController::class, 'catalogoTienda'])->name('beneficios-tienda');
-  Route::get('/tienda/producto/{id}', [BeneficiosController::class, 'detalleProducto'])->name('beneficios-tienda-producto');
-  Route::get('/tienda/carrito', [BeneficiosController::class, 'carrito'])->name('beneficios-tienda-carrito');
-});
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');

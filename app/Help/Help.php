@@ -27,10 +27,6 @@ class Help
       return $hoy['year'];
    }
 
-   public static function boletasPDF($id){
-     // return env('PATH_ASSETS').'/panel/public/aguinaldo/pdf/'.$id;
-      return env('PATH_ASSETS').'/aguinaldo/pdf/'.$id;
-   }
 
    public static function routerNav(){
      $route = Route::currentRouteName();
