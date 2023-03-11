@@ -36,4 +36,5 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::group(['prefix' => 'usuarios'], function() {
     Route::get('/me', [MeController::class, 'me'])->name('me');
+    Route::put('/me/update', [MeController::class, 'updateMe'])->name('updateMe');
 });

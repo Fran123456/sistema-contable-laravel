@@ -5,14 +5,17 @@
            Edita la información general de tu perfil de usuario
         </div>
     </div>
+   
     <div class="col-12 col-md-8">
         <div class="app-card app-card-settings shadow-sm p-4">
             <div class="app-card-body">
-                <form class="settings-form">
+                <form class="settings-form" method="post" action="{{ route('updateMe') }}">
+                    @method('put')
+                    @csrf
                     <div class="mb-3">
                         <label class="form-label">Nombre<span
                                 class="ms-2" data-container="body"></label>
-                        <input type="text" class="form-control" id="setting-input-1"
+                        <input type="text" class="form-control" name="name"
                             required  value="{{ Auth::user()->name }}"/>
                     </div>
                   

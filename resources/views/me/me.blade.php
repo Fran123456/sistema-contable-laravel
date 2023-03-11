@@ -8,6 +8,8 @@
                 <h1 class="app-page-title">Sobre {{ Auth::user()->name }}</h1>
                 <hr class="mb-4" />
 
+                <x-alert></x-alert>
+
                 @include('me.components.me-edit')
                 
                
