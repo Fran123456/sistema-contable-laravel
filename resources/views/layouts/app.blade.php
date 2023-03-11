@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
 
@@ -12,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="favicon.ico">
-
+    @vite(['resources/sass/app.scss'])
     <!-- FontAwesome JS-->
     <script defer src="{{ asset('assets/plugins/fontawesome/js/all.min.js') }}"></script>
 
@@ -20,10 +21,10 @@
     <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/portal.css') }}">
 
     <style>
-      .app-branding .logo-icon {
-          width: 136px;
-          height: 36px;
-      }
+        .app-branding .logo-icon {
+            width: 136px;
+            height: 36px;
+        }
     </style>
 
 </head>
@@ -45,19 +46,19 @@
                                 </svg>
                             </a>
                         </div>
-                   
+
                         <!--//app-search-box-->
 
                         <div class="app-utilities col-auto">
 
                             <!--//teams-->
-                              @include('layouts.components.teams')
-                             <!--//teams-->
+                            @include('layouts.components.teams')
+                            <!--//teams-->
 
                             <!--//Notificaciones-->
-                               @include('layouts.components.notify')
+                            @include('layouts.components.notify')
                             <!--//Notificaciones-->
-                        
+
 
                             <!--//app-utility-item-->
                             @include('layouts.components.settings')
@@ -66,7 +67,7 @@
                             <!--//account-->
                             @include('layouts.components.account')
                             <!--//account-->
-                         
+
                         </div>
                         <!--//app-utilities-->
                     </div>
@@ -82,8 +83,8 @@
             <div class="sidepanel-inner d-flex flex-column">
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 <div class="app-branding">
-                    <a class="app-logo" href="index.html"><img class="logo-icon me-2"
-                            src="bienvenida.png" alt="logo"></a>
+                    <a class="app-logo" href="index.html"><img class="logo-icon me-2" src="{{ asset('bienvenida.png') }}"
+                            alt="logo"></a>
 
                 </div>
                 <!--//app-nav-->
@@ -104,11 +105,9 @@
     <div class="app-wrapper">
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
-          <div class="container">
-            {{ $slot }}
-
-            @livewire('navigation-menu')
-          </div>
+            <div class="container">
+                {{ $slot }}
+            </div>
         </div>
         <!--//app-content-->
     </div>
@@ -120,6 +119,10 @@
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Page Specific JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+
+    @stack('modals')
+
+    @livewireScripts
 
 </body>
 
