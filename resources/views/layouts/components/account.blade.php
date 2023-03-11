@@ -12,12 +12,8 @@
     @endif
 
 
-
-
-
-
     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-        <li><a class="dropdown-item" href="{{ route('profile.show') }}">Perfil</a></li>
+        <li><a class="dropdown-item" href="{{ route('me') }}">Perfil</a></li>
         <li><a class="dropdown-item" href="settings.html">Settings</a></li>
         <li>
             <hr class="dropdown-divider">

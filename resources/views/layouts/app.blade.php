@@ -19,13 +19,17 @@
 
     <!-- App CSS -->
     <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/portal.css') }}">
-
     <style>
         .app-branding .logo-icon {
             width: 136px;
             height: 36px;
         }
     </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
+        referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/js/all.min.js" referrerpolicy="no-referrer">
+    </script>
 
 </head>
 
@@ -83,8 +87,8 @@
             <div class="sidepanel-inner d-flex flex-column">
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 <div class="app-branding">
-                    <a class="app-logo" href="index.html"><img class="logo-icon me-2" src="{{ asset('bienvenida.png') }}"
-                            alt="logo"></a>
+                    <a class="app-logo" href="index.html"><img class="logo-icon me-2"
+                            src="{{ asset('bienvenida.png') }}" alt="logo"></a>
 
                 </div>
                 <!--//app-nav-->
@@ -110,6 +114,7 @@
             </div>
         </div>
         <!--//app-content-->
+        @include('layouts.components.footer')
     </div>
     <!--//app-wrapper-->
 
