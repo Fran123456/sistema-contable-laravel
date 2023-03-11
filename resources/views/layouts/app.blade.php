@@ -49,18 +49,22 @@
                         <!--//app-search-box-->
 
                         <div class="app-utilities col-auto">
-                            
+
+                            <!--//teams-->
+                              @include('layouts.components.teams')
+                             <!--//teams-->
+
                             <!--//Notificaciones-->
-                               @include('layouts.notify')
+                               @include('layouts.components.notify')
                             <!--//Notificaciones-->
                         
 
                             <!--//app-utility-item-->
-                            @include('layouts.settings')
+                            @include('layouts.components.settings')
                             <!--//app-utility-item-->
 
                             <!--//account-->
-                            @include('layouts.account')
+                            @include('layouts.components.account')
                             <!--//account-->
                          
                         </div>
@@ -83,12 +87,12 @@
 
                 </div>
                 <!--//app-nav-->
-                @include('layouts.nav')
+                @include('layouts.components.sidebar')
                 <!--//app-nav-->
 
 
                 <!--//app-sidepanel-footer-->
-                @include('layouts.sidepanel')
+                @include('layouts.components.sidepanel')
                 <!--//app-sidepanel-footer-->
             </div>
             <!--//sidepanel-inner-->
@@ -102,6 +106,8 @@
         <div class="app-content pt-3 p-md-3 p-lg-4">
           <div class="container">
             {{ $slot }}
+
+            @livewire('navigation-menu')
           </div>
         </div>
         <!--//app-content-->

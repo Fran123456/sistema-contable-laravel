@@ -1,6 +1,7 @@
+
 <div class="app-utility-item app-notifications-dropdown dropdown">
-    <a class="dropdown-toggle no-toggle-arrow" id="notifications-dropdown-toggle" data-bs-toggle="dropdown" href="#"
-        role="button" aria-expanded="false" title="Notifications">
+    <a class="dropdown-toggle no-toggle-arrow" id="notifications-dropdown-toggle" data-bs-toggle="dropdown"
+        href="#" role="button" aria-expanded="false" title="Notifications">
         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell icon" fill="currentColor"
             xmlns="http://www.w3.org/2000/svg">
