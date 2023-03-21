@@ -6,6 +6,7 @@
     </x-slot>
 
     <div>
+       
         @livewire('teams.update-team-name-form', ['team' => $team])
 
         @livewire('teams.team-member-manager', ['team' => $team])

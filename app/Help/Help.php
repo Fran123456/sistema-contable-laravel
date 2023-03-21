@@ -18,8 +18,15 @@ class Help
    public static function date($fecha){
       $c =  substr($fecha, 0, 10);
       $date = new \DateTime($c);
-      return $date->format('d/m/Y') ;
+      return $date->format('d/m/Y ') ;
    }
+
+   public static function hour($fecha){
+      $date=date_create($fecha);
+      return  date_format($date,"Y/m/d h:i:s A");
+   }
+
+   
 
 
    public static function year(){

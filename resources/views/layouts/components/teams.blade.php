@@ -6,8 +6,8 @@
 
 
         <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-            <li><a class="dropdown-item" href="{{ route('profile.show') }}">Perfil</a></li>
-            <li><a class="dropdown-item" href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">Equipos</a>
+            <!--<li><a class="dropdown-item" href="{{ route('profile.show') }}">Perfil</a></li>-->
+            <li><a class="dropdown-item" href="{{ route('teamMe', Auth::user()->currentTeam->id) }}">Equipo</a>
             </li>
 
             @can('create', Laravel\Jetstream\Jetstream::newTeamModel())

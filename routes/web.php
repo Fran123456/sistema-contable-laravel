@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\user\MeController;
-
+use App\Http\Controllers\user\TeamController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,9 +32,13 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 
-
-
 Route::group(['prefix' => 'usuarios'], function() {
     Route::get('/me', [MeController::class, 'me'])->name('me');
     Route::put('/me/update', [MeController::class, 'updateMe'])->name('updateMe');
+
+    Route::put('/me/team/{id}', [TeamController::class, 'updateTeam'])->name('updateTeamMe');
+    Route::get('/me/team/{id}', [TeamController::class, 'team'])->name('teamMe');
+    Route::get('/me/team/{id}/invited/{user_id}', [TeamController::class, 'sendInvitation'])->name('sendInvitation');
+    Route::get('/me/team/{id}/invited/cancel/{id_user_invitation}', [TeamController::class, 'cancelInvitation'])->name('cancelInvitation');
+
 });

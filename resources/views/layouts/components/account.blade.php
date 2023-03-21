@@ -2,9 +2,7 @@
 
 
     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-        <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-        aria-expanded="false"><img class="rounded-circle" width="32" height="32" src="{{ Auth::user()->profile_photo_url }}"
-        alt="{{ Auth::user()->name }}" /></a>
+        
     @else
         <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
         aria-expanded="false"><img class="rounded-circle" width="32" height="32" src="{{ Auth::user()->profile_photo_url }}"
