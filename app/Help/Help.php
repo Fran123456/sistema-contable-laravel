@@ -23,7 +23,7 @@ class Help
 
    public static function hour($fecha){
       $date=date_create($fecha);
-      return  date_format($date,"Y/m/d h:i:s A");
+      return  date_format($date,"d/m/Y h:i:s A");
    }
 
    

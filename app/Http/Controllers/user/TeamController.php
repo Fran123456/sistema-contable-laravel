@@ -51,4 +51,16 @@ class TeamController extends Controller
         TeamInvitation::destroy($id_user_invitation);
         return back()->with('success', 'Se ha eliminado la invitación correctamente');
     }
+
+    public function invitations(){
+        $user = auth()->user();
+        $invitations = TeamInvitation::where('email', $user->email)->get();
+        return view('me.team.team-invitations', compact('invitations'));
+    }
+
+    public function aceptingInvitation($id){
+        $invitation= TeamInvitation::find($id);
+        
+
+    }
 }

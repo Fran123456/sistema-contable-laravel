@@ -35,10 +35,9 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 Route::group(['prefix' => 'usuarios'], function() {
     Route::get('/me', [MeController::class, 'me'])->name('me');
     Route::put('/me/update', [MeController::class, 'updateMe'])->name('updateMe');
-
     Route::put('/me/team/{id}', [TeamController::class, 'updateTeam'])->name('updateTeamMe');
     Route::get('/me/team/{id}', [TeamController::class, 'team'])->name('teamMe');
     Route::get('/me/team/{id}/invited/{user_id}', [TeamController::class, 'sendInvitation'])->name('sendInvitation');
     Route::get('/me/team/{id}/invited/cancel/{id_user_invitation}', [TeamController::class, 'cancelInvitation'])->name('cancelInvitation');
-
+    Route::get('/me/team/invitations/home', [TeamController::class, 'invitations'])->name('invitations');
 });
