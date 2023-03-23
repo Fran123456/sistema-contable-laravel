@@ -40,4 +40,5 @@ Route::group(['prefix' => 'usuarios'], function() {
     Route::get('/me/team/{id}/invited/{user_id}', [TeamController::class, 'sendInvitation'])->name('sendInvitation');
     Route::get('/me/team/{id}/invited/cancel/{id_user_invitation}', [TeamController::class, 'cancelInvitation'])->name('cancelInvitation');
     Route::get('/me/team/invitations/home', [TeamController::class, 'invitations'])->name('invitations');
+    Route::get('/me/team/invitations/acepting/{id}', [TeamController::class, 'aceptingInvitation'])->name('aceptingInvitation');
 });

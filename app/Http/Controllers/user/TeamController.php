@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\TeamInvitation;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class TeamController extends Controller
 {
@@ -13,6 +15,7 @@ class TeamController extends Controller
 
     public function team(Request $request, $id){  //$id = id del equipo 
         $team = Team::find($id);
+        
         $users = array();
         if($request->invitation){
             $users= User::where('email', $request->invitation)->get();
@@ -60,7 +63,10 @@ class TeamController extends Controller
 
     public function aceptingInvitation($id){
         $invitation= TeamInvitation::find($id);
-        
-
+        $team = Team::find($invitation->team_id);
+        $user = Auth::user();
+        $team->users()->save($user,['role'=>'editor']);
+        $invitation->delete();
+        return back()->with('success', 'Se ha aceptado la solicitud correctamente');
     }
 }

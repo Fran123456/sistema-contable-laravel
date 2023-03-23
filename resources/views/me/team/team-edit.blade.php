@@ -23,7 +23,8 @@
                         <label class="form-label">Nombre del equipo<span
                                 class="ms-2" data-container="body"></label>
                         <input type="text" required class="form-control" name="name"
-                            required  value="{{ $team->name }}"/>
+                            required  value="{{ $team->name }}" 
+                             @if(Auth::user()->id !=$team->userOwner->id ) readonly @endif  />
                     </div>
                   
                     <div class="mb-3">
@@ -34,8 +35,8 @@
                             <img class="rounded-circle" width="32" height="32" src="{{ Auth::user()->profile_photo_url }}"
                              alt="{{ Auth::user()->name }}" />
                         @endif
-                        <label  > <strong>Propietario:</strong> {{  Auth::user()->name }}</label> <br>
-                       
+                        <label  > <strong>Propietariod:</strong> {{  $team->userOwner->name }}</label> <br>
+                   
 
                     </div>
                      <div class=" text-end">

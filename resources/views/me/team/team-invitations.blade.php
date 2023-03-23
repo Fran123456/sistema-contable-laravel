@@ -33,7 +33,7 @@
                             
                             @foreach ($invitations  as $key => $item )
                             <tr>
-                                <th scope="row">1</th>
+                                <th scope="row">{{ $key+1 }}</th>
                                 <td>{{  $item->team->name  }}</td>
                                 <td> 
                                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -50,7 +50,7 @@
                                 <td>{{ $item->role }}</td>
                                 <td>{{ Help::hour($item->created_at) }}</td>
                                 <td>
-                                    <a href="" class="btn btn-success"><i class="fas fa-check"></i></a>
+                                    <a href="{{ route('aceptingInvitation', $item->id) }}" class="btn btn-success"><i class="fas fa-check"></i></a>
                                 </td>
 
                                 <td>
