@@ -25,7 +25,9 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Rol</th>
+                        @if(Auth::user()->id ==$team->userOwner->id )
                         <th scope="col" class="text-end">Acciones</th>
+                        @endif
                     </tr>
                     <tbody class="table-group-divider">
                     @foreach ($team->users as $key=> $item)
@@ -44,13 +46,11 @@
                         <td>{{ $item->email }}</td>
 
                         <td>{{  $item->membership->role }}</td>
+                        @if(Auth::user()->id ==$team->userOwner->id )
                         <td class="text-end">
-
-                           <a   href="{{ route('removeUser', ['id'=>$team->id,'user_id'=>$item->id]) }}" class="btn btn-success @if ($item->id == Auth::user()->id) not-active  @endif  "><i class="fas fa-window-close"></i></a>
-
-
-
+                              <a   href="{{ route('removeUser', ['id'=>$team->id,'user_id'=>$item->id]) }}" class="btn btn-success @if ($item->id == Auth::user()->id) not-active  @endif  "><i class="fas fa-window-close"></i></a>
                         </td>
+                        @endif
                     </tr>
                     @endforeach
 

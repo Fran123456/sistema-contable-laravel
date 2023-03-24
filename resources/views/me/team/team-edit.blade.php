@@ -12,7 +12,7 @@
            Edita la información del equipo
         </div>
     </div>
-   
+
     <div class="col-12 col-md-9">
         <div class="app-card app-card-settings shadow-sm p-4">
             <div class="app-card-body">
@@ -23,10 +23,10 @@
                         <label class="form-label">Nombre del equipo<span
                                 class="ms-2" data-container="body"></label>
                         <input type="text" required class="form-control" name="name"
-                            required  value="{{ $team->name }}" 
+                            required  value="{{ $team->name }}"
                              @if(Auth::user()->id !=$team->userOwner->id ) readonly @endif  />
                     </div>
-                  
+
                     <div class="mb-3">
                         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                              <img class="rounded-circle" width="32" height="32" src="{{ Auth::user()->profile_photo_url }}"
@@ -35,15 +35,18 @@
                             <img class="rounded-circle" width="32" height="32" src="{{ Auth::user()->profile_photo_url }}"
                              alt="{{ Auth::user()->name }}" />
                         @endif
-                        <label  > <strong>Propietariod:</strong> {{  $team->userOwner->name }}</label> <br>
-                   
+                        <label  > <strong>Propietario:</strong> {{  $team->userOwner->name }}</label> <br>
+
 
                     </div>
-                     <div class=" text-end">
+                    @if(Auth::user()->id ==$team->userOwner->id )
+                    <div class=" text-end">
                         <button type="submit" class="btn app-btn-primary">
                             <i class="fas fa-save"></i>
                         </button>
                      </div>
+                    @endif
+
                 </form>
             </div>
             <!--//app-card-body-->

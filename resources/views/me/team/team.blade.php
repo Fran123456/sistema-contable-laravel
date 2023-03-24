@@ -9,10 +9,17 @@
             <x-alert></x-alert>
 
             @include('me.team.team-edit')
+
+
+            @if(Auth::user()->id ==$team->userOwner->id )
             <hr class="my-4" />
             @include('me.team.team-add-member')
-            <hr class="my-4" />
+            @endif
+
+
+
             @if (count($usersPedingInvitation)>0)
+            <hr class="my-4" />
             @include('me.team.team-peding-invitation-team')
             @endif
 
