@@ -13,9 +13,9 @@ class TeamController extends Controller
 {
 
 
-    public function team(Request $request, $id){  //$id = id del equipo 
+    public function team(Request $request, $id){  //$id = id del equipo
         $team = Team::find($id);
-        
+
         $users = array();
         if($request->invitation){
             $users= User::where('email', $request->invitation)->get();
@@ -24,7 +24,7 @@ class TeamController extends Controller
         return view('me.team.team', compact('team', 'users','usersPedingInvitation'));
     }
 
-    public function updateTeam(Request $request, $id){//$id = id del equipo 
+    public function updateTeam(Request $request, $id){//$id = id del equipo
         $team = Team::find($id);
         $team->name = $request->name;
         $team->save();
@@ -46,7 +46,7 @@ class TeamController extends Controller
             $message="No se ha podido enviar la solicitud a: " . $user->name. " ya que ya posee una invitación sin aceptar";
             $typeOfMessage= 'danger';
         }
-       
+
         return redirect()->route('teamMe', $id)->with($typeOfMessage, $message );
     }
 
@@ -68,5 +68,12 @@ class TeamController extends Controller
         $team->users()->save($user,['role'=>'editor']);
         $invitation->delete();
         return back()->with('success', 'Se ha aceptado la solicitud correctamente');
+    }
+
+    public function removeUser($id, $user_id){ //id = id del team
+
+        $team = Team::find($id);
+        $team->users()->detach($user_id);
+        return back()->with('success','Usuario eliminado del equipo correctamente');
     }
 }
