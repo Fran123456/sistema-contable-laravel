@@ -35,7 +35,7 @@
                             <img class="rounded-circle" width="32" height="32" src="{{ Auth::user()->profile_photo_url }}"
                              alt="{{ Auth::user()->name }}" />
                         @endif
-                        <label  > <strong>Propietariod:</strong> {{  $team->userOwner->name }}</label> <br>
+                        <label  > <strong>Propietario:</strong> {{  $team->userOwner->name }}</label> <br>
                    
 
                     </div>

@@ -1,3 +1,11 @@
+<style>
+    .text-bg-danger {
+    color: white !important;
+    background-color: RGBA(210, 109, 105, var(--bs-bg-opacity, 1)) !important;
+}
+</style>
+
+
 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
     <div class="app-utility-item app-user-dropdown dropdown">
         
@@ -21,7 +29,8 @@
             @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
                 <li><a class="dropdown-item" href="{{ route('teams.create') }}">Nuevo equipo</a></li>
             @endcan
-            <li><a class="dropdown-item" href="{{ route('invitations') }}">Mis solicitudes</a></li>
+            <li><a class="dropdown-item" href="{{ route('invitations') }}">Mis solicitudes  
+             <span class="badge text-bg-danger" >{{ Help::countTeamInvitations() }}</span>     </a></li>
 
             @if (count(Auth::user()->allTeams())>0)
                 <li>

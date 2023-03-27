@@ -5,13 +5,19 @@ use Illuminate\Support\Facades\Storage;
 use App\Help\HttpClient;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use App\Models\TeamInvitation;
 class Help
 {
+   public static function countTeamInvitations(){
+      $user = auth()->user();
+      return count(TeamInvitation::where('email', $user->email)->get());
+   }
+
+
 
    public static function pathAssets($path){
       //$url = env('PATH_ASSETS').'/'.$path.'/'.$name;
       $url = HttpClient::get( 'api/validar/asset', env('PATH_ASSETS'),['path'=> $path] ,'body'  );
-
       return $url;
    }
 
@@ -25,9 +31,6 @@ class Help
       $date=date_create($fecha);
       return  date_format($date,"d/m/Y h:i:s A");
    }
-
-   
-
 
    public static function year(){
       $hoy = getdate();
