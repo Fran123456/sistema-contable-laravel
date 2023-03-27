@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\user\MeController;
 use App\Http\Controllers\user\TeamController;
+use App\Http\Controllers\user\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,5 +43,6 @@ Route::group(['prefix' => 'usuarios'], function() {
     Route::get('/me/team/invitations/home', [TeamController::class, 'invitations'])->name('invitations');
     Route::get('/me/team/invitations/acepting/{id}', [TeamController::class, 'aceptingInvitation'])->name('aceptingInvitation');
     Route::get('/me/team/{id}/delete-user/{user_id}', [TeamController::class, 'removeUser'])->name('removeUser');
-
 });
+
+Route::resource('users', UserController::class); 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Laravel\Jetstream\Contracts\CreatesTeams;
 use Laravel\Jetstream\Events\AddingTeam;
 use Laravel\Jetstream\Jetstream;
+use Illuminate\Support\Facades\DB;
 
 class CreateTeam implements CreatesTeams
 {
@@ -31,6 +32,14 @@ class CreateTeam implements CreatesTeams
             'name' => $input['name'],
             'personal_team' => false,
         ]));
+
+        DB::table('team_user')->insert([
+            'user_id'=> $user->id,
+            'team_id'=> $team->id,
+            'role'=> 'admin',
+            'created_at'=>$team->created_at,
+            'updated_at'=> $team->updated_at
+         ]);
 
         return $team;
     }

@@ -31,6 +31,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/js/all.min.js" referrerpolicy="no-referrer">
     </script>
 
+    @include('layouts.components.datatable')
+
 </head>
 
 <body class="app">
