@@ -181,6 +181,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         App\Providers\HelperServiceProvider::class,
 
@@ -215,6 +216,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Help' => App\Help\Help::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),

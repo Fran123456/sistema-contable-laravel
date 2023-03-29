@@ -32,7 +32,8 @@
     </script>
 
     @include('layouts.components.datatable')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
 
 
 </head>
@@ -123,16 +124,18 @@
     <!--//app-wrapper-->
 
 
-    <!-- Javascript -->
+    <!-- Javascript --> 
     <script src="{{ asset('assets/plugins/popper.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Page Specific JS -->
+   
     <script src="{{ asset('assets/js/app.js') }}"></script>
-
+   
     @stack('modals')
 
     @livewireScripts
-
+   
+    @include('sweetalert::alert')
 </body>
 
 </html>

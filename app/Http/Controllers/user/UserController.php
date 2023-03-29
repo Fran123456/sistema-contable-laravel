@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+Use Alert;
 
 class UserController extends Controller
 {
@@ -76,7 +77,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->save();
-        return back()->with('sweet-success', 'Usuario editado correctamente');
+        return redirect()->route('users.edit', $id)->with('success', 'Usuario editado correctamente');
     }
 
     /**

@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\user\MeController;
 use App\Http\Controllers\user\TeamController;
 use App\Http\Controllers\user\UserController;
+use RealRashid\SweetAlert\Facades\Alert;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +45,11 @@ Route::group(['prefix' => 'usuarios'], function() {
     Route::get('/me/team/invitations/home', [TeamController::class, 'invitations'])->name('invitations');
     Route::get('/me/team/invitations/acepting/{id}', [TeamController::class, 'aceptingInvitation'])->name('aceptingInvitation');
     Route::get('/me/team/{id}/delete-user/{user_id}', [TeamController::class, 'removeUser'])->name('removeUser');
-});
+})->middleware('auth:sanctum');
 
 Route::resource('users', UserController::class); 
+
+Route::get('/dembo', function () {
+    Alert::success('Success Title', 'Success Message');
+    return view('welcome');
+});

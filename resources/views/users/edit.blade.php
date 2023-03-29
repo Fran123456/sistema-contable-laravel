@@ -10,13 +10,12 @@
     </style>
     <div class="col-md-12">
         <x-commonnav  ></x-commonnav>
+        
     </div>
     
     <div class="col-md-12">
         <div class="card">
-
-       
-           
+        
             <div class="card-body">
                 <div class="text-start"><h6>Ficha de: {{ $user->name }} </h6></div>
                 
