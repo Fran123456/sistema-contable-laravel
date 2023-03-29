@@ -16,6 +16,7 @@
 <script type="text/javascript">
       $(document).ready(function() {
         $('#datatable-responsive').DataTable({
+            ///fixedColumns: true,
             "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json",
               buttons: {
@@ -25,25 +26,32 @@
                     _: '%d lineas copiadas',
                     1: '1 linea copiada'
                 },
-                colvis: 'Change columns'
+                colvis: 'Visibilidad'
             }
         },
         dom: 'Bfrtip',
         buttons: [
-            'copyHtml5',
+            {
+               
+                extend:'copyHtml5',
+                text:' <i class="fas fa-copy fa-2x"></i>',
+                titleAttr: 'CSV'
+            },
             
             {
                 extend:'csvHtml5',
-                text:'<i class="fas fa-file-csv"></i>',
+                text:'<i class="fas fa-file-csv fa-2x"></i>',
+                titleAttr: 'CSV'
             },
            
 
             {
                 extend: 'excelHtml5',
-                text:      '<i class="fas fa-file-excel"></i>',
+                text:      '<i class="fas fa-file-excel fa-2x"></i>',
                 title: 'Data export',//titulo del archivo,
                 autoFilter: true,
                 sheetName: 'Exported data',
+                titleAttr: 'Excel'
                // split: [ 'excelHtml5', 'csvHtml5'],
 
             },
@@ -51,18 +59,23 @@
                 extend: 'pdfHtml5',
                 title: 'Data export' ,//titulo del archivo,
                 messageTop: 'PDF created by PDFMake with Buttons for DataTables.',
-                download: 'open'
+                download: 'open',
+                titleAttr: 'PDF',
+                text: '<i class="fas fa-file-pdf fa-2x"></i>',
+                
             },
             {
                 extend: 'print',
+                autoPrint: false,
+                text: '<i class="fas fa-print fa-2x"></i>',
                 exportOptions: {
-                    columns: ':visible'
+                    columns: ':visible',
                 }
             },
             {
                 extend: 'colvis',
                 columns: ':not(.noVis)',
-                 collectionLayout: 'fixed columns',
+                collectionLayout: 'fixed columns',
                 collectionTitle: 'Column visibility control'
             },
             
@@ -70,7 +83,7 @@
         ],
         select: true,
         columnDefs: [ {
-            targets: -1,
+            
             visible: false
         } ]
        
