@@ -18,6 +18,13 @@ class UserController extends Controller
         return redirect()->route('users.edit', $id)->with('success', 'Contraseña reseteada correctamente');
     }
 
+    public function disableUser(Request $request, $id){
+        $user = User::find($id);
+        $user->disabled = $user->disabled == 0 ?1: 0;
+        $user->save();
+        return back()->with('success', 'Usuario modificado correctamente');
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -98,7 +105,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-        return back()->with('success', 'Usuario eliminado correctamente');
+        //User::destroy($id);
+        //return back()->with('success', 'Usuario eliminado correctamente');
     }
+
+
 }
