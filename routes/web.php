@@ -48,8 +48,14 @@ Route::group(['prefix' => 'usuarios'], function() {
 })->middleware('auth:sanctum');
 
 Route::resource('users', UserController::class); 
+Route::name('users')->prefix('users')->group(function () {
+    Route::post('/change-password/{id}', [UserController::class, 'updatePassword'])->name('.updatePassword');
+});
+
 
 Route::get('/dembo', function () {
     Alert::success('Success Title', 'Success Message');
     return view('welcome');
 });
+
+

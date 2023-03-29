@@ -6,9 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 Use Alert;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    public function updatePassword(Request $request, $id){
+        $user = User::find($id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return redirect()->route('users.edit', $id)->with('success', 'Contraseña reseteada correctamente');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
