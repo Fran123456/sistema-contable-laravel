@@ -1,0 +1,1 @@
+<span class="badge bg-secondary"><i class=" @if(isset($icono)) {{ $icono }} @else fas fa-user-plus @endif "></i> {{ $titulo }} </span>

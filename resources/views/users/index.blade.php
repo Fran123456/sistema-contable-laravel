@@ -17,7 +17,7 @@
                         <th scope="col">Correo</th>
                         <th  width="40" class="text-center" scope="col">Deshabilitado</th>
                         <th  width="40" class="text-center" scope="col">Editar</th>
-                        <th  width="40" class="text-center" scope="col">Eliminar</th>
+                        <th  width="40" class="text-center" scope="col">Deshabilitar</th>
                       </tr>
                     </thead>
                     <tbody>

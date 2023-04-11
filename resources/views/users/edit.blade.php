@@ -27,7 +27,7 @@
                     @csrf
                     <div class="row mt-4 mb-3">
                         <div class="col-md-12">
-                            <span class="badge bg-secondary">Datos generales</span>
+                            <x-badge titulo="Datos generales" icono="fas fa-user-edit"></x-badge>
                         </div>
                     </div>
                     <div class="row">
@@ -51,7 +51,7 @@
                 <form action="">
                     <div class="row mt-4 mb-3">
                         <div class="col-md-12">
-                            <span class="badge bg-secondary">Foto de perfil</span>
+                            <x-badge titulo="Foto de perfil" icono="fas fa-user-edit"></x-badge>
                         </div>
                     </div>
 
@@ -67,7 +67,8 @@
                     @csrf
                     <div class="row mt-4 mb-3">
                         <div class="col-md-12">
-                            <span class="badge bg-secondary">Resetear contraseña</span>
+                            
+                            <x-badge titulo="Resetear contraseña" icono="fas fa-user-edit"></x-badge>
                         </div>
                     </div>
 
@@ -90,7 +91,7 @@
 
             </div>
             <div class="card-footer text-body-secondary">
-                2 days ago
+              
             </div>
         </div>
     </div>
