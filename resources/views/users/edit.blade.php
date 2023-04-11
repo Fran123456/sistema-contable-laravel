@@ -42,7 +42,7 @@
                             <input type="text" readonly class="form-control" value="{{ $user->email }}" required>
                         </div>
                         <div class="col-md-12 mb-1 mt-3 text-end">
-                            <button class="btn btn-success" type="submit">Guardar</button>
+                            <button class="btn btn-success" type="submit"><i class="fas fa-user-edit"></i></button>
                         </div>
                     </div>
                 </form>
@@ -79,7 +79,7 @@
                                 <input required ID="txtPassword" type="text" class="form-control" >
                             </div>
                             <div class="col-md-12 mb-1 mt-3 text-end">
-                                <button class="btn btn-success" type="submit">Guardar</button>
+                                <button class="btn btn-success" type="submit"><i class="fas fa-user-edit"></i></button>
                             </div>
                         </div>
                     </div>

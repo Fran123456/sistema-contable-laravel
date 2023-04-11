@@ -24,6 +24,28 @@
             width: 136px;
             height: 36px;
         }
+        .btn-success {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #5cb377;
+            --bs-btn-border-color: #5cb377;
+            --bs-btn-hover-color: #dbfff0;
+            --bs-btn-hover-bg: #74be8b;
+            --bs-btn-hover-border-color: #6cbb85;
+            --bs-btn-focus-shadow-rgb: 78, 152, 101;
+            --bs-btn-active-color: #f3f3f3;
+            --bs-btn-active-bg: #7dc292;
+            --bs-btn-active-border-color: #6cbb85;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #fffdfd;
+            --bs-btn-disabled-bg: #5cb377;
+            --bs-btn-disabled-border-color: #5cb377;
+        }
+        .page-link.active, .active>.page-link {
+            z-index: 3;
+            color: var(--bs-pagination-active-color);
+            background-color: #5cb377;
+            border-color: #5cb377;
+        }
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"

@@ -2,6 +2,9 @@
     <div class="col-md-12">
         <x-commonnav  ></x-commonnav>
     </div>
+    <div class="col-md-12 text-end mb-4">
+      <a class="btn btn-success"  href="{{route('users.create') }}"> <i class="fas fa-user-plus"></i> </a>
+    </div>
     <div class="col-md-12">
 
         <div class="card">
@@ -19,11 +22,11 @@
                     </thead>
                     <tbody>
                       @foreach ($users as $key => $item)
-                      <tr class="text-center  @if($item->disabled) table-danger  @endif">
+                      <tr class="  @if($item->disabled) table-danger  @endif">
                         <th scope="row">{{ $key+1 }}</th>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
-                        <td> @if($item->disabled) 
+                        <td class="text-center"> @if($item->disabled) 
                                
                                <h4> <span class="badge bg-danger"><i class="fas fa-frown"></i></span></h4>
 
