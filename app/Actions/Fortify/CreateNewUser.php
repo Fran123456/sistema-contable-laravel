@@ -66,7 +66,9 @@ class CreateNewUser implements CreatesNewUsers
            'created_at'=>$user->created_at,
            'updated_at'=> $user->updated_at
         ]);
-
+        $user->current_team_id = $team;
+        $user->save();
+        
 
 
     }

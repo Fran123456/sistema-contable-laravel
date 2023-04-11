@@ -6,13 +6,17 @@
         <x-badge titulo="Nuevo usuario" icono="fas fa-user-plus"></x-badge>
     </div>
     <div class="col-md-12">
-        <form action="">
+        <form action="{{ route('users.store') }}" method="post">
+            @csrf
             <div class="card">
                 <div class="card-body">
 
                     <div class="row">
-
                         <div class="col-md-12">
+                           <x-errors></x-errors>
+                        </div>
+
+                        <div class="col-md-12 mt-3">
                             <label>Nombre completo</label>
                             <input type="text" name="name" required class="form-control">
                         </div>

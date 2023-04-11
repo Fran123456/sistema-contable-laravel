@@ -5,11 +5,14 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-Use Alert;
 use Illuminate\Support\Facades\Hash;
-
-class UserController extends Controller
+use Illuminate\Support\Facades\Validator;
+use App\Models\Team;
+use Laravel\Jetstream\Jetstream;
+use Illuminate\Support\Facades\DB;
+class UserController extends Controller 
 {
+  
 
     public function updatePassword(Request $request, $id){
         $user = User::find($id);
@@ -33,8 +36,8 @@ class UserController extends Controller
      */
     public function index()
     {
-       $users = User::all();
-       return view('users.index', compact('users'));
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -55,8 +58,38 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create($request->all());
-        return redirect()->route('user.index')->with('success', 'Usuario creado correctamente');
+        $v = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|',
+        ]);
+        if ($v->fails()) return redirect()->route('users.create')->withErrors($v->errors());
+
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password) 
+        ]);
+
+        $team = DB::table('teams')->insertGetId([
+            'user_id'=> $user->id,
+            'name' => explode(' ', $user->name, 2)[0]."'s Team",
+            'personal_team' => true,
+            'created_at'=>$user->created_at,
+            'updated_at'=> $user->updated_at
+        ]);
+
+        DB::table('team_user')->insert([
+            'user_id'=> $user->id,
+            'team_id'=> $team,
+            'role'=> 'admin',
+            'created_at'=>$user->created_at,
+            'updated_at'=> $user->updated_at
+        ]);
+        $user->current_team_id = $team;
+        $user->save();
+        return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }
 
     /**
