@@ -63,7 +63,8 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|',
         ]);
-        if ($v->fails()) return redirect()->route('users.create')->withErrors($v->errors());
+        $v->validate();
+        //if ($v->fails()) return redirect()->route('users.create')->withErrors($v->errors());
 
 
         $user = User::create([

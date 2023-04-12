@@ -18,16 +18,16 @@
 
                         <div class="col-md-12 mt-3">
                             <label>Nombre completo</label>
-                            <input type="text" name="name" required class="form-control">
+                            <input type="text" name="name" value="{{ old('name') }}" required class="form-control">
                         </div>
 
                         <div class="col-md-12 mt-3">
                             <label>Correo electronico</label>
-                            <input type="text" name="email" required class="form-control">
+                            <input type="text" name="email" value="{{ old('email') }}" required class="form-control">
                         </div>
 
                         <div class="col-md-12 mt-3">
-                            <label>Password</label>
+                            <label>Contraseña</label>
                             <input type="text" name="password" required class="form-control">
                         </div>
 
