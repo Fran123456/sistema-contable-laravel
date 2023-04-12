@@ -27,6 +27,7 @@ class Help
       return $date->format('d/m/Y ') ;
    }
 
+
    public static function hour($fecha){
       $date=date_create($fecha);
       return  date_format($date,"d/m/Y h:i:s A");

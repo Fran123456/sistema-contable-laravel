@@ -20,7 +20,9 @@ class ConfigSeeder extends Seeder
             'title' => 'Boton de copiar (Mensaje de confirmación)',
             'description'=>'Boton que nos ayuda a copiar las filas de la tabla, podra modificarse el mensaje de confirmación',
             'field'=> 'copyTitle',
-            'value'=>'Se ha copiado los registros correctamente'
+            'value'=>'Se ha copiado los registros correctamente',
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=> date("Y-m-d h:i:s")
         ]);
     }
 }
