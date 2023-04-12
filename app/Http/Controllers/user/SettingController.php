@@ -19,4 +19,9 @@ class SettingController extends Controller
         $setting->save();
         return back()->with('success', 'Configuración guardada correctamente');
     }
+
+    public function settingsByKey($key){
+        $data = Config::where('category', $key)->get();
+        return view('users.settings.'.$key, compact('data'));
+    }
 }

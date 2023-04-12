@@ -11,7 +11,7 @@
         </h5>
     </div>
 
-    @foreach ($datatable as $item)
+    @foreach ($data as $item)
         <div class="col-md-12m mb-3">
             <form action="{{ route('settings.updateSetting', $item->id) }}" method="post">
                 @csrf
