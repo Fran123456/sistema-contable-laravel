@@ -5,7 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\user\MeController;
 use App\Http\Controllers\user\TeamController;
 use App\Http\Controllers\user\UserController;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Controllers\user\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +47,7 @@ Route::group(['prefix' => 'usuarios'], function() {
     Route::get('/me/team/{id}/delete-user/{user_id}', [TeamController::class, 'removeUser'])->name('removeUser');
 })->middleware('auth:sanctum');
 
+
 Route::resource('users', UserController::class); 
 Route::name('users')->prefix('users')->group(function () {
     Route::post('/change-password/{id}', [UserController::class, 'updatePassword'])->name('.updatePassword');
@@ -54,9 +55,7 @@ Route::name('users')->prefix('users')->group(function () {
 });
 
 
-Route::get('/dembo', function () {
-    Alert::success('Success Title', 'Success Message');
-    return view('welcome');
+Route::name('settings')->prefix('settings')->group(function () {
+    Route::get('/', [SettingController::class, 'settings'])->name('.settings');
+    Route::put('/update/{id}', [SettingController::class, 'updateSetting'])->name('.updateSetting');
 });
-
-

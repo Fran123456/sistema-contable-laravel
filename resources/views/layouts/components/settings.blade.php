@@ -1,5 +1,5 @@
 <div class="app-utility-item">
-    <a href="settings.html" title="Settings">
+    <a href="{{ route('settings.settings') }}" title="Settings">
         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear icon"
             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
