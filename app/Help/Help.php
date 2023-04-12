@@ -6,6 +6,7 @@ use App\Help\HttpClient;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Models\TeamInvitation;
+use App\Models\Config;
 class Help
 {
    public static function countTeamInvitations(){
@@ -13,6 +14,9 @@ class Help
       return count(TeamInvitation::where('email', $user->email)->get());
    }
 
+   public static function getConfigByKey($category, $key){
+      return Config::where('field', $key)->where('category', $category)->first();
+   }
 
 
    public static function pathAssets($path){
