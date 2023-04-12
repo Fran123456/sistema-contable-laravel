@@ -1,8 +1,4 @@
-<!--<link rel="stylesheet" href="{--!! asset('datatable/css/lib/datatable/dataTables.bootstrap.min.css') !!}">
-<script src="{--!! asset('datatable/js/lib/data-table/datatables.min.js') !!}"></script>
-<script src="{--!! asset('datatable/js/lib/data-table/dataTables.bootstrap.min.js') !!}"></script>
-<script src="{--!! asset('datatable/js/lib/data-table/dataTables.buttons.min.js') !!}"></script>
-<script src="{--!! asset('datatable/js/init/datatables-init.js') !!} "></script>-->
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="{!! asset('datatable/datatables.min.css') !!}">
 <script src="{!! asset('datatable/datatables.min.js') !!} "></script>
