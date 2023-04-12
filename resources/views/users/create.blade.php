@@ -28,7 +28,7 @@
 
                         <div class="col-md-12 mt-3">
                             <label>Contraseña</label>
-                            <input type="text" name="password" required class="form-control">
+                            <input type="password" name="password" required class="form-control">
                         </div>
 
                         <div class="col-md-12 mt-3">

@@ -54,10 +54,6 @@
     </script>
 
     @include('layouts.components.datatable')
-    
-
-
-
 </head>
 
 <body class="app">
