@@ -25,6 +25,20 @@ class Help
       return $url;
    }
 
+   public static function uploadFile($request, $folder,$anexo ,$input){
+		//url es el path corto luego de el path publico a donde se encontrara el archivo.
+		//anexo debe ser algo extra en el proyecto se usa por ejemplo MAT115/archivo.png donde anexo = "MAT115/"
+		$file  = $request->file($input);
+		$original = Help::changeCharacters($file->getClientOriginalName());
+      $name = Help::code(8).'-'.time().'-'.$original;
+      $file->move(public_path().'/'.$folder.'/',$name);
+      return $name;
+	}
+
+   public static function code($lenght){
+      return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $lenght);
+   }
+
    public static function date($fecha){
       $c =  substr($fecha, 0, 10);
       $date = new \DateTime($c);
@@ -40,6 +54,16 @@ class Help
    public static function year(){
       $hoy = getdate();
       return $hoy['year'];
+   }
+
+   public static function changeCharacters($string){
+      $data = array('á','é','í','ó','ú','ñ',' ');
+      $sup = array('a','e','i','o','u','n','-');
+      $a = $string;
+      for ($i=0; $i <count($data) ; $i++) {
+         $a = str_replace($data[$i],$sup[$i], $a);
+      }
+      return strtolower($a);
    }
 
 

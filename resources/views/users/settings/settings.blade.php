@@ -22,7 +22,7 @@
                 <a href="{{ route('settings.settingsByKey','general') }}">
                     <div class="card text-center">
                         <div class="card-body">
-                            <i class="fas fa-table fa-4x"></i> <br>
+                            <i class="fas fa-home fa-4x"></i> <br>
                             Configuraciones generales
                         </div>
                     </div>
