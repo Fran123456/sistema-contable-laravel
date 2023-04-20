@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-12 mb-3">
         <h5>
-            <x-badge titulo="Configuraciones generales" icono="fas fa-user-cog "></x-badge>
+            <x-badge titulo="Configuraciones de datatable" icono="fas fa-user-cog "></x-badge>
         </h5>
     </div>
 

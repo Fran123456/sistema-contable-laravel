@@ -101,5 +101,15 @@ class ConfigSeeder extends Seeder
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
+
+        DB::table('config')->insert([
+            'category' => 'general',
+            'title' => 'Logo de la aplicación',
+            'description'=>'Acción que nos permite poder modificar el logo de la aplicación',
+            'field'=> 'logo',
+            'value'=>'assets/images/logo/logo.png',
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>  null
+        ]);
     }
 }

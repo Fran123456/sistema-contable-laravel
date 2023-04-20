@@ -18,6 +18,8 @@ class Help
       return Config::where('field', $key)->where('category', $category)->first();
    }
 
+ 
+
 
    public static function pathAssets($path){
       //$url = env('PATH_ASSETS').'/'.$path.'/'.$name;
@@ -34,6 +36,14 @@ class Help
       $file->move(public_path().'/'.$folder.'/',$name);
       return $name;
 	}
+
+   public static function deleteFile($path, $file = null){
+      $fullPath = $path;
+      if($file != null){
+         $fullPath=$path.'/'.$file;
+      }
+      Storage::disk('public')->delete($fullPath);
+   }
 
    public static function code($lenght){
       return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $lenght);

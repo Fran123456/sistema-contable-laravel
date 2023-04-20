@@ -58,7 +58,11 @@ Route::name('users')->prefix('users')->group(function () {
 Route::name('settings')->prefix('settings')->group(function () {
     Route::get('/', [SettingController::class, 'settings'])->name('.settings');
     Route::put('/update/{id}', [SettingController::class, 'updateSetting'])->name('.updateSetting');
+    Route::get('/general', [SettingController::class, 'generalSettings'])->name('.generalSettings');
     Route::get('/{key}', [SettingController::class, 'settingsByKey'])->name('.settingsByKey');
+    Route::post('/{id}/change-logo', [SettingController::class, 'changeLogo'])->name('.changeLogo');
+    
+    
 });
 
 

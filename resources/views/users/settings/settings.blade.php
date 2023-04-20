@@ -19,7 +19,7 @@
             </div>
 
             <div class="col-md-3 mb-3">
-                <a href="{{ route('settings.settingsByKey','general') }}">
+                <a href="{{ route('settings.generalSettings') }}">
                     <div class="card text-center">
                         <div class="card-body">
                             <i class="fas fa-home fa-4x"></i> <br>

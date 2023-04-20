@@ -111,7 +111,7 @@
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 <div class="app-branding">
                     <a class="app-logo" href="index.html"><img class="logo-icon me-2"
-                            src="{{ asset('bienvenida.png') }}" alt="logo"></a>
+                            src="{{ asset(  Help::getConfigByKey('general','logo')->value  ) }}" alt="logo"></a>
 
                 </div>
                 <!--//app-nav-->
