@@ -4,7 +4,10 @@
 
         <div class="card-body">
 
-          <!-- <img class="img-fluid" src="{{ asset('banners/SIN-FONDO.png') }}" />-->
+          
+         <div class="text-center">
+            <img class="img-fluid" src="{{ asset(Help::getConfigByKey('general','logo')->value ) }}" />
+         </div>
 
             <x-jet-validation-errors class="mb-3 rounded-0" />
 
