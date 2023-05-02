@@ -10,7 +10,12 @@ use Spatie\Permission\Models\Role;
 class RoleController extends Controller
 {
     public function createRole(Request $request){
+        return view('role.create');
+    }
+
+    public function storeRole(Request $request){
         $role = Role::create(['name' => $request->role]);
+        return redirect()->route('roles.roles')->with('success','Rol creado correctamente');
     }
 
     public function roles(){

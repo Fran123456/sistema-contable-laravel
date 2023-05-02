@@ -2,18 +2,20 @@
     <div class="col-md-12">
         <x-commonnav  ></x-commonnav>
     </div>
-    <div class="col-md-12 text-end mb-4">
-      <a class="btn btn-success"  href="{{route('roles.roles') }}"> <i class="fas fa-user-plus"></i> </a>
+
+    <div class="col-md-12  text-end mb-4">
+      <a class="btn btn-success"  href="{{route('roles.createRole') }}"><i class="fas fa-user-shield"></i> </a>
     </div>
     <div class="col-md-12">
 
         <div class="card">
             <div class="card-body">
+                <h5>Roles</h5>
                 <table class="table" id="datatable-responsive">
                     <thead>
                       <tr>
                         <th width="40" scope="col">#</th>
-                        <th scope="col">Nombre</th>
+                        <th scope="col">Rol</th>
                         <th scope="col">Correo</th>
                         <th  width="40" class="text-center" scope="col">Editar</th>
                         <th  width="40" class="text-center" scope="col">Deshabilitar</th>
@@ -23,7 +25,7 @@
                       @foreach ($roles as $key => $item)
                       <tr class="  @if($item->disabled) table-danger  @endif">
                         <th scope="row">{{ $key+1 }}</th>
-                        <td></td>
+                        <td>{{ $item->name }}</td>
                         <td></td>
                         <td> <a href="{{ route('users.edit', $item->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a> </td>
                         <td> <a href="{{ route('users.disableUser', $item->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a> </td>
