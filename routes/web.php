@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\user\MeController;
 use App\Http\Controllers\user\TeamController;
 use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\user\RoleController;
 use App\Http\Controllers\user\SettingController;
 
 /*
@@ -61,8 +62,11 @@ Route::name('settings')->prefix('settings')->group(function () {
     Route::get('/general', [SettingController::class, 'generalSettings'])->name('.generalSettings');
     Route::get('/{key}', [SettingController::class, 'settingsByKey'])->name('.settingsByKey');
     Route::post('/{id}/change-logo', [SettingController::class, 'changeLogo'])->name('.changeLogo');
-    
-    
 });
 
 
+
+
+Route::name('roles')->prefix('roles')->group(function () {
+    Route::get('/', [RoleController::class, 'roles'])->name('.roles');
+});
