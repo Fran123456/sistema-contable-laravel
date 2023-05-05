@@ -36,7 +36,22 @@
                              @endif 
                         </td>
                         <td> <a href="{{ route('users.edit', $item->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a> </td>
-                        <td> <a href="{{ route('users.disableUser', $item->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a> </td>
+                        <td> 
+                          @php
+                              $title = "¿Desea habilitar al usuario?";
+                              if ( !$item->disabled){
+                                $title = "¿Desea deshabilitar al usuario?";
+                             }
+                          @endphp
+                        
+                            
+                          
+                          <form id="form" action="{{ route('users.disableUser', $item->id) }}" method="get">
+                            <button class="btn btn-danger" onclick="confirm('form', '{{ $title }}')" type="button"><i class="fas fa-trash"></i></button>
+                          </form>
+                          
+                          
+                          </td>
                       </tr>
                       @endforeach
                   
