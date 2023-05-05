@@ -14,29 +14,40 @@
         <x-badge titulo="Nuevo rol" icono="fas fa-user-plus"></x-badge>
     </div>
     <div class="col-md-12">
-        <form action="{{ route('roles.store') }}" method="post">
+        <form action="{{ route('roles.update', $role->id) }}" method="post">
             @csrf
             <div class="card">
                 <div class="card-body">
-
                     <div class="row">
                         <div class="col-md-12">
                             <x-errors></x-errors>
                         </div>
 
                         <div class="col-md-6 mt-3">
-                            <label>Rol</label>
-                            <input  type="text" name="role" value="{{ old('role') }}" required
-                                class="form-control">
-                        </div>
-                        <div class="col-md-6 mt-3">
-                            <label for="">Permisos</label>
-                            <select required size="10" name="permission[]" data-placeholder="Seleccione los permisos"  multiple class="form-control chosen-select">
+                            <div>
+                                <label>Rol</label>
+                                <input  type="text" name="role" value="{{ $role->name }}" required class="form-control">
+                            </div>
+                        
+                            <div class="mt-3">
+                                <label for="">Permisos</label>
+                            <select required size="10" name="permission" data-placeholder="Seleccione un permiso"  class="form-control chosen-select">
                                 @foreach ($permissions as $permission)
                                     <option value="{{ $permission->name }}">{{ $permission->name }}</option>
                                 @endforeach
                             </select>
+                            </div>
                         </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="">Permisos</label> <br>
+                            @foreach ($role->permissions as $permission)
+                              
+                              <a type="button" class="btn btn-danger">
+                                <small style="color:aliceblue">{{ $permission->name }}</small> <span class="badge bg-danger"><i class="fas fa-trash-alt"></i></span>
+                              </a>
+                             @endforeach
+                        </div>
+                        
                         <div class="col-md-12 mt-3">
                             <button class="btn btn-success"><i class="fas fa-save"></i></button>
                         </div>

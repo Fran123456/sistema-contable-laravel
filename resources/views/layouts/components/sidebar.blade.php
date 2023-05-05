@@ -33,7 +33,7 @@
                 </span>
                 <span class="nav-link-text">Usuarios</span>
             </a>
-            <a class="nav-link" href="{{ route('roles.roles') }}">
+            <a class="nav-link" href="{{ route('roles.index') }}">
                 <span class="nav-icon">
                     <i class="fas fa-user-shield"></i>
                 </span>

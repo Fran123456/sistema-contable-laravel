@@ -23,16 +23,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-/*Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});*/
-
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 
@@ -64,11 +54,12 @@ Route::name('settings')->prefix('settings')->group(function () {
     Route::post('/{id}/change-logo', [SettingController::class, 'changeLogo'])->name('.changeLogo');
 });
 
-
-
-
+Route::resource('roles', RoleController::class); 
 Route::name('roles')->prefix('roles')->group(function () {
-    Route::get('/', [RoleController::class, 'roles'])->name('.roles');
-    Route::get('/create', [RoleController::class, 'createRole'])->name('.createRole');
-    Route::post('/store', [RoleController::class, 'storeRole'])->name('.storeRole');
+    Route::get('/permissions/destroy/{id}', [RoleController::class, 'destroyPermissions'])->name('.destroyPermissions');
 });
+
+
+
+
+
