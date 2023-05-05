@@ -14,49 +14,63 @@
         <x-badge titulo="Nuevo rol" icono="fas fa-user-plus"></x-badge>
     </div>
     <div class="col-md-12">
-        <form action="{{ route('roles.update', $role->id) }}" method="post">
-            @csrf
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <x-errors></x-errors>
-                        </div>
-
-                        <div class="col-md-6 mt-3">
-                            <div>
-                                <label>Rol</label>
-                                <input  type="text" name="role" value="{{ $role->name }}" required class="form-control">
-                            </div>
-                        
-                            <div class="mt-3">
-                                <label for="">Permisos</label>
-                            <select required size="10" name="permission" data-placeholder="Seleccione un permiso"  class="form-control chosen-select">
-                                @foreach ($permissions as $permission)
-                                    <option value="{{ $permission->name }}">{{ $permission->name }}</option>
-                                @endforeach
-                            </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mt-3">
-                            <label for="">Permisos</label> <br>
-                            @foreach ($role->permissions as $permission)
-                              
-                              <a type="button" class="btn btn-danger">
-                                <small style="color:aliceblue">{{ $permission->name }}</small> <span class="badge bg-danger"><i class="fas fa-trash-alt"></i></span>
-                              </a>
-                             @endforeach
-                        </div>
-                        
-                        <div class="col-md-12 mt-3">
-                            <button class="btn btn-success"><i class="fas fa-save"></i></button>
-                        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <x-errors></x-errors>
                     </div>
 
+                    <div class="col-md-6 mt-3">
+                        <form action="{{ route('roles.update', $role->id) }}" method="post">
+                            @csrf
+                            <div>
+                                <label>Rol</label>
+                                <input type="text" name="role" value="{{ $role->name }}" required
+                                    class="form-control">
+                            </div>
+
+                            <div class="mt-3">
+                                <label for="">Permisos</label>
+                                <select required size="10" name="permission"
+                                    data-placeholder="Seleccione un permiso" class="form-control chosen-select">
+                                    @foreach ($permissions as $permission)
+                                        <option value="{{ $permission->name }}">{{ $permission->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <label for="">Permisos</label> <br>
+
+                        @if (count($role->permissions))
+                            @foreach ($role->permissions as $permission)
+                                <form method="post" action="{{ route('roles.destroyPermissions', $role->id) }}"
+                                    id="form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" value="{{ $permission->name }}">
+                                    <button onclick="confirm('form')" type="button" class="btn btn-danger">
+                                        <small style="color:aliceblue">{{ $permission->name }}</small> <span
+                                            class="badge bg-danger"><i class="fas fa-trash-alt"></i></span>
+                                    </button>
+                                </form>
+                            @endforeach
+                        @else
+                            <x-message message="No hay permisos asociados" color="danger"></x-message>
+                        @endif
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <button class="btn btn-success"><i class="fas fa-save"></i></button>
+                    </div>
                 </div>
+
             </div>
-        </form>
+        </div>
     </div>
+
 
     <script>
         $(".chosen-select").chosen({

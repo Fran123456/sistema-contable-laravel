@@ -123,7 +123,9 @@ class RoleController extends Controller
         return back()->with('success', 'Se ha eliminado correctamente el rol');
     }
 
-    public function destroyPermissions(){
-
+    public function destroyPermissions(Request $request, $id){
+        $role = Role::find($id);
+        $role->revokePermissionTo($request->permission);
+        return back()->with('success','Se ha eliminado el permiso del rol correctamente');
     }
 }

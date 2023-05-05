@@ -56,7 +56,7 @@ Route::name('settings')->prefix('settings')->group(function () {
 
 Route::resource('roles', RoleController::class); 
 Route::name('roles')->prefix('roles')->group(function () {
-    Route::get('/permissions/destroy/{id}', [RoleController::class, 'destroyPermissions'])->name('.destroyPermissions');
+    Route::delete('/permissions/destroy/{id}', [RoleController::class, 'destroyPermissions'])->name('.destroyPermissions');
 });
 
 

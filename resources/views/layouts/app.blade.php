@@ -54,6 +54,8 @@
     </script>
 
     @include('layouts.components.datatable')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script src="{{ asset('js/confirm.js') }}"></script>
 </head>
 
 <body class="app">
@@ -153,7 +155,7 @@
 
     @livewireScripts
    
-    @include('sweetalert::alert')
+   
 </body>
 
 </html>
