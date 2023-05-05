@@ -41,6 +41,28 @@
                             <label for=""> <strong>Correo electronico</strong> </label>
                             <input type="text" readonly class="form-control" value="{{ $user->email }}" required>
                         </div>
+
+                        <div class="col-md-6 mb-2 mt-3">
+                            <label for=""> <strong>Rol asignado</strong> </label>
+                            <select  name="role" class="form-control" id="">
+                                @foreach ($roles as $role)
+                                    @if( isset($user->getRoleNames()[0]))
+                                        @if ($user->getRoleNames()[0]== $role->name)
+                                        <option selected value="{{ $role->name }}">{{ $role->name }}</option>
+                                        @else
+                                        <option selected value="{{ $role->name }}">{{ $role->name }}</option>
+                                        @endif
+                                            
+                                    
+                                    @else
+                                    <option selected value="{{ $role->name }}">{{ $role->name }}</option>
+
+                                    @endif
+                                    
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="col-md-12 mb-1 mt-3 text-end">
                             <button class="btn btn-success" type="submit"><i class="fas fa-user-edit"></i></button>
                         </div>

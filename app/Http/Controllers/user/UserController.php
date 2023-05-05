@@ -3,34 +3,31 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Team;
-use Laravel\Jetstream\Jetstream;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class UserController extends Controller 
+class UserController extends Controller
 {
-  
 
-    public function updatePassword(Request $request, $id){
+    public function updatePassword(Request $request, $id)
+    {
         $user = User::find($id);
         $user->password = Hash::make($request->password);
         $user->save();
         return redirect()->route('users.edit', $id)->with('success', 'Contraseña reseteada correctamente');
     }
 
-    public function disableUser(Request $request, $id){
+    public function disableUser(Request $request, $id)
+    {
         $user = User::find($id);
-        $user->disabled = $user->disabled == 0 ?1: 0;
+        $user->disabled = $user->disabled == 0 ? 1 : 0;
         $user->save();
         return back()->with('success', 'Usuario modificado correctamente');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -40,7 +37,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        
+
         return view('users.index', compact('users'));
     }
 
@@ -50,8 +47,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   $roles =Role::all();
-        return view('users.create',compact('roles'));
+    {$roles = Role::all();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -71,26 +68,25 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password) 
+            'password' => Hash::make($request->password),
         ]);
 
         $user->assignRole($request->role);
 
-
         $team = DB::table('teams')->insertGetId([
-            'user_id'=> $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Team",
+            'user_id' => $user->id,
+            'name' => explode(' ', $user->name, 2)[0] . "'s Team",
             'personal_team' => true,
-            'created_at'=>$user->created_at,
-            'updated_at'=> $user->updated_at
+            'created_at' => $user->created_at,
+            'updated_at' => $user->updated_at,
         ]);
 
         DB::table('team_user')->insert([
-            'user_id'=> $user->id,
-            'team_id'=> $team,
-            'role'=> 'admin',
-            'created_at'=>$user->created_at,
-            'updated_at'=> $user->updated_at
+            'user_id' => $user->id,
+            'team_id' => $team,
+            'role' => 'admin',
+            'created_at' => $user->created_at,
+            'updated_at' => $user->updated_at,
         ]);
         $user->current_team_id = $team;
         $user->save();
@@ -115,9 +111,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {   $roles = Role::all();
         $user = User::find($id);
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -132,6 +128,17 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->save();
+        
+        if(isset($user->getRoleNames()[0])){
+            if($user->getRoleNames()[0] !=$request->role){
+                $user->removeRole($request->role);
+                $user->assignRole($request->role);
+            }
+        }else{
+            $user->removeRole($request->role);
+            $user->assignRole($request->role);
+        }
+    
         return redirect()->route('users.edit', $id)->with('success', 'Usuario editado correctamente');
     }
 
@@ -146,6 +153,5 @@ class UserController extends Controller
         //User::destroy($id);
         //return back()->with('success', 'Usuario eliminado correctamente');
     }
-
 
 }
