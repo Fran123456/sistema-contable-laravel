@@ -29,7 +29,7 @@
                         @foreach ($roles as $key => $item)
                             <tr class="  @if ($item->disabled) table-danger @endif">
                                 <th scope="row">{{ $key + 1 }}</th>
-                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->name }} </td>
                                 <td>
                                     @foreach ($item->permissions as $permission)
                                         <span class="badge bg-secondary">{{ $permission->name }}</span>

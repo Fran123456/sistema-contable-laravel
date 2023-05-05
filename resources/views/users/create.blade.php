@@ -16,19 +16,28 @@
                            <x-errors></x-errors>
                         </div>
 
-                        <div class="col-md-12 mt-3">
+                        <div class="col-md-6 mt-3">
                             <label>Nombre completo</label>
                             <input type="text" name="name" value="{{ old('name') }}" required class="form-control">
                         </div>
 
-                        <div class="col-md-12 mt-3">
+                        <div class="col-md-6 mt-3">
                             <label>Correo electronico</label>
                             <input type="text" name="email" value="{{ old('email') }}" required class="form-control">
                         </div>
 
-                        <div class="col-md-12 mt-3">
+                        <div class="col-md-6 mt-3">
                             <label>Contraseña</label>
                             <input type="password" name="password" required class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <label for="">Rol asignado</label>
+                            <select name="role" class="form-control" id="">
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-md-12 mt-3">

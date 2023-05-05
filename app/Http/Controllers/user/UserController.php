@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Team;
 use Laravel\Jetstream\Jetstream;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 class UserController extends Controller 
 {
   
@@ -37,6 +40,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        
         return view('users.index', compact('users'));
     }
 
@@ -46,8 +50,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('users.create');
+    {   $roles =Role::all();
+        return view('users.create',compact('roles'));
     }
 
     /**
@@ -69,6 +73,9 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password) 
         ]);
+
+        $user->assignRole($request->role);
+
 
         $team = DB::table('teams')->insertGetId([
             'user_id'=> $user->id,
