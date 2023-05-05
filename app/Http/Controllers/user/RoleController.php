@@ -100,8 +100,9 @@ class RoleController extends Controller
             }
 
             $role = Role::find($id);
-            $role = $request->role;
+            $role->name = $request->role;
             $role->save();
+            
             $role->givePermissionTo($request->permission);
             DB::commit();
         } catch (Exception $e) {

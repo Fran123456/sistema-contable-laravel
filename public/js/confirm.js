@@ -1,7 +1,7 @@
- function confirm(form, title ="¿Desea eliminar el elemento?", icon='warning' ) {
+ function confirm(form, title ="¿Desea eliminar el elemento?", icon='question' ) {
     Swal
     .fire({
-        title: title,
+        text: title,
         icon: icon,
         showCancelButton: true,
         confirmButtonText: "Sí",

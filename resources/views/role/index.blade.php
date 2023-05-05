@@ -40,10 +40,10 @@
                                 <td> <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-warning"><i
                                             class="fas fa-edit"></i></a> </td>
                                 <td> 
-                                  <form action="{{ route('roles.destroy', $item->id) }}" method="post">
+                                  <form id="form" action="{{ route('roles.destroy', $item->id) }}" method="post">
                                      @method('DELETE')
                                      @csrf
-                                     <button class="btn btn-danger" type="submit">
+                                     <button onclick="confirm('form')" class="btn btn-danger" type="button">
                                       <i class="fas fa-trash"></i></button>
                                   </form>
                                   

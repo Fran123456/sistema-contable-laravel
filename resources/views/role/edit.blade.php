@@ -24,6 +24,7 @@
                     <div class="col-md-6 mt-3">
                         <form action="{{ route('roles.update', $role->id) }}" method="post">
                             @csrf
+                            @method('PUT')
                             <div>
                                 <label>Rol</label>
                                 <input type="text" name="role" value="{{ $role->name }}" required
@@ -39,6 +40,9 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="mt-2">
+                                <button class="btn btn-success"><i class="fas fa-save"></i></button>
+                            </div>
                         </form>
                     </div>
                     <div class="col-md-6 mt-3">
@@ -46,11 +50,11 @@
 
                         @if (count($role->permissions))
                             @foreach ($role->permissions as $permission)
-                                <form method="post" action="{{ route('roles.destroyPermissions', $role->id) }}"
+                                <form class="d-inline" method="post" action="{{ route('roles.destroyPermissions', $role->id) }}"
                                     id="form">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" value="{{ $permission->name }}">
+                                    <input type="hidden" name="permission" value="{{ $permission->name }}">
                                     <button onclick="confirm('form')" type="button" class="btn btn-danger">
                                         <small style="color:aliceblue">{{ $permission->name }}</small> <span
                                             class="badge bg-danger"><i class="fas fa-trash-alt"></i></span>
@@ -62,9 +66,7 @@
                         @endif
                     </div>
 
-                    <div class="col-md-12 mt-3">
-                        <button class="btn btn-success"><i class="fas fa-save"></i></button>
-                    </div>
+                    
                 </div>
 
             </div>
