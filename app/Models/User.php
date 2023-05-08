@@ -59,4 +59,10 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function notifications(): BelongsToMany
+    {
+        return $this->belongsToMany(Notification::class, 'noti_users','user_id','notification_id')
+        ->withPivot('status','read');
+    }
 }
