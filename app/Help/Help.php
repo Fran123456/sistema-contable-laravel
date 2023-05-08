@@ -7,8 +7,23 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Models\TeamInvitation;
 use App\Models\Config;
+use \Illuminate\Support\Str;
 class Help
 {
+
+	public static function complementCode($string, $MaxNumber, $complement){
+		$response = str_pad($string, ($MaxNumber - Str::length($MaxNumber))+1, $complement, STR_PAD_LEFT);
+       return $response;
+	}
+
+   public static function monthToString($month){
+      $array = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+      for ($i=0; $i <count($array) ; $i++) { 
+        if($month==($i+1)) return $array[$i];
+      }
+   }
+
+
    public static function countTeamInvitations(){
       $user = auth()->user();
       return count(TeamInvitation::where('email', $user->email)->get());
@@ -17,9 +32,6 @@ class Help
    public static function getConfigByKey($category, $key){
       return Config::where('field', $key)->where('category', $category)->first();
    }
-
- 
-
 
    public static function pathAssets($path){
       //$url = env('PATH_ASSETS').'/'.$path.'/'.$name;

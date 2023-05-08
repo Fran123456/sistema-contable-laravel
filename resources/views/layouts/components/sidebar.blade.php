@@ -39,6 +39,15 @@
                 </span>
                 <span class="nav-link-text">Roles</span>
             </a>
+
+            <a class="nav-link" href="{{ route('contabilidad.periodos.index') }}">
+                <span class="nav-icon">
+                    <i class="fas fa-user-shield"></i>
+                </span>
+                <span class="nav-link-text">Periodo Contable</span>
+            </a>
+
+            
             <!--//nav-link-->
         </li>
         <!--//nav-item-->

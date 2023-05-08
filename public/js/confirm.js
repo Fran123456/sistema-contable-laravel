@@ -10,8 +10,7 @@
     .then(resultado => {
         if (resultado.value) {
             // Hicieron click en "Sí"
-            console.log("*se elimina la venta*");
-            console.log(form);
+            
             $('#'+form).submit();
           
         } else {
