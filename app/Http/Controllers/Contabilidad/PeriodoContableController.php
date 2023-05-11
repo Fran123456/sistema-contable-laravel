@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contabilidad\ContaPeriodoContable;
 use App\Help\Help;
-
 class PeriodoContableController extends Controller
 {
     /**
