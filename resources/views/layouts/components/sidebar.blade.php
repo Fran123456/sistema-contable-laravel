@@ -47,6 +47,13 @@
                 <span class="nav-link-text">Periodo Contable</span>
             </a>
 
+            <a class="nav-link" href="{{ route('contabilidad.tipos-de-partida.index') }}">
+                <span class="nav-icon">
+                    <i class="fas fa-user-shield"></i>
+                </span>
+                <span class="nav-link-text">Tipos de partida</span>
+            </a>
+
             
             <!--//nav-link-->
         </li>
