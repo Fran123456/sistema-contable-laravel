@@ -27,7 +27,7 @@ class ContabilidadSeeder extends Seeder
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
         DB::table('conta_nivel_cuenta_contable')->insert([
-            'nivel' => 'Nivel 53',
+            'nivel' => 'Nivel 3',
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
