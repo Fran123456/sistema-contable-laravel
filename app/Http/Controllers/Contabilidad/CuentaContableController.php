@@ -88,7 +88,12 @@ class CuentaContableController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cuenta = ContaCuentaContable::find($id);
+        if($request->solo_activo){
+            $cuenta->activo =$cuenta->activo?false:true;
+        }
+        $cuenta->save();
+        return back()->with('success','Se ha modificado la cuenta contable correctamente');
     }
 
     /**

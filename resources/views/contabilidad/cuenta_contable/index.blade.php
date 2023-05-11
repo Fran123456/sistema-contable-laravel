@@ -46,8 +46,9 @@
                                 <td>{{ $item->nivel->nivel }} </td>
                                 <td>
                                     <form id="form{{ $item->id }}p"
-                                        action="{{ route('contabilidad.tipos-de-partida.update', $item->id) }}"
+                                        action="{{ route('contabilidad.cuentas-contables.update', $item->id) }}"
                                         method="post">
+                                        <input type="hidden" value="1" name="solo_activo">
                                         @method('PUT')
                                         @csrf
                                         <button
