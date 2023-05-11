@@ -45,20 +45,20 @@
                     </thead>
                     <tbody>
                         @foreach ($tipos as $key => $item)
-                            <tr class="  @if ($item->activo) table-success @endif">
+                            <tr class="  @if ($item->activo==false) table-danger @endif">
 
                                 <th scope="row">{{ $key + 1 }}</th>
 
                                 <td>{{ $item->tipo }} </td>
                                 <td>{{ $item->descripcion }} </td>
                                 <td>
-                                    <form id="form{{ $item->id }}"
-                                        action="{{ route('contabilidad.tipos-de-partida.destroy', $item->id) }}"
+                                    <form id="form{{ $item->id }}p"
+                                        action="{{ route('contabilidad.tipos-de-partida.update', $item->id) }}"
                                         method="post">
-                                        @method('DELETE')
+                                        @method('PUT')
                                         @csrf
                                         <button
-                                            onclick="confirm('form{{ $item->id }}','¿Desea modificar el estado del periodo?')"
+                                            onclick="confirm('form{{ $item->id }}p','¿Desea modificar el estado del tipo de partida?')"
                                             class="btn @if ($item->activo) btn-success @else btn-danger @endif "
                                             type="button">
                                             @if ($item->activo)
@@ -77,9 +77,9 @@
                                         @method('DELETE')
                                         @csrf
                                         <button
-                                            onclick="confirm('form{{ $item->id }}','¿Desea modificar el estado del periodo?')"
+                                            onclick="confirm('form{{ $item->id }}','¿Desea eliminar el tipo de partida?')"
                                             class="btn @if ($item->activo) btn-success @else btn-danger @endif "
-                                            type="button"><i class="fas fa-trash"></i></button>
+                                            type="button" ><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>

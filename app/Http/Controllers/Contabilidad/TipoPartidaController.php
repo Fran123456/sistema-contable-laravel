@@ -73,7 +73,9 @@ class TipoPartidaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tipo=ContaTipoPartida::find($id);
+         $tipo->update(['activo'=> ($tipo->activo?false:true) ] );
+         return back()->with('success','Se ha modificado el estado del tipo de partida correctamente');
     }
 
     /**
@@ -84,10 +86,10 @@ class TipoPartidaController extends Controller
      */
     public function destroy($id)
     {
-        $tipo=ContaTipoPartida::find($id);
-        if($tipo)return back()->with('danger','No se ha podido eliminar el tipo, ya que esta en uso');
+        //$tipo=ContaTipoPartida::find($id);
+        //if($tipo)return back()->with('danger','No se ha podido eliminar el tipo, ya que esta en uso');
 
         ContaTipoPartida::destroy($id);
-        return back()->with('success','Se ha modificado el estado del periodo correctamente');
+        return back()->with('success','Se ha elimindado el tipo de partida correctamente');
     }
 }
