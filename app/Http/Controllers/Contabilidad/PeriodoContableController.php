@@ -14,10 +14,17 @@ class PeriodoContableController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {   
         $periodos = ContaPeriodoContable::all();
-        return view('contabilidad.periodo.index', compact('periodos'));
+        $periodo = Help::year();
+        if($request->periodo){
+            $periodo = $request->periodo;
+        }
+        $periodos = ContaPeriodoContable::where('year', $periodo)->get();
+        $years = ContaPeriodoContable::select('*')->groupBy('year')->get();
+        
+        return view('contabilidad.periodo.index', compact('periodos','years','periodo'));
     }
 
     /**

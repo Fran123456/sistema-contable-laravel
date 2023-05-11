@@ -22,12 +22,29 @@
         <div class="card">
             <div class="card-body">
                 <h5>Periodos contables</h5>
+                <div class="row">
+                    <div class="col-md-4 mt-2 mb-2">
+                        <form action="/contabilidad/periodos/">
+                            <select name="periodo" id="" class="form-control">
+                                @foreach ($years as $year)
+                                    <option @if ($periodo == $year->year) selected @endif>
+                                        {{ $year->year }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-success mt-2"><i class="fas fa-search-plus"></i></button>
+                        </form>
+                    </div>
+                    <div class="col-md-8 mt-2 mb-2">
+
+                    </div>
+                </div>
                 <table class="table table-sm" id="datatable-responsive">
                     <thead>
                         <tr>
                             <th width="40" scope="col">#</th>
                             <th scope="col">Codigo</th>
-                            <th scope="col">Año</th><th scope="col">Mes</th>
+                            <th scope="col">Año</th>
+                            <th scope="col">Mes</th>
                             <th width="40" class="text-center" scope="col">Estado</th>
                         </tr>
                     </thead>
@@ -36,19 +53,20 @@
                             <tr class="  @if ($item->activo) table-success @endif">
 
                                 <th scope="row">{{ $key + 1 }}</th>
-                                <td> 
+                                <td>
                                     {{ $item->codigo }}
                                 </td>
                                 <td>{{ $item->year }} </td>
                                 <td>
-                                    {{  Help::monthToString($item->mes) }}
+                                    {{ Help::monthToString($item->mes) }}
                                 </td>
-                                <td >
+                                <td>
                                     <form id="form{{ $item->id }}"
                                         action="{{ route('contabilidad.periodos.destroy', $item->id) }}" method="post">
                                         @method('DELETE')
                                         @csrf
-                                        <button onclick="confirm('form{{ $item->id }}','¿Desea modificar el estado del periodo?')"
+                                        <button
+                                            onclick="confirm('form{{ $item->id }}','¿Desea modificar el estado del periodo?')"
                                             class="btn @if ($item->activo) btn-success @else btn-danger @endif "
                                             type="button">
                                             @if ($item->activo)
