@@ -54,6 +54,13 @@
                 <span class="nav-link-text">Tipos de partida</span>
             </a>
 
+             <a class="nav-link" href="{{ route('contabilidad.cuentas-contables.index') }}">
+                <span class="nav-icon">
+                    <i class="fas fa-user-shield"></i>
+                </span>
+                <span class="nav-link-text">Cuentas contables</span>
+            </a>
+
             
             <!--//nav-link-->
         </li>

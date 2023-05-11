@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Contabilidad\ContaClasificacionCuenta;
 use App\Help\Help;
 use App\Models\Contabilidad\ContaNivelCuenta;
+use App\Models\Contabilidad\ContaCuentaContable;
+
 
 class CuentaContableController extends Controller
 {
@@ -17,7 +19,8 @@ class CuentaContableController extends Controller
      */
     public function index()
     {
-        //
+        $cuentas = ContaCuentaContable::all();
+        return view('contabilidad.cuenta_contable.index',compact('cuentas'));
     }
 
     /**
@@ -27,7 +30,10 @@ class CuentaContableController extends Controller
      */
     public function create()
     {
-        //
+        $cuentas = ContaCuentaContable::where('activo',true)->get();
+        $niveles = ContaNivelCuenta::all();
+        $clasificacion = ContaClasificacionCuenta::all();
+        return view('contabilidad.cuenta_contable.create',compact('cuentas','niveles','clasificacion'));
     }
 
     /**
@@ -38,7 +44,17 @@ class CuentaContableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ContaCuentaContable::create([
+            'codigo'=>$request->codigo,
+            'nombre_cuenta'=>$request->nombre,
+            'padre_id'=>$request->padre,
+            'hijos'=>0,
+            'nivel_id'=>$request->nivel,
+            'clasificacion_id'=>$request->clasificacion,
+            'saldo'=> 0,
+            'activo'=>$request->activo
+        ]);
+        return back()->with('success','Cuenta creada correctamente');
     }
 
     /**
@@ -83,6 +99,7 @@ class CuentaContableController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ContaCuentaContable::destroy($id);
+        return back()->with('success','Se ha eliminado la cuenta contable correctamente');
     }
 }

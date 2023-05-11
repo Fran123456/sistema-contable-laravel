@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('nivel_id')->nullable();
             $table->unsignedBigInteger('clasificacion_id')->nullable();
             $table->decimal('saldo', 12, 2)->nullable();
+            $table->boolean('activo')->nullable()->default(true);
             $table->timestamps();
         });
     }
