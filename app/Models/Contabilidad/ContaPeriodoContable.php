@@ -13,4 +13,10 @@ class ContaPeriodoContable extends Model
         'codigo','year', 'mes', 'activo','usuario_creador_id','usuario_actualizador_id','created_at','updated_at'
     ];
 
+
+    public function tiposPartida(){
+        return $this->belongsToMany(ContaTipoPartida::class, 'conta_periodo_tipo_partida','periodo_id','tipo_partida_id')
+        ->withPivot('correlativo');
+    }
+
 }

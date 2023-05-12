@@ -8,8 +8,14 @@ use Illuminate\Support\Facades\Route;
 use App\Models\TeamInvitation;
 use App\Models\Config;
 use \Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 class Help
 {
+
+   public static function usuario(){
+      return  Auth::user();
+   }
 
 	public static function complementCode($string, $MaxNumber, $complement){
 		$response = str_pad($string, ($MaxNumber - Str::length($MaxNumber))+1, $complement, STR_PAD_LEFT);

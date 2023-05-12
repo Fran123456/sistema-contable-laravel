@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Contabilidad;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Contabilidad\ContaPeriodoContable;
 use App\Models\Contabilidad\ContaTipoPartida;
-use App\Help\Help;
+use Illuminate\Http\Request;
 
 class TipoPartidaController extends Controller
 {
@@ -38,8 +38,17 @@ class TipoPartidaController extends Controller
      */
     public function store(Request $request)
     {
-        ContaTipoPartida::create(['tipo'=>$request->tipo, 'activo'=>true,'descripcion'=>$request->des]);
-        return back()->with('success','Tipo partida creado correctamente');
+        try {
+            $tipo = ContaTipoPartida::create(['tipo' => $request->tipo, 'activo' => true, 'descripcion' => $request->des]);
+            $periodos = ContaPeriodoContable::all();
+            foreach ($periodos as $key => $p) {
+                $tipo->periodos()->attach($p->id, ['correlativo' => 0, 'created_at' => date("Y-m-d h:i:s"), 'updated_at' => date("Y-m-d h:i:s")]);
+            }
+            return back()->with('success', 'Tipo partida creado correctamente');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
     }
 
     /**
@@ -73,9 +82,9 @@ class TipoPartidaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tipo=ContaTipoPartida::find($id);
-         $tipo->update(['activo'=> ($tipo->activo?false:true) ] );
-         return back()->with('success','Se ha modificado el estado del tipo de partida correctamente');
+        $tipo = ContaTipoPartida::find($id);
+        $tipo->update(['activo' => ($tipo->activo ? false : true)]);
+        return back()->with('success', 'Se ha modificado el estado del tipo de partida correctamente');
     }
 
     /**
@@ -86,10 +95,12 @@ class TipoPartidaController extends Controller
      */
     public function destroy($id)
     {
-        //$tipo=ContaTipoPartida::find($id);
-        //if($tipo)return back()->with('danger','No se ha podido eliminar el tipo, ya que esta en uso');
-
+         $tipo=ContaTipoPartida::find($id);
+         $validar = $tipo->periodos()->where('correlativo',"!=","0")->get();
+         if(count($validar)>0)
+            return back()->with('danger','No se ha podido eliminar el tipo, ya que esta en uso');
+        
         ContaTipoPartida::destroy($id);
-        return back()->with('success','Se ha elimindado el tipo de partida correctamente');
+        return back()->with('success', 'Se ha elimindado el tipo de partida correctamente');
     }
 }

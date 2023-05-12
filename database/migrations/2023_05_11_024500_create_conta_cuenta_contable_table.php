@@ -24,6 +24,9 @@ return new class extends Migration
             $table->decimal('saldo', 12, 2)->nullable();
             $table->boolean('activo')->nullable()->default(true);
             $table->timestamps();
+
+            $table->foreign('clasificacion_id')->references('id')->on('conta_clasificacion_cuenta_contable')->onUpdate('cascade');
+            $table->foreign('nivel_id')->references('id')->on('conta_nivel_cuenta_contable')->onUpdate('cascade');
         });
     }
 
