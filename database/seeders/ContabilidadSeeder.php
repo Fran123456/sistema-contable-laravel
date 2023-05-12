@@ -48,7 +48,7 @@ class ContabilidadSeeder extends Seeder
         ]);
 
         DB::table('conta_clasificacion_cuenta_contable')->insert([
-            'clasificacion' => 'clasificacion',
+            'clasificacion' => 'Mayor',
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
