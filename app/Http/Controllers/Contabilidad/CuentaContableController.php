@@ -76,7 +76,11 @@ class CuentaContableController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cuentas = ContaCuentaContable::where('activo',true)->get();
+        $niveles = ContaNivelCuenta::all();
+        $clasificacion = ContaClasificacionCuenta::all();
+        $cuenta = ContaCuentaContable::find($id);
+        return view('contabilidad.cuenta_contable.edit',compact('cuentas','niveles','clasificacion','cuenta'));
     }
 
     /**
@@ -91,9 +95,41 @@ class CuentaContableController extends Controller
         $cuenta = ContaCuentaContable::find($id);
         if($request->solo_activo){
             $cuenta->activo =$cuenta->activo?false:true;
+        }else{
+            $cuenta->update([
+                'codigo'=>$request->codigo,
+                'nombre_cuenta'=>$request->nombre,
+                'padre_id'=>$request->padre,
+                'hijos'=>0,
+                'nivel_id'=>$request->nivel,
+                'clasificacion_id'=>$request->clasificacion,
+                'saldo'=> 0,
+                'activo'=>$request->activo
+            ]);
+
+            $this->validarHijo($request->padre, $id);
+            
         }
         $cuenta->save();
-        return back()->with('success','Se ha modificado la cuenta contable correctamente');
+        return redirect()->route('contabilidad.cuentas-contables.index')->with('success','Se ha modificado la cuenta contable correctamente');
+    }
+
+    public function validarHijo($padre, $hijo){
+        //quitamos el hijo al padre
+        $h = ContaCuentaContable::find($hijo);
+        if($h->padre_id != null){
+            $p = ContaCuentaContable::find($h->padre_id);
+            if($p->hijos>0) $p->hijos = $p->hijos -1;
+            $p->save();
+        }
+
+        //agregamos el nuevo hijo al nuevo padre
+        if($padre != null){
+            $p = ContaCuentaContable::find($padre);
+            $p->hijos = $p->hijos +1;
+            $p->save();
+        }
+       
     }
 
     /**
