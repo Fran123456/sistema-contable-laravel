@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ContabilidadSeeder extends Seeder
+class RRHHSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class ContabilidadSeeder extends Seeder
     public function run()
     {
        
-        DB::table('hhrr_empresa')->insert([
+        DB::table('rrhh_empresa')->insert([
             'empresa' => 'Empresa de ejemplo',
             'actualizada' => false,
             'created_at'=>date("Y-m-d h:i:s"),

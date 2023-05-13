@@ -63,7 +63,7 @@ Route::name('roles')->prefix('roles')->group(function () {
 
 include('routes/contabilidad.php');
 
-
+include('routes/rrhh.php');
 
 
 

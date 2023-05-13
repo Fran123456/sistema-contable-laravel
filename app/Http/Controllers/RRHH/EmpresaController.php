@@ -4,6 +4,7 @@ namespace App\Http\Controllers\RRHH;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\RRHH\RRHHEmpresa;
 
 class EmpresaController extends Controller
 {
@@ -14,7 +15,8 @@ class EmpresaController extends Controller
      */
     public function index()
     {
-        //
+        $empresas =RRHHEmpresa::all();
+        return view('RRHH.empresa.index', compact('empresas'));
     }
 
     /**
@@ -35,7 +37,8 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        RRHHEmpresa::create(['empresa'=> $request->empresa]);
+        return back()->with('success','Se ha creado la empresa correctamente');
     }
 
     /**
@@ -57,7 +60,8 @@ class EmpresaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $empresa = RRHHEmpresa::find($id);
+        return view('RRHH.empresa.edit', compact('empresa'));
     }
 
     /**
@@ -69,7 +73,11 @@ class EmpresaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $empresa = RRHHEmpresa::find($id);
+        $empresa->empresa = $request->empresa;
+        $empresa->actualizada= true;
+        $empresa->save();
+        return redirect()->route('rrhh.empresa.index')->with('success','Se ha editado la empresa correctamente');
     }
 
     /**
@@ -80,6 +88,7 @@ class EmpresaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        RRHHEmpresa::destroy($id);
+        return back()->with('success','Se ha eliminado la empresa correctamente');
     }
 }

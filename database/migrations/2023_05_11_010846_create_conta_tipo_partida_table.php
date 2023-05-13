@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_partida');
+        Schema::dropIfExists('conta_tipo_partida');
     }
 };

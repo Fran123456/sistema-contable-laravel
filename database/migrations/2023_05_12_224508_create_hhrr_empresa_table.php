@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hhrr_empresa', function (Blueprint $table) {
+        Schema::create('rrhh_empresa', function (Blueprint $table) {
             $table->id();
             $table->string('empresa')->nullable();
             $table->boolean('actualizada')->nullable()->default(false);
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hhrr_empresa');
+        Schema::dropIfExists('rrhh_empresa');
     }
 };
