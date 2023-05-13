@@ -17,8 +17,8 @@
                             <th scope="col">Roles</th>
                             <th scope="col">Correo</th>
                             <th width="40" class="text-center" scope="col">Deshabilitado</th>
-                            <th width="40" class="text-center" scope="col">Editar</th>
-                            <th width="40" class="text-center" scope="col">Deshabilitar</th>
+                            <th width="40" class="text-center" scope="col"><i class="fas fa-edit"></i></th>
+                            <th width="40" class="text-center" scope="col"><i class="fas fa-user-slash"></i></th>
                         </tr>
                     </thead>
                     <tbody>

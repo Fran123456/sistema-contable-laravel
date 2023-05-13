@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\RRHH\RRHHEmpresa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -113,7 +114,24 @@ class UserController extends Controller
     public function edit($id)
     {   $roles = Role::all();
         $user = User::find($id);
-        return view('users.edit', compact('user', 'roles'));
+        $empresas = RRHHEmpresa::all();
+        
+        return view('users.edit', compact('user', 'roles','empresas'));
+    }
+
+    public function agregarEmpresa(Request $request){
+        $usuario = User::find($request->id);
+        $v =$usuario->empresas()->where('empresa_id', $request->empresa)->get();
+        if(count($v)>0) return back()->with('danger','No se puede asignar la empresa ya que ya existe asignada');
+        $usuario->empresas()->attach($request->empresa,['activo'=>1, 'created_at'=>date("Y-m-d h:i:s"),'updated_at'=>date("Y-m-d h:i:s")]);
+        return back()->with('success','Se agregado la empresa al usuario');
+    }
+
+    public function eliminarEmpresa($id, $empresa_id){
+        $usuario = User::find($id);
+        
+        $usuario->empresas()->detach($empresa_id);
+        return back()->with('success','Se ha elimiado la empresa del usuario');
     }
 
     /**

@@ -11,6 +11,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\RRHH\RRHHEmpresa;
 
 class User extends Authenticatable
 {
@@ -64,5 +65,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Notification::class, 'noti_users','user_id','notification_id')
         ->withPivot('status','read');
+    }
+
+    public function empresa(){
+        return $this->belongsTo(RRHHEmpresa::class, 'empresa_id');
+    }
+
+
+    public function empresas()
+    {
+        return $this->belongsToMany(RRHHEmpresa::class, 'rrhh_empresa_usuario','usuario_id','empresa_id')
+        ->withPivot('activo');
     }
 }
