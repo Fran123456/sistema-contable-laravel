@@ -13,18 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('rrhh_empresa_usuario', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->foreignId('current_team_id')->nullable();
-            $table->boolean('disabled')->default(0);
+            $table->unsignedBigInteger('usuario_id')->nullable();
             $table->unsignedBigInteger('empresa_id')->nullable();
-            
-            $table->rememberToken();
+            $table->boolean('activo')->nullable()->default(false);
             $table->timestamps();
+
+            $table->foreign('usuario_id')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
         });
     }
 
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('rrhh_empresa_usuario');
     }
 };

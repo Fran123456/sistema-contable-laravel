@@ -20,6 +20,15 @@ class UserSeeder extends Seeder
             'email' => "navasfran98@gmail.com",
             'password' => Hash::make("Paginaazul1") ,
             'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=> date("Y-m-d h:i:s"),
+             'empresa_id'=> 1
+        ]);
+
+        $team = DB::table('rrhh_empresa_usuario')->insertGetId([
+            'usuario_id'=> $user,
+            'empresa_id' => 1,
+            'activo'=> true,
+            'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
 

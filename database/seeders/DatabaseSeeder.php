@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(ConfigSeeder::class);
-        $this->call(UserSeeder::class);
         $this->call(ContabilidadSeeder::class);
         $this->call(RRHHSeeder::class);
+        $this->call(UserSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
