@@ -37,7 +37,7 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        RRHHEmpresa::create(['empresa'=> $request->empresa]);
+        RRHHEmpresa::create(['empresa'=> $request->empresa,'actualizada'=>true]);
         return back()->with('success','Se ha creado la empresa correctamente');
     }
 
