@@ -5,7 +5,7 @@ namespace App\Http\Controllers\RRHH;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RRHH\RRHHEmpresa;
-
+use App\Models\User;
 class EmpresaController extends Controller
 {
     /**
@@ -17,6 +17,13 @@ class EmpresaController extends Controller
     {
         $empresas =RRHHEmpresa::all();
         return view('RRHH.empresa.index', compact('empresas'));
+    }
+
+    public function cambioEmpresa(Request $request, $id){
+        $user = User::find($id);
+        $user->empresa_id = $request->empresa;
+        $user->save();
+        return back()->with('success','Se ha cambiado la empresa correctamente');
     }
 
     /**
