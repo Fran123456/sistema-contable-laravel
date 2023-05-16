@@ -48,8 +48,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {$roles = Role::all();
-        return view('users.create', compact('roles'));
+    {   $roles = Role::all();
+        $empresas = RRHHEmpresa::all();
+        return view('users.create', compact('roles','empresas'));
     }
 
     /**
@@ -60,6 +61,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+       
         $v = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -91,6 +93,11 @@ class UserController extends Controller
         ]);
         $user->current_team_id = $team;
         $user->save();
+
+        //empresa 
+        $user->empresas()->syncWithPivotValues($request->empresa, ['activo'=>1, 'created_at'=>date("Y-m-d h:i:s"),'updated_at'=>date("Y-m-d h:i:s")]);
+
+
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }
 
