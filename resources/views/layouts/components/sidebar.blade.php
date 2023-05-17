@@ -27,6 +27,7 @@
         <!--//nav-item-->
         <li class="nav-item">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+            @if (Help::usuario()->empresa_id != null)
             <a class="nav-link" href="{{ route('users.index') }}">
                 <span class="nav-icon">
                     <i class="fas fa-users"></i>
@@ -67,6 +68,7 @@
                 </span>
                 <span class="nav-link-text">Empresas</span>
             </a>
+            @endif
 
             
             <!--//nav-link-->
