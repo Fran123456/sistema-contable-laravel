@@ -19,9 +19,13 @@ return new class extends Migration
             $table->string('year')->nullable();
             $table->string('mes')->nullable();
             $table->string('activo')->nullable();
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->unsignedBigInteger('usuario_creador_id')->nullable();
             $table->unsignedBigInteger('usuario_actualizador_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')
+            ->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('usuario_creador_id')->references('id')->on('users')->onUpdate('cascade');
             $table->foreign('usuario_actualizador_id')->references('id')->on('users')->onUpdate('cascade');

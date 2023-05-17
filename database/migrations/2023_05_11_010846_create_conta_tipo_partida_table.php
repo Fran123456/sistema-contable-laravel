@@ -18,8 +18,11 @@ return new class extends Migration
             $table->string('tipo')->nullable();
             $table->text('descripcion')->nullable();
             $table->boolean('activo')->nullable();
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->timestamps();
-        });
+
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')
+            ->onUpdate('cascade')->onDelete('cascade');        });
     }
 
     /**

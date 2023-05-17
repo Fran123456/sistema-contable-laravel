@@ -25,7 +25,13 @@ return new class extends Migration
             $table->boolean('cerrada')->nullable()->default(false);
             $table->boolean('anulada')->nullable()->default(false);
             $table->dateTime('fecha_cierre')->nullable();
+            $table->unsignedBigInteger('empresa_id')->nullable();
+
             $table->timestamps();
+
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')
+            ->onUpdate('cascade')->onDelete('cascade');
+
 
             $table->foreign('periodo_id')->references('id')
             ->on('conta_periodo_contables')->onUpdate('cascade')->onDelete('cascade');

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contabilidad\ContaPeriodoContable;
 use App\Models\Contabilidad\ContaTipoPartida;
 use Illuminate\Http\Request;
-
+use App\Help\Help;
 class TipoPartidaController extends Controller
 {
     /**
@@ -16,7 +16,7 @@ class TipoPartidaController extends Controller
      */
     public function index()
     {
-        $tipos = ContaTipoPartida::all();
+        $tipos = ContaTipoPartida::where('empresa_id',Help::usuario()->empresa_id)->get();
         return view('contabilidad.tipo_partida.index', compact('tipos'));
     }
 
@@ -39,10 +39,10 @@ class TipoPartidaController extends Controller
     public function store(Request $request)
     {
         try {
-            $tipo = ContaTipoPartida::create(['tipo' => $request->tipo, 'activo' => true, 'descripcion' => $request->des]);
-            $periodos = ContaPeriodoContable::all();
+            $tipo = ContaTipoPartida::create(['tipo' => $request->tipo, 'activo' => true, 'descripcion' => $request->des, 'empresa_id'=> Help::usuario()->empresa_id]);
+            $periodos = ContaPeriodoContable::where('empresa_id',Help::usuario()->empresa_id)->get();
             foreach ($periodos as $key => $p) {
-                $tipo->periodos()->attach($p->id, ['correlativo' => 0, 'created_at' => date("Y-m-d h:i:s"), 'updated_at' => date("Y-m-d h:i:s")]);
+                $tipo->periodos()->attach($p->id, ['correlativo' => 0, 'created_at' => date("Y-m-d h:i:s"), 'updated_at' => date("Y-m-d h:i:s"),'empresa_id'=> Help::usuario()->empresa_id]);
             }
             return back()->with('success', 'Tipo partida creado correctamente');
         } catch (\Throwable $th) {
@@ -96,7 +96,8 @@ class TipoPartidaController extends Controller
     public function destroy($id)
     {
          $tipo=ContaTipoPartida::find($id);
-         $validar = $tipo->periodos()->where('correlativo',"!=","0")->get();
+         $validar = $tipo->periodos()->where('correlativo',"!=","0")
+         ->where('empresa_id',Help::usuario()->empresa_id)->get();
          if(count($validar)>0)
             return back()->with('danger','No se ha podido eliminar el tipo, ya que esta en uso');
         

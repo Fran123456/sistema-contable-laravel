@@ -12,6 +12,13 @@ use App\Models\Contabilidad\ContaCuentaContable;
 
 class CuentaContableController extends Controller
 {
+
+
+    public function __construct()
+    {
+        
+ 
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +26,9 @@ class CuentaContableController extends Controller
      */
     public function index()
     {
-        $cuentas = ContaCuentaContable::all();
-        return view('contabilidad.cuenta_contable.index',compact('cuentas'));
+       
+        $cuentas = ContaCuentaContable::where('empresa_id',Help::empresa())->get();
+       return view('contabilidad.cuenta_contable.index',compact('cuentas'));
     }
 
     /**
@@ -30,9 +38,9 @@ class CuentaContableController extends Controller
      */
     public function create()
     {
-        $cuentas = ContaCuentaContable::where('activo',true)->get();
-        $niveles = ContaNivelCuenta::all();
-        $clasificacion = ContaClasificacionCuenta::all();
+        $cuentas = ContaCuentaContable::where('activo',true)->where('empresa_id',Help::empresa())->get();
+        $niveles = ContaNivelCuenta::where('empresa_id',Help::empresa())->get();
+        $clasificacion = ContaClasificacionCuenta::where('empresa_id',Help::empresa())->get();
         return view('contabilidad.cuenta_contable.create',compact('cuentas','niveles','clasificacion'));
     }
 
@@ -52,7 +60,8 @@ class CuentaContableController extends Controller
             'nivel_id'=>$request->nivel,
             'clasificacion_id'=>$request->clasificacion,
             'saldo'=> 0,
-            'activo'=>$request->activo
+            'activo'=>$request->activo,
+            'empresa_id'=>Help::empresa()
         ]);
         return back()->with('success','Cuenta creada correctamente');
     }
@@ -76,9 +85,9 @@ class CuentaContableController extends Controller
      */
     public function edit($id)
     {
-        $cuentas = ContaCuentaContable::where('activo',true)->get();
-        $niveles = ContaNivelCuenta::all();
-        $clasificacion = ContaClasificacionCuenta::all();
+        $cuentas = ContaCuentaContable::where('activo',true)->where('empresa_id',Help::empresa())->get();
+        $niveles = ContaNivelCuenta::where('empresa_id',Help::empresa())->get();
+        $clasificacion = ContaClasificacionCuenta::where('empresa_id',Help::empresa())->get();
         $cuenta = ContaCuentaContable::find($id);
         return view('contabilidad.cuenta_contable.edit',compact('cuentas','niveles','clasificacion','cuenta'));
     }

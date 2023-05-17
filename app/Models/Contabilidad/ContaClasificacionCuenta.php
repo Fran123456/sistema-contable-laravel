@@ -10,7 +10,7 @@ class ContaClasificacionCuenta extends Model
     use HasFactory;
     protected $table = 'conta_clasificacion_cuenta_contable';
     protected $fillable = [
-        'clasificacion','created_at','updated_at'
+        'clasificacion','created_at','updated_at','empresa_id'
     ];
 
 }

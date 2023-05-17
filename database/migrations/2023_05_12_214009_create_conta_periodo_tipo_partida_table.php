@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('periodo_id')->nullable();
             $table->unsignedBigInteger('tipo_partida_id')->nullable();
             $table->string('correlativo')->nullable();
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->timestamps();
 
             $table->foreign('periodo_id')->references('id')
@@ -25,6 +26,9 @@ return new class extends Migration
 
             $table->foreign('tipo_partida_id')->references('id')
             ->on('conta_tipo_partida')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')
+            ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

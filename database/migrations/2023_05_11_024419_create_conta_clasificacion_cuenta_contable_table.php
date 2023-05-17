@@ -16,7 +16,12 @@ return new class extends Migration
         Schema::create('conta_clasificacion_cuenta_contable', function (Blueprint $table) {
             $table->id();
             $table->string('clasificacion')->nullable();
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')
+            ->onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 

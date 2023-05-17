@@ -23,8 +23,11 @@ return new class extends Migration
             $table->unsignedBigInteger('clasificacion_id')->nullable();
             $table->decimal('saldo', 12, 2)->nullable();
             $table->boolean('activo')->nullable()->default(true);
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->timestamps();
 
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')
+            ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('clasificacion_id')->references('id')->on('conta_clasificacion_cuenta_contable')->onUpdate('cascade');
             $table->foreign('nivel_id')->references('id')->on('conta_nivel_cuenta_contable')->onUpdate('cascade');
         });

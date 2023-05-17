@@ -17,6 +17,11 @@ class Help
       return  Auth::user();
    }
 
+   public static function empresa(){
+      return  Auth::user()->empresa_id;
+   }
+
+
 	public static function complementCode($string, $MaxNumber, $complement){
 		$response = str_pad($string, ($MaxNumber - Str::length($MaxNumber))+1, $complement, STR_PAD_LEFT);
        return $response;

@@ -10,7 +10,7 @@ class ContaNivelCuenta extends Model
     use HasFactory;
     protected $table = 'conta_nivel_cuenta_contable';
     protected $fillable = [
-        'nivel','created_at','updated_at'
+        'nivel','created_at','updated_at','empresa_id'
     ];
 
 }

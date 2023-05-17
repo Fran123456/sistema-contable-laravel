@@ -18,13 +18,13 @@ class PeriodoContableController extends Controller
      */
     public function index(Request $request)
     {
-        $periodos = ContaPeriodoContable::all();
+        $periodos = null;
         $periodo = Help::year();
         if ($request->periodo) {
             $periodo = $request->periodo;
         }
-        $periodos = ContaPeriodoContable::where('year', $periodo)->get();
-        $years = ContaPeriodoContable::select('*')->groupBy('year')->get();
+        $periodos = ContaPeriodoContable::where('year', $periodo)->where('empresa_id',Help::usuario()->empresa_id)->get();
+        $years = ContaPeriodoContable::select('*')->where('empresa_id',Help::usuario()->empresa_id)->groupBy('year')->get();
 
         return view('contabilidad.periodo.index', compact('periodos', 'years', 'periodo'));
     }
@@ -49,8 +49,13 @@ class PeriodoContableController extends Controller
     {
         try {
             DB::beginTransaction();
-            $tipos = ContaTipoPartida::all();
-            $validar = ContaPeriodoContable::where('year', $request->year)->get();
+            $tipos = ContaTipoPartida::where('empresa_id',Help::usuario()->empresa_id)->get();
+            if(count($tipos)==0){
+                return back()->with('danger', 'Error, No se pueden crear los periodos porque aun no se han creado tipos de partida, validar haberlos creados todos: ' . $request->year);  
+            }
+
+
+            $validar = ContaPeriodoContable::where('year', $request->year)->where('empresa_id',Help::usuario()->empresa_id)->get();
             if (count($validar) > 0) {
                 return back()->with('danger', 'Error, No se pueden crear los periodos porque ya existen para el año solicitado: ' . $request->year);
             } else {
@@ -62,10 +67,11 @@ class PeriodoContableController extends Controller
                         'codigo' => $mes . $request->year,
                         'activo' => false,
                         'usuario_creador_id' => Help::usuario()->id,
+                        'empresa_id'=>Help::usuario()->empresa_id
                     ]);
 
                     foreach ($tipos as $key => $t) {
-                        $periodo->tiposPartida()->attach($t->id, ['correlativo' => 0, 'created_at' => date("Y-m-d h:i:s"), 'updated_at' => date("Y-m-d h:i:s")]);
+                        $periodo->tiposPartida()->attach($t->id, ['correlativo' => 0, 'created_at' => date("Y-m-d h:i:s"), 'updated_at' => date("Y-m-d h:i:s"), 'empresa_id'=>Help::usuario()->empresa_id]);
                     }
                 }
             }

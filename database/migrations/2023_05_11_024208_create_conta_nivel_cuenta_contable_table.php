@@ -16,7 +16,12 @@ return new class extends Migration
         Schema::create('conta_nivel_cuenta_contable', function (Blueprint $table) {
             $table->id();
             $table->string('nivel')->nullable();
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')
+            ->onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 
