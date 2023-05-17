@@ -14,7 +14,7 @@
                     <div class="card mb-3 ">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="https://static.vecteezy.com/system/resources/previews/008/331/141/non_2x/company-vision-icon-style-free-vector.jpg"
+                                <img src="{{ asset('assets/images/empresa.jpg') }}"
                                     class="img-fluid rounded-start mt-2 mb-2 ml-2 mr-2" alt="...">
                             </div>
                             <div class="col-md-8">
@@ -27,7 +27,7 @@
                                     @if ($e->id == Help::usuario()->empresa_id)
                                         <button type="button" disabled class="btn btn-danger">SELECCIONADA</button>
                                     @else
-                                        <a href="{{ route('rrhh.cambioEmpresa', Help::usuario()->id) }}" class="btn btn-success" style="color:aliceblue">Activar</a>
+                                        <a href="{{ route('rrhh.cambioEmpresa',['id'=>Help::usuario()->id ,'empresa'=>$e->id]) }}" class="btn btn-success" style="color:aliceblue">Activar</a>
                                     @endif
 
                                 </div>

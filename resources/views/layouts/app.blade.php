@@ -66,6 +66,7 @@
                     <div class="row justify-content-between align-items-center">
 
                         <div class="col-auto">
+                            <strong> {{ Help::usuario()->empresa->empresa??"No hay empresa asignada" }}</strong>
                             <a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                     viewBox="0 0 30 30" role="img">
