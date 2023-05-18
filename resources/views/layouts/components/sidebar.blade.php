@@ -68,6 +68,13 @@
                 </span>
                 <span class="nav-link-text">Empresas</span>
             </a>
+
+            <a class="nav-link" href="{{ route('contabilidad.copiar-data') }}">
+                <span class="nav-icon">
+                    <i class="fas fa-user-shield"></i>
+                </span>
+                <span class="nav-link-text">Data</span>
+            </a>
             @endif
 
             
