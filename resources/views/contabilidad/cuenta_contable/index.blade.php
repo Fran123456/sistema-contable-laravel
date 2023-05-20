@@ -17,12 +17,6 @@
         <a style="color: white"  class="btn btn-primary" href="{{ route('contabilidad.importarCuentasExcelView') }}" >
            Importar via Excel
         </a>
-
-
-        
-        
-
-
     </div>
 
     <div class="col-md-12">
