@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('conta_nivel_cuenta_contable', function (Blueprint $table) {
             $table->id();
             $table->string('nivel')->nullable();
+            $table->integer('digitos')->nullable();
             $table->unsignedBigInteger('empresa_id')->nullable();
             $table->timestamps();
 

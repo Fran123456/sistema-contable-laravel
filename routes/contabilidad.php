@@ -22,4 +22,7 @@ Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
 Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
     Route::get('/copiar/data', [ConfiguracionController::class, 'indexCopiarInformacionContable'])->name('copiar-data');
     Route::post('/copiar/data', [ConfiguracionController::class, 'copiarInformacionContable'])->name('copiar-data-store');
+
+    Route::get('/importar/excel', [CuentaContableController::class, 'importarCuentasExcelView'])->name('importarCuentasExcelView');
+    Route::post('/importar/excel', [CuentaContableController::class, 'importarCuentasExcel'])->name('importarCuentasExcel');
 });

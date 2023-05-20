@@ -50,12 +50,12 @@ class Help
       return $url;
    }
 
-   public static function uploadFile($request, $folder,$anexo ,$input){
+   public static function uploadFile($request, $folder,$anexo ,$input, $ramdonName = true){
 		//url es el path corto luego de el path publico a donde se encontrara el archivo.
 		//anexo debe ser algo extra en el proyecto se usa por ejemplo MAT115/archivo.png donde anexo = "MAT115/"
 		$file  = $request->file($input);
 		$original = Help::changeCharacters($file->getClientOriginalName());
-      $name = Help::code(8).'-'.time().'-'.$original;
+      $name = $ramdonName?Help::code(8).'-'.time().'-'.$original:$original;
       $file->move(public_path().'/'.$folder.'/',$name);
       return $name;
 	}

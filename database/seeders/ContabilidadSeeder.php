@@ -18,43 +18,49 @@ class ContabilidadSeeder extends Seeder
        
         DB::table('conta_nivel_cuenta_contable')->insert([
             'nivel' => 'Nivel 1',
+            'digitos' => '1',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
         DB::table('conta_nivel_cuenta_contable')->insert([
             'nivel' => 'Nivel 2',
+            'digitos' => '2',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
         DB::table('conta_nivel_cuenta_contable')->insert([
             'nivel' => 'Nivel 3',
+            'digitos' => '3',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
         DB::table('conta_nivel_cuenta_contable')->insert([
             'nivel' => 'Nivel 4',
+            'digitos' => '4',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
         DB::table('conta_nivel_cuenta_contable')->insert([
             'nivel' => 'Nivel 5',
+            'digitos' => '5',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
         DB::table('conta_nivel_cuenta_contable')->insert([
             'nivel' => 'Nivel 6',
+            'digitos' => '6',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
 
         DB::table('conta_clasificacion_cuenta_contable')->insert([
-            'clasificacion' => 'Mayor',
+            'clasificacion' => 'mayor',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),

@@ -8,7 +8,8 @@ use App\Models\Contabilidad\ContaClasificacionCuenta;
 use App\Help\Help;
 use App\Models\Contabilidad\ContaNivelCuenta;
 use App\Models\Contabilidad\ContaCuentaContable;
-
+use App\Imports\ContaCuentaContableImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CuentaContableController extends Controller
 {
@@ -91,6 +92,26 @@ class CuentaContableController extends Controller
         $cuenta = ContaCuentaContable::find($id);
         return view('contabilidad.cuenta_contable.edit',compact('cuentas','niveles','clasificacion','cuenta'));
     }
+
+    public function importarCuentasExcel(Request $request){
+
+       //$help = Help::uploadFile($request, 'import-excel-cuentas', '', 'excel', false);
+
+        $import = new ContaCuentaContableImport(Help::empresa());
+        Excel::import($import, request()->file('excel'));
+        $rows        = $import->getNumeroFilas();
+        $errores  = $import->getErrores();
+        $ingresados = $import->getIngresados();
+  
+        return view('contabilidad.cuenta_contable.importar_excel_resumen', compact('rows','errores','ingresados'));
+       
+    }
+
+    public function importarCuentasExcelView(Request $request){
+        $niveles = ContaNivelCuenta::where('empresa_id',Help::empresa())->get();
+        $clasificacion = ContaClasificacionCuenta::where('empresa_id',Help::empresa())->get();
+       return view('contabilidad.cuenta_contable.importar_excel', compact('niveles','clasificacion'));
+     }
 
     /**
      * Update the specified resource in storage.

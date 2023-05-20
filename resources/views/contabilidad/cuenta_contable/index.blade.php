@@ -13,6 +13,13 @@
         <a style="color: white" type="button" class="btn btn-primary" href="{{ route('contabilidad.cuentas-contables.create') }}" >
             <i class="fas fa-save"></i>
         </a>
+
+        <a style="color: white"  class="btn btn-primary" href="{{ route('contabilidad.importarCuentasExcelView') }}" >
+           Importar via Excel
+        </a>
+
+
+        
         
 
 
@@ -21,7 +28,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h5>Cuentas contables</h5>
+                <h5>Catalogo de cuentas contables</h5>
                 <table class="table table-sm" id="datatable-responsive">
                     <thead>
                         <tr>
