@@ -61,7 +61,6 @@ class PartidasContablesController extends Controller
      */
     public function store(Request $request)
     {											
-
         try {
             $data=array('concepto'=>$request['concepto_cabecera'],
             'periodo_id'=>$request['periodo'],
@@ -69,7 +68,9 @@ class PartidasContablesController extends Controller
             'debe'=> $request['debe'], 
             'haber'=> $request['haber'],
             'fecha_contable'=>$request['fecha']);
+
             $partida = PartidasContables::cabecera($data);
+            
             return $partida;
            
         } catch (Exception $e) {
