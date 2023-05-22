@@ -45,6 +45,8 @@ class PartidasContables
                 'anulada'=>0,
                 'fecha_cierre'=> null,
                 'empresa_id'=>  $empresa,
+                'actualizador_id'=>null,
+                'creador_id'=>Help::usuario()->id,
             ]);
 
             self::updateCorrelativo($data['periodo_id'], $data['tipo_partida_id']);
