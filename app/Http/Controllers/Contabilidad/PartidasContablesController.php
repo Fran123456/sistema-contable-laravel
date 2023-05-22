@@ -9,6 +9,7 @@ use App\Models\Contabilidad\ContaTipoPartida;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\Help\Contabilidad\PartidasContables;
 
 class PartidasContablesController extends Controller
 {
@@ -41,18 +42,15 @@ class PartidasContablesController extends Controller
         $empresa = Help::empresa();
         $periodos = ContaPeriodoContable::where('empresa_id',$empresa)->where('activo', true)->get();
         $tipos = ContaTipoPartida::where('empresa_id',Help::empresa())->get();
-        
-        $cuentas  = ContaCuentaContable::where('empresa_id',Help::empresa())->with(['clasificacion' => function (Builder $query) {
-            $query->where('clasificacion','detalle');
-        }])->get();
-
+        $cuentas  = ContaCuentaContable::join("conta_clasificacion_cuenta_contable", "conta_cuenta_contable.clasificacion_id", "=", "conta_clasificacion_cuenta_contable.id")
+        ->select("conta_cuenta_contable.*", "conta_clasificacion_cuenta_contable.clasificacion")
+        ->where("conta_clasificacion_cuenta_contable.clasificacion", "=", 'detalle')->get();
         return view('contabilidad.partidas_contables.create',compact('periodos','tipos','cuentas'));
     }
 
     public function obtenerCorrelativoAjax(Request $request){
         $empresa = Help::empresa();
-        $periodo = ContaPeriodoContable::find($request->periodo);
-        return $periodo->tiposPartida()->first();
+        return PartidasContables::correlativo($request->periodo, $request->tipo);
     }
 
     /**
@@ -62,8 +60,23 @@ class PartidasContablesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {											
+
+        try {
+            $data=array('concepto'=>$request['concepto_cabecera'],
+            'periodo_id'=>$request['periodo'],
+            'tipo_partida_id'=> $request['tipo'],
+            'debe'=> $request['debe'], 
+            'haber'=> $request['haber'],
+            'fecha_contable'=>$request['fecha']);
+            $partida = PartidasContables::cabecera($data);
+            return $partida;
+           
+        } catch (Exception $e) {
+            DB::rollBack();
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
+        
     }
 
     /**

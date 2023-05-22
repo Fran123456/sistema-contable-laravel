@@ -4,6 +4,7 @@ namespace App\Models\Contabilidad;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Help\Help;
 
 class ContaPeriodoContable extends Model
 {
@@ -18,6 +19,12 @@ class ContaPeriodoContable extends Model
     public function tiposPartida(){
         return $this->belongsToMany(ContaTipoPartida::class, 'conta_periodo_tipo_partida','periodo_id','tipo_partida_id')
         ->withPivot('correlativo','empresa_id');
+    }
+
+    public function tiposPartidaByEmpresa(){
+        return $this->belongsToMany(ContaTipoPartida::class, 'conta_periodo_tipo_partida','periodo_id','tipo_partida_id')
+        ->withPivot('correlativo','empresa_id')
+        ->wherePivot('empresa_id', Help::empresa());
     }
 
 }
