@@ -98,11 +98,9 @@ class PartidasContables
     {
         try {
             DB::beginTransaction();
-          
 
             $cabecera = ContaPartidaContable::find($data['id']);
             $fechaAntigua = $cabecera->fecha_contable;
-            
 
             $cabecera->concepto = $data['concepto'];
             $cabecera->fecha_contable = $data['fecha_contable'];
