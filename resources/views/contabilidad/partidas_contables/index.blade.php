@@ -45,7 +45,7 @@
                                 <td>{{ $item->tipo_partida_id }} </td>
                                 <td>{{ $item->concepto }} </td>
                                 <td>{{ $item->fecha_contable }}</td>
-
+<td>{{ $item->fecha_contable }}</td>
                                 <td>
                                     <form id="form{{ $item->id }}"
                                         action="{{ route('contabilidad.tipos-de-partida.destroy', $item->id) }}"

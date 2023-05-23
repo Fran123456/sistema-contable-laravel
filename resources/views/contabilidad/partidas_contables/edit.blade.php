@@ -1,0 +1,35 @@
+<x-app-layout>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+
+    <div class="col-md-12">
+        <x-commonnav></x-commonnav>
+    </div>
+    <div class="col-md-12">
+        <x-alert></x-alert>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{route('contabilidad.partidas.store') }}" method="post">
+                    @csrf
+                    <h5>Partida contable: {{ $partida->tipoPartida->tipo  }} {{ $partida->periodo->codigo }}</h5>
+                    @include('contabilidad.partidas_contables.partials.edit_cabecera')
+                    <br>
+                    @include('contabilidad.partidas_contables.partials.edit_detalle')
+                </form>
+            </div>
+        </div>
+    </div>
+
+  
+
+    <script>
+        $(".chosen-select").chosen({
+            no_results_text: "Oops, nothing found!"
+        })
+    </script>
+
+</x-app-layout>

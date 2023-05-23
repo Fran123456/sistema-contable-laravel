@@ -32,4 +32,12 @@ class ContaCuentaContable extends Model
         return ContaCuentaContable::where('padre_id', $id)->get();
     }
 
+    public static function cuentasDetalle(int $empresa){
+        $cuentas  = ContaCuentaContable::join("conta_clasificacion_cuenta_contable", "conta_cuenta_contable.clasificacion_id", "=", "conta_clasificacion_cuenta_contable.id")
+        ->select("conta_cuenta_contable.*", "conta_clasificacion_cuenta_contable.clasificacion")
+        ->where("conta_clasificacion_cuenta_contable.clasificacion", "=", 'detalle')
+        ->where('conta_cuenta_contable.empresa_id', $empresa)->get();
+        return $cuentas;
+    }
+
 }

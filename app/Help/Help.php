@@ -78,6 +78,12 @@ class Help
       return $date->format('d/m/Y ') ;
    }
 
+   public static function dateByYear($fecha, $separator='/'){
+      $c =  substr($fecha, 0, 10);
+      $date = new \DateTime($c);
+      return $date->format("Y${separator}m${separator}d") ;
+   }
+
 
    public static function hour($fecha){
       $date=date_create($fecha);

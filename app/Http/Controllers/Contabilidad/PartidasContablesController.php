@@ -41,10 +41,8 @@ class PartidasContablesController extends Controller
     {
         $empresa = Help::empresa();
         $periodos = ContaPeriodoContable::where('empresa_id',$empresa)->where('activo', true)->get();
-        $tipos = ContaTipoPartida::where('empresa_id',Help::empresa())->get();
-        $cuentas  = ContaCuentaContable::join("conta_clasificacion_cuenta_contable", "conta_cuenta_contable.clasificacion_id", "=", "conta_clasificacion_cuenta_contable.id")
-        ->select("conta_cuenta_contable.*", "conta_clasificacion_cuenta_contable.clasificacion")
-        ->where("conta_clasificacion_cuenta_contable.clasificacion", "=", 'detalle')->get();
+        $tipos = ContaTipoPartida::where('empresa_id',$empresa )->get();
+        $cuentas  = ContaCuentaContable::cuentasDetalle($empresa);
         return view('contabilidad.partidas_contables.create',compact('periodos','tipos','cuentas'));
     }
 
@@ -80,7 +78,7 @@ class PartidasContablesController extends Controller
             PartidasContables::detalle($detalle);
 
             
-           
+           return redirect()->route('contabilidad.partidas.edit', $partida->id)->with('success','Partida creada correctamente');
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with('danger', 'Error, no se puede procesar la petición');
@@ -107,7 +105,12 @@ class PartidasContablesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $empresa = Help::empresa();
+        $periodos = ContaPeriodoContable::where('empresa_id',$empresa)->where('activo', true)->get();
+        $tipos = ContaTipoPartida::where('empresa_id', $empresa)->get();
+        $cuentas  = ContaCuentaContable::cuentasDetalle($empresa );
+        $partida= ContaPartidaContable::find($id);
+        return view('contabilidad.partidas_contables.edit',compact('periodos','tipos','cuentas','partida'));
     }
 
     /**
