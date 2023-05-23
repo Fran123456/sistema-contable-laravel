@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Contabilidad\ContaPeriodoContable;
 use App\Models\Contabilidad\ContaTipoPartida;
+use App\Models\Contabilidad\ContaDetallePartida;
 use App\Models\RRHH\RRHHEmpresa;
 use App\Models\User;
 class ContaPartidaContable extends Model
@@ -36,6 +37,12 @@ class ContaPartidaContable extends Model
 
     public function actualizador(){
         return $this->belongsTo(User::class, 'actualizador_id');
+    }
+
+   
+
+    public function detalles(){
+        return $this->hasMany(ContaDetallePartida::class,'partida_id');
     }
 }
 

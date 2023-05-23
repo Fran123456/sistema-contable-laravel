@@ -94,6 +94,7 @@ class PartidasContables
 
     }
 
+
     public static function updateCabecera($data)
     {
         try {

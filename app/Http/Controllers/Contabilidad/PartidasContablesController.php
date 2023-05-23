@@ -110,6 +110,7 @@ class PartidasContablesController extends Controller
         $tipos = ContaTipoPartida::where('empresa_id', $empresa)->get();
         $cuentas  = ContaCuentaContable::cuentasDetalle($empresa );
         $partida= ContaPartidaContable::find($id);
+      
         return view('contabilidad.partidas_contables.edit',compact('periodos','tipos','cuentas','partida'));
     }
 
@@ -122,8 +123,22 @@ class PartidasContablesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha, 'id'=>$id);
-         PartidasContables::updateCabecera($data);
+        if($request->detalle){
+            $partida= ContaPartidaContable::find($id);
+            $detalle= array('partida_id'=>$partida->id,
+            'periodo_id'=>$partida->periodo_id,
+            'tipo_partida_id'=>$partida->tipo_partida_id,
+            'cuenta_contable_id'=>$request['cuenta'],
+            'debe'=>$request['debe'],
+            'haber'=>$request['haber'],
+            'fecha_contable'=>$request['fecha'],
+            'concepto'=>$request['concepto_detalle']);
+            PartidasContables::detalle($detalle);
+
+        }else{
+            $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha, 'id'=>$id);
+            PartidasContables::updateCabecera($data);
+        }
         return back()->with('success','Se ha editado correctamente la partida contable');
     }
 

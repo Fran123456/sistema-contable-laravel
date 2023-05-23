@@ -21,7 +21,7 @@ class ContaDetallePartida extends Model
     ];
 
     public function cuentaContable(){
-        return $this->belongsTo(ContaCuentaContable::class, 'periodo_id');
+        return $this->belongsTo(ContaCuentaContable::class, 'cuenta_contable_id');
     }
 
     public function partida(){
