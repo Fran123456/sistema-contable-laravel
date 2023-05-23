@@ -24,7 +24,7 @@
                  <form action="{{route('contabilidad.partidas.update', $partida->id) }}" method="post">
                     @method('PUT')
                     @csrf
-                    <input type="hidden" value="detalle">
+                    <input type="hidden" name="detalle" value="detalle">
                     @include('contabilidad.partidas_contables.partials.create_detalle')
                  </form>
                 <hr>
