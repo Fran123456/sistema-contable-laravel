@@ -122,7 +122,9 @@ class PartidasContablesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha, 'id'=>$id);
+         PartidasContables::updateCabecera($data);
+        return back()->with('success','Se ha editado correctamente la partida contable');
     }
 
     /**

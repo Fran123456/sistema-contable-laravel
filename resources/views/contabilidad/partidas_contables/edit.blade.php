@@ -13,13 +13,15 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{route('contabilidad.partidas.store') }}" method="post">
+                <form action="{{route('contabilidad.partidas.update', $partida->id) }}" method="post">
+                    @method('PUT')
                     @csrf
                     <h5>Partida contable: {{ $partida->tipoPartida->tipo  }} {{ $partida->periodo->codigo }}</h5>
-                    @include('contabilidad.partidas_contables.partials.edit_cabecera')
-                    <br>
-                    @include('contabilidad.partidas_contables.partials.edit_detalle')
+                    @include('contabilidad.partidas_contables.partials.edit_cabecera') 
                 </form>
+
+                <br>
+                @include('contabilidad.partidas_contables.partials.edit_detalle')
             </div>
         </div>
     </div>

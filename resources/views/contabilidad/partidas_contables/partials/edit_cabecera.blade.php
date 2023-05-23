@@ -26,4 +26,7 @@
         <textarea name="concepto_cabecera" class="form-control" rows="10">{{ $partida->concepto }}</textarea>
 
     </div>
+    <div class="col-md-12 mt-3">
+        <button class="btn btn-warning" type="submit"><i class="fas fa-edit"></i></button>
+    </div>
 </div>
