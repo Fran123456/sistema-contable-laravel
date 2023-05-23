@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-12 mt-3">
         <label for=""><strong>Concepto</strong></label>
-        <textarea name="concepto" class="form-control" rows="10"></textarea>
+        <textarea name="concepto_detalle" class="form-control" rows="10"></textarea>
     </div>
     <div class="col-md-12 mt-3">
         <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar </button>

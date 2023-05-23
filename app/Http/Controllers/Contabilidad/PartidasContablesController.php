@@ -65,13 +65,21 @@ class PartidasContablesController extends Controller
             $data=array('concepto'=>$request['concepto_cabecera'],
             'periodo_id'=>$request['periodo'],
             'tipo_partida_id'=> $request['tipo'],
-            'debe'=> $request['debe'], 
-            'haber'=> $request['haber'],
             'fecha_contable'=>$request['fecha']);
 
             $partida = PartidasContables::cabecera($data);
+
+            $detalle= array('partida_id'=>$partida->id,
+            'periodo_id'=>$request['periodo'],
+            'tipo_partida_id'=>$request['tipo'],
+            'cuenta_contable_id'=>$request['cuenta'],
+            'debe'=>$request['debe'],
+            'haber'=>$request['haber'],
+            'fecha_contable'=>$request['fecha'],
+            'concepto'=>$request['concepto_detalle']);
+            PartidasContables::detalle($detalle);
+
             
-            return $partida;
            
         } catch (Exception $e) {
             DB::rollBack();
