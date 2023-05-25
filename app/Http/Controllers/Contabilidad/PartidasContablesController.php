@@ -28,7 +28,7 @@ class PartidasContablesController extends Controller
             ->where('empresa_id', $empresa)
             ->orderBy('fecha_contable','desc')->get();
         }
-        
+
         return view('contabilidad.partidas_contables.index',compact('periodos','partidas'));
     }
 
@@ -58,7 +58,7 @@ class PartidasContablesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {											
+    {
         try {
             $data=array('concepto'=>$request['concepto_cabecera'],
             'periodo_id'=>$request['periodo'],
@@ -77,13 +77,13 @@ class PartidasContablesController extends Controller
             'concepto'=>$request['concepto_detalle']);
             PartidasContables::detalle($detalle);
 
-            
+
            return redirect()->route('contabilidad.partidas.edit', $partida->id)->with('success','Partida creada correctamente');
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with('danger', 'Error, no se puede procesar la petición');
         }
-        
+
     }
 
     /**
@@ -110,7 +110,7 @@ class PartidasContablesController extends Controller
         $tipos = ContaTipoPartida::where('empresa_id', $empresa)->get();
         $cuentas  = ContaCuentaContable::cuentasDetalle($empresa );
         $partida= ContaPartidaContable::find($id);
-      
+
         return view('contabilidad.partidas_contables.edit',compact('periodos','tipos','cuentas','partida'));
     }
 
@@ -136,7 +136,7 @@ class PartidasContablesController extends Controller
             PartidasContables::detalle($detalle);
 
         }else{
-            $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha, 'id'=>$id);
+            $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha_detalle, 'id'=>$id);
             PartidasContables::updateCabecera($data);
         }
         return back()->with('success','Se ha editado correctamente la partida contable');
@@ -150,6 +150,14 @@ class PartidasContablesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        PartidasContables::anular($id);
+        return back()->with('success','Se ha anulado la partida correctamente');
+    }
+
+    public function cerrarPartida($id){
+        $partida= ContaPartidaContable::find($id);
+        $partida->cerrada = true;
+        $partida->save();
+        return back()->with('success','Se ha cerrado la partida correctamente');
     }
 }

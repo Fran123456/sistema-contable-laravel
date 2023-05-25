@@ -39,14 +39,14 @@ Route::group(['prefix' => 'usuarios'], function() {
 })->middleware('auth:sanctum');
 
 
-Route::resource('users', UserController::class); 
+Route::resource('users', UserController::class);
 Route::name('users')->prefix('users')->group(function () {
     Route::post('/change-password/{id}', [UserController::class, 'updatePassword'])->name('.updatePassword');
     Route::get('/disable-user/{id}', [UserController::class, 'disableUser'])->name('.disableUser');
 
     Route::post('/empresa', [UserController::class, 'agregarEmpresa'])->name('.agregarEmpresa');
     Route::get('/empresa/{id}/{empresa_id}', [UserController::class, 'eliminarEmpresa'])->name('.eliminarEmpresa');
-    
+
 });
 
 
@@ -58,7 +58,7 @@ Route::name('settings')->prefix('settings')->group(function () {
     Route::post('/{id}/change-logo', [SettingController::class, 'changeLogo'])->name('.changeLogo');
 });
 
-Route::resource('roles', RoleController::class); 
+Route::resource('roles', RoleController::class);
 Route::name('roles')->prefix('roles')->group(function () {
     Route::delete('/permissions/destroy/{id}', [RoleController::class, 'destroyPermissions'])->name('.destroyPermissions');
 });

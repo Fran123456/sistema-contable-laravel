@@ -35,6 +35,16 @@ class PartidasContables
         $partida->save();
     }
 
+    public static function anular($id){
+        $partida = ContaPartidaContable::find($id);
+        $partida->debe = 0;
+        $partida->haber = 0;
+        $partida->anulada = true;
+        $actualizador_id=Help::usuario()->id;
+        $partida->save();
+        ContaDetallePartida::where('partida_id', $id)->update(['debe'=>0, 'haber'=>0,'actualizador_id'=>Help::usuario()->id]);
+    }
+
     public static function detalle($data)
     {
         try {

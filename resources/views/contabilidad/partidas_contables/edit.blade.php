@@ -17,7 +17,11 @@
                     @method('PUT')
                     @csrf
                     <h5>Partida contable: {{ $partida->tipoPartida->tipo  }} {{ $partida->periodo->codigo }}</h5>
-                    @include('contabilidad.partidas_contables.partials.edit_cabecera') 
+
+                    <a href="{{ route('contabilidad.cerrarPartida', $partida->id) }}" class="btn btn-danger">CERRAR PARTIDA</a>
+                    <hr>
+
+                    @include('contabilidad.partidas_contables.partials.edit_cabecera')
                 </form>
 
                 <br>
@@ -34,7 +38,7 @@
         </div>
     </div>
 
-  
+
 
     <script>
         $(".chosen-select").chosen({

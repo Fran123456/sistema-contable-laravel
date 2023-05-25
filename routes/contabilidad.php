@@ -7,16 +7,16 @@ use App\Http\Controllers\Contabilidad\ConfiguracionController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 
 Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('periodos', PeriodoContableController::class); 
+    Route::resource('periodos', PeriodoContableController::class);
 });
 
 Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('tipos-de-partida', TipoPartidaController::class); 
+    Route::resource('tipos-de-partida', TipoPartidaController::class);
 });
 
 
 Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('cuentas-contables', CuentaContableController::class); 
+    Route::resource('cuentas-contables', CuentaContableController::class);
 });
 
 
@@ -29,8 +29,9 @@ Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
 });
 
 Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('partidas', PartidasContablesController::class); 
+    Route::resource('partidas', PartidasContablesController::class);
     Route::get('/correlativo/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
+    Route::get('/partida/cerrar/{id}', [PartidasContablesController::class, 'cerrarPartida'])->name('cerrarPartida');
 
-    
+
 });
