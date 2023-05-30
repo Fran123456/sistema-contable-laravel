@@ -24,6 +24,7 @@
             width: 136px;
             height: 36px;
         }
+
         .btn-success {
             --bs-btn-color: #fff;
             --bs-btn-bg: #5cb377;
@@ -40,22 +41,26 @@
             --bs-btn-disabled-bg: #5cb377;
             --bs-btn-disabled-border-color: #5cb377;
         }
-        .page-link.active, .active>.page-link {
+
+        .page-link.active,
+        .active>.page-link {
             z-index: 3;
             color: var(--bs-pagination-active-color);
             background-color: #5cb377;
             border-color: #5cb377;
         }
     </style>
-
+<script src="{{ asset('js/jquery-3.6.4.min.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
         referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/js/all.min.js" referrerpolicy="no-referrer">
     </script>
 
     @include('layouts.components.datatable')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- <script src="{{ asset('js/confirm.js') }}"></script>
+
+
+    <script src="{{ asset('js/confirm.js') }}"></script>
+
 </head>
 
 <body class="app">
@@ -66,7 +71,7 @@
                     <div class="row justify-content-between align-items-center">
 
                         <div class="col-auto">
-                            <strong> {{ Help::usuario()->empresa->empresa??"No hay empresa asignada" }}</strong>
+                            <strong> {{ Help::usuario()->empresa->empresa ?? 'No hay empresa asignada' }}</strong>
                             <a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                     viewBox="0 0 30 30" role="img">
@@ -114,7 +119,7 @@
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 <div class="app-branding">
                     <a class="app-logo" href="index.html"><img class="logo-icon me-2"
-                            src="{{ asset(  Help::getConfigByKey('general','logo')->value  ) }}" alt="logo"></a>
+                            src="{{ asset(Help::getConfigByKey('general', 'logo')->value) }}" alt="logo"></a>
 
                 </div>
                 <!--//app-nav-->
@@ -145,18 +150,18 @@
     <!--//app-wrapper-->
 
 
-    <!-- Javascript --> 
+    <!-- Javascript -->
     <script src="{{ asset('assets/plugins/popper.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Page Specific JS -->
-   
+
     <script src="{{ asset('assets/js/app.js') }}"></script>
-   
+
     @stack('modals')
 
     @livewireScripts
-   
-   
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </body>
 
 </html>

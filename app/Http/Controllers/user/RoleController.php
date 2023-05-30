@@ -92,6 +92,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         try {
             DB::beginTransaction();
             $roleValidate = Role::where('name', $request->role)->where('id','!=', $id)->first();
@@ -99,11 +100,12 @@ class RoleController extends Controller
                 return back()->with('danger', 'Error, no se puede modificar el rol porque ya existe uno con el nombre solicitado');
             }
 
+
             $role = Role::find($id);
             $role->name = $request->role;
             $role->save();
-            
-            $role->givePermissionTo($request->permission);
+
+            $role->syncPermissions($request->permission);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();

@@ -1,8 +1,6 @@
 <x-app-layout>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
-
 
     <div class="col-md-12">
         <x-commonnav></x-commonnav>
@@ -33,7 +31,7 @@
 
                             <div class="mt-3">
                                 <label for="">Permisos</label>
-                                <select required size="10" name="permission"
+                                <select multiple required size="10" name="permission[]"
                                     data-placeholder="Seleccione un permiso" class="form-control chosen-select">
                                     @foreach ($permissions as $permission)
                                         <option value="{{ $permission->name }}">{{ $permission->name }}</option>
@@ -46,27 +44,37 @@
                         </form>
                     </div>
                     <div class="col-md-6 mt-3">
-                        <label for="">Permisos</label> <br>
+                        <label for=""><strong>Permisos</strong></label> <br>
 
-                        @if (count($role->permissions))
-                            @foreach ($role->permissions as $permission)
-                                <form class="d-inline" method="post" action="{{ route('roles.destroyPermissions', $role->id) }}"
-                                    id="form">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="permission" value="{{ $permission->name }}">
-                                    <button onclick="confirm('form')" type="button" class="btn btn-danger">
-                                        <small style="color:aliceblue">{{ $permission->name }}</small> <span
-                                            class="badge bg-danger"><i class="fas fa-trash-alt"></i></span>
-                                    </button>
-                                </form>
-                            @endforeach
-                        @else
-                            <x-message message="No hay permisos asociados" color="danger"></x-message>
-                        @endif
+                        <table  class="table table-sm" id="datatable-responsive">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Permiso</th>
+                                    <th scope="col"><i class="fas fa-trash-alt"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (count($role->permissions))
+                                    @foreach ($role->permissions as $key=> $permission)
+                                        <tr>
+                                            <th scope="row">{{ $key+1 }}</th>
+                                            <td>{{ $permission->name }}</td>
+                                            <td><button onclick="confirm('form')" type="button" class="btn btn-danger">
+                                                    <span class="badge bg-danger"><i class="fas fa-trash-alt"></i></span>
+                                                </button></td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <x-message message="No hay permisos asociados" color="danger"></x-message>
+                                @endif
+                            </tbody>
+                        </table>
+
+
                     </div>
 
-                    
+
                 </div>
 
             </div>

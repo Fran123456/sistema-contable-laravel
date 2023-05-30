@@ -1,4 +1,4 @@
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <link rel="stylesheet" href="{!! asset('datatable/datatables.min.css') !!}">
 <script src="{!! asset('datatable/datatables.min.js') !!} "></script>
 <style>
@@ -13,33 +13,34 @@
     $copyTitle = Help::getConfigByKey('datatable', 'copyTitle');
     $copyTitleShow = Help::getConfigByKey('datatable', 'copyTitleShow');
     //BOTON DE COPIAR FILAS
-    
+
     //BOTON DE CSV
     $csvShow = Help::getConfigByKey('datatable', 'csvShow');
     //BOTON DE CSV
-    
+
     //BOTON DE Excel
     $excelShow = Help::getConfigByKey('datatable', 'excelShow');
     //BOTON DE Excel
-    
+
     //BOTON DE PDF
     $pdfShow = Help::getConfigByKey('datatable', 'pdfShow');
     //BOTON DE PDF
-    
+
     //BOTON DE IMPRESION
     $printShow = Help::getConfigByKey('datatable', 'printShow');
     //BOTON DE IMPRESION
-    
+
     //BOTON DE VISIBILIDAD
     $visibilityShow = Help::getConfigByKey('datatable', 'visibilityShow');
     //BOTON DE VISIBILIDAD
-    
+
     //SELECCIONAR VARIAS FILAS
     $select = Help::getConfigByKey('datatable', 'select');
     //SELECCIONAR VARIAS FILAS
 @endphp
 
 <script type="text/javascript">
+
     //BOTON DE COPIAR FILAS
     let copyTitle = {!! "'" . $copyTitle->value . "'" !!}
     let objCopyTile = null;
@@ -148,6 +149,7 @@
     if (visibilityShow != null) buttons.push(visibilityShow);
 
     $(document).ready(function() {
+        $.noConflict();
         $('#datatable-responsive').DataTable({
             ///fixedColumns: true,
             "language": {
