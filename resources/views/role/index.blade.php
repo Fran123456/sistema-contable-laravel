@@ -31,22 +31,21 @@
                                 <th scope="row">{{ $key + 1 }}</th>
                                 <td>{{ $item->name }} </td>
                                 <td>
-                                    @foreach ($item->permissions as $permission)
-                                        <span class="badge bg-secondary">{{ $permission->name }}</span>
-                                    @endforeach
+
+                                        <span class="badge bg-secondary">{{ count($item->permissions) }}</span>
 
 
                                 </td>
                                 <td> <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-warning"><i
                                             class="fas fa-edit"></i></a> </td>
-                                <td> 
+                                <td>
                                   <form id="form" action="{{ route('roles.destroy', $item->id) }}" method="post">
                                      @method('DELETE')
                                      @csrf
                                      <button onclick="confirm('form')" class="btn btn-danger" type="button">
                                       <i class="fas fa-trash"></i></button>
                                   </form>
-                                  
+
                             </tr>
                         @endforeach
 
