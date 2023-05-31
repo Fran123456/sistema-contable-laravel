@@ -5,7 +5,13 @@
 
 
     <div class="col-md-12">
-        <x-commonnav></x-commonnav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+              <li class="breadcrumb-item"><a href="/roles">Roles</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Crear roles</li>
+            </ol>
+          </nav>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>
