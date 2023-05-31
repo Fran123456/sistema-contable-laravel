@@ -52,7 +52,7 @@
                             </select>
                         </div>
                         <div class="col-md-4 mt-3">
-                            <label for=""> <strong>clasificación de la cuenta</strong> </label>
+                            <label for=""> <strong>Clasificación de la cuenta</strong> </label>
                             <select required name="clasificacion" data-placeholder="Seleccione la clasificación"
                                 class="form-control chosen-select">
                                 @foreach ($clasificacion as $cl)
