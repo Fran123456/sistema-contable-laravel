@@ -1,6 +1,10 @@
 <x-app-layout>
     <div class="col-md-12">
-        <x-commonnav></x-commonnav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="/settings">Configuraciones</a></li>
+            <li class="breadcrumb-item active" aria-current="page">General</li>
+          </ol>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>
@@ -13,7 +17,7 @@
 
 
     <div class="col-md-12m mb-3">
-        <form enctype="multipart/form-data" class="settings-form" method="post" 
+        <form enctype="multipart/form-data" class="settings-form" method="post"
         action="{{ route('settings.changeLogo', $logo->id) }}">
             @csrf
             <div class="row g-4 settings-section">
@@ -26,7 +30,7 @@
                 <div class="col-12 col-md-7">
                     <div class="app-card app-card-settings shadow-sm p-4">
                         <div class="app-card-body">
-                            
+
                                 @csrf
                                 <div class="">
                                     <div class="input-group ">
@@ -35,7 +39,7 @@
                                                 class="fas fa-save"></i></button>
                                     </div>
                                 </div>
-                           
+
                         </div>
                     </div>
                 </div>
