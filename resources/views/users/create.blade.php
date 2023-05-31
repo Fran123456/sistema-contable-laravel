@@ -3,7 +3,13 @@
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
     <div class="col-md-12">
-        <x-commonnav ></x-commonnav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+              <li class="breadcrumb-item"><a href="/users">Usuarios</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Crear usuarios</li>
+            </ol>
+          </nav>
     </div>
     <div class="col-md-12 mb-3">
         <x-badge titulo="Nuevo usuario" icono="fas fa-user-plus"></x-badge>
@@ -43,7 +49,7 @@
                             </select>
                         </div>
                         <div class="col-md-4 mt-3">
-                            
+
                             <label for="">Empresa </label>
                             <select multiple name="empresa[]" id="" class="form-control mt-2 chosen-select">
                                 @foreach ($empresas as $e)
@@ -51,10 +57,10 @@
                                 @endforeach
                             </select>
                         </div>
-                       
+
 
                         <div class="col-md-12 mt-3">
-                            
+
                           <button class="btn btn-success"><i class="fas fa-save"></i></button>
                         </div>
                     </div>

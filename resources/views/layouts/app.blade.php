@@ -57,6 +57,7 @@
     </script>
 
     @include('layouts.components.datatable')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script src="{{ asset('js/confirm.js') }}"></script>

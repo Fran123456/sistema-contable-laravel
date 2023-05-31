@@ -12,7 +12,13 @@
         }
     </style>
     <div class="col-md-12">
-        <x-commonnav></x-commonnav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+              <li class="breadcrumb-item"><a href="/users">Usuarios</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Editar usuarios</li>
+            </ol>
+          </nav>
 
     </div>
 
