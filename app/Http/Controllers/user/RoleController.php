@@ -104,8 +104,13 @@ class RoleController extends Controller
             $role = Role::find($id);
             $role->name = $request->role;
             $role->save();
+            foreach ($request->permission as $key => $value) {
+                $role->givePermissionTo($value);
+            }
 
-            $role->syncPermissions($request->permission);
+
+
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
