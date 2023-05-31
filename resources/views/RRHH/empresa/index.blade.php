@@ -1,7 +1,10 @@
 <x-app-layout>
 
     <div class="col-md-12">
-        <x-commonnav></x-commonnav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Empresas</li>
+          </ol>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>
@@ -21,8 +24,8 @@
                 </button>
             </div>
         </div>
-      
-      
+
+
     </form>
 
     <div class="col-md-12">
@@ -49,13 +52,13 @@
                                 <td>{{ $item->empresa }} </td>
                                 <td>
                                     @if ($item->actualizada)
-                                        Actualizada 
-                                    @else 
+                                        Actualizada
+                                    @else
                                         No Actualizada
                                     @endif
                                 </td>
                                 <td><a href="{{ route('rrhh.empresa.edit', $item->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
-                            
+
                                 <td>
                                     <form id="form{{ $item->id }}"
                                         action="{{ route('rrhh.empresa.destroy', $item->id) }}"

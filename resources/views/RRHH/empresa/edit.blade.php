@@ -1,8 +1,12 @@
 <x-app-layout>
-  
+
 
     <div class="col-md-12">
-        <x-commonnav></x-commonnav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="/rrhh/empresa">Empresas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editar empresa</li>
+          </ol>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>
@@ -23,11 +27,11 @@
                             <input type="text" name="empresa"  value="{{ $empresa->empresa }}"  required class="form-control">
                         </div>
                     </div>
-                 
+
 
                     <div class="row">
                         <div class="col-md-12 mt-4 mb-1">
-                            <button style="color: white" type="submit" class="btn btn-warning"> 
+                            <button style="color: white" type="submit" class="btn btn-warning">
                                 <i class="fas fa-edit"></i></button>
                         </div>
                     </div>
