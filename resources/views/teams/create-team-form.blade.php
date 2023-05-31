@@ -1,4 +1,6 @@
 <x-jet-form-section submit="createTeam">
+
+
     <x-slot name="title">
         Detalles del nuevo equipo
     </x-slot>

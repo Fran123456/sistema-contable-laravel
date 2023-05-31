@@ -3,7 +3,12 @@
     <div class="row">
 
         <div class="col-md-12">
-            <x-commonnav></x-commonnav>
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Mis invitaciones de equipo</li>
+                  </ol>
+            </div>
         </div>
 
         <x-alert></x-alert>

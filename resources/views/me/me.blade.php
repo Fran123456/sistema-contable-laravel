@@ -1,6 +1,9 @@
 <x-app-layout>
     <div class="col-md-12">
-        <x-commonnav></x-commonnav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Yo</li>
+          </ol>
     </div>
 
     <div class="">
@@ -11,11 +14,11 @@
                 <x-alert></x-alert>
 
                 @include('me.components.me-edit')
-                
-               
+
+
                 <hr class="my-4" />
-               
-               
+
+
             </div>
     </div>
 
