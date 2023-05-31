@@ -4,7 +4,11 @@
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
 
     <div class="col-md-12">
-        <x-commonnav></x-commonnav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="/contabilidad/cuentas-contables">Catalogo de cuentas contables</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Resumen de importación de cuentas</li></li>
+          </ol>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>
@@ -18,7 +22,7 @@
             <div class="card-body">
                 <h5>Resultado de la importación de catalogo de cuentas contables </h5>
                 <h6>Total de filas recorridas: {{ $rows }}</h6>
-                
+
                 @if (count($errores) > 0)
                 <div class="mt-2">
                   <x-message color="danger" message="Errores generados"></x-message>
@@ -53,12 +57,12 @@
 
                   </tbody>
                  </table>
-                @else 
+                @else
                 <div class="mt-2">
                   <x-message color="success" message="Se ha exportado el catalogo sin ningun error"></x-message>
                  </div>
                 @endif
-                
+
 
 
 

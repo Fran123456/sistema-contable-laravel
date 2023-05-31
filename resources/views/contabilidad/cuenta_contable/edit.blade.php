@@ -4,7 +4,11 @@
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
 
     <div class="col-md-12">
-        <x-commonnav></x-commonnav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="/contabilidad/cuentas-contables">Catalogo de cuentas contables</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editar cuenta contable</li>
+          </ol>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>
@@ -64,18 +68,18 @@
                                 @if ($cuenta->activo)
                                 <option selected value="1">SI</option>
                                 <option value="0">NO</option>
-                                @else 
+                                @else
                                 <option value="1">SI</option>
                                 <option selected  value="0">NO</option>
                                 @endif
-                               
+
                             </select>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12 mt-4 mb-1">
-                            <button style="color: white" type="submit" class="btn btn-warning"> 
+                            <button style="color: white" type="submit" class="btn btn-warning">
                                 <i class="fas fa-edit"></i></button>
                         </div>
                     </div>

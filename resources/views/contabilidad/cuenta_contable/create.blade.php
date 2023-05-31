@@ -4,7 +4,11 @@
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
 
     <div class="col-md-12">
-        <x-commonnav></x-commonnav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="/contabilidad/cuentas-contables">Catalogo de cuentas contables</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Crear cuenta contable</li>
+          </ol>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>

@@ -48,13 +48,15 @@ class PeriodoContableController extends Controller
     public function store(Request $request)
     {
         try {
-            DB::beginTransaction();
+
             $tipos = ContaTipoPartida::where('empresa_id',Help::usuario()->empresa_id)->get();
             if(count($tipos)==0){
-                return back()->with('danger', 'Error, No se pueden crear los periodos porque aun no se han creado tipos de partida, validar haberlos creados todos: ' . $request->year);  
+
+                return back()->with('danger', 'Error, No se pueden crear los periodos porque aun no se han creado tipos de partida, validar haberlos creados todos ');
+
             }
 
-
+            DB::beginTransaction();
             $validar = ContaPeriodoContable::where('year', $request->year)->where('empresa_id',Help::usuario()->empresa_id)->get();
             if (count($validar) > 0) {
                 return back()->with('danger', 'Error, No se pueden crear los periodos porque ya existen para el año solicitado: ' . $request->year);
