@@ -33,5 +33,6 @@ Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
     Route::get('/correlativo/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
     Route::get('/partida/cerrar/{id}', [PartidasContablesController::class, 'cerrarPartida'])->name('cerrarPartida');
 
-
+    Route::get('/partida/reporte/{id}', [PartidasContablesController::class, 'reportePartidaContable'])->name('reportePartidaContable');
+    
 });

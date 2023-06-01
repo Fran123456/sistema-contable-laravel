@@ -202,6 +202,7 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -220,6 +221,7 @@ return [
         'Help' => App\Help\Help::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),

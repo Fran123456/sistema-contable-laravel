@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Help\Contabilidad\PartidasContables;
+use PDF;
+
+
 
 class PartidasContablesController extends Controller
 {
@@ -30,6 +33,17 @@ class PartidasContablesController extends Controller
         }
 
         return view('contabilidad.partidas_contables.index',compact('periodos','partidas'));
+    }
+
+    public function reportePartidaContable(Request $request,$id)
+    {
+        $data = [
+            'partida' => ContaPartidaContable::find($id),
+        ];
+
+        return PDF::loadView('contabilidad.partidas_contables.reportes.partida', $data)
+        ->stream('archivo.pdf');
+            
     }
 
     /**

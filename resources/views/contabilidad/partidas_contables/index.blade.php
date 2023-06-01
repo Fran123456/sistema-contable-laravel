@@ -4,7 +4,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
             <li class="breadcrumb-item active" aria-current="page">Partidas contables</li>
-          </ol>
+        </ol>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>
@@ -34,54 +34,60 @@
                                 <th scope="col" width="90">Tipo</th>
                                 <th scope="col" width="90">DEBE</th>
                                 <th scope="col" width="90">HABER</th>
-                                <th scope="col">Concepto</th>
-                                <th width="150" scope="col">Fecha Contable</th>
-                                <th width="50" class="text-center" scope="col">Editar</th>
+                               
+                                <th width="100" scope="col">Fecha</th>
+
+                                <th width="120" class="text-center" scope="col">Acciones</th>
                                 <th width="60" class="text-center" scope="col">Anular</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($partidas as $key => $item)
-                                <tr class="  @if ($item->anulada == true) table-danger @endif @if ($item->cerrada == true) table-warning @endif">
+                                <tr
+                                    class="  @if ($item->anulada == true) table-danger @endif @if ($item->cerrada == true) table-warning @endif">
 
                                     <th scope="row">{{ $key + 1 }}</th>
 
                                     <td>{{ $item->correlativo }} </td>
                                     <td>{{ $item->tipoPartida->tipo }} </td>
-                                    <td>{{ $item->debe}} </td>
+                                    <td>{{ $item->debe }} </td>
                                     <td>{{ $item->haber }} </td>
-                                    <td>{{ $item->concepto }} </td>
-                                    <td> {{  Help::date($item->fecha_contable) }}</td>
-                                    <td>
+                                    
+                                    <td> {{ Help::date($item->fecha_contable) }}</td>
+                                    <td class="text-center">
+                                        <a target="_blank"
+                                            href="{{ route('contabilidad.reportePartidaContable', ['id' => $item->id, 'reporte' => 'pdf']) }}">
+                                            <i class="fa-solid fa-file-pdf fa-2x"></i></a>
+
                                         @if ($item->anulada == false && $item->cerrada == false)
-                                           <a class="btn btn-warning" href="{{ route('contabilidad.partidas.edit', $item->id) }}" class="btn btn-waring"><i class="fas fa-edit"></i></a>
-                                        @elseif($item->anulada == true && $item->cerrada == false)
-                                           <button disabled class="btn btn-warning" ><i class="fas fa-edit"></i></button>
-                                        @elseif($item->anulada == false && $item->cerrada == true)
-                                            <button disabled class="btn btn-warning" ><i class="fas fa-edit"></i></button>
+                                            <a 
+                                                href="{{ route('contabilidad.partidas.edit', $item->id) }}"
+                                               ><i class="fa-solid fa-file-pen fa-2x"></i></a>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+
+                                        @if (!$item->anulada)
+                                            @if ($item->cerrada)
+                                            <i class="fa-solid fa-lock"></i>
+                                            @else
+                                                <form id="form{{ $item->id }}"
+                                                    action="{{ route('contabilidad.partidas.destroy', $item->id) }}"
+                                                    method="post">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button
+                                                        onclick="confirm('form{{ $item->id }}','¿Desea anular la partida?')"
+                                                        class="btn @if ($item->cerrada) btn-success @else btn-danger @endif "
+                                                        type="button"><i class="fas fa-ban"></i></button>
+                                                </form>
+                                            @endif
+                                        @else
+                                            <div class="text-center">ANULADA</div>
                                         @endif
 
                                     </td>
-                                    <td class="text-center">
-                                        @if (!$item->anulada)
-                                          @if ($item->cerrada)
-                                           CERRADA
-                                          @else
-                                          <form id="form{{ $item->id }}"
-                                            action="{{ route('contabilidad.partidas.destroy', $item->id) }}"
-                                            method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button
-                                                onclick="confirm('form{{ $item->id }}','¿Desea anular la partida?')"
-                                                class="btn @if ($item->cerrada) btn-success @else btn-danger @endif "
-                                                type="button"><i class="fas fa-ban"></i></button>
-                                        </form>
-                                          @endif
-                                        @else
-                                           <div class="text-center">ANULADA</div>
-                                        @endif
-                                    </td>
+
                                 </tr>
                             @endforeach
 
