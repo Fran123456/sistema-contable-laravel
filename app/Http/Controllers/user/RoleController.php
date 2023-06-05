@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-
+use App\Help\Log;
+use App\Help\Help;
 class RoleController extends Controller
 {
     /**
@@ -50,6 +51,8 @@ class RoleController extends Controller
             $role = Role::create(['name' => $request->role]);
             $role->syncPermissions($request->permission);
 
+            Log::log('Roles y permiso', 'crear rol', 'El usuario '. Help::usuario()->name.' ha creado el rol '. $request->role );
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -80,6 +83,7 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         $permissions = Permission::all();
+
         return view('role.edit', compact('permissions','role'));
     }
 
@@ -108,9 +112,7 @@ class RoleController extends Controller
                 $role->givePermissionTo($value);
             }
 
-
-
-
+            Log::log('Roles y permiso', 'editar rol', 'El usuario '. Help::usuario()->name.' ha editado el rol '. $request->role);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -127,13 +129,17 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        $role = Role::find($id);
         Role::destroy($id);
+        Log::log('Roles y permiso', 'eliminar rol', 'El usuario '. Help::usuario()->name.' ha eliminado el rol '. $role->name);
         return back()->with('success', 'Se ha eliminado correctamente el rol');
     }
 
     public function destroyPermissions(Request $request, $id){
         $role = Role::find($id);
         $role->revokePermissionTo($request->permission);
+        Log::log('Roles y permiso', 'eliminar permiso', 'El usuario '. Help::usuario()->name.' ha eliminado el permiso '. $request->permission.
+         ' del rol ' .$role->name);
         return back()->with('success','Se ha eliminado el permiso del rol correctamente');
     }
 }

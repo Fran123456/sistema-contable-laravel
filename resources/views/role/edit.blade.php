@@ -66,9 +66,17 @@
                                         <tr>
                                             <th scope="row">{{ $key+1 }}</th>
                                             <td>{{ $permission->name }}</td>
-                                            <td><button onclick="confirm('form')" type="button" class="btn btn-danger">
-                                                    <span class="badge bg-danger"><i class="fas fa-trash-alt"></i></span>
-                                                </button></td>
+                                            <td>
+
+
+                                                <form id="form" action="{{ route('roles.destroyPermissions',$role->id ) }}" method="post">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <input type="hidden" name="permission" value="{{ $permission->name }}">
+                                                    <button onclick="confirm('form','¿Desea eliminar el permiso?')" class="btn btn-danger" type="button">
+                                                     <i class="fas fa-trash"></i></button>
+                                                 </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @else

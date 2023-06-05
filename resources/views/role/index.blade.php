@@ -47,7 +47,7 @@
                                   <form id="form" action="{{ route('roles.destroy', $item->id) }}" method="post">
                                      @method('DELETE')
                                      @csrf
-                                     <button onclick="confirm('form')" class="btn btn-danger" type="button">
+                                     <button onclick="confirm('form','¿Desea eliminar el rol?')" class="btn btn-danger" type="button">
                                       <i class="fas fa-trash"></i></button>
                                   </form>
 
