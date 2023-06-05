@@ -61,9 +61,9 @@
 
 
 
-                                    <form id="form" action="{{ route('users.disableUser', $item->id) }}"
+                                    <form id="form{{$item->id}}" action="{{ route('users.disableUser', $item->id) }}"
                                         method="get">
-                                        <button class="btn btn-danger" onclick="confirm('form', '{{ $title }}')"
+                                        <button class="btn btn-danger" onclick="confirm('form{{$item->id}}', '{{ $title }}')"
                                             type="button"><i class="fas fa-trash"></i></button>
                                     </form>
 

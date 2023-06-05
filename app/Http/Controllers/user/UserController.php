@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
+use App\Help\Log;
+use App\Help\Help;
+
 class UserController extends Controller
 {
 
@@ -19,6 +22,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->password = Hash::make($request->password);
         $user->save();
+        Log::log('Usuarios', 'cambiar contraseña', 'El usuario '. Help::usuario()->name.' ha cambiado la contraseña al usuario '.$user->name );
         return redirect()->route('users.edit', $id)->with('success', 'Contraseña reseteada correctamente');
     }
 
@@ -27,6 +31,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->disabled = $user->disabled == 0 ? 1 : 0;
         $user->save();
+        Log::log('Usuarios', 'estado de usuario', 'El usuario '. Help::usuario()->name.' ha modificado al usuario ' .$user->name );
         return back()->with('success', 'Usuario modificado correctamente');
     }
 
@@ -61,7 +66,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $v = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -94,10 +99,10 @@ class UserController extends Controller
         $user->current_team_id = $team;
         $user->save();
 
-        //empresa 
+        //empresa
         $user->empresas()->syncWithPivotValues($request->empresa, ['activo'=>1, 'created_at'=>date("Y-m-d h:i:s"),'updated_at'=>date("Y-m-d h:i:s")]);
 
-
+        Log::log('Usuarios', 'crear usuario', 'El usuario '. Help::usuario()->name.' ha creado al usuario ' .$user->name );
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }
 
@@ -122,7 +127,7 @@ class UserController extends Controller
     {   $roles = Role::all();
         $user = User::find($id);
         $empresas = RRHHEmpresa::all();
-        
+
         return view('users.edit', compact('user', 'roles','empresas'));
     }
 
@@ -131,13 +136,16 @@ class UserController extends Controller
         $v =$usuario->empresas()->where('empresa_id', $request->empresa)->get();
         if(count($v)>0) return back()->with('danger','No se puede asignar la empresa ya que ya existe asignada');
         $usuario->empresas()->attach($request->empresa,['activo'=>1, 'created_at'=>date("Y-m-d h:i:s"),'updated_at'=>date("Y-m-d h:i:s")]);
+
+        Log::log('Usuarios', 'agregar empresa', 'El usuario '. Help::usuario()->name.' asigno una empresa al usuario ' .$usuario->name );
         return back()->with('success','Se agregado la empresa al usuario');
     }
 
     public function eliminarEmpresa($id, $empresa_id){
         $usuario = User::find($id);
-        
+
         $usuario->empresas()->detach($empresa_id);
+        Log::log('Usuarios', 'eliminar empresa', 'El usuario '. Help::usuario()->name.' elimino una empresa al usuario ' .$usuario->name );
         return back()->with('success','Se ha elimiado la empresa del usuario');
     }
 
@@ -153,7 +161,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->save();
-        
+
         if(isset($user->getRoleNames()[0])){
             if($user->getRoleNames()[0] !=$request->role){
                 $user->removeRole($request->role);
@@ -163,7 +171,8 @@ class UserController extends Controller
             $user->removeRole($request->role);
             $user->assignRole($request->role);
         }
-    
+        Log::log('Usuarios', 'editar usuario', 'El usuario '. Help::usuario()->name.' edito al usuario ' .$user->name );
+
         return redirect()->route('users.edit', $id)->with('success', 'Usuario editado correctamente');
     }
 
