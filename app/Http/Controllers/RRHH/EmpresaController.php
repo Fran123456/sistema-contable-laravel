@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RRHH\RRHHEmpresa;
 use App\Models\User;
+use App\Help\Log;
+use App\Help\Help;
 class EmpresaController extends Controller
 {
     /**
@@ -22,6 +24,7 @@ class EmpresaController extends Controller
     public function cambioEmpresa(Request $request, $id){
         $user = User::find($id);
         $user->empresa_id = $request->empresa;
+
         $user->save();
         return back()->with('success','Se ha cambiado la empresa correctamente');
     }
@@ -45,6 +48,7 @@ class EmpresaController extends Controller
     public function store(Request $request)
     {
         RRHHEmpresa::create(['empresa'=> $request->empresa,'actualizada'=>true]);
+        Log::log('RRHH empresa', 'crear empresa', 'El usuario '. Help::usuario()->name.' ha creado la empresa '. $request->empresa );
         return back()->with('success','Se ha creado la empresa correctamente');
     }
 
@@ -68,6 +72,7 @@ class EmpresaController extends Controller
     public function edit($id)
     {
         $empresa = RRHHEmpresa::find($id);
+
         return view('RRHH.empresa.edit', compact('empresa'));
     }
 
@@ -83,6 +88,7 @@ class EmpresaController extends Controller
         $empresa = RRHHEmpresa::find($id);
         $empresa->empresa = $request->empresa;
         $empresa->actualizada= true;
+        Log::log('RRHH empresa', 'editar empresa', 'El usuario '. Help::usuario()->name.' ha editado la empresa '. $request->empresa );
         $empresa->save();
         return redirect()->route('rrhh.empresa.index')->with('success','Se ha editado la empresa correctamente');
     }
@@ -94,8 +100,9 @@ class EmpresaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   $empresa = RRHHEmpresa::find($id);
         RRHHEmpresa::destroy($id);
+        Log::log('RRHH empresa', 'eliminar empresa', 'El usuario '. Help::usuario()->name.' ha eliminado la empresa '. $empresa->empresa );
         return back()->with('success','Se ha eliminado la empresa correctamente');
     }
 }
