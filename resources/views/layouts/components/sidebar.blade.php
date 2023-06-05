@@ -65,7 +65,7 @@
                 <ul class="submenu-list list-unstyled">
                     <li class="submenu-item"><a class="submenu-link" href="{{ route('roles.index') }}">Roles y
                             permisos</a></li>
-                    <li class="submenu-item"><a class="submenu-link" href="{{ route('users.index') }}">Ususarios</a>
+                    <li class="submenu-item"><a class="submenu-link" href="{{ route('users.index') }}">Usuarios</a>
                     </li>
                 </ul>
             </div>

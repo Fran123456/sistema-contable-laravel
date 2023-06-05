@@ -25,6 +25,8 @@ class EmpresaController extends Controller
         $user = User::find($id);
         $user->empresa_id = $request->empresa;
 
+        Log::log('RRHH empresa', 'cambio de empresa', 'El usuario '. Help::usuario()->name.' ha cambiado a la empresa '. $user->empresa->empresa );
+
         $user->save();
         return back()->with('success','Se ha cambiado la empresa correctamente');
     }
