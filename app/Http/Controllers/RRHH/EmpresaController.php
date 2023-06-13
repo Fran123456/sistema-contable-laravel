@@ -103,8 +103,16 @@ class EmpresaController extends Controller
      */
     public function destroy($id)
     {   $empresa = RRHHEmpresa::find($id);
-        RRHHEmpresa::destroy($id);
+        if(count($empresa->usuarios)>0){
+            Log::log('RRHH empresa', 'eliminar empresa', 'El usuario '. Help::usuario()->name.' intento eliminar la empresa '. $empresa->empresa.' , pero no pudo eliminarla porque la empresa ya fue asiganda a usuarios.' );
+            return back()->with('danger','No se puede eliminar la empresa, ya que esta siendo utilizada por modulos');
+        }
+
         Log::log('RRHH empresa', 'eliminar empresa', 'El usuario '. Help::usuario()->name.' ha eliminado la empresa '. $empresa->empresa );
+        $empresa->delete();
         return back()->with('success','Se ha eliminado la empresa correctamente');
+            
+        
+
     }
 }

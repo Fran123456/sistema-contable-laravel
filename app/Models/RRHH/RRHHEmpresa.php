@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Contabilidad\ContaTipoPartida;
 use App\Models\Contabilidad\ContaClasificacionCuenta;
 use App\Models\Contabilidad\ContaNivelCuenta;
+use App\Models\User;
 class RRHHEmpresa extends Model
 {
     use HasFactory;
@@ -27,6 +28,13 @@ class RRHHEmpresa extends Model
     public function contaNivel(){
         return $this->hasMany(ContaNivelCuenta::class, 'empresa_id', 'id');
     } 
+
+    //metodos generales
+    public function usuarios()
+    {
+        return $this->belongsToMany(User::class, 'rrhh_empresa_usuario','empresa_id','usuario_id')
+        ->withPivot('activo');
+    }
    
 
 }
