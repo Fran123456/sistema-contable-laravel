@@ -64,6 +64,8 @@ class CuentaContableController extends Controller
             'activo'=>$request->activo,
             'empresa_id'=>Help::empresa()
         ]);
+        Log::log('Contabilidad', 'Crear cuenta contable', 'El usuario '. Help::usuario()->name.' ha creado la cuenta contable ' .$request->nombre . ' / ' . $request->codigo );
+
         return back()->with('success','Cuenta creada correctamente');
     }
 
@@ -103,6 +105,8 @@ class CuentaContableController extends Controller
         $errores  = $import->getErrores();
         $ingresados = $import->getIngresados();
   
+        Log::log('Contabilidad', 'Importar catalogo de cuentas contables', 'El usuario '. Help::usuario()->name.' ha importado el catalogo de cuentas para la empresa ' .Help::usuario()->empresa->empresa );
+
         return view('contabilidad.cuenta_contable.importar_excel_resumen', compact('rows','errores','ingresados'));
        
     }
@@ -138,7 +142,8 @@ class CuentaContableController extends Controller
             ]);
 
             $this->validarHijo($request->padre, $id);
-            
+            Log::log('Contabilidad', 'Actualizar cuenta contable', 'El usuario '. Help::usuario()->name.' ha actualizado la cuenta contable ' . $request->nombre .' / ' .$request->codigo );
+
         }
         $cuenta->save();
         return redirect()->route('contabilidad.cuentas-contables.index')->with('success','Se ha modificado la cuenta contable correctamente');
@@ -170,7 +175,10 @@ class CuentaContableController extends Controller
      */
     public function destroy($id)
     {
+        $cuenta = ContaCuentaContable::find($id);
         ContaCuentaContable::destroy($id);
+        Log::log('Contabilidad', 'Eliminar cuenta contable', 'El usuario '. Help::usuario()->name.' ha eliminado la cuenta contable ' .$cuenta->nombre .' / '.$cuenta->codigo  );
+
         return back()->with('success','Se ha eliminado la cuenta contable correctamente');
     }
 }

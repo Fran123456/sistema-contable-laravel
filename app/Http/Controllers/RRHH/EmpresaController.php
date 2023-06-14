@@ -25,7 +25,7 @@ class EmpresaController extends Controller
         $user = User::find($id);
         $user->empresa_id = $request->empresa;
 
-        Log::log('RRHH empresa', 'cambio de empresa', 'El usuario '. Help::usuario()->name.' ha cambiado a la empresa '. $user->empresa->empresa );
+        Log::log('RRHH', 'cambio de empresa', 'El usuario '. Help::usuario()->name.' ha cambiado a la empresa '. $user->empresa->empresa );
 
         $user->save();
         return back()->with('success','Se ha cambiado la empresa correctamente');
@@ -50,7 +50,7 @@ class EmpresaController extends Controller
     public function store(Request $request)
     {
         RRHHEmpresa::create(['empresa'=> $request->empresa,'actualizada'=>true]);
-        Log::log('RRHH empresa', 'crear empresa', 'El usuario '. Help::usuario()->name.' ha creado la empresa '. $request->empresa );
+        Log::log('RRHH', 'crear empresa', 'El usuario '. Help::usuario()->name.' ha creado la empresa '. $request->empresa );
         return back()->with('success','Se ha creado la empresa correctamente');
     }
 
@@ -90,7 +90,7 @@ class EmpresaController extends Controller
         $empresa = RRHHEmpresa::find($id);
         $empresa->empresa = $request->empresa;
         $empresa->actualizada= true;
-        Log::log('RRHH empresa', 'editar empresa', 'El usuario '. Help::usuario()->name.' ha editado la empresa '. $request->empresa );
+        Log::log('RRHH', 'editar empresa', 'El usuario '. Help::usuario()->name.' ha editado la empresa '. $request->empresa );
         $empresa->save();
         return redirect()->route('rrhh.empresa.index')->with('success','Se ha editado la empresa correctamente');
     }
@@ -108,7 +108,7 @@ class EmpresaController extends Controller
             return back()->with('danger','No se puede eliminar la empresa, ya que esta siendo utilizada por modulos');
         }
 
-        Log::log('RRHH empresa', 'eliminar empresa', 'El usuario '. Help::usuario()->name.' ha eliminado la empresa '. $empresa->empresa );
+        Log::log('RRHH', 'eliminar empresa', 'El usuario '. Help::usuario()->name.' ha eliminado la empresa '. $empresa->empresa );
         $empresa->delete();
         return back()->with('success','Se ha eliminado la empresa correctamente');
             

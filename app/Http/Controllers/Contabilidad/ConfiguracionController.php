@@ -9,6 +9,7 @@ use App\Help\Help;
 use App\Models\Contabilidad\ContaTipoPartida;
 use App\Models\Contabilidad\ContaClasificacionCuenta;
 use App\Models\Contabilidad\ContaNivelCuenta;
+use App\Help\Log;
 
 class ConfiguracionController extends Controller
 {
@@ -73,6 +74,9 @@ class ConfiguracionController extends Controller
             }
             $anexo="de los niveles de cuentas contables";
          }
+
+         Log::log('Contabilidad', 'Copiar información contable', 'El usuario '. Help::usuario()->name.' ha copiado la información contable de la empresa ' . $empresaDeCopiar->empresa . " a la ".$empresaApasar->empresa );
+
 
         return back()->with('success','La información '.$anexo.' se han copiado 
         correctamente de la empresa <trong>'.$empresaDeCopiar->empresa.'</trong> a la empresa 
