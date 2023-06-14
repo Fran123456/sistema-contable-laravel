@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Config;
 use App\Help\Help;   
+use App\Help\Log;
 
 class SettingController extends Controller
 {
@@ -18,6 +19,8 @@ class SettingController extends Controller
         $setting =Config::find($id);
         $setting->value=$request->select;
         $setting->save();
+        Log::log('Configuraciones', 'Actualizar configuración', 'El usuario '. Help::usuario()->name.' actualizo la configuración '. $setting->category.'::'.$setting->title );
+
         return back()->with('success', 'Configuración guardada correctamente');
     }
 
@@ -38,6 +41,7 @@ class SettingController extends Controller
         Help::deleteFile( $config->value, null);
        }
        $config->update(['value'=>'assets/images/logo/'.$img]);
+       Log::log('Configuraciones', 'Actualizar configuración', 'El usuario '. Help::usuario()->name.' actualizo la configuración '. $config->cateory.'::'.$config->title );
 
        return back()->with('success','Logo cambiado correctamente');
     }
