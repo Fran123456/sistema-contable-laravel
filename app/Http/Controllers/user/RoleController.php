@@ -130,6 +130,10 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role = Role::find($id);
+        if(count($role->users)> 0){
+            Log::log('Roles y permiso', 'eliminar rol', 'El usuario '. Help::usuario()->name.' intento eliminar el rol '. $role->name.' , pero no se pudo borrar porque el rol esta asignado a uno o más usuarios.');
+            return back()->with('danger', 'No se puede eliminar el rol porque esta siendo utilizado');
+        }
         Role::destroy($id);
         Log::log('Roles y permiso', 'eliminar rol', 'El usuario '. Help::usuario()->name.' ha eliminado el rol '. $role->name);
         return back()->with('success', 'Se ha eliminado correctamente el rol');
