@@ -11,7 +11,7 @@ use App\Models\Contabilidad\ContaCuentaContable;
 use App\Imports\ContaCuentaContableImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Contabilidad\ContaPartidaContable;
-
+use App\Models\Contabilidad\ContaDetallePartida;
 
 class CuentaContableController extends Controller
 {
@@ -178,6 +178,13 @@ class CuentaContableController extends Controller
     public function destroy($id)
     {
         $cuenta = ContaCuentaContable::find($id);
+        $dt = ContaDetallePartida::where('cuenta_contable_id',$cuenta->id)->get();
+        if(count($dt)>0){
+            Log::log('Contabilidad', 'Eliminar cuenta contable', 'El usuario '. Help::usuario()->name.' ha intentado eliminar la cuenta contable ' .$cuenta->nombre .' / '.$cuenta->codigo , ' pero no ha podido, ya que la cuenta contable esta siendo utilizada' );
+            return back()->with('danger','No se puede eliminar la cuenta contable');
+   
+        }
+
         ContaCuentaContable::destroy($id);
         Log::log('Contabilidad', 'Eliminar cuenta contable', 'El usuario '. Help::usuario()->name.' ha eliminado la cuenta contable ' .$cuenta->nombre .' / '.$cuenta->codigo  );
 
