@@ -10,6 +10,8 @@ use App\Models\Contabilidad\ContaNivelCuenta;
 use App\Models\Contabilidad\ContaCuentaContable;
 use App\Imports\ContaCuentaContableImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Contabilidad\ContaPartidaContable;
+
 
 class CuentaContableController extends Controller
 {
