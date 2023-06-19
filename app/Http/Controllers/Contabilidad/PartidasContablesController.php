@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Help\Contabilidad\PartidasContables;
 use PDF;
-
+use App\Help\Log;
 
 
 class PartidasContablesController extends Controller
@@ -91,10 +91,13 @@ class PartidasContablesController extends Controller
             'concepto'=>$request['concepto_detalle']);
             PartidasContables::detalle($detalle);
 
+            Log::log('Contabilidad', 'Crear partida contable', 'El usuario '. Help::usuario()->name.' ha creado la partida ' .$partida->correlativo);
 
            return redirect()->route('contabilidad.partidas.edit', $partida->id)->with('success','Partida creada correctamente');
         } catch (Exception $e) {
             DB::rollBack();
+            Log::log('Contabilidad', 'Crear partida contable', 'El usuario '. Help::usuario()->name.' intento crear la partida contable sin exito ');
+
             return back()->with('danger', 'Error, no se puede procesar la petición');
         }
 
@@ -153,6 +156,8 @@ class PartidasContablesController extends Controller
             $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha_detalle, 'id'=>$id);
             PartidasContables::updateCabecera($data);
         }
+        Log::log('Contabilidad', 'Editar partida contable', 'El usuario '. Help::usuario()->name.' ha editado la partida ' .$partida->correlativo);
+
         return back()->with('success','Se ha editado correctamente la partida contable');
     }
 
@@ -164,7 +169,9 @@ class PartidasContablesController extends Controller
      */
     public function destroy($id)
     {
-        PartidasContables::anular($id);
+        $partida = PartidasContables::anular($id);
+        Log::log('Contabilidad', 'Anular partida contable', 'El usuario '. Help::usuario()->name.' anulo la partida ' .$partida->correlativo);
+
         return back()->with('success','Se ha anulado la partida correctamente');
     }
 
@@ -172,6 +179,8 @@ class PartidasContablesController extends Controller
         $partida= ContaPartidaContable::find($id);
         $partida->cerrada = true;
         $partida->save();
+        Log::log('Contabilidad', 'Cerrar partida contable', 'El usuario '. Help::usuario()->name.' cerro la partida ' .$partida->correlativo);
+
         return back()->with('success','Se ha cerrado la partida correctamente');
     }
 }

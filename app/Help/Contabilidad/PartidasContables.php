@@ -43,6 +43,7 @@ class PartidasContables
         $actualizador_id=Help::usuario()->id;
         $partida->save();
         ContaDetallePartida::where('partida_id', $id)->update(['debe'=>0, 'haber'=>0,'actualizador_id'=>Help::usuario()->id]);
+        return $partida;
     }
 
     public static function detalle($data)

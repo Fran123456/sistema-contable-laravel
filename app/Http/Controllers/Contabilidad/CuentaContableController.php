@@ -12,6 +12,7 @@ use App\Imports\ContaCuentaContableImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Contabilidad\ContaPartidaContable;
 use App\Models\Contabilidad\ContaDetallePartida;
+use App\Help\Log;
 
 class CuentaContableController extends Controller
 {

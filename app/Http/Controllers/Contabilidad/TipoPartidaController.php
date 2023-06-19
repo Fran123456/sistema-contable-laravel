@@ -7,6 +7,7 @@ use App\Models\Contabilidad\ContaPeriodoContable;
 use App\Models\Contabilidad\ContaTipoPartida;
 use Illuminate\Http\Request;
 use App\Help\Help;
+use App\Help\Log;
 class TipoPartidaController extends Controller
 {
     /**
@@ -44,6 +45,8 @@ class TipoPartidaController extends Controller
             foreach ($periodos as $key => $p) {
                 $tipo->periodos()->attach($p->id, ['correlativo' => 0, 'created_at' => date("Y-m-d h:i:s"), 'updated_at' => date("Y-m-d h:i:s"),'empresa_id'=> Help::usuario()->empresa_id]);
             }
+            Log::log('Contabilidad', 'Crear tipo de partida', 'El usuario '. Help::usuario()->name.' ha creado el tipo de partida ' . $request->tipo  );
+
             return back()->with('success', 'Tipo partida creado correctamente');
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -84,6 +87,8 @@ class TipoPartidaController extends Controller
     {
         $tipo = ContaTipoPartida::find($id);
         $tipo->update(['activo' => ($tipo->activo ? false : true)]);
+        Log::log('Contabilidad', 'Editar tipo de partida', 'El usuario '. Help::usuario()->name.' ha editado el tipo de partida ' . $tipo->tipo  );
+
         return back()->with('success', 'Se ha modificado el estado del tipo de partida correctamente');
     }
 
@@ -98,8 +103,11 @@ class TipoPartidaController extends Controller
          $tipo=ContaTipoPartida::find($id);
          $validar = $tipo->periodos()->where('correlativo',"!=","0")
          ->where('empresa_id',Help::usuario()->empresa_id)->get();
-         if(count($validar)>0)
+         if(count($validar)>0){
+            Log::log('Contabilidad', 'Eliminar tipo de partida', 'El usuario '. Help::usuario()->name.' ha editado el tipo de partida ' . $tipo->tipo  );
             return back()->with('danger','No se ha podido eliminar el tipo, ya que esta en uso');
+         }
+            
         
         ContaTipoPartida::destroy($id);
         return back()->with('success', 'Se ha elimindado el tipo de partida correctamente');

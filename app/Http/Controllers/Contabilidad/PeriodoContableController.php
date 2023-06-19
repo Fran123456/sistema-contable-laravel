@@ -8,7 +8,7 @@ use App\Models\Contabilidad\ContaPeriodoContable;
 use App\Models\Contabilidad\ContaTipoPartida;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Help\Log;
 class PeriodoContableController extends Controller
 {
     /**
@@ -51,7 +51,7 @@ class PeriodoContableController extends Controller
 
             $tipos = ContaTipoPartida::where('empresa_id',Help::usuario()->empresa_id)->get();
             if(count($tipos)==0){
-
+                Log::log('Contabilidad', 'Crear periodo contable', 'El usuario '. Help::usuario()->name.' intento crear el periodo contable ' . $request->year. ' pero no se pudo crear porque aun no se han creado tipos de partida ');
                 return back()->with('danger', 'Error, No se pueden crear los periodos porque aun no se han creado tipos de partida, validar haberlos creados todos ');
 
             }
@@ -59,6 +59,7 @@ class PeriodoContableController extends Controller
             DB::beginTransaction();
             $validar = ContaPeriodoContable::where('year', $request->year)->where('empresa_id',Help::usuario()->empresa_id)->get();
             if (count($validar) > 0) {
+                Log::log('Contabilidad', 'Crear periodo contable', 'El usuario '. Help::usuario()->name.' intento crear el periodo contable ' . $request->year. ' pero no se pudo crear porque ya existen ');
                 return back()->with('danger', 'Error, No se pueden crear los periodos porque ya existen para el año solicitado: ' . $request->year);
             } else {
                 for ($i = 1; $i <= 12; $i++) {
@@ -79,6 +80,8 @@ class PeriodoContableController extends Controller
             }
 
             DB::commit();
+            Log::log('Contabilidad', 'Crear periodo contable', 'El usuario '. Help::usuario()->name.'creo el periodo contable ' . $request->year);
+
             return back()->with('success', 'Peridos creados para el año: ' . $request->year);
         } catch (Exception $e) {
             DB::rollBack();
@@ -134,6 +137,8 @@ class PeriodoContableController extends Controller
 
         $periodo->activo = $periodo->activo ? false : true;
         $periodo->save();
+        Log::log('Contabilidad', 'Activar periodo contable', 'El usuario '. Help::usuario()->name.' activo el periodo '. $periodo->codigo);
+
         return back()->with('success', 'Se ha modificado el estado del periodo correctamente');
     }
 }
