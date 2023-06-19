@@ -19,7 +19,13 @@ return new class extends Migration
             $table->string('modulo')->nullable();
             $table->string('opcion')->nullable();
             $table->string('accion')->nullable();
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('usuario_id')->references('id')
+            ->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')
+            ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

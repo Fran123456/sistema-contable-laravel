@@ -10,6 +10,6 @@ class Log extends Model
     use HasFactory;
     protected $table = 'log';
     protected $fillable = [
-       'usuario_id','modulo','opcion','accion'
+       'usuario_id','modulo','opcion','accion','empresa_id'
     ];
 }

@@ -11,6 +11,7 @@ class Log
             'modulo'=> $modulo,
             'opcion'=> $opcion,
             'accion'=> $accion,
+            'empresa_id'=>Help::empresa()
         ]);
 
     }
