@@ -1,7 +1,10 @@
 <div class="row">
     <div class="col-md-3 mt-2">
         <label for=""> <strong>Periodo</strong></label>
-        <input type="text" class="form-control"  readonly value="{{ $partida->periodo->codigo }}">
+        <select class="form-control" id="periodo"  name="" readonly id="">
+            <option value="">{{  $partida->periodo->codigo  }}</option>
+        </select>
+     <!--   <input type="text" class="form-control" id="periodo"  readonly value="{{ $partida->periodo->codigo }}">-->
     </div>
 
     <div class="col-md-3 mt-2">
@@ -11,7 +14,7 @@
 
     <div class="col-md-3 mt-2">
         <label for=""> <strong>Fecha</strong></label>
-        <input required type="date" class="form-control" value="{{ Help::dateByYear($partida->fecha_contable,'-')}}" name="fecha">
+        <input required type="date" class="form-control"id="fecha" value="{{ Help::dateByYear($partida->fecha_contable,'-')}}" name="fecha">
     </div>
 
 
