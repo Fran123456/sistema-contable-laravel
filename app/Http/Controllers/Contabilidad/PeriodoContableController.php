@@ -80,7 +80,7 @@ class PeriodoContableController extends Controller
             }
 
             DB::commit();
-            Log::log('Contabilidad', 'Crear periodo contable', 'El usuario '. Help::usuario()->name.'creo el periodo contable ' . $request->year);
+            Log::log('Contabilidad', 'Crear periodo contable', 'El usuario '. Help::usuario()->name.' creo el periodo contable ' . $request->year);
 
             return back()->with('success', 'Peridos creados para el año: ' . $request->year);
         } catch (Exception $e) {

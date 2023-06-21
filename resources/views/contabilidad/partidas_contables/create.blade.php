@@ -1,7 +1,5 @@
 <x-app-layout>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
-    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+   <x-chosen></x-chosen>
 
     <div class="col-md-12">
         <ol class="breadcrumb">
@@ -52,8 +50,6 @@
         $(document).ready(function() {
             $("select[name=periodo]").change(function() {
                 correlativo();
-
-                //$('input[name=periodo]').val($(this).val());
             });
 
         });
@@ -61,7 +57,6 @@
         $(document).ready(function() {
             $("select[name=tipo]").change(function() {
                 correlativo();
-                //$('input[name=periodo]').val($(this).val());
             });
 
         });

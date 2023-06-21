@@ -57,6 +57,7 @@ class PartidasContablesController extends Controller
         $periodos = ContaPeriodoContable::where('empresa_id',$empresa)->where('activo', true)->get();
         $tipos = ContaTipoPartida::where('empresa_id',$empresa )->get();
         $cuentas  = ContaCuentaContable::cuentasDetalle($empresa);
+        
         return view('contabilidad.partidas_contables.create',compact('periodos','tipos','cuentas'));
     }
 
