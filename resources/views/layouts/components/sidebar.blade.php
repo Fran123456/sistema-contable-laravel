@@ -67,6 +67,9 @@
                             permisos</a></li>
                     <li class="submenu-item"><a class="submenu-link" href="{{ route('users.index') }}">Usuarios</a>
                     </li>
+                    <li class="submenu-item"><a class="submenu-link" href="{{ route('logs.index') }}">Logs</a>
+                    </li>
+                    
                 </ul>
             </div>
         </li>

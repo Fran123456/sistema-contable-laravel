@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\user\MeController;
 use App\Http\Controllers\user\TeamController;
-use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\user\RoleController;
 use App\Http\Controllers\user\SettingController;
 
@@ -39,17 +38,6 @@ Route::group(['prefix' => 'usuarios'], function() {
 })->middleware('auth:sanctum');
 
 
-Route::resource('users', UserController::class);
-Route::name('users')->prefix('users')->group(function () {
-    Route::post('/change-password/{id}', [UserController::class, 'updatePassword'])->name('.updatePassword');
-    Route::get('/disable-user/{id}', [UserController::class, 'disableUser'])->name('.disableUser');
-
-    Route::post('/empresa', [UserController::class, 'agregarEmpresa'])->name('.agregarEmpresa');
-    Route::get('/empresa/{id}/{empresa_id}', [UserController::class, 'eliminarEmpresa'])->name('.eliminarEmpresa');
-
-});
-
-
 Route::name('settings')->prefix('settings')->group(function () {
     Route::get('/', [SettingController::class, 'settings'])->name('.settings');
     Route::put('/update/{id}', [SettingController::class, 'updateSetting'])->name('.updateSetting');
@@ -64,9 +52,8 @@ Route::name('roles')->prefix('roles')->group(function () {
 });
 
 
-
+include('routes/users.php');
 include('routes/contabilidad.php');
-
 include('routes/rrhh.php');
 
 

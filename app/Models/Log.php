@@ -12,4 +12,8 @@ class Log extends Model
     protected $fillable = [
        'usuario_id','modulo','opcion','accion','empresa_id'
     ];
+
+    public function usuario(){
+        return $this->belongsTo(User::class, 'usuario_id');
+    }
 }
