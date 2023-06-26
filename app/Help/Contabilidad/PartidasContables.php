@@ -134,4 +134,8 @@ class PartidasContables
         }
 
     }
+
+    public static function updateSaldoPorCuenta(){
+
+    }
 }

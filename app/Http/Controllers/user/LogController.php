@@ -16,7 +16,7 @@ class LogController extends Controller
      */
     public function index()
     {
-        $log = Log::where('empresa_id', Help::empresa())->get();
+        $log = Log::where('empresa_id', Help::empresa())->orderBy('id','desc')->get();
         return view('users.log.index', compact('log'));
     }
 

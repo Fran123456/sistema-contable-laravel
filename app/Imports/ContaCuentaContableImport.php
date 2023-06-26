@@ -56,6 +56,7 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
             $nivel = $row['nivel'];
             $clasificacion = $row['clasificacion'];
             $saldo = $row['saldo'];
+            $tipoCuenta = $row['tipo_cuenta'];
             $obj = array('codigo'=>$codigo, 'nombre_cuenta'=>$nombreCuenta ,'codigo_padre'=>$codigoPadre,
             'nivel'=>$nivel, 'clasificacion'=> $clasificacion,'saldo'=>$saldo );
 
@@ -83,7 +84,8 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
                 ContaCuentaContable::create([
                     'codigo'=>$codigo , 'nombre_cuenta'=> $nombreCuenta, 'padre_id'=>$padreDB->id??null ,
                     'hijos'=> 0, 'nivel_id'=> $nivelDB->id, 'clasificacion_id'=> $clasificacionDB->id,
-                    'saldo'=>$saldo,'activo'=> true,'empresa_id'=> $this->empresa
+                    'saldo'=>$saldo,'activo'=> true,'empresa_id'=> $this->empresa,
+                    'tipo_cuenta'=> $tipoCuenta
                 ]);
                 if (isset($padreDB->id)) {
                     $padreDB->hijos = $padreDB->hijos +1;

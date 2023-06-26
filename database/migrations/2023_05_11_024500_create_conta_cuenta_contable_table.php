@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('saldo', 12, 2)->nullable();
             $table->boolean('activo')->nullable()->default(true);
             $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->string('tipo_cuenta')->nullable();
             $table->timestamps();
 
             $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')

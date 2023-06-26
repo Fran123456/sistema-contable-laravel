@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Models\TeamInvitation;
 use App\Models\Config;
+use App\Models\Contabilidad\ContaPeriodoContable;
 use \Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +20,10 @@ class Help
 
    public static function empresa(){
       return  Auth::user()->empresa_id;
+   }
+
+   public static function periodoContable(){
+      return ContaPeriodoContable::where('empresa_id', Help::empresa())->first();
    }
 
 

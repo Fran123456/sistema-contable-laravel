@@ -24,7 +24,8 @@
 
         <div class="card">
             <div class="card-body">
-                <h5>Partidas contables del periodo: </h5>
+                <h5>Partidas contables del periodo: {!! Help::periodoContable()?->codigo ?? 
+                "<span class='badge bg-danger'>No hay periodo activo</span>"!!} </h5>
                 @if (count($partidas) > 0)
                     <table class="table table-sm" id="datatable-responsive">
                         <thead>

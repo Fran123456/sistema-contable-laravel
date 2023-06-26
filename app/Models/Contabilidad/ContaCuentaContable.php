@@ -13,7 +13,7 @@ class ContaCuentaContable extends Model
     protected $table = 'conta_cuenta_contable';
     protected $fillable = [
         'codigo','created_at','updated_at','nombre_cuenta','padre_id','hijos','nivel_id',
-        'clasificacion_id','saldo','activo','empresa_id'
+        'clasificacion_id','saldo','activo','empresa_id','tipo_cuenta'
     ];
 
     public function clasificacion(){
