@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 mt-3">
+                        <div class="col-md-3 mt-3">
                             <label for=""> <strong>Nivel de la cuenta</strong> </label>
                             <select required name="nivel" data-placeholder="Seleccione el nivel"
                                 class="form-control chosen-select">
@@ -51,7 +51,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4 mt-3">
+                        <div class="col-md-3 mt-3">
                             <label for=""> <strong>Clasificación de la cuenta</strong> </label>
                             <select required name="clasificacion" data-placeholder="Seleccione la clasificación"
                                 class="form-control chosen-select">
@@ -60,12 +60,21 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4 mt-3">
+                        <div class="col-md-3 mt-3">
                             <label for=""> <strong>Activo</strong> </label>
                             <select required name="activo" data-placeholder="Seleccione si es activo o no"
                                 class="form-control chosen-select">
                                 <option value="1">SI</option>
                                 <option value="0">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mt-3">
+                            <label for=""> <strong>Tipo de cuenta</strong> </label>
+                            <select required name="tipo_cuenta" data-placeholder="Seleccione si es activo o no"
+                                class="form-control chosen-select">
+                                <option selected disabled value="">Seleccione...</option>
+                                <option value="acreedora">Acreedora</option>
+                                <option value="deudadora">Deudora</option>
                             </select>
                         </div>
                     </div>

@@ -23,7 +23,7 @@ class Help
    }
 
    public static function periodoContable(){
-      return ContaPeriodoContable::where('empresa_id', Help::empresa())->first();
+      return ContaPeriodoContable::where('empresa_id', Help::empresa())->where('activo',true)->first();
    }
 
 

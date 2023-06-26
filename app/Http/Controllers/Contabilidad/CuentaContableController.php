@@ -56,7 +56,7 @@ class CuentaContableController extends Controller
      */
     public function store(Request $request)
     {
-        ContaCuentaContable::create([
+        $cuenta = ContaCuentaContable::create([
             'codigo'=>$request->codigo,
             'nombre_cuenta'=>$request->nombre,
             'padre_id'=>$request->padre,
@@ -65,8 +65,10 @@ class CuentaContableController extends Controller
             'clasificacion_id'=>$request->clasificacion,
             'saldo'=> 0,
             'activo'=>$request->activo,
-            'empresa_id'=>Help::empresa()
+            'empresa_id'=>Help::empresa(),
+            'tipo_cuenta'=>$request->tipo_cuenta
         ]);
+        $this->validarHijo($request->padre, $cuenta->id);
         Log::log('Contabilidad', 'Crear cuenta contable', 'El usuario '. Help::usuario()->name.' ha creado la cuenta contable ' .$request->nombre . ' / ' . $request->codigo );
 
         return back()->with('success','Cuenta creada correctamente');
@@ -140,8 +142,8 @@ class CuentaContableController extends Controller
                 'hijos'=>0,
                 'nivel_id'=>$request->nivel,
                 'clasificacion_id'=>$request->clasificacion,
-                'saldo'=> 0,
-                'activo'=>$request->activo
+                'activo'=>$request->activo,
+                'tipo_cuenta'=>$request->tipo_cuenta
             ]);
 
             $this->validarHijo($request->padre, $id);
