@@ -32,6 +32,19 @@ class ContaCuentaContable extends Model
         return ContaCuentaContable::where('padre_id', $id)->get();
     }
 
+
+    public function padreRecursivo()
+    {
+        // recursively return all parents
+        return $this->belongsTo(ContaCuentaContable::class, 'padre_id')->with('padreRecursivo');
+    }
+
+    public function hijosRecursivos()
+    {
+        // recursively return all children
+        return $this->hasMany(ContaCuentaContable::class, 'padre_id')->with('hijosRecursivos');
+    }
+
     public static function cuentasDetalle(int $empresa){
         $cuentas  = ContaCuentaContable::join("conta_clasificacion_cuenta_contable", "conta_cuenta_contable.clasificacion_id", "=", "conta_clasificacion_cuenta_contable.id")
         ->select("conta_cuenta_contable.*", "conta_clasificacion_cuenta_contable.clasificacion")

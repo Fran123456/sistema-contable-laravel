@@ -51,7 +51,7 @@ class PartidasContables
         try {
             DB::beginTransaction();
             $empresa = Help::empresa();
-            ContaDetallePartida::create([
+            $dt =ContaDetallePartida::create([
                 'partida_id' => $data['partida_id'],
                 'periodo_id' => $data['periodo_id'],
                 'tipo_partida_id' => $data['tipo_partida_id'],
@@ -135,7 +135,7 @@ class PartidasContables
 
     }
 
-    public static function updateSaldoPorCuenta(){
+    public static function updateSaldoPorCuenta($dt, $debe, $haber, $cuentaId){
 
     }
 }
