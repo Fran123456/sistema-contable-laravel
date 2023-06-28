@@ -6,6 +6,7 @@ use App\Help\Help;
 use App\Models\Contabilidad\ContaDetallePartida;
 use App\Models\Contabilidad\ContaPartidaContable;
 use App\Models\Contabilidad\ContaPeriodoContable;
+use App\Models\Contabilidad\ContaCuentaContable;
 use Illuminate\Support\Facades\DB;
 
 class PartidasContables
@@ -51,7 +52,7 @@ class PartidasContables
         try {
             DB::beginTransaction();
             $empresa = Help::empresa();
-            $dt =ContaDetallePartida::create([
+           /* $dt =ContaDetallePartida::create([
                 'partida_id' => $data['partida_id'],
                 'periodo_id' => $data['periodo_id'],
                 'tipo_partida_id' => $data['tipo_partida_id'],
@@ -63,9 +64,11 @@ class PartidasContables
                 'haber' => $data['haber'],
                 'fecha_contable' => $data['fecha_contable'],
                 'concepto' => $data['concepto'],
-            ]);
+            ]);*/
 
-            self::updateHaberDebe($data['partida_id'], $data['debe'], $data['haber']);
+           // self::updateHaberDebe($data['partida_id'], $data['debe'], $data['haber']);
+
+           return self::updateSaldoPorCuenta($data['debe'], $data['haber'], $data['cuenta_contable_id']);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -135,7 +138,23 @@ class PartidasContables
 
     }
 
-    public static function updateSaldoPorCuenta($dt, $debe, $haber, $cuentaId){
+    public static function updateSaldoPorCuenta( $debe, $haber, $cuentaId){
+       $cuenta= ContaCuentaContable::find($cuentaId);
+       do {
 
+        $
+      
+        $recursivo = $cuenta->padre_recursivo;
+       } while ($a <= 10);
+       
+    }
+
+    public static function operacion($debe, $haber, $tipo){
+        $valor = 0;
+        if($tipo == "acreedora"){
+            $valor = $debe - $haber;
+        }else{ //deudora
+
+        }
     }
 }

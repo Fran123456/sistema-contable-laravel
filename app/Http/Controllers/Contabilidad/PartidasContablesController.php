@@ -151,7 +151,8 @@ class PartidasContablesController extends Controller
             'haber'=>$request['haber'],
             'fecha_contable'=>$request['fecha'],
             'concepto'=>$request['concepto_detalle']);
-            PartidasContables::detalle($detalle);
+            
+            return PartidasContables::detalle($detalle);
 
         }else{
             $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha_detalle, 'id'=>$id);
@@ -159,7 +160,7 @@ class PartidasContablesController extends Controller
         }
         Log::log('Contabilidad', 'Editar partida contable', 'El usuario '. Help::usuario()->name.' ha editado la partida ' .$partida->correlativo);
 
-        return back()->with('success','Se ha editado correctamente la partida contable');
+        //return back()->with('success','Se ha editado correctamente la partida contable');
     }
 
     /**
