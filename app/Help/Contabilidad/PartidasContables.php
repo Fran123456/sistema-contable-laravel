@@ -36,6 +36,14 @@ class PartidasContables
         $partida->save();
     }
 
+    public static function destroyDetalle($id){
+        $dt =ContaDetallePartida::find($id);
+        ContaDetallePartida::destroy($id);
+        self::updateHaberDebe($dt->partida_id,$dt->debe*-1, $dt->haber*-1);
+        self::updateSaldoPorCuenta($dt->debe*-1, $dt->haber*-1,$dt->cuenta_contable_id );
+        return $dt;
+    }
+
     public static function anular($id){
         $partida = ContaPartidaContable::find($id);
         $partida->debe = 0;
@@ -66,7 +74,7 @@ class PartidasContables
                 'concepto' => $data['concepto'],
             ]);
 
-            self::updateHaberDebe($data['partida_id'], $data['debe'], $data['haber']);
+             self::updateHaberDebe($data['partida_id'], $data['debe'], $data['haber']);
              self::updateSaldoPorCuenta($data['debe'], $data['haber'],$data['cuenta_contable_id'] );
             DB::commit();
         } catch (Exception $e) {
@@ -106,7 +114,6 @@ class PartidasContables
         }
 
     }
-
 
     public static function updateCabecera($data)
     {

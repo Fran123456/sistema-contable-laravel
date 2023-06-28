@@ -1,6 +1,6 @@
 
 
-<table class="table table-sm" >
+<table class="table table-sm" id="detalles" >
     <thead>
         <tr>
             <th width="40" scope="col">#</th>
@@ -27,12 +27,12 @@
                 <td>{{  Help::date($item->fecha_contable) }}</td>
                 <td class="text-center">
                     <form id="form{{ $item->id }}"
-                        action="{{ route('contabilidad.tipos-de-partida.destroy', $item->id) }}"
+                        action="{{ route('contabilidad.eliminarDetallePartida', $item->id) }}"
                         method="post">
                         @method('DELETE')
                         @csrf
                         <button
-                            onclick="confirm('form{{ $item->id }}','¿Desea eliminar el tipo de partida?')"
+                            onclick="confirm('form{{ $item->id }}','¿Desea eliminar el detalle de la partida?')"
                             class="btn @if ($item->cerrada) btn-success @else btn-danger @endif "
                             type="button"><i class="fas fa-trash"></i></button>
                     </form>

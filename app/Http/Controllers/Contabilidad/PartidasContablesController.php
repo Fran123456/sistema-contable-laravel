@@ -140,9 +140,9 @@ class PartidasContablesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   $partida= ContaPartidaContable::find($id);
         if($request->detalle){
-            $partida= ContaPartidaContable::find($id);
+            
             $detalle= array('partida_id'=>$partida->id,
             'periodo_id'=>$partida->periodo_id,
             'tipo_partida_id'=>$partida->tipo_partida_id,
@@ -160,7 +160,7 @@ class PartidasContablesController extends Controller
         }
         Log::log('Contabilidad', 'Editar partida contable', 'El usuario '. Help::usuario()->name.' ha editado la partida ' .$partida->correlativo);
 
-        return back()->with('success','Se ha editado correctamente la partida contable');
+        return redirect("/contabilidad/partidas/$partida->id/edit#detalles")->with('success','Se ha editado correctamente la partida contable');
     }
 
     /**
@@ -169,12 +169,19 @@ class PartidasContablesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) //ANULAR PARTIDA
     {
         $partida = PartidasContables::anular($id);
         Log::log('Contabilidad', 'Anular partida contable', 'El usuario '. Help::usuario()->name.' anulo la partida ' .$partida->correlativo);
 
         return back()->with('success','Se ha anulado la partida correctamente');
+    }
+
+    public function eliminarDetallePartida($id){
+        $dt = PartidasContables::destroyDetalle($id);
+        $partida= ContaPartidaContable::find($dt->partida_id);
+        Log::log('Contabilidad', 'Eliminar detalle de partida', 'El usuario '. Help::usuario()->name.' elimino un detalle de la partida ' .$partida->correlativo);
+        return redirect("/contabilidad/partidas/$partida->id/edit#detalles");
     }
 
     public function cerrarPartida($id){
