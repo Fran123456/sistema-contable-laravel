@@ -12,6 +12,17 @@
         <x-alert></x-alert>
     </div>
 
+    <div class="col-md-12 mb-2 text-end">
+        <form id="partida{{ $partida->id }}"
+            action="{{ route('contabilidad.cerrarPartida', $partida->id) }}"
+            method="get">
+            <button
+                onclick="confirm('partida{{ $partida->id }}','¿Desea cerrar la partida?')"
+                class="btn btn-danger "
+                type="button">CERRAR PARTIDA</button>
+        </form>
+    </div>
+
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -19,8 +30,6 @@
                     @method('PUT')
                     @csrf
                     <h5>Partida contable: {{ $partida->tipoPartida->tipo  }} {{ $partida->periodo->codigo }}</h5>
-
-                    <a href="{{ route('contabilidad.cerrarPartida', $partida->id) }}" class="btn btn-danger">CERRAR PARTIDA</a>
                     <hr>
 
                     @include('contabilidad.partidas_contables.partials.edit_cabecera')

@@ -186,10 +186,12 @@ class PartidasContablesController extends Controller
 
     public function cerrarPartida($id){
         $partida= ContaPartidaContable::find($id);
+        if($partida->debe != $partida->haber){
+            return back()->with('danger','No se ha podido cerrar la partida porque no esta cuadrada');
+        }
         $partida->cerrada = true;
         $partida->save();
         Log::log('Contabilidad', 'Cerrar partida contable', 'El usuario '. Help::usuario()->name.' cerro la partida ' .$partida->correlativo);
-
-        return back()->with('success','Se ha cerrado la partida correctamente');
+        return redirect()->route('contabilidad.partidas.index')->with('success','Se ha cerrado la partida correctamente');
     }
 }
