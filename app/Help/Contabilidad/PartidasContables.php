@@ -52,7 +52,7 @@ class PartidasContables
         try {
             DB::beginTransaction();
             $empresa = Help::empresa();
-           /* $dt =ContaDetallePartida::create([
+            $dt =ContaDetallePartida::create([
                 'partida_id' => $data['partida_id'],
                 'periodo_id' => $data['periodo_id'],
                 'tipo_partida_id' => $data['tipo_partida_id'],
@@ -64,11 +64,10 @@ class PartidasContables
                 'haber' => $data['haber'],
                 'fecha_contable' => $data['fecha_contable'],
                 'concepto' => $data['concepto'],
-            ]);*/
+            ]);
 
-           // self::updateHaberDebe($data['partida_id'], $data['debe'], $data['haber']);
-
-           return self::updateSaldoPorCuenta($data['debe'], $data['haber'], $data['cuenta_contable_id']);
+            self::updateHaberDebe($data['partida_id'], $data['debe'], $data['haber']);
+             self::updateSaldoPorCuenta($data['debe'], $data['haber'],$data['cuenta_contable_id'] );
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -140,13 +139,15 @@ class PartidasContables
 
     public static function updateSaldoPorCuenta( $debe, $haber, $cuentaId){
        $cuenta= ContaCuentaContable::find($cuentaId);
-       do {
-
-        $
-      
-        $recursivo = $cuenta->padre_recursivo;
-       } while ($a <= 10);
-       
+       $cuenta->saldo = $cuenta->saldo + self::operacion($debe, $haber, $cuenta->tipo_cuenta);
+       $cuenta->save();
+       $recursivo = $cuenta->padreRecursivo;
+   
+       while ($recursivo!= null) {
+            $recursivo->saldo = $recursivo->saldo + self::operacion($debe, $haber, $recursivo->tipo_cuenta);
+            $recursivo->save();
+            $recursivo = $recursivo->padreRecursivo;
+       }
     }
 
     public static function operacion($debe, $haber, $tipo){
@@ -154,7 +155,8 @@ class PartidasContables
         if($tipo == "acreedora"){
             $valor = $debe - $haber;
         }else{ //deudora
-
+            $valor = $haber - $debe;
         }
+        return $valor;
     }
 }
