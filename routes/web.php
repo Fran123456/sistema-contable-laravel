@@ -37,9 +37,8 @@ Route::name('roles')->prefix('roles')->group(function () {
 });
 
 
-include('routes/users.php');
-include('routes/contabilidad.php');
-include('routes/rrhh.php');
-
-
+include('routes/partials/users.php');
+include('routes/partials/contabilidad.php');
+include('routes/partials/rrhh.php');
+include('routes/partials/config.php');
 
