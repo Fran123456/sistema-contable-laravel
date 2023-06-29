@@ -18,8 +18,9 @@
            </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button style="color: white" type="button" class="btn btn-primary">PDF</button>
+          <button style="color: white" type="button" class="btn btn-primary">EXCEL</button>
         </div>
       </div>
     </div>

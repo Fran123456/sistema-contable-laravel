@@ -34,6 +34,7 @@ class ConfigReporteSeeder extends Seeder
             'modulo'=>'contabilidad',
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
+            'name'=>'fechai'
         ]);
 
         DB::table('config_reporte_campo')->insert([
@@ -45,6 +46,7 @@ class ConfigReporteSeeder extends Seeder
             'modulo'=>'contabilidad',
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
+            'name'=>'fechaf'
         ]);
 
     }

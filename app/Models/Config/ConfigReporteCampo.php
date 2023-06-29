@@ -10,6 +10,6 @@ class ConfigReporteCampo extends Model
     use HasFactory;
     protected $table = 'config_reporte_campo';
     protected $fillable = [
-        'id','tipo','requerido','valor','reporte_id','modulo','label'
+        'id','tipo','requerido','valor','reporte_id','modulo','label','name'
     ];
 }

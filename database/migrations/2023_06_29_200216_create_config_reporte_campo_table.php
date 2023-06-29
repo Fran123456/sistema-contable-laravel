@@ -21,9 +21,11 @@ return new class extends Migration
             $table->unsignedBigInteger('reporte_id')->nullable();
             $table->string('modulo')->nullable();
             $table->string('label')->nullable();
+            $table->string('name')->nullable();
+
             $table->timestamps();
 
-            $table->foreign('reporte_id')->references('id')->on('config_reporte')->onUpdate('cascade');
+            $table->foreign('reporte_id')->references('id')->on('config_reporte')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('config_reporte_campos');
+        Schema::dropIfExists('config_reporte_campo');
     }
 };
