@@ -141,6 +141,8 @@
                             href="{{ route('contabilidad.partidas.index') }}">Partidas contables</a></li>
                     <li class="submenu-item"><a class="submenu-link"
                             href="{{ route('contabilidad.copiar-data') }}">Copiar información</a></li>
+                            <li class="submenu-item"><a class="submenu-link"
+                                href="{{ route('contabilidad.reportes') }}">Reportes</a></li>
                 </ul>
             </div>
         </li>

@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ContabilidadSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(PermisosSeeder::class);
+        $this->call(ConfigReporteSeeder::class);
+        
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
