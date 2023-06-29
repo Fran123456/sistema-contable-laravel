@@ -52,5 +52,8 @@ class UserSeeder extends Seeder
             'current_team_id'=> $team,
         ]);
 
+      // $userInf DB::table('users')->where('id',$user)->first();
+       
+
     }
 }
