@@ -1,7 +1,6 @@
 <x-app-layout>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
-    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+    <x-chosen></x-chosen>
+  
 
 
     <div class="col-md-12">
@@ -35,14 +34,14 @@
                             <input  type="text" name="role" value="{{ old('role') }}" required
                                 class="form-control">
                         </div>
-                        <div class="col-md-6 mt-3">
+                        <!--<div class="col-md-6 mt-3">
                             <label for="">Permisos</label>
                             <select required size="10" name="permission[]" data-placeholder="Seleccione los permisos"  multiple class="form-control chosen-select">
                                 @foreach ($permissions as $permission)
-                                    <option value="{{ $permission->name }}">{{ $permission->name }}</option>
+                                    <option value="{{ $permission->name }}">{{ $permission->opcion }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div>-->
                         <div class="col-md-12 mt-3">
                             <button class="btn btn-success"><i class="fas fa-save"></i></button>
                         </div>

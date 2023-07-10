@@ -29,7 +29,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all();
+        $permissions = Permission::groupBy('opcion')->get();
+        
         return view('role.create', compact('permissions'));
     }
 
@@ -82,8 +83,8 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $permissions = Permission::all();
-
+        //$permissions = Permission::all();
+        $permissions = Permission::groupBy('opcion')->get();
         return view('role.edit', compact('permissions','role'));
     }
 
@@ -96,6 +97,15 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $RelPermissions = [];
+        foreach ($request->permission as $key => $value) {
+            $p = Permission::where('opcion', $value)->get();
+            foreach ($p as $key => $per) {
+               array_push($RelPermissions, $per->name);
+            }
+        }
+       
+        $permissions = $RelPermissions;
 
         try {
             DB::beginTransaction();
@@ -108,7 +118,7 @@ class RoleController extends Controller
             $role = Role::find($id);
             $role->name = $request->role;
             $role->save();
-            foreach ($request->permission as $key => $value) {
+            foreach ($permissions as $key => $value) {
                 $role->givePermissionTo($value);
             }
 

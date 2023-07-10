@@ -11,8 +11,15 @@ use App\Models\Contabilidad\ContaPeriodoContable;
 use \Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 class Help
 {
+
+   public static function groupPermissions($group){
+      return Permission::where('opcion', $group)->get();
+   }
 
    public static function usuario(){
       return  Auth::user();

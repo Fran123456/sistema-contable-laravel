@@ -25,7 +25,7 @@
                         <x-errors></x-errors>
                     </div>
 
-                    <div class="col-md-6 mt-3">
+                    <div class="col-md-12 mt-3">
                         <form action="{{ route('roles.update', $role->id) }}" method="post">
                             @csrf
                             @method('PUT')
@@ -40,7 +40,7 @@
                                 <select multiple required size="10" name="permission[]"
                                     data-placeholder="Seleccione un permiso" class="form-control chosen-select">
                                     @foreach ($permissions as $permission)
-                                        <option value="{{ $permission->name }}">{{ $permission->name }}</option>
+                                        <option value="{{ $permission->opcion }}">{{ $permission->opcion }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -49,7 +49,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-6 mt-3">
+                    <div class="col-md-12 mt-3">
                         <label for=""><strong>Permisos</strong></label> <br>
 
                         <table  class="table table-sm" id="datatable-responsive">
@@ -58,17 +58,16 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Permiso</th>
                                     <th scope="col"><i class="fas fa-trash-alt"></i></th>
+                                    <th>xxxx</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (count($role->permissions))
-                                    @foreach ($role->permissions as $key=> $permission)
+                                @if (count($role->permissions()->groupBy('opcion')->get()))
+                                    @foreach ($role->permissions()->groupBy('opcion')->get() as $key=> $permission)
                                         <tr>
-                                            <th scope="row">{{ $key+1 }}</th>
-                                            <td>{{ $permission->name }}</td>
+                                            <th scope="row" width="30">{{ $key+1 }}</th>
+                                            <td>{{ $permission->opcion }}</td>
                                             <td>
-
-
                                                 <form id="form" action="{{ route('roles.destroyPermissions',$role->id ) }}" method="post">
                                                     @method('DELETE')
                                                     @csrf
@@ -77,7 +76,18 @@
                                                      <i class="fas fa-trash"></i></button>
                                                  </form>
                                             </td>
+                                            <td>
+                                                @foreach (Help::groupPermissions($permission->opcion) as $item)
+                                                
+                                                <a href=""><span class="badge bg-secondary">{{ $item->name }}</span></a>
+
+                                                @endforeach
+                                               
+                                            </td>
                                         </tr>
+                                        
+                                           
+                                       
                                     @endforeach
                                 @else
                                     <x-message message="No hay permisos asociados" color="danger"></x-message>

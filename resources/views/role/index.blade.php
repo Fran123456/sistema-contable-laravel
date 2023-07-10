@@ -44,10 +44,10 @@
                                 <td> <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-warning"><i
                                             class="fas fa-edit"></i></a> </td>
                                 <td>
-                                  <form id="form" action="{{ route('roles.destroy', $item->id) }}" method="post">
+                                  <form id="form{{ $item->id }}" action="{{ route('roles.destroy', $item->id) }}" method="post">
                                      @method('DELETE')
                                      @csrf
-                                     <button onclick="confirm('form','¿Desea eliminar el rol?')" class="btn btn-danger" type="button">
+                                     <button onclick="confirm('form{{ $item->id }}','¿Desea eliminar el rol?')" class="btn btn-danger" type="button">
                                       <i class="fas fa-trash"></i></button>
                                   </form>
 
