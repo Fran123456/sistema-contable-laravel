@@ -36,10 +36,7 @@
                                 <th scope="row">{{ $key + 1 }}</th>
                                 <td>{{ $item->name }} </td>
                                 <td>
-
                                         <span class="badge bg-secondary">{{ count($item->permissions) }}</span>
-
-
                                 </td>
                                 <td> <a href="{{ route('roles.edit', $item->id) }}" class="btn btn-warning"><i
                                             class="fas fa-edit"></i></a> </td>

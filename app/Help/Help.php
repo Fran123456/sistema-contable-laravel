@@ -21,6 +21,11 @@ class Help
       return Permission::where('opcion', $group)->get();
    }
 
+   public static function groupPermissionsOwner($group, Role $role){
+       
+      return Permission::where('opcion', $group)->get();
+   }
+
    public static function usuario(){
       return  Auth::user();
    }

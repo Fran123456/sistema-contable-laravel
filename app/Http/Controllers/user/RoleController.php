@@ -151,9 +151,25 @@ class RoleController extends Controller
 
     public function destroyPermissions(Request $request, $id){
         $role = Role::find($id);
-        $role->revokePermissionTo($request->permission);
-        Log::log('Roles y permiso', 'eliminar permiso', 'El usuario '. Help::usuario()->name.' ha eliminado el permiso '. $request->permission.
+        $p = Permission::where('opcion', $request->permission)->get();
+        foreach ($p as $key => $per) {
+            $role->revokePermissionTo($per->name);
+        }
+
+        Log::log('Roles y permiso', 'eliminar grupo de permiso', 'El usuario '. Help::usuario()->name.' ha eliminado el grupo de permiso '. $request->permission.
          ' del rol ' .$role->name);
-        return back()->with('success','Se ha eliminado el permiso del rol correctamente');
+        return back()->with('success','Se ha eliminado el grupo  de permiso del rol correctamente');
+    }
+
+    public function destroyPermissionOne(Request $request, $id){  //elimina un permiso que pertenece a un grupo
+        $role = Role::find($id);
+     
+         DB::table('role_has_permissions')->where('permission_id', $request->permission_one)->
+        where('role_id', $role->id)->delete();
+        //$role->revokePermissionTo($request->permission_one);
+       
+        Log::log('Roles y permiso', 'eliminar  permiso', 'El usuario '. Help::usuario()->name.' ha eliminado el permiso '. $request->permission_one. 
+         ' del rol ' .$role->name);
+        return back()->with('success','Se ha eliminado el permiso del rol correctamente'. $request->permission_one);
     }
 }
