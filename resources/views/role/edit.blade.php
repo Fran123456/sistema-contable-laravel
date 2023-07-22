@@ -58,11 +58,11 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Permiso</th>
                                     <th scope="col"><i class="fas fa-trash-alt"></i></th>
-                                    <th>xxxx</th>
+                                    <th>Sub Permisos</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (count($role->permissions()->groupBy('opcion')->get()))
+                                @if (count($role->permissions()->groupBy('opcion')->get())>0)
                                     @foreach ($role->permissions()->groupBy('opcion')->get() as $key=> $permission)
                                         <tr>
                                             <th scope="row" width="30">{{ $key+1 }}</th>
@@ -77,9 +77,9 @@
                                                  </form>
                                             </td>
                                             <td>
-                                                @foreach (Help::groupPermissions($permission->opcion) as $item)
-                                                <a href="{{ route('roles.destroyPermissionOne', $role->id) }}?permission_one={{ $item->id }}">
-                                                    <span class="badge bg-secondary">{{ $item->name }}</span></a>
+                                                @foreach (Help::groupPermissionsOwner( $permission->opcion,$role) as $item)
+                                                <a href="{{ route('roles.destroyPermissionOne', $role->id) }}?permission_one={{ $item->id_permissions }}">
+                                                    <span class="badge bg-secondary">{{ $item->permission }}</span></a>
                                                 @endforeach
                                                
                                             </td>

@@ -10,7 +10,7 @@ use App\Models\Config;
 use App\Models\Contabilidad\ContaPeriodoContable;
 use \Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -22,8 +22,15 @@ class Help
    }
 
    public static function groupPermissionsOwner($group, Role $role){
+
+      return DB::table('role_has_permissions')
+      ->select('roles.name as role_name','roles.id as id_role','permissions.name as permission',
+      'permissions.opcion','permissions.id as id_permissions' )
+      ->join('roles', 'roles.id', '=', 'role_has_permissions.role_id')
+      ->join('permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+      ->where('role_has_permissions.role_id', $role->id)->where('permissions.opcion',$group)->get();
        
-      return Permission::where('opcion', $group)->get();
+      
    }
 
    public static function usuario(){

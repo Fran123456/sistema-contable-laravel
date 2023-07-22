@@ -83,7 +83,6 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        //$permissions = Permission::all();
         $permissions = Permission::groupBy('opcion')->get();
         return view('role.edit', compact('permissions','role'));
     }
@@ -163,6 +162,9 @@ class RoleController extends Controller
 
     public function destroyPermissionOne(Request $request, $id){  //elimina un permiso que pertenece a un grupo
         $role = Role::find($id);
+
+        //return DB::table('role_has_permissions')->where('permission_id', $request->permission_one)->
+       // where('role_id', $role->id)->first();
      
          DB::table('role_has_permissions')->where('permission_id', $request->permission_one)->
         where('role_id', $role->id)->delete();
