@@ -13,30 +13,20 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4 mt-2">
-            <div class="card" >
-                <div class="card-body">
-                  <h5 class="card-title">Permisos</h5>
-                  <a style="color:white"  href="" class="btn btn-primary" >
-                     Ver
-                  </a>
-                </div>
-              </div>
-        </div>
+  
     
-        @foreach ($reportes as $r)
         <div class="col-md-4 mt-2">
             <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">{{ $r->reporte }}</h5>
-                  <button style="color:white" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rpt{{ $r->id }}">
-                    {!! $r->icono !!} Generar
+                  <h5 class="card-title">Reporte de balance de saldos</h5>
+                  <button style="color:white" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#balance_saldos">
+                    Generar
                   </button>
                 </div>
               </div>
         </div>
-        @include('components.config_reporte.modal')
-        @endforeach
+        @include('contabilidad.reportes.modal.modal_balance_saldos')
+       
     </div>
 
 </x-app-layout>
