@@ -45,4 +45,7 @@ Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
 //REPORTES CONTABLES
 Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
     Route::get('/reportes', [ReportesContablesController::class, 'reportes'])->name('reportes');
+    Route::get('/reportes/saldo-cuenta', [ReportesContablesController::class, 'reporteSaldoCuenta'])->name('reporteSaldoCuenta');
+
+    
 });
