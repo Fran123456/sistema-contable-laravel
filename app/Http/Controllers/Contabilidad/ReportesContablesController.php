@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Contabilidad;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Help\Help;
+use App\Help\Contabilidad\ReportesContables;
 use App\Help\Log;
 use App\Models\Contabilidad\ContaCuentaContable;
 
@@ -22,7 +23,11 @@ class ReportesContablesController extends Controller
     }
 
     public function reporteSaldoCuenta(Request $request){
-
+        
+        $fechaFinSaldo = $request->fechai;
+       // $fechaFinSaldo= date("Y-m-d",strtotime($fechaFinSaldo."- 1 day")); 
+        $saldo = ReportesContables::getSaldo($request->cuenta, null , $fechaFinSaldo);
+        return $saldo;
     }
 
 }

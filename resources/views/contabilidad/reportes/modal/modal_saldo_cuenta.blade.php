@@ -24,12 +24,12 @@
               
               <div class="col-md-12 mt-3">
                 <LABEL>Fecha inicio</LABEL>
-                <input type="date" name="fechai" class="form-control">
+                <input type="date" required name="fechai" class="form-control">
               </div>
   
               <div class="col-md-12 mt-3">
                 <LABEL>Fecha fin</LABEL>
-                <input type="date" name="fechaf" class="form-control">
+                <input type="date" required name="fechaf" class="form-control">
               </div>
 
              
@@ -37,8 +37,10 @@
               <div class="col-md-12">
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button style="color: white" type="button" class="btn btn-primary">PDF</button>
-                  <button style="color: white" type="button" class="btn btn-primary">EXCEL</button>
+                  <input class="btn btn-primary" style="color: white" type="submit" name="excel" value="EXCEL">
+                 
+                  <input class="btn btn-primary" style="color: white" type="submit" name="excel" value="PDF">
+
                 </div>
               </div>
              </div>

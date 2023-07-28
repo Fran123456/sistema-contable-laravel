@@ -33,6 +33,7 @@ class ContaCuentaContable extends Model
     }
 
 
+
     public function padreRecursivo()
     {
         // recursively return all parents
