@@ -73,6 +73,26 @@
                                           @endforeach
                                         </tbody>
                                       </table>
+                                      <br>
+
+                                      <h6>Clasificación por tipo cuenta</h6>
+                                    <table class="table table-sm">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">Tipo cuena</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                       
+                                          <tr>
+                                            <td>acreedora</td>
+                                          </tr>
+                                          <tr>
+                                            <td>deudora</td>
+                                          </tr>
+                                          
+                                        </tbody>
+                                      </table>
                                 </div>
                              </div>
                         </div>
