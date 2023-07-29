@@ -34,6 +34,7 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
             'nivel' => 'A4',
             'clasificacion' => 'A5',
             'saldo' => 'A6',
+            'tipo_cuenta'=> 'A7'
         ];
     }
 
