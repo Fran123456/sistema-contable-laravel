@@ -18,12 +18,10 @@ class SaldoCuentaRpt
         $pdf->AddPage();
         $pdf->SetFont('Arial','',7);
 
-        $c=new easyTable($pdf, '%{100}','width:300; font-size:6;');
-        $c->easyCell("");
+        $c=new easyTable($pdf, '%{100}','width:300; font-size:10;');
+        $c->easyCell($cuenta->nombre_cuenta." - " . $cuenta->codigo);
         $c->printRow();
-        $c->endTable(6);
-
-     
+        $c->endTable(3);
 
         //ESTILOS POR DEFECTO PARA CELDAS DEL HEADER Y TABLA EN GENERAL
         $style= Styles::alignPaddingY('1.07', 'C');
