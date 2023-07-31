@@ -10,8 +10,8 @@ use App\Help\Log;
 use App\Models\Contabilidad\ContaCuentaContable;
 use App\ReportsPDF\Contabilidad\SaldoCuentaRpt;
 use App\Models\Contabilidad\ContaDetallePartida;
-
-
+use App\Exports\Contabilidad\SaldoCuentaRpt as SaldoCuentaRptExcel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportesContablesController extends Controller
 {
@@ -33,6 +33,8 @@ class ReportesContablesController extends Controller
         $data = ContaDetallePartida::where('cuenta_contable_id', $request->cuenta)
         ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])->get();
         $cuenta = ContaCuentaContable::find($request->cuenta);
+        $f = date("d-m-Y h:i:s");
+        return Excel::download(new SaldoCuentaRptExcel($request->fechai, $request->fechaf, $data, $saldo, $cuenta), "saldoCuenta-${f}.xlsx");
         return SaldoCuentaRpt::report($request->fechai, $request->fechaf, $data, $saldo, $cuenta);
     }
 
