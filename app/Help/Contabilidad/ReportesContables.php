@@ -8,6 +8,19 @@ use Illuminate\Support\Facades\DB;
 class ReportesContables
 {
 
+    public static function saldoAcreedorDeudor($debe, $haber, $saldo, $tipo){
+
+        $aux = 0;
+        if ($tipo == "deudora") {
+            $aux = $debe - $haber;
+        } else {
+            $aux = $haber - $debe;
+        }
+        $saldo = $aux + $saldo;
+        return $saldo;
+
+    }
+
     //OBIENE EL SALDO DE UNA CUENTA A LA FECHA
     public static function obtenerSaldoMayorNuevo($cuenta, $fechaInicial, $fechaFinal)
     {

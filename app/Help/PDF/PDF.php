@@ -2,6 +2,7 @@
 
 namespace App\Help\PDF;
 use Codedge\Fpdf\Fpdf\Fpdf;
+use App\Help\Help;
 
 class PDF extends  Fpdf
 {
@@ -10,7 +11,7 @@ class PDF extends  Fpdf
     public $subtitle_font_size=11;
     public $title;
 
-    public function __construct($subtittle=null,$orientation = 'P', $unit = 'mm', $size = 'letter',$title='')
+    public function __construct($title=null,$subtittle=null,$orientation = 'P', $unit = 'mm', $size = 'letter')
     {
         parent::__construct($orientation, $unit, $size);
         $this->subtittle = $subtittle;
@@ -24,20 +25,25 @@ class PDF extends  Fpdf
         // Logo
         // dd(public_path('images\logo.png'));
         if($this->orientation=='P') {
-            $this->Image(public_path('img/logo.png'), 185, 5, 18, 0, 'PNG');
+
+            $this->Image(public_path(  Help::getConfigByKey('general','logo')->value   ), 185, 12, 18, 0, 'PNG');
             $this->SetFont('Arial', 'B', 13);
             $this->Cell(80);        // Move to the right
-            $this->Cell(30, 10, $this->title??'APOPSA EL SALVADOR', 0, 0, 'C');// Title
+            $this->Cell(30, 10, Help::usuario()->empresa->empresa, 0, 0, 'C');// Title
+            $this->Ln(7);
+            $this->Cell(80);  
+            $this->Cell(30, 10, $this->title, 0, 0, 'C');// Title
+
             //TODO validar para vacio
             $this->Ln(7);
             $this->SetFont('Arial', 'B', $this->subtitle_font_size);
             $this->Cell(190, 10, $this->subtittle, 0, 0, 'C');
         }
         else{
-           // $this->Image(public_path('img/logo.png'),240,5,18,0,'PNG');
+            $this->Image(public_path( Help::getConfigByKey('general','logo')->value ),240,5,18,0,'PNG');
             $this->SetFont('Arial','B',13);
             $this->Cell(80);// Move to the right
-            $this->Cell(100,10,$this->title??'APOPSA EL SALVADOR',0,0,'C');// Title
+            $this->Cell(100,10,$this->title??Help::usuario()->empresa->empresa,0,0,'C');// Title
             //TODO validar para vacio
             $this->Ln(7);
             $this->SetFont('Arial','B',$this->subtitle_font_size);
@@ -55,7 +61,7 @@ class PDF extends  Fpdf
         // Arial italic 8
         $this->SetFont('Arial','I',8);
         // Page number
-        $this->Cell(0,10,utf8_decode(__('Page ')).$this->PageNo().'/{nb}',0,0,'C');
+        $this->Cell(0,10,utf8_decode(__('Página ')).$this->PageNo().'/{nb}',0,0,'C');
     }
 
     public function CheckPageBreak($h)

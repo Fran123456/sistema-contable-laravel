@@ -9,6 +9,8 @@ use App\Help\Contabilidad\ReportesContables;
 use App\Help\Log;
 use App\Models\Contabilidad\ContaCuentaContable;
 use App\ReportsPDF\Contabilidad\SaldoCuentaRpt;
+use App\Models\Contabilidad\ContaDetallePartida;
+
 
 
 class ReportesContablesController extends Controller
@@ -28,7 +30,10 @@ class ReportesContablesController extends Controller
         $fechaFinSaldo = $request->fechai;
        // $fechaFinSaldo= date("Y-m-d",strtotime($fechaFinSaldo."- 1 day")); 
         $saldo = ReportesContables::getSaldo($request->cuenta, null , $fechaFinSaldo);
-        return SaldoCuentaRpt::report($request->fechai, $request->fechaf, []);
+        $data = ContaDetallePartida::where('cuenta_contable_id', $request->cuenta)
+        ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])->get();
+        $cuenta = ContaCuentaContable::find($request->cuenta);
+        return SaldoCuentaRpt::report($request->fechai, $request->fechaf, $data, $saldo, $cuenta);
     }
 
 }

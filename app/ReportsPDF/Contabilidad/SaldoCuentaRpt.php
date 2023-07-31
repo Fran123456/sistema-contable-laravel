@@ -4,12 +4,16 @@ namespace App\ReportsPDF\Contabilidad;
 
 use App\Help\PDF\EasyTable\easyTable;
 use App\Help\PDF\EasyTable\exfpdf;
+use App\Help\Help;
+use App\Help\PDF\EasyTable\Styles;
+use App\Help\Contabilidad\ReportesContables;
+
 class SaldoCuentaRpt
 {
     
-    public static function report($fechai, $fechaf, $data){
+    public static function report($fechai, $fechaf, $data, $saldo, $cuenta){
         $n=0;
-        $pdf = new exFPDF('LIBRO O REGISTRO DE COMPRAS', 'L', 'mm', 'legal');
+        $pdf = new exFPDF('REPORTE DE SALDO DE CUENTAS', "DEL " . Help::date($fechai) . " AL " .  Help::date($fechaf)   , 'P', 'mm', 'legal');
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->SetFont('Arial','',7);
@@ -17,73 +21,48 @@ class SaldoCuentaRpt
         $c=new easyTable($pdf, '%{100}','width:300; font-size:6;');
         $c->easyCell("");
         $c->printRow();
-        $c->endTable(10);
+        $c->endTable(6);
 
-        //TITULO INICIAL (NO SE REPITE)
-        $write=new easyTable($pdf, '%{40,15,15,15,15}','width:300; font-size:6;');
-        $write->easyCell("NOMBRE DEL CONTRIBUYENTE: AGENTES PORTUARIOS DEL PACIFICO S.A DE C.V");
-        $write->easyCell("NRC: 216296-4");
-        $write->easyCell("NIT :0614-190412-103-1 ");
-        $write->easyCell('MES: ');
-        $write->easyCell(utf8_decode('AÑO: '));
-        $write->printRow();
-        $write->endTable();
+     
 
         //ESTILOS POR DEFECTO PARA CELDAS DEL HEADER Y TABLA EN GENERAL
-        $style= 'align:C;paddingY:0.07;';//alinear al centro, con padding en y //
-        $generalStyle= 'align:R;paddingY:1.3;';//alinear a la derecha con padding en y //
-        $alternativeStyle='paddingY:1.3;';//padding en y  //
+        $style= Styles::alignPaddingY('1.07', 'C');
+        $generalStyle= Styles::alignPaddingY('1.13','C');
+        $alternativeStyle=Styles::paddingY('1.13');
+        $numberStyle= Styles::alignPaddingY('1.13','R');
 
         //el % de la tabla debe ser 100 en su total si no no funciona.
-        $table = new easyTable($pdf, '%{2,5,5,6,9,21,5,5,5,5,5,5,5,5,6,6}','width:350; border-color:#3C4048;border-width:0.4; font-size:6; border:1; paddingY:2.3;');
-        $table->rowStyle('font-style:B;font-color:#3F3F3F;valign:M;font-size:6;');
-
-
-
-        $table->easyCell("No", $style.'rowspan:2;');//rowspan es para combinar columnas
-        $table->easyCell(utf8_decode('Fecha de emisión'),$style.'rowspan:2;');
-        $table->easyCell("Numero del documento",$style.'rowspan:2;');
-        $table->easyCell("NRC",$style.'rowspan:2;');
-        $table->easyCell("NIT , DUI, sujeto",$style.'rowspan:2;');
-        $table->easyCell("Nombre del Proveedor",$style.'rowspan:2;');
-        $table->easyCell("Compras Exentas",'colspan:2;align:C;paddingY:1;');//colspan es para combinar celdas
-        $table->easyCell("Compras Gravadas",'colspan:2;align:C;paddingY:1;');//colspan es para combinar celdas
-        $p = 'paddingY:1.5;';//
-        $table->easyCell("Credito Fiscal",$style.$p.'rowspan:2;');
-        $table->easyCell( utf8_decode('Contribución especial'),$style.$p.'rowspan:2;');
-        $table->easyCell("Anticipo IVA/retenido",$style.$p.'rowspan:2;');
-        $table->easyCell("Anticipo IVA/recibido",$style.$p.'rowspan:2;');
-        $table->easyCell("Total compras",$style.$p.'rowspan:2;');
-        $table->easyCell("Compras excluidas" ,$style.$p.'rowspan:2;');
-        $table->printRow();
-
-        $table->easyCell("Internas",$style.$p,'');
-        $table->easyCell("Import/Inter",$style.$p);
-        $table->easyCell("Internas",$style.$p);
-        $table->easyCell("Import/Inter",$style.$p);
-
-
+        $table = new easyTable($pdf, '%{5,10,10,38,12,12,13}','width:550; border-color:#3C4048;border-width:0.2; font-size:8; border:1; paddingY:1.3;');
+        $table->rowStyle('font-style:B;font-color:#3F3F3F;valign:M;');
+        $table->easyCell("No", $style);//rowspan es para combinar columnas
+        $table->easyCell('Fecha',$style);
+        $table->easyCell("Partida",$style);
+        $table->easyCell("Concepto",$style);
+        $table->easyCell("Debe",$style);
+        $table->easyCell("Haber",$style);
+        $table->easyCell("Saldo",$style);
         $table->printRow(true);//parametro true para indicar que es un header y replicar en las paginas
         $count =0;
-        foreach ($data as $key => $compra) {
+
+        $table->easyCell("",$alternativeStyle);
+        $table->easyCell(""  ,$alternativeStyle);
+        $table->easyCell(""  ,$alternativeStyle);
+        $table->easyCell( "",$alternativeStyle);
+        $table->easyCell( "",$numberStyle);
+        $table->easyCell("",$numberStyle);
+        $table->easyCell(number_format($saldo,2 ),$numberStyle);
+        $table->printRow();
+
+        foreach ($data as $key => $dt) {
             $count = $key;
-           
             $table->easyCell($key+1,$alternativeStyle);
-            $table->easyCell( ""   ,$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
-            $table->easyCell("",$alternativeStyle);
+            $table->easyCell(  Help::date($dt->fecha_contable)  ,$alternativeStyle);
+            $table->easyCell( $dt->partida->tipoPartida->tipo.$dt->cuentaContable->codigo  ,$alternativeStyle);
+            $table->easyCell( $dt->concepto ,$alternativeStyle);
+            $table->easyCell( number_format($dt->debe,2 ),$numberStyle);
+            $table->easyCell(number_format($dt->haber,2 ),$numberStyle);
+            $saldoIns = ReportesContables::saldoAcreedorDeudor($dt->debe,$dt->haber, $saldo, $cuenta->tipo_cuenta);
+            $table->easyCell( number_format($saldoIns,2) ,$numberStyle);
             $table->printRow();
         }
         $table->endTable(15);
@@ -99,13 +78,7 @@ class SaldoCuentaRpt
             }//salto de tabla dinamico
         }
 
-        $final=new easyTable($pdf, '%{100}','width:100;align:L{LCC};border-width:0.4; border-color:#3C4048; font-size:7; border:1; paddingY:4;');
-        $final->easyCell('CONTADOR O CONTRIBUYENTE','align:C');
-        $final->printRow();
-        $final->easyCell('Nombre:');
-        $final->printRow();
-        $final->easyCell('Firma:');
-        $final->printRow();
+       
 
         $pdf->Output('I', __("Delivery Receipt") . ' - No.' . 'reporte' . '.pdf');
         exit;
