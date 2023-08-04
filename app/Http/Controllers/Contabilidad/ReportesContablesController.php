@@ -8,9 +8,11 @@ use App\Help\Help;
 use App\Help\Contabilidad\ReportesContables;
 use App\Help\Log;
 use App\Models\Contabilidad\ContaCuentaContable;
-use App\ReportsPDF\Contabilidad\SaldoCuentaRpt;
 use App\Models\Contabilidad\ContaDetallePartida;
+use App\ReportsPDF\Contabilidad\SaldoCuentaRpt;
 use App\Exports\Contabilidad\SaldoCuentaRpt as SaldoCuentaRptExcel;
+use App\ReportsPDF\Contabilidad\LibroDiarioRpt;
+
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportesContablesController extends Controller
@@ -20,22 +22,32 @@ class ReportesContablesController extends Controller
         $cuentas = ContaCuentaContable::where('clasificacion_id', 2)->get();
         return view('contabilidad.reportes.home', compact('cuentas'));
     }
-  
+
     public function reporteBalanceSaldos(){
 
     }
 
     public function reporteSaldoCuenta(Request $request){
-        
+
         $fechaFinSaldo = $request->fechai;
-       // $fechaFinSaldo= date("Y-m-d",strtotime($fechaFinSaldo."- 1 day")); 
+       // $fechaFinSaldo= date("Y-m-d",strtotime($fechaFinSaldo."- 1 day"));
         $saldo = ReportesContables::getSaldo($request->cuenta, null , $fechaFinSaldo);
         $data = ContaDetallePartida::where('cuenta_contable_id', $request->cuenta)
         ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])->get();
         $cuenta = ContaCuentaContable::find($request->cuenta);
         $f = date("d-m-Y h:i:s");
-        return Excel::download(new SaldoCuentaRptExcel($request->fechai, $request->fechaf, $data, $saldo, $cuenta), "saldoCuenta-${f}.xlsx");
+        if($request->excel){
+            return Excel::download(new SaldoCuentaRptExcel($request->fechai, $request->fechaf, $data, $saldo, $cuenta), "saldoCuenta-${f}.xlsx");
+        }
         return SaldoCuentaRpt::report($request->fechai, $request->fechaf, $data, $saldo, $cuenta);
+    }
+
+    public function reporteLibroDiario(Request $request){
+
+        $data = ContaDetallePartida::whereBetween('fecha_contable',[$request->fechai, $request->fechaf])
+        ->orderBy('fecha_contable','DESC')->get();
+        return LibroDiarioRpt::report($request->fechai, $request->fechaf, $data);
+
     }
 
 }

@@ -10,7 +10,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-           <form action="{{ route('contabilidad.reporteSaldoCuenta') }}" method="get">
+           <form action="{{ route('contabilidad.reporteSaldoCuenta') }}" method="get" target="_blank">
             <div class="row">
 
               <div class="col-md-12 mt-2">
@@ -21,25 +21,25 @@
                   @endforeach
                 </select>
               </div>
-              
+
               <div class="col-md-12 mt-3">
                 <LABEL>Fecha inicio</LABEL>
                 <input type="date" required name="fechai" class="form-control">
               </div>
-  
+
               <div class="col-md-12 mt-3">
                 <LABEL>Fecha fin</LABEL>
                 <input type="date" required name="fechaf" class="form-control">
               </div>
 
-             
-  
+
+
               <div class="col-md-12">
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <input class="btn btn-primary" style="color: white" type="submit" name="excel" value="EXCEL">
-                 
-                  <input class="btn btn-primary" style="color: white" type="submit" name="excel" value="PDF">
+                  <input class="btn btn-primary" style="color: white" type="submit" name="excel" value="excel">
+
+                  <input class="btn btn-primary" style="color: white" type="submit" name="pdf" value="PDF">
 
                 </div>
               </div>

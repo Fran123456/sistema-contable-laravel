@@ -103,9 +103,8 @@ class CuentaContableController extends Controller
     public function importarCuentasExcel(Request $request){
 
        //$help = Help::uploadFile($request, 'import-excel-cuentas', '', 'excel', false);
-       // try {
+        try {
             DB::table('conta_cuenta_contable')->delete();
-
             $import = new ContaCuentaContableImport(Help::empresa());
             Excel::import($import, request()->file('excel'));
             $rows        = $import->getNumeroFilas();
@@ -113,9 +112,9 @@ class CuentaContableController extends Controller
             $ingresados = $import->getIngresados();
             Log::log('Contabilidad', 'Importar catalogo de cuentas contables', 'El usuario '. Help::usuario()->name.' ha importado el catalogo de cuentas para la empresa ' .Help::usuario()->empresa->empresa );
             return view('contabilidad.cuenta_contable.importar_excel_resumen', compact('rows','errores','ingresados'));
-       // } catch (\Throwable $th) {
+        } catch (\Throwable $th) {
            return back()->with('danger','No se ha cargado el catalogo, ya que esta siendo utilizado por otros modulos u opciones');
-       // }
+        }
 
 
     }
