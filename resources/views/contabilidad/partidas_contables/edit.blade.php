@@ -29,7 +29,7 @@
                 <form action="{{route('contabilidad.partidas.update', $partida->id) }}" method="post">
                     @method('PUT')
                     @csrf
-                    <h5>Partida contable: {{ $partida->tipoPartida->tipo  }} {{ $partida->periodo->codigo }}</h5>
+                    <h5>Partida contable:  {{ Help::codigoPartida($partida)  }} </h5>
                     <hr>
 
                     @include('contabilidad.partidas_contables.partials.edit_cabecera')

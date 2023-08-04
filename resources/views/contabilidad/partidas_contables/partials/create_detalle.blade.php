@@ -77,7 +77,7 @@
         const mes = final.getMonth() + 1;
         const dia = final.getDate();
         const formateadafinal  =  `${final.getFullYear()}-${(mes < 10 ? '0' : '').concat(mes)}-${(dia < 10 ? '0' : '').concat(dia)}`;
-    
+
         var fechaActual = new Date(ff); // Fecha actual
         var ultimoDiaDelMes = formateadafinal;
         var dateInput = $("#fecha");
@@ -90,9 +90,9 @@
         dateInput2.prop('min', f);
        // dateInput2.prop('value', f);
 
-        
+
     }
-    
-    
-  
+
+
+
 </script>
