@@ -12,6 +12,8 @@ use App\Models\Contabilidad\ContaDetallePartida;
 use App\ReportsPDF\Contabilidad\SaldoCuentaRpt;
 use App\Exports\Contabilidad\SaldoCuentaRpt as SaldoCuentaRptExcel;
 use App\ReportsPDF\Contabilidad\LibroDiarioRpt;
+use App\Exports\Contabilidad\LibroDiarioRpt as LibroDiarioRptExcel;
+
 
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -46,6 +48,10 @@ class ReportesContablesController extends Controller
 
         $data = ContaDetallePartida::whereBetween('fecha_contable',[$request->fechai, $request->fechaf])
         ->orderBy('fecha_contable','DESC')->get();
+        $f = date("d-m-Y h:i:s");
+        if($request->excel){
+            return Excel::download(new LibroDiarioRptExcel($request->fechai, $request->fechaf, $data), "libro-diario-${f}.xlsx");
+        }
         return LibroDiarioRpt::report($request->fechai, $request->fechaf, $data);
 
     }
