@@ -24,7 +24,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h5>Partidas contables del periodo: {!! Help::periodoContable()?->codigo ?? 
+                <h5>Partidas contables del periodo: {!! Help::periodoContable()?->codigo ??
                 "<span class='badge bg-danger'>No hay periodo activo</span>"!!} </h5>
                 @if (count($partidas) > 0)
                     <table class="table table-sm" id="datatable-responsive">
@@ -35,7 +35,7 @@
                                 <th scope="col" width="90">Tipo</th>
                                 <th scope="col" width="90">DEBE</th>
                                 <th scope="col" width="90">HABER</th>
-                               
+
                                 <th width="100" scope="col">Fecha</th>
 
                                 <th width="120" class="text-center" scope="col">Acciones</th>
@@ -49,11 +49,11 @@
 
                                     <th scope="row">{{ $key + 1 }}</th>
 
-                                    <td>{{ $item->correlativo }} </td>
+                                    <td>{{  Help::codigoPartida($item) }} </td>
                                     <td>{{ $item->tipoPartida->tipo }} </td>
                                     <td>{{ $item->debe }} </td>
                                     <td>{{ $item->haber }} </td>
-                                    
+
                                     <td> {{ Help::date($item->fecha_contable) }}</td>
                                     <td class="text-center">
                                         <a target="_blank"
@@ -61,7 +61,7 @@
                                             <i class="fa-solid fa-file-pdf fa-2x"></i></a>
 
                                         @if ($item->anulada == false && $item->cerrada == false)
-                                            <a 
+                                            <a
                                                 href="{{ route('contabilidad.partidas.edit', $item->id) }}"
                                                ><i class="fa-solid fa-file-pen fa-2x"></i></a>
                                         @endif
