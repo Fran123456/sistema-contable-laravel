@@ -97,49 +97,49 @@
             width: 100%;
             /* background: blue; */
         }
-    
+
         .td_separator {
             width: 2cm;
         }
-    
+
         td {
             /* background: orangered; */
         }
-    
+
         .money {
             text-align: right;
             width: 2.5cm;
         }
-    
+
         .money:before {
             content: "$";
             float: left;
         }
-    
+
         .money:empty::before {
             color: white;
         }
-    
+
         .total {
             border-bottom: 2px solid black;
             /* border-top: 1px solid black; */
         }
-    
+
         .firma {
             border-top: 1px solid black;
             text-align: center;
             padding: 0 !important;
             margin: 0 !important;
         }
-    
+
         .separador {
             height: 1.5cm !important;
         }
-    
+
         td {
             padding: 0 3px;
         }
-    
+
         th {
             border-bottom: 1px solid black;
         }
@@ -149,11 +149,15 @@
     <header>
         <p class="header1">{{ strtoupper(auth()->user()->empresa->empresa) }}</p>
         <p>PARTIDA DE : {{ strtoupper($partida->tipoPartida->tipo) }}</p>
-        <p>CODIGO :
-            {{ Help::complementCode($partida->correlativo, Help::getConfigByKey('contabilidad', 'correlativo')->value, '0') }}
+        <p>PERIODO : {{ $partida->periodo->year.$partida->periodo->mes }}
+
+        </p>
+        <p>
+            CODIGO: {{ Help::codigoPartida($partida) }}
         </p>
         <p>FECHA: {{ Help::date($partida->fecha_contable) }}</p>
         <p class="legend">(Cifras Expresadas en Dólares de los Estados Unidos de América)</p>
+        <br>
     </header>
     <footer>
         <table style="magin-top:10px">

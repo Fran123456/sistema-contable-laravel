@@ -29,9 +29,13 @@ class Help
       ->join('roles', 'roles.id', '=', 'role_has_permissions.role_id')
       ->join('permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
       ->where('role_has_permissions.role_id', $role->id)->where('permissions.opcion',$group)->get();
-       
-      
    }
+
+   public static function codigoPartida($partida){
+      $numero= Help::complementCode($partida->correlativo, Help::getConfigByKey('contabilidad', 'correlativo')->value, '0');
+      $complemento = $partida->tipoPartida->tipo.$partida->periodo->year.$partida->periodo->mes;
+      return $complemento.$numero;
+    }
 
    public static function usuario(){
       return  Auth::user();
@@ -53,7 +57,7 @@ class Help
 
    public static function monthToString($month){
       $array = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-      for ($i=0; $i <count($array) ; $i++) { 
+      for ($i=0; $i <count($array) ; $i++) {
         if($month==($i+1)) return $array[$i];
       }
    }
@@ -130,7 +134,7 @@ class Help
    }
 
 
-   public static function routerNav(){
+  /* public static function routerNav(){
      $route = Route::currentRouteName();
      $full = url()->full();
      $previous = url()->previous();
@@ -163,7 +167,7 @@ class Help
         $pathCounter++;
      }
      return $objPaths;
-   }
+   }*/
 
    public static function isNumber($str){
       	$str = str_replace(',', '.', $str);

@@ -44,7 +44,7 @@ class LibroDiarioRpt
             $table->easyCell(  Help::date($dt->fecha_contable)  ,$alternativeStyle);
             $table->easyCell( $dt->cuentaContable->codigo  ,$numberStyle);
             $table->easyCell(  utf8_decode($dt->cuentaContable->nombre_cuenta)  ,$alternativeStyle);
-            $table->easyCell(  utf8_decode($dt->concepto) ,$alternativeStyle);
+            $table->easyCell(  Help::codigoPartida($dt->partida)  ." - ".utf8_decode($dt->concepto) ,$alternativeStyle);
             $table->easyCell( number_format($dt->debe,2 ),$numberStyle);
             $table->easyCell(number_format($dt->haber,2 ),$numberStyle);
             $table->printRow();

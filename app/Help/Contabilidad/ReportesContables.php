@@ -4,7 +4,7 @@ namespace App\Help\Contabilidad;
 
 use App\Models\Contabilidad\ContaCuentaContable;
 use Illuminate\Support\Facades\DB;
-
+use App\Help\Help;
 class ReportesContables
 {
 
@@ -20,6 +20,8 @@ class ReportesContables
         return $saldo;
 
     }
+
+
 
     //OBIENE EL SALDO DE UNA CUENTA A LA FECHA
     public static function obtenerSaldoMayorNuevo($cuenta, $fechaInicial, $fechaFinal)
@@ -53,17 +55,17 @@ class ReportesContables
             if ($fechaInicial && $fechaFinal) {
                 $debea = DB::select("SELECT SUM(debe) as monto FROM conta_detalle_partida_contable
                 WHERE cuenta_contable_id=?  and fecha_contable  BETWEEN ? AND ?", [$cuenta->id, $fechaInicial, $fechaFinal]);
-                
+
                 $habera = DB::select("SELECT SUM(haber) as monto FROM conta_detalle_partida_contable
                 WHERE cuenta_contable_id=?  and fecha_contable  BETWEEN ? AND ?", [$cuenta->id, $fechaInicial, $fechaFinal]);
-                
+
             }
 
             //CUANDO HAY FECHA FINAL ES DECIR CALCULAR EL SALDO DESDE LOS INICIOS
             if ($fechaFinal && $fechaInicial == null) {
                 $debea = DB::select("SELECT SUM(debe) as monto FROM conta_detalle_partida_contable
                 WHERE cuenta_contable_id=?  and fecha_contable  <?", [$cuenta->id, $fechaFinal]);
-                
+
                 $habera = DB::select("SELECT SUM(haber) as monto FROM conta_detalle_partida_contable
                 WHERE cuenta_contable_id=?  and fecha_contable  < ?", [$cuenta->id, $fechaFinal]);
             }
