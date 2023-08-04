@@ -13,15 +13,15 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Contabilidad\ContaPartidaContable;
 use App\Models\Contabilidad\ContaDetallePartida;
 use App\Help\Log;
-
+use Illuminate\Support\Facades\DB;
 class CuentaContableController extends Controller
 {
 
 
     public function __construct()
     {
-        
- 
+
+
     }
     /**
      * Display a listing of the resource.
@@ -30,7 +30,7 @@ class CuentaContableController extends Controller
      */
     public function index()
     {
-       
+
         $cuentas = ContaCuentaContable::where('empresa_id',Help::empresa())->get();
        return view('contabilidad.cuenta_contable.index',compact('cuentas'));
     }
@@ -103,17 +103,21 @@ class CuentaContableController extends Controller
     public function importarCuentasExcel(Request $request){
 
        //$help = Help::uploadFile($request, 'import-excel-cuentas', '', 'excel', false);
+       // try {
+            DB::table('conta_cuenta_contable')->delete();
 
-        $import = new ContaCuentaContableImport(Help::empresa());
-        Excel::import($import, request()->file('excel'));
-        $rows        = $import->getNumeroFilas();
-        $errores  = $import->getErrores();
-        $ingresados = $import->getIngresados();
-  
-        Log::log('Contabilidad', 'Importar catalogo de cuentas contables', 'El usuario '. Help::usuario()->name.' ha importado el catalogo de cuentas para la empresa ' .Help::usuario()->empresa->empresa );
+            $import = new ContaCuentaContableImport(Help::empresa());
+            Excel::import($import, request()->file('excel'));
+            $rows        = $import->getNumeroFilas();
+            $errores  = $import->getErrores();
+            $ingresados = $import->getIngresados();
+            Log::log('Contabilidad', 'Importar catalogo de cuentas contables', 'El usuario '. Help::usuario()->name.' ha importado el catalogo de cuentas para la empresa ' .Help::usuario()->empresa->empresa );
+            return view('contabilidad.cuenta_contable.importar_excel_resumen', compact('rows','errores','ingresados'));
+       // } catch (\Throwable $th) {
+           return back()->with('danger','No se ha cargado el catalogo, ya que esta siendo utilizado por otros modulos u opciones');
+       // }
 
-        return view('contabilidad.cuenta_contable.importar_excel_resumen', compact('rows','errores','ingresados'));
-       
+
     }
 
     public function importarCuentasExcelView(Request $request){
@@ -169,7 +173,7 @@ class CuentaContableController extends Controller
             $p->hijos = $p->hijos +1;
             $p->save();
         }
-       
+
     }
 
     /**
@@ -185,7 +189,7 @@ class CuentaContableController extends Controller
         if(count($dt)>0){
             Log::log('Contabilidad', 'Eliminar cuenta contable', 'El usuario '. Help::usuario()->name.' ha intentado eliminar la cuenta contable ' .$cuenta->nombre .' / '.$cuenta->codigo , ' pero no ha podido, ya que la cuenta contable esta siendo utilizada' );
             return back()->with('danger','No se puede eliminar la cuenta contable');
-   
+
         }
 
         ContaCuentaContable::destroy($id);
