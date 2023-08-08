@@ -47,12 +47,12 @@ class ReportesContablesController extends Controller
     public function reporteLibroDiario(Request $request){
 
         $data = ContaDetallePartida::whereBetween('fecha_contable',[$request->fechai, $request->fechaf])
-        ->orderBy('fecha_contable','DESC')->get();
+        ->orderBy('fecha_contable','DESC')->with('cuentaContable','partida')->get();
         $f = date("d-m-Y h:i:s");
         if($request->excel){
             return Excel::download(new LibroDiarioRptExcel($request->fechai, $request->fechaf, $data), "libro-diario-${f}.xlsx");
         }
-        return LibroDiarioRpt::report($request->fechai, $request->fechaf, $data);
+        return LibroDiarioRpt::report($request->fechai, $request->fechaf, $data->toArray());
 
     }
 

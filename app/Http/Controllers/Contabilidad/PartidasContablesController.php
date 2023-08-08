@@ -140,7 +140,9 @@ class PartidasContablesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   $partida= ContaPartidaContable::find($id);
+    {   
+        
+        $partida= ContaPartidaContable::find($id);
         if($request->detalle){
             
             $detalle= array('partida_id'=>$partida->id,
@@ -149,13 +151,13 @@ class PartidasContablesController extends Controller
             'cuenta_contable_id'=>$request['cuenta'],
             'debe'=>$request['debe']??0,
             'haber'=>$request['haber']??0,
-            'fecha_contable'=>$request['fecha'],
+            'fecha_contable'=>$request['fecha_detalle'],
             'concepto'=>$request['concepto_detalle']??$partida->concepto);
             
             PartidasContables::detalle($detalle); 
 
         }else{
-            $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha_detalle, 'id'=>$id);
+            $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha, 'id'=>$id);
             PartidasContables::updateCabecera($data);
         }
         Log::log('Contabilidad', 'Editar partida contable', 'El usuario '. Help::usuario()->name.' ha editado la partida ' .$partida->correlativo);
