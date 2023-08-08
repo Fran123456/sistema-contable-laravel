@@ -19,7 +19,7 @@
         <div class="col-md-4 mt-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Reporte de balance de comprobación</h5>
+                    <h5 class="card-title">Balance de comprobación</h5>
                     <button style="color:white" type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#balance_saldos">
                         Generar
@@ -94,6 +94,20 @@
             </div>
         </div>
         @include('contabilidad.reportes.modal.modal_saldo_cuenta')
+
+
+        <div class="col-md-4 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Listado de partidas </h5>
+                    <button style="color:white" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#listado_partidas">
+                        Generar
+                    </button>
+                </div>
+            </div>
+        </div>
+        @include('contabilidad.reportes.modal.modal_listado_partidas')
 
     </div>
 

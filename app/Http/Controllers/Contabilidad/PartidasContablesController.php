@@ -42,7 +42,7 @@ class PartidasContablesController extends Controller
         ];
 
         return PDF::loadView('contabilidad.partidas_contables.reportes.partida', $data)
-        ->stream('archivo.pdf');
+        ->stream('partida_contable.pdf');
             
     }
 
