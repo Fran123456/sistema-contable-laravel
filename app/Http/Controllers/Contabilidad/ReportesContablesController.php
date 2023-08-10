@@ -28,9 +28,13 @@ class ReportesContablesController extends Controller
     }
 
     public function reporteBalanceComprobacion(Request $request){
+       /* $cuentas =ContaDetallePartida::select('cuenta_contable_id')
+        ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
+        ->groupBy('cuenta_contable_id')->get();*/
         $cuentas =ContaDetallePartida::select('cuenta_contable_id')
         ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
         ->groupBy('cuenta_contable_id')->get();
+
         return $cuentas;
     }
 

@@ -53,11 +53,11 @@
   <script>
     //$.fn.modal.Constructor.prototype.enforceFocus = function() {};
 
-     $(document).ready(function() {
+   /*  $(document).ready(function() {
         $('.select2').select2(
            {
             dropdownParent: $('#saldo_cuenta')
            }
         );
-    });
+    });*/
    </script>
