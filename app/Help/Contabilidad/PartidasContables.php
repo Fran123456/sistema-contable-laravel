@@ -66,6 +66,7 @@ class PartidasContables
                 'tipo_partida_id' => $data['tipo_partida_id'],
                 'empresa_id' => $empresa,
                 'creador_id' => Help::usuario()->id,
+                'codigo_cuenta'=> ContaCuentaContable::find($data['cuenta_contable_id'])->codigo,
                 //'actualizador_id'=>Help::usuario()->id,
                 'cuenta_contable_id' => $data['cuenta_contable_id'],
                 'debe' => $data['debe'],

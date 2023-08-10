@@ -16,7 +16,7 @@
                 <label for="">Cuenta inicio</label>
                 <select class="form-control select2" style="width: 100%" name="cuentai" id="">
                   @foreach ($cuentas as $item)
-                      <option value="{{ $item->id }}">{{ $item->codigo }} {{ $item->nombre_cuenta }}</option>
+                      <option value="{{ $item->codigo }}">{{ $item->codigo }} {{ $item->nombre_cuenta }}</option>
                   @endforeach
                 </select>
               </div>
@@ -25,7 +25,7 @@
                 <label for="">Cuenta final</label>
                 <select class="form-control select2" style="width: 100%" name="cuentaf" id="">
                   @foreach ($cuentas as $item)
-                      <option value="{{ $item->id }}">{{ $item->codigo }} {{ $item->nombre_cuenta }}</option>
+                      <option value="{{ $item->codigo }}">{{ $item->codigo }} {{ $item->nombre_cuenta }}</option>
                   @endforeach
                 </select>
               </div>

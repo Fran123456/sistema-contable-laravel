@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('creador_id')->nullable();
             $table->unsignedBigInteger('actualizador_id')->nullable();
             $table->unsignedBigInteger('cuenta_contable_id')->nullable();
+            $table->string('codigo_cuenta')->nullable();
             $table->decimal('debe', 12, 2)->nullable()->default(0);
             $table->decimal('haber', 12, 2)->nullable()->default(0);
             $table->dateTime('fecha_contable')->nullable();
