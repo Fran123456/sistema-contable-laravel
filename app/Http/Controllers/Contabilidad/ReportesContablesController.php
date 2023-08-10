@@ -31,9 +31,10 @@ class ReportesContablesController extends Controller
        /* $cuentas =ContaDetallePartida::select('cuenta_contable_id')
         ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
         ->groupBy('cuenta_contable_id')->get();*/
-        $cuentas =ContaDetallePartida::select('cuenta_contable_id')
-        ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
-        ->groupBy('cuenta_contable_id')->get();
+        $cuentas =ContaCuentaContable::select('codigo')
+        ->where('codigo', 'LIKE', "%{$request->cuentai}%")
+        ->orWhere('codigo', 'LIKE', "%{$request->cuentaf}%")
+        ->get();
 
         return $cuentas;
     }
