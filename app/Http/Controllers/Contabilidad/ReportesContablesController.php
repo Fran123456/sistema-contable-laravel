@@ -13,6 +13,8 @@ use App\ReportsPDF\Contabilidad\SaldoCuentaRpt;
 use App\Exports\Contabilidad\SaldoCuentaRpt as SaldoCuentaRptExcel;
 use App\ReportsPDF\Contabilidad\LibroDiarioRpt;
 use App\Exports\Contabilidad\LibroDiarioRpt as LibroDiarioRptExcel;
+use PDF;
+use App\Models\Contabilidad\ContaPartidaContable;
 
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -25,8 +27,16 @@ class ReportesContablesController extends Controller
         return view('contabilidad.reportes.home', compact('cuentas'));
     }
 
-    public function reporteBalanceSaldos(){
+    public function reporteBalanceComprobacion(Request $request){
+       /* $cuentas =ContaDetallePartida::select('cuenta_contable_id')
+        ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
+        ->groupBy('cuenta_contable_id')->get();*/
+        $cuentas =ContaCuentaContable::select('codigo')
+        ->where('codigo', 'LIKE', "%{$request->cuentai}%")
+        ->orWhere('codigo', 'LIKE', "%{$request->cuentaf}%")
+        ->get();
 
+        return $cuentas;
     }
 
     public function reporteSaldoCuenta(Request $request){
@@ -47,12 +57,25 @@ class ReportesContablesController extends Controller
     public function reporteLibroDiario(Request $request){
 
         $data = ContaDetallePartida::whereBetween('fecha_contable',[$request->fechai, $request->fechaf])
-        ->orderBy('fecha_contable','DESC')->get();
+        ->orderBy('fecha_contable','DESC')->with('cuentaContable','partida')->get();
         $f = date("d-m-Y h:i:s");
         if($request->excel){
             return Excel::download(new LibroDiarioRptExcel($request->fechai, $request->fechaf, $data), "libro-diario-${f}.xlsx");
         }
-        return LibroDiarioRpt::report($request->fechai, $request->fechaf, $data);
+        return LibroDiarioRpt::report($request->fechai, $request->fechaf, $data->toArray());
+    }
+
+    public function listadoDePartidas(Request $request){
+      
+        $data = [
+            'partida' => ContaPartidaContable::whereBetween('fecha_contable',[$request->fechai, $request->fechaf])
+            ->orderBy('fecha_contable','DESC')->get(),
+            'fechai'=> $request->fechai,
+            'fechaf'=> $request->fechaf
+        ];
+
+        return PDF::loadView('contabilidad.reportes.ListadoPartidasPDF', $data)
+        ->stream('listado_partidas_contables.pdf');
 
     }
 

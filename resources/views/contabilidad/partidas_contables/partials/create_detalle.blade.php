@@ -69,6 +69,9 @@
         var f = codigo.substring(2, 6)+'-'+codigo.substring(0, 2) +"-01";//fecha inicial
         var ff = codigo.substring(2, 6)+'-'+codigo.substring(0, 2) +"-01 00:00:00"; //fecha inicial con hora
 
+        console.log(f);
+        console.log(ff);
+
         const fechaFin = new Date(ff);
         let final = new Date(fechaFin.getFullYear(), fechaFin.getMonth() + 1, 0);
         const mes = final.getMonth() + 1;
@@ -80,14 +83,18 @@
         var dateInput = $("#fecha");
         dateInput.prop('max', ultimoDiaDelMes);
         dateInput.prop('min', f);
-        dateInput.prop('value', f);
+       // dateInput.prop('value', f);
 
         var dateInput2 = $("#fecha_detalle");
         dateInput2.prop('max', ultimoDiaDelMes);
         dateInput2.prop('min', f);
-        dateInput2.prop('value', f);
+       // dateInput2.prop('value', f);
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8c91f56
     }
 
 

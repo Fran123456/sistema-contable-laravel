@@ -17,7 +17,7 @@ class ContaDetallePartida extends Model
     protected $fillable = [
         'partida_id','id','periodo_id','tipo_partida_id','empresa_id','creador_id',
         'actualizador_id','cuenta_contable_id','debe','haber','fecha_contable',
-        'concepto','created_at','updated_at'
+        'concepto','created_at','updated_at','codigo_cuenta'
     ];
 
     public function cuentaContable(){

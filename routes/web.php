@@ -35,9 +35,6 @@ Route::resource('roles', RoleController::class);
 Route::name('roles')->prefix('roles')->group(function () {
     Route::delete('/permissions/destroy/{id}', [RoleController::class, 'destroyPermissions'])->name('.destroyPermissions');
     Route::get('/permissions/destroy/sub/one/{id}', [RoleController::class, 'destroyPermissionOne'])->name('.destroyPermissionOne');
-
-    
-
 });
 
 

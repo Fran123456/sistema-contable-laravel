@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\TeamInvitation;
 use App\Models\Config;
 use App\Models\Contabilidad\ContaPeriodoContable;
+use App\Models\Contabilidad\ContaPartidaContable;
 use \Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,10 @@ class Help
    }
 
    public static function codigoPartida($partida){
-      $numero= Help::complementCode($partida->correlativo, Help::getConfigByKey('contabilidad', 'correlativo')->value, '0');
+      if(!isset($partida->correlativo)){
+         $partida = ContaPartidaContable::find($partida['id']);
+      }
+      $numero= Help::complementCode( $partida->correlativo  , Help::getConfigByKey('contabilidad', 'correlativo')->value, '0');
       $complemento = $partida->tipoPartida->tipo.$partida->periodo->year.$partida->periodo->mes;
       return $complemento.$numero;
     }
@@ -134,41 +138,7 @@ class Help
    }
 
 
-  /* public static function routerNav(){
-     $route = Route::currentRouteName();
-     $full = url()->full();
-     $previous = url()->previous();
-     $current = url()->current();
-     $parciales = explode("/", $full);
-     $paths = array();
-     $objPaths = array();
-     $pathCounter = 0;
-     $pathPartial = "";
-     $inicial = $parciales[0].'/'.$parciales[2];
-     for ($i=2; $i < count( $parciales) ; $i++) {
-       $inicial = '';
-        $url = null;
-        if($i==2){
-            $paths[  $pathCounter]  =$inicial.'/dashboard' ;
-            array_push($objPaths, array('url'=> $paths[  $pathCounter], 'nombre'=> 'dashboard'  ));
-        }else{
-          if(  Help::isNumber($parciales[$i])    ){
-            $url =$pathPartial . '/'. $parciales[$i];
-            $pathPartial = $url;
-            $paths[  $pathCounter-1]  =  $inicial . $url ;
-            $objPaths [$pathCounter-1]['url' ] = $paths[  $pathCounter-1] ;
-          }else{
-            $pathPartial =  $pathPartial .'/'. $parciales[$i] ;
-            $url =$inicial . $pathPartial;
-            array_push($paths,   $url );
-            array_push($objPaths, array('url'=> $url, 'nombre'=> $parciales[$i]    ));
-           }
-        }
-        $pathCounter++;
-     }
-     return $objPaths;
-   }*/
-
+  
    public static function isNumber($str){
       	$str = str_replace(',', '.', $str);
       	if(!is_numeric($str)) return false;
@@ -197,6 +167,39 @@ class Help
    ];
    return $month[$mothNumber];
 }
+
+public static function groupArray($array,$groupkey)
+    {
+     if (count($array)>0)
+     {
+         $keys = array_keys($array[0]);
+         $removekey = array_search($groupkey, $keys);		if ($removekey===false)
+             return array("Clave \"$groupkey\" no existe");
+         else
+             unset($keys[$removekey]);
+         $groupcriteria = array();
+         $return=array();
+         foreach($array as $value)
+         {
+             $item=null;
+             foreach ($keys as $key)
+             {
+                 $item[$key] = $value[$key];
+             }
+              $busca = array_search($value[$groupkey], $groupcriteria);
+             if ($busca === false)
+             {
+                 $groupcriteria[]=$value[$groupkey];
+                 $return[]=array($groupkey=>$value[$groupkey],'groupeddata'=>array());
+                 $busca=count($return)-1;
+             }
+             $return[$busca]['groupeddata'][]=$item;
+         }
+         return $return;
+     }
+     else
+         return array();
+    }
 
 
 
