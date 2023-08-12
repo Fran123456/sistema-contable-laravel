@@ -14,7 +14,7 @@
 
     <div class="col-md-3 mt-2">
         <label for=""> <strong>Fecha  </strong></label>
-        <input required type="date" class="form-control"id="fecha" 
+        <input required type="date" class="form-control"id="fecha"
         value="{{Help::dateByYear($partida->fecha_contable,'-')}}" name="fecha">
     </div>
 

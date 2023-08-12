@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-3 mt-2">
         <label for=""><strong>Fecha</strong></label>
-        <input required value="@isset($partida){{  Help::dateByYear($partida->fecha_contable,'-') }}@endisset" name="fecha_detalle" id="fecha_detalle" type="date"
+        <input required value="@isset($partida){{  Help::dateByYear($partida->fecha_contable,'-') }} @endisset" name="fecha_detalle" id="fecha_detalle" type="date"
             class="form-control">
     </div>
     <div class="col-md-12 mt-3">
