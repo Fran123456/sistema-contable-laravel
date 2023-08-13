@@ -89,12 +89,8 @@
         dateInput2.prop('max', ultimoDiaDelMes);
         dateInput2.prop('min', f);
        // dateInput2.prop('value', f);
+        dateInput2.val($("#fecha").val());
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c91f56
     }
 
 
