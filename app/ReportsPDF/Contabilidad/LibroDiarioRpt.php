@@ -25,9 +25,9 @@ class LibroDiarioRpt
         $generalStyle= Styles::alignPaddingY('1.13','C');
         $alternativeStyle=Styles::paddingY('1.13');
         $numberStyle= Styles::alignPaddingY('1.13','R');
-        
+
         $alternativeStyleBorder= Styles::alignPaddingYBorder('1.07', 'C');
-        
+
 
         //el % de la tabla debe ser 100 en su total si no no funciona.
         $table = new easyTable($pdf, '%{10,9,21,40,10,10}','width:550; border-color:#3C4048;border-width:0.2; font-size:7.5; border:0; paddingY:1.3;');
@@ -42,7 +42,7 @@ class LibroDiarioRpt
         $count =0;
         $debe = 0;
         $haber = 0;
-      
+
 
         foreach ($data as $key => $dt) {
 
@@ -53,7 +53,15 @@ class LibroDiarioRpt
                 $table->easyCell(  Help::date($dt['fecha_contable'] )  ,$alternativeStyle);
                 $table->easyCell( $t['cuenta_contable']['codigo']  ,$numberStyle);
                 $table->easyCell(  utf8_decode($t['cuenta_contable']['nombre_cuenta'])  ,$alternativeStyle);
-                $table->easyCell(  Help::codigoPartida($t['partida'])  ." - ".utf8_decode($t['concepto']) ,$alternativeStyle);
+
+                $concepto = "";
+                if ($t['concepto']  == null) {
+                    $concepto  = Help::codigoPartida($t['partida']);
+                }else{
+                    $concepto  = Help::codigoPartida($t['partida']) ." - ".utf8_decode($t['concepto']);
+                }
+
+                $table->easyCell($concepto ,$alternativeStyle);
                 $table->easyCell( number_format($t['debe'],2 ),$numberStyle);
                 $table->easyCell(number_format($t['haber'],2 ),$numberStyle);
                 $table->printRow();
@@ -61,7 +69,7 @@ class LibroDiarioRpt
                 $haber +=$t['haber'];
                 $debeFecha +=$t['debe'];
                 $haberFecha +=$t['haber'];
-               
+
             }
 
             $table->easyCell(  ""  ,$alternativeStyle."border:T;");

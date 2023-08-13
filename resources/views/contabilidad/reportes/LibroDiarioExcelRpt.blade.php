@@ -37,7 +37,16 @@
             <td>{{ Help::date( $item->fecha_contable )}}</td>
             <td>{{ $item->cuentaContable->codigo  }}</td>
             <td>{{ $item->cuentaContable->nombre_cuenta  }}</td>
-            <td>{{ $item->concepto }}</td>
+
+            @php
+                $concepto = "";
+                if ($item->concepto  == null) {
+                    $concepto  = Help::codigoPartida($item['partida']);
+                }else{
+                    $concepto  = Help::codigoPartida($item['partida']) ." - ".utf8_decode($item->concepto);
+                }
+            @endphp
+            <td>{{ $concepto }}</td>
             <td style="text-align: right">
                 {{ number_format($item->debe,2) }}
             </td>
