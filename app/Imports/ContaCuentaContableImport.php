@@ -43,16 +43,16 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
         $this->empresa = $empresa;
     }
 
-    
+
     public function collection(Collection $rows)
     {
-        foreach ($rows as $row) 
+        foreach ($rows as $row)
         {
             ++$this->numeroFila;
 
-            //obtener las filas 
+            //obtener las filas
             $codigo = $row['codigo'];
-            $nombreCuenta = $row['nombre_cuenta'];
+            $nombreCuenta = utf8_decode($row['nombre_cuenta']);
             $codigoPadre = $row['codigo_padre'];
             $nivel = $row['nivel'];
             $clasificacion = $row['clasificacion'];
@@ -94,7 +94,7 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
                 }
                 ++$this->ingresados;
             }
-           
+
         }
     }
 
