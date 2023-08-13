@@ -14,6 +14,7 @@ use App\Exports\Contabilidad\SaldoCuentaRpt as SaldoCuentaRptExcel;
 use App\ReportsPDF\Contabilidad\LibroDiarioRpt;
 use App\Exports\Contabilidad\LibroDiarioRpt as LibroDiarioRptExcel;
 use PDF;
+use App\ReportsPDF\Contabilidad\LibroDiarioMayorRpt;
 use App\Models\Contabilidad\ContaPartidaContable;
 
 
@@ -84,16 +85,37 @@ class ReportesContablesController extends Controller
         ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
         ->groupBy('cuenta_contable_id')->get();
         $cuentasMayores = array();
+        $cuentasMayoresObj = array();
         foreach ($cuentas as $key => $value) {
             $cuenta =$value->cuentaContable->buscarPadre($value->cuenta_contable_id,4);
-            array_push($cuentasMayores,$cuenta);
+          //  $detalle = ReportesContables::getSaldoDetalle($value->cuenta_contable_id, $request->fechai,$request->fechaf, true);
+          //  $detalleArreglado = array();
+            array_push($cuentasMayores,$cuenta->id);
+            array_push($cuentasMayoresObj,array("id"=>$cuenta->id, "codigo"=> $cuenta->codigo, "nombre"=>
+            $cuenta->nombre_cuenta, "saldo"=>$cuenta->saldo));
         }
-        $cuentasMayores = array_unique($cuentasMayores);
-        return $cuentasMayores;
+        $cuentasMayoresFiltrado = array_unique($cuentasMayores);
 
-      //  $d = $cuentas[0]->cuentaContable->padreRecursivo;
-       // return $d->padre_recursivo;
-       // return $d->buscarPadre($d);
+        $data = array();
+        $c = 0;
+        foreach ( $cuentasMayoresFiltrado as $key => $value) {
+            $detalle = ReportesContables::getSaldoDetalle($value, $request->fechai,$request->fechaf, true);
+            if ( isset($detalle[0]['debe']) ) {
+                //return $data[0]['detalle'];
+             }else{
+                $detalle = $detalle[0];
+                 //return $data[1]['detalle'];
+             }
+             $c++;
+            array_push($data, array("cuenta"=> $cuentasMayoresObj[$key], "detalle"=> $detalle)   );
+        }
+
+
+
+        //return $data[0]['detalle'][0][0]['debe'];
+        return LibroDiarioMayorRpt::report($request->fechai, $request->fechaf, $data);
+
+
     }
 
 }

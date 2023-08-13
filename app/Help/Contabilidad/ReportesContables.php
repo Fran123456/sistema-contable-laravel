@@ -24,11 +24,10 @@ class ReportesContables
 
 
     //OBIENE EL SALDO DE UNA CUENTA A LA FECHA
-    public static function obtenerSaldoMayorNuevo($cuenta, $fechaInicial, $fechaFinal)
+    public static function obtenerSaldoMayorNuevo($cuenta, $fechaInicial, $fechaFinal, $detalle)
     {
         $saldo = 0;
         $resp = array();
-        $detalle = false;
         if ($fechaFinal == null) {
             $fechaFinal = date('Y-m-d');
         }
@@ -36,12 +35,17 @@ class ReportesContables
             foreach ($cuenta->hijosRecursivos as $cuenta_hija) {
 
                 if ($detalle) {
-                    $aux = self::obtenerSaldoMayorNuevo($cuenta_hija, $fechaInicial, $fechaFinal);
+                    $aux = self::obtenerSaldoMayorNuevo($cuenta_hija, $fechaInicial, $fechaFinal,$detalle);
                     if (count($aux) > 0) {
-                        array_push($resp, $aux);
+
+                        if(count($aux)>1){
+                            array_push($resp, $aux);
+                        }else{
+                            array_push($resp, $aux[0]);
+                        }
                     }
                 } else {
-                    $monto = self::obtenerSaldoMayorNuevo($cuenta_hija, $fechaInicial, $fechaFinal);
+                    $monto = self::obtenerSaldoMayorNuevo($cuenta_hija, $fechaInicial, $fechaFinal,$detalle);
                     if ($cuenta_hija->naturaleza == 'deudora') {
                         $saldo = $saldo + $monto;
                     } else {
@@ -71,8 +75,11 @@ class ReportesContables
             }
 
             if ($debea[0]->monto > 0 || $habera[0]->monto > 0) {
-                array_push($resp, array('debe' => $habera, 'haber' => $debea,
-                    'cuenta' => $cuenta->codigo, 'cuenta_id' => $cuenta->id, 'nombre' => $cuenta->nombre_cuenta, "natu" => $cuenta->tipo_cuenta));
+                array_push($resp, array('haber' => $habera[0]->monto, 'debe' => $debea[0]->monto,
+                    'cuenta' => $cuenta->codigo, 'cuenta_id' => $cuenta->id,
+                    'nombre' => $cuenta->nombre_cuenta, "natu" => $cuenta->tipo_cuenta));
+
+                //    array_push($resp, "XXXX");
             }
             $debe = $debea[0]->monto;
             $haber = $habera[0]->monto;
@@ -85,7 +92,7 @@ class ReportesContables
             $saldo = $total + $saldo;
         }
         if ($detalle) {
-            return $resp;
+            return  $resp;
         }
         $pr = substr($cuenta->codigo, 0, 1);
         if ($pr == 2) {
@@ -98,10 +105,14 @@ class ReportesContables
 
     public static function getSaldo($cuentaId, $fechaInicial, $fechaFinal = null)
     {
-        $debe = 0;
-        $haber = 0;
         $cuenta = ContaCuentaContable::find($cuentaId);
-        return self::obtenerSaldoMayorNuevo($cuenta, $fechaInicial, $fechaFinal);
+        return self::obtenerSaldoMayorNuevo($cuenta, $fechaInicial, $fechaFinal, false);
+    }
+
+    public static function getSaldoDetalle($cuentaId, $fechaInicial, $fechaFinal = null)
+    {
+        $cuenta = ContaCuentaContable::find($cuentaId);
+        return self::obtenerSaldoMayorNuevo($cuenta, $fechaInicial, $fechaFinal = null, true);
     }
 
 }
