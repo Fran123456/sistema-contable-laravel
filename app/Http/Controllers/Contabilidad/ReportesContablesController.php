@@ -66,7 +66,7 @@ class ReportesContablesController extends Controller
     }
 
     public function listadoDePartidas(Request $request){
-      
+
         $data = [
             'partida' => ContaPartidaContable::whereBetween('fecha_contable',[$request->fechai, $request->fechaf])
             ->orderBy('fecha_contable','DESC')->get(),
@@ -77,6 +77,23 @@ class ReportesContablesController extends Controller
         return PDF::loadView('contabilidad.reportes.ListadoPartidasPDF', $data)
         ->stream('listado_partidas_contables.pdf');
 
+    }
+
+    public function libroDiarioMayor(Request $request){
+        $cuentas =ContaDetallePartida::select('codigo_cuenta','cuenta_contable_id')
+        ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
+        ->groupBy('cuenta_contable_id')->get();
+        $cuentasMayores = array();
+        foreach ($cuentas as $key => $value) {
+            $cuenta =$value->cuentaContable->buscarPadre($value->cuenta_contable_id,4);
+            array_push($cuentasMayores,$cuenta);
+        }
+        $cuentasMayores = array_unique($cuentasMayores);
+        return $cuentasMayores;
+
+      //  $d = $cuentas[0]->cuentaContable->padreRecursivo;
+       // return $d->padre_recursivo;
+       // return $d->buscarPadre($d);
     }
 
 }

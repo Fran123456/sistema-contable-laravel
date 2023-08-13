@@ -12,23 +12,7 @@
            <form action="{{ route('contabilidad.reporteBalanceComprobacion') }}" method="get" target="_blank">
             <div class="row">
 
-              <div class="col-md-12 mt-2">
-                <label for="">Cuenta inicio</label>
-                <select class="form-control select2" style="width: 100%" name="cuentai" id="">
-                  @foreach ($cuentas as $item)
-                      <option value="{{ $item->codigo }}">{{ $item->codigo }} {{ $item->nombre_cuenta }}</option>
-                  @endforeach
-                </select>
-              </div>
 
-              <div class="col-md-12 mt-2">
-                <label for="">Cuenta final</label>
-                <select class="form-control select2" style="width: 100%" name="cuentaf" id="">
-                  @foreach ($cuentas as $item)
-                      <option value="{{ $item->codigo }}">{{ $item->codigo }} {{ $item->nombre_cuenta }}</option>
-                  @endforeach
-                </select>
-              </div>
 
               <div class="col-md-12 mt-3">
                 <LABEL>Fecha inicio</LABEL>

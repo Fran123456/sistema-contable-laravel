@@ -23,7 +23,7 @@ class ContaCuentaContable extends Model
     public function nivel(){
         return $this->belongsTo(ContaNivelCuenta::class, 'nivel_id');
     }
-    
+
     public function padre(){
         return $this->belongsTo(ContaCuentaContable::class, 'padre_id');
     }
@@ -38,6 +38,16 @@ class ContaCuentaContable extends Model
     {
         // recursively return all parents
         return $this->belongsTo(ContaCuentaContable::class, 'padre_id')->with('padreRecursivo');
+    }
+
+    public function buscarPadre($cuenta, $nivel){ //int
+            $cuenta = ContaCuentaContable::find($cuenta)->padre; //objeto
+                if ( strlen($cuenta->codigo) == $nivel  ) {
+                        return $cuenta; //retornar objeto
+                }else{
+                       return $this->buscarPadre($cuenta->id,$nivel); //retornar id
+                }
+
     }
 
     public function hijosRecursivos()

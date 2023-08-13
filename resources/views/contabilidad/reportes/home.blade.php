@@ -39,15 +39,15 @@ $(document).ready(function(){
         <div class="col-md-4 mt-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Auxiliar de cuentas contables</h5>
+                    <h5 class="card-title">Libro Diario Mayor</h5>
                     <button style="color:white" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#auxiliar_cuentas">
+                        data-bs-target="#libro_mayor">
                         Generar
                     </button>
                 </div>
             </div>
         </div>
-        @include('contabilidad.reportes.modal.modal_auxiliar_cuentas')
+        @include('contabilidad.reportes.modal.modal_libro_diario_mayor')
 
         <div class="col-md-4 mt-2">
             <div class="card">
@@ -118,15 +118,15 @@ $(document).ready(function(){
 
     </div>
 
- 
-   
+
+
 <script>
-    $('.select2').each(function() { 
+    $('.select2').each(function() {
         $(this).select2({ dropdownParent: $(this).parent()});
     })
 
 </script>
- 
+
 
 
 

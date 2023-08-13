@@ -49,6 +49,8 @@ Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
     Route::get('/reportes/libro-diario', [ReportesContablesController::class, 'reporteLibroDiario'])->name('reporteLibroDiario');
     Route::get('/reportes/balance-comprobacion', [ReportesContablesController::class, 'reporteBalanceComprobacion'])->name('reporteBalanceComprobacion');
     Route::get('/reportes/listado-partidas-contables', [ReportesContablesController::class, 'listadoDePartidas'])->name('listadoDePartidas');
+    Route::get('/reportes/libro-diario-mayor', [ReportesContablesController::class, 'libroDiarioMayor'])->name('libroDiarioMayor');
 
-    
+
+
 });
