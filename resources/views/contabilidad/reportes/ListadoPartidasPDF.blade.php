@@ -181,7 +181,7 @@
                 </thead>
                 <tbody>
                     @foreach ($partida as $key => $item)
-                        <tr>
+                        <tr @if ($item->debe != $item->haber) style="font-weight: bold; color: red" @endif >
                             <td>{{ $key + 1 }}</td>
                             <td>{{ Help::codigoPartida($item) }}</td>
                             <td>{{ $item->concepto}} </td>
@@ -191,7 +191,7 @@
                     @endforeach
                 </tbody>
             </table>
-            
+
             <table>
                 <tbody>
                     <!--<tr>
