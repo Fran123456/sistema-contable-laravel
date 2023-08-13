@@ -14,6 +14,7 @@ use App\Exports\Contabilidad\SaldoCuentaRpt as SaldoCuentaRptExcel;
 use App\ReportsPDF\Contabilidad\LibroDiarioRpt;
 use App\Exports\Contabilidad\LibroDiarioRpt as LibroDiarioRptExcel;
 use PDF;
+use App\Exports\Contabilidad\LibroDiarioMayorRpt as LibroDiarioMayorRptExcel;
 use App\ReportsPDF\Contabilidad\LibroDiarioMayorRpt;
 use App\Models\Contabilidad\ContaPartidaContable;
 
@@ -109,10 +110,10 @@ class ReportesContablesController extends Controller
              $c++;
             array_push($data, array("cuenta"=> $cuentasMayoresObj[$key], "detalle"=> $detalle)   );
         }
-
-
-
-        //return $data[0]['detalle'][0][0]['debe'];
+        $f = date("d-m-Y h:i:s");
+        if($request->excel){
+            return Excel::download(new LibroDiarioMayorRptExcel($request->fechai, $request->fechaf, $data), "libro-diario-mayor-${f}.xlsx");
+        }
         return LibroDiarioMayorRpt::report($request->fechai, $request->fechaf, $data);
 
 
