@@ -16,6 +16,7 @@ use App\Exports\Contabilidad\LibroDiarioRpt as LibroDiarioRptExcel;
 use PDF;
 use App\Exports\Contabilidad\LibroDiarioMayorRpt as LibroDiarioMayorRptExcel;
 use App\ReportsPDF\Contabilidad\LibroDiarioMayorRpt;
+use App\ReportsPDF\Contabilidad\BalanceComprobacionRpt;
 use App\Models\Contabilidad\ContaPartidaContable;
 
 
@@ -30,15 +31,14 @@ class ReportesContablesController extends Controller
     }
 
     public function reporteBalanceComprobacion(Request $request){
-       /* $cuentas =ContaDetallePartida::select('cuenta_contable_id')
-        ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
-        ->groupBy('cuenta_contable_id')->get();*/
-        $cuentas =ContaCuentaContable::select('codigo')
-        ->where('codigo', 'LIKE', "%{$request->cuentai}%")
-        ->orWhere('codigo', 'LIKE', "%{$request->cuentaf}%")
-        ->get();
+        $cuentas =ContaDetallePartida::
+        whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
+        ->orderBy('codigo_cuenta', 'asc')->with(['cuentaContable'=>function($query){
+            $query->select('nombre_cuenta','nombre_cuenta','id','tipo_cuenta');
+        }])
+        ->get()->toArray();
+        return BalanceComprobacionRpt::report($request->fechai, $request->fechaf, $cuentas);
 
-        return $cuentas;
     }
 
     public function reporteSaldoCuenta(Request $request){
