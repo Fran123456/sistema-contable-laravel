@@ -2,7 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
+    <title>{{ $title ?? 'Sistema contable' }}</title>
+    <div>{{ $subtitle ?? 'xxxxx' }}</div>
 
     <!-- Meta -->
     <meta charset="utf-8">
@@ -50,7 +51,7 @@
             border-color: #5cb377;
         }
     </style>
-<script src="{{ asset('js/jquery-3.6.4.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.4.min.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
         referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/js/all.min.js" referrerpolicy="no-referrer">

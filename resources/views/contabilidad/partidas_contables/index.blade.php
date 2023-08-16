@@ -1,4 +1,11 @@
 <x-app-layout>
+    <x-slot:title>
+        Listado de partidas contables periodo {{ Help::getNameMothByNumber(  ltrim(Help::periodoContable()->mes, "0")) }} {{ Help::periodoContable()->year }}
+    </x-slot>
+
+    <x-slot:subtitle>
+        {{--Periodo {!! Help::periodoContable()?->codigo!!}  --}}
+    </x-slot>
 
     <div class="col-md-12">
         <ol class="breadcrumb">

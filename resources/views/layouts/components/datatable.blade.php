@@ -93,8 +93,8 @@
     if ({{ $pdfShow->value }} == 1) {
         pdfShow = {
             extend: 'pdfHtml5',
-            title: 'Data export', //titulo del archivo,
-            messageTop: 'PDF created by PDFMake with Buttons for DataTables.',
+            title: "{{ $title }}", //titulo del archivo,
+            messageTop: "{{ $subtitle }}",
             download: 'open',
             titleAttr: 'PDF',
             text: '<i class="fas fa-file-pdf fa-2x"></i>',
