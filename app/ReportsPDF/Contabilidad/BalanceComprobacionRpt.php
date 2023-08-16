@@ -5,7 +5,6 @@ namespace App\ReportsPDF\Contabilidad;
 use App\Help\PDF\EasyTable\easyTable;
 use App\Help\PDF\EasyTable\exfpdf;
 use App\Help\Help;
-
 use App\Help\PDF\EasyTable\Styles;
 use App\Help\Contabilidad\ReportesContables;
 

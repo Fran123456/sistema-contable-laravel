@@ -17,6 +17,7 @@ use PDF;
 use App\Exports\Contabilidad\LibroDiarioMayorRpt as LibroDiarioMayorRptExcel;
 use App\ReportsPDF\Contabilidad\LibroDiarioMayorRpt;
 use App\ReportsPDF\Contabilidad\BalanceComprobacionRpt;
+use App\Exports\Contabilidad\BalanceComprobacionRpt as BalanceComprobacionRptExcel;
 use App\Models\Contabilidad\ContaPartidaContable;
 
 
@@ -37,6 +38,11 @@ class ReportesContablesController extends Controller
             $query->select('nombre_cuenta','nombre_cuenta','id','tipo_cuenta');
         }])
         ->get()->toArray();
+        $f = date("d-m-Y h:i:s");
+        if($request->excel){
+            return Excel::download(new BalanceComprobacionRptExcel($request->fechai, $request->fechaf, $cuentas), "balance-comprobacion-${f}.xlsx");
+        }
+
         return BalanceComprobacionRpt::report($request->fechai, $request->fechaf, $cuentas);
 
     }
