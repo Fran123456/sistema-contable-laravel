@@ -38,12 +38,12 @@
             <td></td>
             <td>{{ $saldo }}</td>
           </tr>
-          
+
           @foreach ($data as $key=> $item)
           <tr>
             <th scope="row">{{ $key+1 }}</th>
             <td>{{ Help::date( $item->fecha_contable )}}</td>
-            <td>{{ $item->partida->tipoPartida->tipo.$item->cuentaContable->codigo  }}</td>
+            <td>{{$item->partida->tipoPartida->tipo.$item->cuentaContable->codigo  }}</td>
             <td>{{ $item->concepto }}</td>
             <td style="text-align: right">
                 {{ number_format($item->debe,2) }}
@@ -57,11 +57,11 @@
             <td style="text-align: right">
               {{ number_format($saldoIns,2) }}
             </td>
-            
+
           </tr>
           @endforeach
         </tbody>
       </table>
-    
+
 </body>
 </html>

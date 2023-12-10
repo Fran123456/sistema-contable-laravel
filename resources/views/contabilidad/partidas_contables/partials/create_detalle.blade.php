@@ -5,7 +5,7 @@
         <select name="cuenta" class="chosen-select form-control" id="">
             @foreach ($cuentas as $cuenta)
                 @if ($cuenta->clasificacion != null)
-                    <option value="{{ $cuenta->id }}">{{ $cuenta->codigo }} -
+                    <option value="{{ $cuenta->id }}">{{ strval($cuenta->codigo) }} -
                         {{ $cuenta->nombre_cuenta }}</option>
                 @endif
             @endforeach
