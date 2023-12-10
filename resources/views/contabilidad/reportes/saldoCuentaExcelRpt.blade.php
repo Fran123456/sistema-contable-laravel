@@ -43,7 +43,7 @@
           <tr>
             <th scope="row">{{ $key+1 }}</th>
             <td>{{ Help::date( $item->fecha_contable )}}</td>
-            <td>{{$item->partida->tipoPartida->tipo.$item->cuentaContable->codigo  }}</td>
+            <td>{{ Help::codigoPartida($item->partida)  }}</td>
             <td>{{ $item->concepto }}</td>
             <td style="text-align: right">
                 {{ number_format($item->debe,2) }}
