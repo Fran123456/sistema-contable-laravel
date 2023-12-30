@@ -19,6 +19,8 @@ use App\ReportsPDF\Contabilidad\LibroDiarioMayorRpt;
 use App\ReportsPDF\Contabilidad\BalanceComprobacionRpt;
 use App\Exports\Contabilidad\BalanceComprobacionRpt as BalanceComprobacionRptExcel;
 use App\Models\Contabilidad\ContaPartidaContable;
+use App\ReportsPDF\Contabilidad\BalanceComprobacionRptNew;
+
 
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -32,19 +34,21 @@ class ReportesContablesController extends Controller
     }
 
     public function reporteBalanceComprobacion(Request $request){
-        $cuentas =ContaDetallePartida::
+
+        /*$cuentas =ContaDetallePartida::
         whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
         ->orderBy('codigo_cuenta', 'asc')->with(['cuentaContable'=>function($query){
             $query->select('nombre_cuenta','nombre_cuenta','id','tipo_cuenta');
         }])
-        ->get()->toArray();
-        $f = date("d-m-Y h:i:s");
+        ->get()->toArray();*/
+
+        /*$f = date("d-m-Y h:i:s");
         if($request->excel){
             return Excel::download(new BalanceComprobacionRptExcel($request->fechai, $request->fechaf, $cuentas), "balance-comprobacion-${f}.xlsx");
-        }
-
-        return BalanceComprobacionRpt::report($request->fechai, $request->fechaf, $cuentas);
-
+        }*/
+        $data = ReportesContables::debeHaberPorCuentaByFechaGroupByCuenta($request->fechai, $request->fechaf);
+        return BalanceComprobacionRptNew::report($request->fechai, $request->fechaf, $data);
+        //return BalanceComprobacionRpt::report($request->fechai, $request->fechaf, $cuentas);
     }
 
     public function reporteSaldoCuenta(Request $request){

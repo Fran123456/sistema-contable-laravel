@@ -1,5 +1,11 @@
 <x-app-layout>
+    <x-slot:title>
+        Tipo de partidas
+    </x-slot>
 
+    <x-slot:subtitle>
+        {{--Periodo {!! Help::periodoContable()?->codigo!!}  --}}
+    </x-slot>
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">

@@ -5,7 +5,13 @@ $(document).ready(function(){
     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
 });
 </script>
+<x-slot:title>
+        Reportes contables
+    </x-slot>
 
+    <x-slot:subtitle>
+        {{--Periodo {!! Help::periodoContable()?->codigo!!}  --}}
+    </x-slot>
 
 
     <div class="col-md-12">

@@ -1,4 +1,10 @@
 <x-app-layout>
+    <x-slot:title>
+        Editar una empresa
+      </x-slot>
+
+      <x-slot:subtitle>
+      </x-slot>
 
 
     <div class="col-md-12">

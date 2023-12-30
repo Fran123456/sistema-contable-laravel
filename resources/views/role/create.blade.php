@@ -1,6 +1,11 @@
 <x-app-layout>
     <x-chosen></x-chosen>
-  
+    <x-slot:title>
+        Roles
+      </x-slot>
+
+      <x-slot:subtitle>
+      </x-slot>
 
 
     <div class="col-md-12">

@@ -3,7 +3,7 @@
         <ul class="app-menu footer-menu list-unstyled">
             <li class="nav-item">
                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                <a class="nav-link" href="settings.html">
+                <a class="nav-link" href="{{route('settings.settings')}}">
                     <span class="nav-icon">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear"
                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +18,8 @@
                 <!--//nav-link-->
             </li>
             <!--//nav-item-->
-            <li class="nav-item">
+            {{--
+                <li class="nav-item">
                 <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                 <a class="nav-link"
                     href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">
@@ -36,7 +37,8 @@
                 </a>
                 <!--//nav-link-->
             </li>
-            
+
+                --}}
         </ul>
         <!--//footer-menu-->
     </nav>

@@ -1,6 +1,11 @@
 <x-app-layout>
     <x-chosen></x-chosen>
+    <x-slot:title>
+        Editar partida contable
+     </x-slot>
 
+     <x-slot:subtitle>
+     </x-slot>
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>

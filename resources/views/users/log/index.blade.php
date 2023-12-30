@@ -1,4 +1,10 @@
 <x-app-layout>
+    <x-slot:title>
+        Logs
+      </x-slot>
+
+      <x-slot:subtitle>
+      </x-slot>
 
     <div class="col-md-12">
         <ol class="breadcrumb">
@@ -11,7 +17,7 @@
     </div>
 
 
-  
+
 
     <div class="col-md-12">
 
