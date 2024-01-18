@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <x-slot:title>
-        Agregar Empleado
+        Editar empleado
     </x-slot>
 
     <x-slot:subtitle>
@@ -15,20 +15,25 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="/users">Empleados</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Crear empleado</li>
+                <li class="breadcrumb-item active" aria-current="page">Editar empleado</li>
             </ol>
         </nav>
     </div>
 
 
     <div class="col-md-12 mb-3">
-        <x-badge titulo="Nuevo empleado" icono="fas fa-user-plus"></x-badge>
+        <x-badge titulo="Editar empleado" icono="fas fa-user-plus"></x-badge>
     </div>
     <div class="col-md-12">
-        <form action="{{ route('rrhh.empleado.store') }}" method="post">
+        <div class="text-start">
+            <h6>Ficha de: {{ $empleado->nombre_completo }} </h6>
+        </div>
+        <form action="{{ route('rrhh.empleado.update', $empleado->id) }}" method="post">
+            @method('PUT')
             @csrf
             <div class="card">
                 <div class="card-body">
+
 
                     <div class="row">
                         <div class="col-md-12">
@@ -36,18 +41,18 @@
                         </div>
 
                         <div class=" row ">
-                            <label for="">Empleado</label>
+                            <label for="empleado">Empleado</label>
                         </div>
 
                         {{-- nombre y apellido empleado --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="nombres">Nombres:</label>
-                                <input name="nombres" id="nombres" required type="text" class="form-control" max="300">
+                                <input name="nombres" id="nombres" required type="text" class="form-control" max="300" value="{{ $empleado->nombres }}">
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="apellidos">Apellidos:</label>
-                                <input name="apellidos" id="apellidos" required type="text" class="form-control" max="300">
+                                <input name="apellidos" id="apellidos" required type="text" class="form-control" max="300" value="{{ $empleado->apellidos }}">
                             </div>
                         </div>
 
@@ -55,12 +60,12 @@
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="correo">Correo personal:</label>
-                                <input name="correo" id="correo" type="text" class="form-control" max="200">
+                                <input name="correo" id="correo" type="text" class="form-control" max="200" value="{{ $empleado->correo }}">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="telefono">Telefono</label>
-                                <input class="form-control" name="telefono" id="telefono" type="text" max="200" required>
+                                <input class="form-control" name="telefono" id="telefono" type="text" max="200" required value="{{ $empleado->telefono }}">
                             </div>
                         </div>
 
@@ -71,40 +76,35 @@
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="correo_empresarial">Correo empresarial:</label>
-                                <input name="correo_empresarial" id="correo_empresarial" type="text" class="form-control"
-                                max="200">
+                                <input name="correo_empresarial" id="correo_empresarial" type="text" class="form-control" max="200" value="{{ $empleado->correo_empresarial }}">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="direccion">Direccion:</label>
-                                <input name="direccion" id="direccion" type="text" class="form-control" max="200">
+                                <input name="direccion" id="direccion" type="text" class="form-control" max="200" value="{{ $empleado->direccion }}">
                             </div>
-                        </div>
-
-                        {{-- direccion empleado --}}
-                        <div class=" row ">
                         </div>
 
                         {{-- edad  sexo y estado del empleado --}}
                         <div class="row">
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="edad">Edad</label>
-                                <input name="edad" id="edad" type="text" class="form-control" pattern="^[0-9]+$" max="2" required>
+                                <input name="edad" id="edad" type="text" class="form-control" pattern="^[0-9]+$" max="2" required value="{{ $empleado->edad }}">
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="sexo">Sexo:</label>
-                                <select name="sexo" id="sexo" class="form-select" required>
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="Femenino">Femenino</option>
+                                <select name="sexo" id="sexo" class="form-select" required value="{{ $empleado->sexo }}">
+                                    <option value="Masculino" @if($empleado->sexo == 'Masculino') selected @endif>Masculino</option>
+                                    <option value="Femenino" @if($empleado->sexo == 'Femenino') selected @endif>Femenino</option>
                                 </select>
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="estado">Estado Activo:</label>
-                                <select name="estado" id="estado" class="form-select" required>
-                                    <option value="1">Activo</option>
-                                    <option value="0">Inactivo</option>
+                                <select name="estado" id="estado" class="form-select" required value="{{ $empleado->activo }}">
+                                    <option value="1" @if($empleado->activo == 1) selected @endif>Activo</option>
+                                    <option value="0" @if($empleado->activo == 0) selected @endif>Inactivo</option>
                                 </select>
                             </div>
                         </div>
@@ -114,11 +114,12 @@
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="fecha_nacimiento">Fecha de nacimiento</label>
-                                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" />
+                                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{ $empleado->fecha_nacimiento }}">
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="fecha_ingreso">Fecha de ingreso</label>
-                                <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" />
+                                @csrf
+                                <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" value="{{ $empleado->fecha_ingreso }}">
                             </div>
                         </div>
 
@@ -144,3 +145,4 @@
 
 
 </x-app-layout>
+

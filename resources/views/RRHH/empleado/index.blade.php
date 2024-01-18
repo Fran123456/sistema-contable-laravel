@@ -41,13 +41,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($empleados as $key => $item)
+                                @foreach ($empleados as $key => $item)
                                 <tr class="  @if ($item->actualizada == false) table-danger @endif">
 
                                     <th scope="row">{{ $key + 1 }}</th>
 
                                     <td>{{ $item->nombre_completo }} </td>
-                                    <td>{{ $item->fecha_ingreso }} </td>
+                                    <td>{{ date_format(new DateTime($item->fecha_ingreso), 'd-m-Y') }} </td>
 
                                     <td>
                                         @if ($item->activo)
@@ -57,22 +57,22 @@
                                         @endif
                                     </td>
 
-                                    <td><a href="{{ route('rrhh.empleado.show', $item->id) }}" class="btn btn-warning"><i class="fas fa-eye"></i></a></td>
+                                    <td><a href="{{ route('rrhh.empleado.show', $item->id) }}" class="btn btn-success"><i class="fas fa-eye"></i></a></td>
                                     <td><a href="{{ route('rrhh.empleado.edit', $item->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
                                     <td>
                                         <form id="form{{ $item->id }}"
-                                            action="{{ route('rrhh.empleado .destroy', $item->id) }}"
+                                            action="{{ route('rrhh.empleado.destroy', $item->id) }}"
                                             method="post">
                                             @method('DELETE')
                                             @csrf
                                             <button
                                                 onclick="confirm('form{{ $item->id }}','¿Desea eliminar el empleado?')"
-                                                class="btn @if ($item->activo) btn-success @else btn-danger @endif "
+                                                class="btn btn-danger"
                                                 type="button" ><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach --}}
+                            @endforeach
 
 
                             </tbody>
