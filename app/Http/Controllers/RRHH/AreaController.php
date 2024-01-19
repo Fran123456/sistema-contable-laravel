@@ -18,7 +18,8 @@ class AreaController extends Controller
          // Obtenemos la lista de areas
          $areas = RRHHArea::all();
          //Devuelve una vista
-         return view('RRHH.area.index', ['areas' => $areas]);
+        //  return $areas;
+         return view('RRHH.area.index', compact('areas'));
     }
 
     /**

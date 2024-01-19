@@ -17,4 +17,9 @@ class RRHHArea extends Model
         'updated_at',
     ];
 
+    
+    public function empresa(){
+        return $this->belongsTo(RRHHEmpresa::class, 'empresa_id');
+    }
+
 }
