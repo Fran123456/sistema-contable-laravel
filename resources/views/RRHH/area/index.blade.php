@@ -32,7 +32,7 @@
                     @foreach ($areas as $key => $area)
                         <tr>
                             <td>{{$key + 1}}</td>
-                        <td class="table-info">{{ $area->area }}</td>
+                        <td>{{ $area->area }}</td>
                         {{-- Mostramos el nombre de la empresa.
                             1 parametro es de la función del Modelo
                             2 parametro es el nombre en la bbdd --}}
