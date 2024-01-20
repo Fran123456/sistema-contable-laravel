@@ -110,7 +110,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <p class="header1">AGENTES PORTUARIOS DEL PACIFICO, S.A. DE C.V.</p>
+            <p class="header1"> {{auth()->user()->empresa->empresa}}  </p>
             <p class="legend">ESTADO DE RESULTADOS</p>
             <p class="legend"> {{ $fechaReporte }}</p>
             <p class="legend">(EXPRESADO EN DÓLARES DE LOS ESTADOS UNIDOS DE AMÉRICA)</p>

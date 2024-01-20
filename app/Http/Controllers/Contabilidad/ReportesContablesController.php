@@ -59,13 +59,16 @@ class ReportesContablesController extends Controller
     public function reporteEstadoResultado(Request $request)
     {
 
+
        // return $this->explout("44");
         $fechai = $request->fechai;
         $fechaf = $request->fechaf;
        //return AuxiliarDeCuentasRepository::getSaldo(601,$fechai, $fechaf );
       // return AuxiliarDeCuentasRepository::getSaldo(601,$fechai, $fechaf );
         $fechaReporte = "DEL ".Fecha::obtenerDia($fechai)." DE ".strtoupper(Fecha::obtenerMesyDiaPorFecha($fechai) )." AL ".Fecha::obtenerDia($fechaf)." DE ".strtoupper(Fecha::obtenerMesyDiaPorFecha($fechaf))." DE " . Fecha::obtenerYear( $fechaf);
-        $mayor = ContaBalanceConf::whereIn('mayor', ['1','2','3'])->where('balance', 'balance')->orderBy('orden')->get();
+        $mayor = ContaBalanceConf::whereIn('mayor', ['1','2','3'])->where('balance', 'balance')
+        ->where('empresa_id', Help::empresa())
+        ->orderBy('orden')->get();
         //mayor = 1 = trae cuenta de mayor
         //mayor = 2 = es un separador nada mas , este no se opera
 
@@ -139,7 +142,9 @@ class ReportesContablesController extends Controller
             }
             else{
 
-                $obj->data = ContaBalanceConf::where('grupo', $value->grupo)->where('mayor', 0)->with('cuenta:id,codigo,nombre_cuenta')->get();
+                $obj->data = ContaBalanceConf::where('grupo', $value->grupo)->where('mayor', 0)
+                ->where('empresa_id', Help::empresa())
+                ->with('cuenta:id,codigo,nombre_cuenta')->get();
                 $cuentas = array();
                 $saldo = 0;
                 foreach ($obj->data as $key => $d) {
