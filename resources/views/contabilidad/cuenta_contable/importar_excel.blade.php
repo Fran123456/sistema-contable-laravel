@@ -3,6 +3,14 @@
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
 
+    <x-slot:title>
+       Importar catalogo de cuentas
+     </x-slot>
+
+     <x-slot:subtitle>
+     </x-slot>
+
+
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
@@ -83,14 +91,14 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                       
+
                                           <tr>
                                             <td>acreedora</td>
                                           </tr>
                                           <tr>
                                             <td>deudora</td>
                                           </tr>
-                                          
+
                                         </tbody>
                                       </table>
                                 </div>

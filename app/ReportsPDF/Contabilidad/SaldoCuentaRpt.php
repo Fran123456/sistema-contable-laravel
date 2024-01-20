@@ -10,7 +10,7 @@ use App\Help\Contabilidad\ReportesContables;
 
 class SaldoCuentaRpt
 {
-    
+
     public static function report($fechai, $fechaf, $data, $saldo, $cuenta){
         $n=0;
         $pdf = new exFPDF('REPORTE DE SALDO DE CUENTAS', "DEL " . Help::date($fechai) . " AL " .  Help::date($fechaf)   , 'P', 'mm', 'legal');
@@ -30,7 +30,7 @@ class SaldoCuentaRpt
         $numberStyle= Styles::alignPaddingY('1.13','R');
 
         //el % de la tabla debe ser 100 en su total si no no funciona.
-        $table = new easyTable($pdf, '%{5,10,10,38,12,12,13}','width:550; border-color:#3C4048;border-width:0.2; font-size:8; border:0; paddingY:1.3;');
+        $table = new easyTable($pdf, '%{5,10,13,35,12,12,13}','width:550; border-color:#3C4048;border-width:0.2; font-size:8; border:0; paddingY:1.3;');
         $table->rowStyle('font-style:B;font-color:#3F3F3F;valign:M;');
         $table->easyCell("No", $style.'border:B;');//rowspan es para combinar columnas
         $table->easyCell('Fecha',$style.'border:B;');
@@ -59,7 +59,7 @@ class SaldoCuentaRpt
             $count = $key;
             $table->easyCell($key+1,$alternativeStyle);
             $table->easyCell(  Help::date($dt->fecha_contable)  ,$alternativeStyle);
-            $table->easyCell( $dt->partida->tipoPartida->tipo.$dt->cuentaContable->codigo  ,$alternativeStyle);
+            $table->easyCell( Help::codigoPartida($dt->partida)  ,$alternativeStyle);
             $table->easyCell( utf8_decode($dt->concepto) ,$alternativeStyle);
             $table->easyCell( number_format($dt->debe,2 ),$numberStyle);
             $table->easyCell(number_format($dt->haber,2 ),$numberStyle);
@@ -71,14 +71,14 @@ class SaldoCuentaRpt
             $saldoAc =$saldoIns;
         }
 
-       
+
             $table->easyCell("",$alternativeStyle.'border:T;');
             $table->easyCell( "" ,$alternativeStyle.'border:T;');
             $table->easyCell( ""  ,$alternativeStyle.'border:T;');
             $table->easyCell( "",$alternativeStyle.'border:T;');
             $table->easyCell( number_format($debe,2 ),$numberStyle.'border:T;');
             $table->easyCell(number_format($haber,2 ),$numberStyle.'border:T;');
-            
+
 
             $table->easyCell("",$numberStyle.'border:T;');
             $table->printRow();
@@ -96,7 +96,7 @@ class SaldoCuentaRpt
             }//salto de tabla dinamico
         }*/
 
-       
+
 
         $pdf->Output('I', __("Delivery Receipt") . ' - No.' . 'reporte' . '.pdf');
         exit;

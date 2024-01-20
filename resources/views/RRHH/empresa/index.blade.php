@@ -1,4 +1,10 @@
 <x-app-layout>
+    <x-slot:title>
+        Lista de empresas
+      </x-slot>
+
+      <x-slot:subtitle>
+      </x-slot>
 
     <div class="col-md-12">
         <ol class="breadcrumb">

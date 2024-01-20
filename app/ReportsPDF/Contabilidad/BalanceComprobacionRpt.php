@@ -12,6 +12,7 @@ class BalanceComprobacionRpt
 {
 
     public static function report($fechai, $fechaf, $data){
+
         $data = Help::groupArray($data,'codigo_cuenta');
         $n=0;
         $pdf = new exFPDF('BALANCE DE '. utf8_decode("COMPROBACIÓN"), " DEL " . Help::date($fechai) . " AL " .  Help::date($fechaf)   , 'P', 'mm', 'legal');

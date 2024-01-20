@@ -93,8 +93,8 @@
     if ({{ $pdfShow->value }} == 1) {
         pdfShow = {
             extend: 'pdfHtml5',
-            title: "", //titulo del archivo,
-            messageTop: "",
+            title: "{{ $title ?? 'Sistema contable' }}", //titulo del archivo,
+            messageTop: "{{ $subtitle ??'' }}",
             download: 'open',
             titleAttr: 'PDF',
             text: '<i class="fas fa-file-pdf fa-2x"></i>',

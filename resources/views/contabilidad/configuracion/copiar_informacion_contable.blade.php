@@ -1,5 +1,12 @@
 <x-app-layout>
 
+    <x-slot:title>
+        Copiar información
+    </x-slot>
+
+    <x-slot:subtitle>
+        {{--Periodo {!! Help::periodoContable()?->codigo!!}  --}}
+    </x-slot>
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>

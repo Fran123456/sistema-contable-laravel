@@ -1,5 +1,10 @@
 <x-app-layout>
+    <x-slot:title>
+        inicio
+      </x-slot>
 
+      <x-slot:subtitle>
+      </x-slot>
 
     <h4 class="mb-2">Seleccione empresas para administrar</h4>
 

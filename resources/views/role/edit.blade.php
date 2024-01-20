@@ -1,6 +1,12 @@
 <x-app-layout>
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+    <x-slot:title>
+        Roles
+      </x-slot>
+
+      <x-slot:subtitle>
+      </x-slot>
 
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
@@ -81,12 +87,12 @@
                                                 <a href="{{ route('roles.destroyPermissionOne', $role->id) }}?permission_one={{ $item->id_permissions }}">
                                                     <span class="badge bg-secondary">{{ $item->permission }}</span></a>
                                                 @endforeach
-                                               
+
                                             </td>
                                         </tr>
-                                        
-                                           
-                                       
+
+
+
                                     @endforeach
                                 @else
                                     <x-message message="No hay permisos asociados" color="danger"></x-message>

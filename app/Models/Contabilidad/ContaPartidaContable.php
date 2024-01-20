@@ -19,6 +19,8 @@ class ContaPartidaContable extends Model
         'creador_id','actualizador_id'
     ];
 
+
+
     public function periodo(){
         return $this->belongsTo(ContaPeriodoContable::class, 'periodo_id');
     }
@@ -39,7 +41,7 @@ class ContaPartidaContable extends Model
         return $this->belongsTo(User::class, 'actualizador_id');
     }
 
-   
+
 
     public function detalles(){
         return $this->hasMany(ContaDetallePartida::class,'partida_id');

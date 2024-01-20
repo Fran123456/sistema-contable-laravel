@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Contabilidad\ContaClasificacionCuenta;
 use App\Models\Contabilidad\ContaNivelCuenta;
+use App\Models\Contabilidad\ContaDetallePartida;
 
 class ContaCuentaContable extends Model
 {
@@ -15,6 +16,14 @@ class ContaCuentaContable extends Model
         'codigo','created_at','updated_at','nombre_cuenta','padre_id','hijos','nivel_id',
         'clasificacion_id','saldo','activo','empresa_id','tipo_cuenta'
     ];
+
+    //GPT
+    public function detallesPartida()
+    {
+        return $this->hasMany(ContaDetallePartida::class, 'cuenta_contable_id');
+    }
+    //GPT
+
 
     public function clasificacion(){
         return $this->belongsTo(ContaClasificacionCuenta::class, 'clasificacion_id');

@@ -22,6 +22,12 @@
 
     </div>
 
+    <x-slot:title>
+        Usuarios
+      </x-slot>
+
+      <x-slot:subtitle>
+      </x-slot>
     <div class="col-md-12">
         <x-alert></x-alert>
         <div class="card">

@@ -3,7 +3,7 @@
 
 <head>
     <title>{{ $title ?? 'Sistema contable' }}</title>
-    <div>{{ $subtitle ?? '' }}</div>
+    <div>{{ $subtitle ?? 'Sistema contable' }}</div>
 
     <!-- Meta -->
     <meta charset="utf-8">

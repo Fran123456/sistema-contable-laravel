@@ -20,6 +20,13 @@ class ContaDetallePartida extends Model
         'concepto','created_at','updated_at','codigo_cuenta'
     ];
 
+
+
+
+    // Relación con ContaPartidaContable
+
+
+
     public function cuentaContable(){
         return $this->belongsTo(ContaCuentaContable::class, 'cuenta_contable_id');
     }
@@ -51,4 +58,3 @@ class ContaDetallePartida extends Model
 }
 
 
-													

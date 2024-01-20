@@ -3,6 +3,13 @@
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
 
+    <x-slot:title>
+      Editar cuenta contable
+    </x-slot>
+
+    <x-slot:subtitle>
+    </x-slot>
+
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
@@ -87,7 +94,7 @@
                                 <option  value="acreedora">Acreedora</option>
                                 <option selected value="deudadora">Deudora</option>
                                 @endif
-                              
+
                             </select>
                         </div>
 

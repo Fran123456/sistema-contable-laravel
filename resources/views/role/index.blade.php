@@ -1,4 +1,10 @@
 <x-app-layout>
+    <x-slot:title>
+        Roles
+      </x-slot>
+
+      <x-slot:subtitle>
+      </x-slot>
 
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
