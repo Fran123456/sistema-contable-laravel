@@ -35,7 +35,12 @@ Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
 //PARTIDAS CONTABLES
 Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
     Route::resource('partidas', PartidasContablesController::class);
-    Route::get('/correlativo/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
+
+
+
+    Route::get('/partida/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
+
+    //Route::get('/correlativo/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
     Route::get('/partida/cerrar/{id}', [PartidasContablesController::class, 'cerrarPartida'])->name('cerrarPartida');
     Route::get('/partida/reporte/{id}', [PartidasContablesController::class, 'reportePartidaContable'])->name('reportePartidaContable');
     Route::delete('/partida/detalle/eliminar/{id}', [PartidasContablesController::class, 'eliminarDetallePartida'])->name('eliminarDetallePartida');
@@ -51,6 +56,7 @@ Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
     Route::get('/reportes/listado-partidas-contables', [ReportesContablesController::class, 'listadoDePartidas'])->name('listadoDePartidas');
     Route::get('/reportes/libro-diario-mayor', [ReportesContablesController::class, 'libroDiarioMayor'])->name('libroDiarioMayor');
 
+    Route::get('/reportes/estado-resultado', [ReportesContablesController::class, 'reporteEstadoResultado'])->name('reporteEstadoResultado');
 
 
 });

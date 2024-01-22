@@ -99,7 +99,7 @@ class ReportesContables
             $haber = 0;
 
 
-            if($cuenta->tipo_cuenta =="acreedora"){//cuentta 1, 4,6
+            if($cuenta->tipo_cuenta =="deudora"){//cuentta 1, 4,6
             }else{
                 $debe = $debe*(-1);
             }
@@ -165,7 +165,7 @@ class ReportesContables
             $debe = 0;
             $haber = $habera[0]->monto;
 
-            if($cuenta->tipo_cuenta =="acreedora"){//cuentta 1, 4,6
+            if($cuenta->tipo_cuenta =="deudora"){//cuentta 1, 4,6
             }else{
                 $haber = $haber*(-1);
             }
@@ -286,6 +286,8 @@ class ReportesContables
     //OBIENE EL SALDO DE UNA CUENTA A LA FECHA
     public static function obtenerSaldoMayorNuevo($cuenta, $fechaInicial, $fechaFinal, $detalle)
     {
+
+
         $saldo = 0;
         $resp = array();
         if ($fechaFinal == null) {

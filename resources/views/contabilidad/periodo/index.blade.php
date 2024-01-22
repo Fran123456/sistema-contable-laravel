@@ -35,7 +35,7 @@
                 <h5>Periodos contables</h5>
                 <div class="row">
                     <div class="col-md-4 mt-2 mb-2">
-                        <form action="/contabilidad/periodos/">
+                        <form action="{{ route('contabilidad.periodos.index') }}">
                             <select name="periodo" id="" class="form-control">
                                 @foreach ($years as $year)
                                     <option @if ($periodo == $year->year) selected @endif>

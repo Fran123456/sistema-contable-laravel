@@ -76,7 +76,7 @@ class PartidasContables
             ]);
 
              self::updateHaberDebe($data['partida_id'], $data['debe'], $data['haber']);
-             self::updateSaldoPorCuenta($data['debe'], $data['haber'],$data['cuenta_contable_id'] );
+             //self::updateSaldoPorCuenta($data['debe'], $data['haber'],$data['cuenta_contable_id'] );
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -150,7 +150,7 @@ class PartidasContables
        $cuenta->saldo = $cuenta->saldo + self::operacion($debe, $haber, $cuenta->tipo_cuenta);
        $cuenta->save();
        $recursivo = $cuenta->padreRecursivo;
-   
+
        while ($recursivo!= null) {
             $recursivo->saldo = $recursivo->saldo + self::operacion($debe, $haber, $recursivo->tipo_cuenta);
             $recursivo->save();
