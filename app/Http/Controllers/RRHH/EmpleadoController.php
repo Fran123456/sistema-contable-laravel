@@ -154,7 +154,13 @@ class EmpleadoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $empleado = RRHHEmpleado::find($id);
+
+        if ( !$empleado )
+            return back()->with('error','Ocurrio un error al eliminar el empleado');
+
+        $empleado->delete();
+        return back()->with('success','Se ha eliminado el empleado correctamente');
     }
 
 }
