@@ -43,7 +43,7 @@ class PartidasContablesController extends Controller
 
         return PDF::loadView('contabilidad.partidas_contables.reportes.partida', $data)
         ->stream('partida_contable.pdf');
-            
+
     }
 
     /**
@@ -57,7 +57,7 @@ class PartidasContablesController extends Controller
         $periodos = ContaPeriodoContable::where('empresa_id',$empresa)->where('activo', true)->get();
         $tipos = ContaTipoPartida::where('empresa_id',$empresa )->get();
         $cuentas  = ContaCuentaContable::cuentasDetalle($empresa);
-        
+
         return view('contabilidad.partidas_contables.create',compact('periodos','tipos','cuentas'));
     }
 
@@ -140,11 +140,11 @@ class PartidasContablesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
-        
+    {
+
         $partida= ContaPartidaContable::find($id);
         if($request->detalle){
-            
+
             $detalle= array('partida_id'=>$partida->id,
             'periodo_id'=>$partida->periodo_id,
             'tipo_partida_id'=>$partida->tipo_partida_id,
@@ -153,8 +153,8 @@ class PartidasContablesController extends Controller
             'haber'=>$request['haber']??0,
             'fecha_contable'=>$request['fecha_detalle'],
             'concepto'=>$request['concepto_detalle']??$partida->concepto);
-            
-            PartidasContables::detalle($detalle); 
+
+            PartidasContables::detalle($detalle);
 
         }else{
             $data = array('concepto'=>$request->concepto_cabecera, 'fecha_contable'=>$request->fecha, 'id'=>$id);
@@ -164,6 +164,7 @@ class PartidasContablesController extends Controller
 
         return redirect("/contabilidad/partidas/$partida->id/edit#detalles")->with('success','Se ha editado correctamente la partida contable');
     }
+
 
     /**
      * Remove the specified resource from storage.

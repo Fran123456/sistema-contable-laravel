@@ -157,6 +157,9 @@ class CuentaContableController extends Controller
         return redirect()->route('contabilidad.cuentas-contables.index')->with('success','Se ha modificado la cuenta contable correctamente');
     }
 
+
+
+
     public function validarHijo($padre, $hijo){
         //quitamos el hijo al padre
         $h = ContaCuentaContable::find($hijo);
