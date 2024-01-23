@@ -18,7 +18,6 @@ class AreaController extends Controller
          // Obtenemos la lista de areas
          $areas = RRHHArea::all();
          //Devuelve una vista
-        //  return $areas;
          return view('RRHH.area.index', compact('areas'));
     }
 
@@ -29,7 +28,9 @@ class AreaController extends Controller
      */
     public function create()
     {
-        //
+        $areas = RRHHArea::all();
+        //Devuelve la vista
+        return view('RRHH.area.create', compact('areas'));
     }
 
     /**
@@ -40,7 +41,16 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Insertar los datos a la BBDD
+        $data = array(
+            'area' =>$request['area'],
+            'id_empresa' =>$request['id_empresa'],
+            'activo' =>$request['activo']
+        );
+
+        RRHHArea::create($data);
+        return back()->with('success','Se ha cambiado la empresa correctamente');
+
     }
 
     /**

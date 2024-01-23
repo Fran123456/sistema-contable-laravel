@@ -2,7 +2,6 @@
     <x-slot:title>
         Lista de areas
       </x-slot>
-
       <x-slot:subtitle>
       </x-slot>
 
@@ -15,6 +14,15 @@
     <div class="col-md-12">
         <x-alert></x-alert>
     </div>
+    
+    <div class="col-md-12 text-end mt-2 mb-2">
+        <!-- Button trigger modal -->
+        <a style="color: white" type="button" class="btn btn-primary" href="{{ route('rrhh.area.create') }}">
+            <i class="fas fa-save"></i>
+        </a>
+
+    </div>
+
     <div class="col-md-12">
 
         <div class="card">
@@ -26,19 +34,27 @@
                             <th width="40" scope="col">#</th>
                             <th scope="col" width="110">Area</th>
                             <th scope="col" width="90">Empresa</th>
+                            <th scope="col" width="90">¿Activo?</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($areas as $key => $area)
                         <tr>
                             <td>{{$key + 1}}</td>
-                        <td>{{ $area->area }}</td>
-                        {{-- Mostramos el nombre de la empresa.
-                            1 parametro es de la función del Modelo
-                            2 parametro es el nombre en la bbdd --}}
-                        <td> {{$area->empresa->empresa}}</td>
+                            <td>{{ $area->area }}</td>
+                            {{-- Mostramos el nombre de la empresa.
+                                1 parametro es de la función del Modelo
+                                2 parametro es el nombre en la bbdd --}}
+                            <td> {{$area->empresa->empresa}}</td>
+                            <td>
+                                @if ($area->activo)
+                                    Activo
+                                @else
+                                    No activo
+                                @endif
+                            </td>
                         </tr>
-                        @endforeach
+                    @endforeach
                     </tbody>
                 </table>
             </div>
