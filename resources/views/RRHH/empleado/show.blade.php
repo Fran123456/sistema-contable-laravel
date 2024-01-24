@@ -46,11 +46,11 @@
                         {{-- nombre y apellido empleado --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="nombres">Nombres:</label>
+                                <label for="nombres">Nombres</label>
                                 <input name="nombres" id="nombres" readonly type="text" class="form-control" max="300" value="{{ $empleado->nombres }}">
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="apellidos">Apellidos:</label>
+                                <label for="apellidos">Apellidos</label>
                                 <input name="apellidos" id="apellidos" readonly type="text" class="form-control" max="300" value="{{ $empleado->apellidos }}">
                             </div>
                         </div>
@@ -58,12 +58,12 @@
                         {{-- correo personal telefono empleado --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="correo">Correo personal:</label>
+                                <label for="correo">Correo personal</label>
                                 <input name="correo" id="correo" readonly type="text" class="form-control" max="200" value="{{ $empleado->correo }}">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="telefono">Telefono</label>
+                                <label for="telefono">Teléfono</label>
                                 <input class="form-control" name="telefono" id="telefono" readonly type="text" max="200" value="{{ $empleado->telefono }}">
                             </div>
                         </div>
@@ -71,12 +71,12 @@
                         {{-- correo institucional y direccion empleado --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="correo_empresarial">Correo empresarial:</label>
+                                <label for="correo_empresarial">Correo empresarial</label>
                                 <input name="correo_empresarial" id="correo_empresarial" readonly type="text" class="form-control" max="200" value="{{ $empleado->correo_empresarial }}">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="direccion">Direccion:</label>
+                                <label for="direccion">Dirección</label>
                                 <input name="direccion" id="direccion" readonly type="text" class="form-control" max="200" value="{{ $empleado->direccion }}">
                             </div>
                         </div>
@@ -89,16 +89,16 @@
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
-                                <label for="sexo">Sexo:</label>
-                                <select name="sexo" id="sexo" disabled class="form-select" value="{{ $empleado->sexo }}">
+                                <label for="sexo">Sexo</label>
+                                <select name="sexo" id="sexo" disabled class="form-select">
                                     <option value="Masculino" @if($empleado->sexo == 'Masculino') selected @endif>Masculino</option>
                                     <option value="Femenino" @if($empleado->sexo == 'Femenino') selected @endif>Femenino</option>
                                 </select>
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
-                                <label for="estado">Estado Activo:</label>
-                                <select name="estado" id="estado" disabled class="form-select" value="{{ $empleado->activo }}">
+                                <label for="estado">Estado Activo</label>
+                                <select name="estado" id="estado" disabled class="form-select">
                                     <option value="1" @if($empleado->activo == 1) selected @endif>Activo</option>
                                     <option value="0" @if($empleado->activo == 0) selected @endif>Inactivo</option>
                                 </select>

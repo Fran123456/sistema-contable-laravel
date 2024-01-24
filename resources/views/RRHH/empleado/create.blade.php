@@ -42,11 +42,11 @@
                         {{-- nombre y apellido empleado --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="nombres">Nombres:</label>
+                                <label for="nombres">Nombres</label><span class="text-danger">*</span>
                                 <input name="nombres" id="nombres" required type="text" class="form-control" max="300">
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="apellidos">Apellidos:</label>
+                                <label for="apellidos">Apellidos</label><span class="text-danger">*</span>
                                 <input name="apellidos" id="apellidos" required type="text" class="form-control" max="300">
                             </div>
                         </div>
@@ -54,29 +54,25 @@
                         {{-- correo personal telefono empleado --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="correo">Correo personal:</label>
+                                <label for="correo">Correo personal</label>
                                 <input name="correo" id="correo" type="text" class="form-control" max="200">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="telefono">Telefono</label>
+                                <label for="telefono">Teléfono</label><span class="text-danger">*</span>
                                 <input class="form-control" name="telefono" id="telefono" type="text" max="200" required>
                             </div>
                         </div>
 
-                        {{-- <div class=" row ">
-                        </div> --}}
-
                         {{-- correo institucional y direccion empleado --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="correo_empresarial">Correo empresarial:</label>
-                                <input name="correo_empresarial" id="correo_empresarial" type="text" class="form-control"
-                                max="200">
+                                <label for="correo_empresarial">Correo empresarial</label>
+                                <input name="correo_empresarial" id="correo_empresarial" type="text" class="form-control" max="200">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="direccion">Direccion:</label>
+                                <label for="direccion">Dirección</label><span class="text-danger">*</span>
                                 <input name="direccion" id="direccion" type="text" class="form-control" max="200">
                             </div>
                         </div>
@@ -88,12 +84,12 @@
                         {{-- edad  sexo y estado del empleado --}}
                         <div class="row">
                             <div class=" col-md-4 mt-2 mb-12 ">
-                                <label for="edad">Edad</label>
+                                <label for="edad">Edad</label><span class="text-danger">*</span>
                                 <input name="edad" id="edad" type="text" class="form-control" pattern="^[0-9]+$" max="2" required>
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
-                                <label for="sexo">Sexo:</label>
+                                <label for="sexo">Sexo</label><span class="text-danger">*</span>
                                 <select name="sexo" id="sexo" class="form-select" required>
                                     <option value="Masculino">Masculino</option>
                                     <option value="Femenino">Femenino</option>
@@ -101,7 +97,7 @@
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
-                                <label for="estado">Estado Activo:</label>
+                                <label for="estado">Estado Activo</label><span class="text-danger">*</span>
                                 <select name="estado" id="estado" class="form-select" required>
                                     <option value="1">Activo</option>
                                     <option value="0">Inactivo</option>
@@ -113,15 +109,20 @@
                         {{-- fecha de nacimiento e ingreso --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="fecha_nacimiento">Fecha de nacimiento</label>
-                                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" />
+                                <label for="fecha_nacimiento">Fecha de nacimiento</label><span class="text-danger">*</span>
+                                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" required />
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="fecha_ingreso">Fecha de ingreso</label>
-                                <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" />
+                                <label for="fecha_ingreso">Fecha de ingreso</label><span class="text-danger">*</span>
+                                <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" required />
                             </div>
                         </div>
 
+                        <div class=" row ">
+                            <div class=" col-md-6 mt-2 mb-12">
+                                <label for="anuncio">Los campos con un <span class="text-danger">*</span> son obligatorios.</label>
+                            </div>
+                        </div>
 
                         <div class="row">
                             {{-- boton de guardado --}}
