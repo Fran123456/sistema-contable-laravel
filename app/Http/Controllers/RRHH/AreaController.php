@@ -28,9 +28,11 @@ class AreaController extends Controller
      */
     public function create()
     {
-        $areas = RRHHArea::all();
+        //Se busca el Usuario registrado para enviar el empresa_id al formulario 
+        $user = auth()->user();
+        $empresa_id = $user->empresa_id;
         //Devuelve la vista
-        return view('RRHH.area.create', compact('areas'));
+        return view('RRHH.area.create', compact('empresa_id'));
     }
 
     /**
@@ -41,16 +43,20 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
+        //Validar el nombre del area
+        $request->validate([
+            'area'=>['required']
+        ]);
+        //Instancia
+        $area = new RRHHArea;
         //Insertar los datos a la BBDD
-        $data = array(
-            'area' =>$request['area'],
-            'id_empresa' =>$request['id_empresa'],
-            'activo' =>$request['activo']
-        );
-
-        RRHHArea::create($data);
-        return back()->with('success','Se ha cambiado la empresa correctamente');
-
+        $area->area = $request->input('area');
+        $area->empresa_id = $request->input('empresa_id');
+        $area->activo = $request->input('activo');
+        //Guardar en la BBDD
+        $area->save();
+        //Redirecciona al area index
+        return redirect()->route('rrhh.area.index')->with('success','Area creada correctamente');
     }
 
     /**
