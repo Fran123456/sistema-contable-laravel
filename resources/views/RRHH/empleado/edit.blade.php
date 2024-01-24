@@ -48,11 +48,11 @@
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="nombres">Nombres</label><span class="text-danger">*</span>
-                                <input name="nombres" id="nombres" required type="text" class="form-control" max="300" value="{{ $empleado->nombres }}">
+                                <input name="nombres" id="nombres"  type="text" class="form-control" max="300" value="{{ old('nombres') ?: $empleado->nombres }}" required>
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="apellidos">Apellidos</label><span class="text-danger">*</span>
-                                <input name="apellidos" id="apellidos" required type="text" class="form-control" max="300" value="{{ $empleado->apellidos }}">
+                                <input name="apellidos" id="apellidos"  type="text" class="form-control" max="300" value="{{ old('apellidos') ?:$empleado->apellidos }}" required>
                             </div>
                         </div>
 
@@ -60,12 +60,12 @@
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="correo">Correo personal</label>
-                                <input name="correo" id="correo" type="text" class="form-control" max="200" value="{{ $empleado->correo }}">
+                                <input name="correo" id="correo" type="text" class="form-control" max="200" value="{{ old('correo') ?: $empleado->correo }}">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="telefono">Teléfono</label><span class="text-danger">*</span>
-                                <input class="form-control" name="telefono" id="telefono" type="text" max="200" required value="{{ $empleado->telefono }}">
+                                <input class="form-control" name="telefono" id="telefono" type="text" max="200"  value="{{ old('telefono') ?: $empleado->telefono }}" required>
                             </div>
                         </div>
 
@@ -76,12 +76,12 @@
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="correo_empresarial">Correo empresarial</label>
-                                <input name="correo_empresarial" id="correo_empresarial" type="text" class="form-control" max="200" value="{{ $empleado->correo_empresarial }}">
+                                <input name="correo_empresarial" id="correo_empresarial" type="text" class="form-control" max="200" value="{{ old('correo_empresarial') ?: $empleado->correo_empresarial }}">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="direccion">Dirección</label><span class="text-danger">*</span>
-                                <input name="direccion" id="direccion" type="text" class="form-control" max="200" value="{{ $empleado->direccion }}">
+                                <input name="direccion" id="direccion" type="text" class="form-control" max="200" value="{{ old('direccion') ?: $empleado->direccion }}" required>
                             </div>
                         </div>
 
@@ -89,22 +89,22 @@
                         <div class="row">
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="edad">Edad</label><span class="text-danger">*</span>
-                                <input name="edad" id="edad" type="text" class="form-control" pattern="^[0-9]+$" max="2" required value="{{ $empleado->edad }}">
+                                <input name="edad" id="edad" type="text" class="form-control" pattern="^[0-9]+$" max="2"  value="{{ old('edad') ?: $empleado->edad }}" required>
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="sexo">Sexo</label><span class="text-danger">*</span>
-                                <select name="sexo" id="sexo" class="form-select" required>
-                                    <option value="Masculino" @if($empleado->sexo == 'Masculino') selected @endif>Masculino</option>
-                                    <option value="Femenino" @if($empleado->sexo == 'Femenino') selected @endif>Femenino</option>
+                                <select name="sexo" id="sexo" class="form-select"  required>
+                                    <option value="Masculino" @if( (old('sexo') == null && $empleado->sexo == "Masculino") || old('sexo') == "Masculino" ) selected @endif>Masculino</option>
+                                    <option value="Femenino" @if( (old('sexo') == null && $empleado->sexo == "Femenino") || old('sexo') == "Femenino" ) selected @endif>Femenino</option>
                                 </select>
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="estado">Estado Activo</label><span class="text-danger">*</span>
                                 <select name="estado" id="estado" class="form-select" required>
-                                    <option value="1" @if($empleado->activo == 1) selected @endif>Activo</option>
-                                    <option value="0" @if($empleado->activo == 0) selected @endif>Inactivo</option>
+                                    <option value="1" @if( (old('estado') == null && $empleado->activo == 1) || old('estado') == '1') selected @endif>Activo</option>
+                                    <option value="0" @if( (old('estado') == null && $empleado->activo == 0) || old('estado') == '0') selected @endif>Inactivo</option>
                                 </select>
                             </div>
                         </div>
@@ -114,12 +114,12 @@
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="fecha_nacimiento">Fecha de nacimiento</label><span class="text-danger">*</span>
-                                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{ $empleado->fecha_nacimiento }}">
+                                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{ old('fecha_nacimiento') ?: $empleado->fecha_nacimiento }}" required>
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="fecha_ingreso">Fecha de ingreso</label><span class="text-danger">*</span>
                                 @csrf
-                                <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" value="{{ $empleado->fecha_ingreso }}">
+                                <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" value="{{ old('fecha_ingreso') ?: $empleado->fecha_ingreso }}" required>
                             </div>
                         </div>
 

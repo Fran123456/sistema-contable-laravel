@@ -41,6 +41,8 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->flash();
+
         $validate = Validator::make($request->all(), [
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
@@ -109,6 +111,8 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->flash();
+
         $validate = Validator::make($request->all(), [
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
