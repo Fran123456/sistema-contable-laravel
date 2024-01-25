@@ -79,6 +79,8 @@ class AreaController extends Controller
     public function edit($id)
     {
         //
+        $area = RRHHArea::find($id);
+        return view('RRHH.area.edit', compact('area'));
     }
 
     /**

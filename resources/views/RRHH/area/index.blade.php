@@ -31,10 +31,11 @@
                 <table class="table table-sm" id="datatable-responsive">
                     <thead>
                         <tr>
-                            <th width="40" scope="col">#</th>
-                            <th scope="col" width="110">Area</th>
+                            <th scope="col" width="20">#</th>
+                            <th scope="col" width="90">Area</th>
                             <th scope="col" width="90">Empresa</th>
-                            <th scope="col" width="90">¿Activo?</th>
+                            <th scope="col" width="40">¿Activo?</th>
+                            <th scope="col" width="20" class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,8 +51,11 @@
                                 @if ($area->activo)
                                     Activo
                                 @else
-                                    No activo
+                                    Inactivo
                                 @endif
+                            </td>
+                            <td class="text-center">
+                                <a target="_blank" href="{{ route('rrhh.area.edit', $area->id)}}"> <i class="fa-solid fa-file-pen fa-2x"></i> </a>
                             </td>
                         </tr>
                     @endforeach

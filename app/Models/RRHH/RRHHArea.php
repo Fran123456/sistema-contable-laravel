@@ -19,7 +19,7 @@ class RRHHArea extends Model
 
     
     public function empresa(){
-        return $this->belongsTo(RRHHEmpresa::class, 'empresa_id');
+        return $this->belongsTo(RRHHEmpresa::class, 'empresa_id')->withDefault(); //with default muestra los null
     }
 
 }
