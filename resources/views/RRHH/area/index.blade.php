@@ -53,9 +53,9 @@
                                 @else
                                     Inactivo
                                 @endif
-                            </td>
+                            </td>      
                             <td class="text-center">
-                                <a target="_blank" href="{{ route('rrhh.area.edit', $area->id)}}"> <i class="fa-solid fa-file-pen fa-2x"></i> </a>
+                                <a href="{{ route('rrhh.area.edit', $area->id)}}"> <i class="fa-solid fa-file-pen fa-2x"></i> </a>
                             </td>
                         </tr>
                     @endforeach

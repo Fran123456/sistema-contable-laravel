@@ -90,9 +90,17 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, RRHHArea $area)
     {
-        //
+        $request->validate([
+            'area'=>['required']
+        ]);
+        $area->area = $request->input('area');
+        $area->activo = $request->input('activo');
+        //Guardar en la BBDD
+        $area->save();
+        //Redirecciona al area index
+        return redirect()->route('rrhh.area.index')->with('success','Area actualizada correctamente');
     }
 
     /**

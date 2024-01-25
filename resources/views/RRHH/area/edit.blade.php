@@ -20,8 +20,9 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{route('rrhh.area.store') }}" method="post"> 
-                    @csrf       
+                <form action="{{route('rrhh.area.update', $area) }}" method="post"> 
+                    @csrf   
+                    @method('PUT')    
                     <div class="row">
                         <div class="col-md-3 mt-2">
                             <label for=""> <strong>Area</strong></label>
@@ -33,14 +34,12 @@
                                               
                         <div class="col-md-3 mt-2">
                             <label for=""> <strong>Activo</strong></label>
-                            <select required id="activo" name="activo" class="form-control" id="">
+                            <select required id="activo" name="activo" class="form-control">
                                 <option value="1">Activo</option>                                     
                                 <option value="0">Inactivo</option>                                     
                             </select>
                         </div>
-                        {{-- <div>
-                            <input type="hidden" name="empresa_id" value="{{ $empresa_id }}" required class="form-control">                       
-                        </div> --}}
+
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
                         </div>
