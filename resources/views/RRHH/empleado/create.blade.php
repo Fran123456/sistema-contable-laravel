@@ -77,10 +77,6 @@
                             </div>
                         </div>
 
-                        {{-- direccion empleado --}}
-                        <div class=" row ">
-                        </div>
-
                         {{-- edad  sexo y estado del empleado --}}
                         <div class="row">
                             <div class=" col-md-4 mt-2 mb-12 ">

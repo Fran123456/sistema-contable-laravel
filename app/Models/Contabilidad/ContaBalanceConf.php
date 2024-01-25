@@ -10,8 +10,15 @@ class ContaBalanceConf extends Model
     use HasFactory;
     protected $table = 'conta_balance_conf';
     protected $fillable = [
-        'cuenta_id','created_at','updated_at','codigo','nombre_cuenta','balance','grupo','mayor','orden','anexo','cantidad',
-        'underline','espacio','bold','empresa_id'
+        'id',
+        'empresa_id',
+        'categoria',
+        'titulo',
+        'descripcion',
+        'campo',
+        'valor',
+        'created_at',
+        'updated_at',
     ];
 
     public function cuenta(){
