@@ -69,7 +69,7 @@
                     </li>
                     <li class="submenu-item"><a class="submenu-link" href="{{ route('logs.index') }}">Logs</a>
                     </li>
-                    
+
                 </ul>
             </div>
         </li>
@@ -111,6 +111,14 @@
                             href="{{ route('rrhh.area.index') }}">Area</a></li>
                 </ul>
             </div>
+
+            <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
+            style="">
+            <ul class="submenu-list list-unstyled">
+                <li class="submenu-item"><a class="submenu-link"
+                        href="{{ route('rrhh.empleado.index') }}">Empleados</a></li>
+            </ul>
+        </div>
         </li>
 
 
