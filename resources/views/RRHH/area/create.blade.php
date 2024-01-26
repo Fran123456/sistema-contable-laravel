@@ -23,7 +23,7 @@
                 <form action="{{route('rrhh.area.store') }}" method="post"> 
                     @csrf       
                     <div class="row">
-                        <div class="col-md-3 mt-2">
+                        <div class="col-md-8 mt-2">
                             <label for=""> <strong>Area</strong></label>
                             <input type="text" name="area"  required class="form-control">
                             @error('area')
@@ -31,7 +31,7 @@
                             @enderror
                         </div>
                                                 
-                        <div class="col-md-3 mt-2">
+                        <div class="col-md-4 mt-2">
                             <label for=""> <strong>Activo</strong></label>
                             <select required id="activo" name="activo" class="form-control" id="">
                                 <option value="1">Activo</option>                                     

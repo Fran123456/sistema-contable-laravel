@@ -41,18 +41,16 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->flash();
-
         $validate = Validator::make($request->all(), [
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
             'edad' => 'required|integer|min:18|max:120',
-            'estado'=> 'required|integer|max:1|min:0',
-            'correo'=> 'string|max:200',
-            'telefono'=> 'required|string|max:100',
+            'estado'=> 'integer|max:1|min:0',
+            'correo'=> 'required|string|max:200',
+            'telefono'=> 'string|max:100',
             'correo_empresarial'=> 'string|max:200',
-            'direccion'=> 'string|max:1000',
-            'sexo'=> 'required|string|in:Masculino,Femenino',
+            'direccion'=> 'required|string|max:1000',
+            'sexo'=> 'string|in:Masculino,Femenino',
             'fecha_nacimiento'=> 'required|date',
             'fecha_ingreso'=> 'required|date',
         ]);
@@ -111,18 +109,16 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->flash();
-
         $validate = Validator::make($request->all(), [
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
             'edad' => 'required|integer|min:18|max:120',
-            'estado'=> 'required|integer|max:1|min:0',
-            'correo'=> 'string|max:200',
-            'telefono'=> 'required|string|max:100',
+            'estado'=> 'integer|max:1|min:0',
+            'correo'=> 'required|string|max:200',
+            'telefono'=> 'string|max:100',
             'correo_empresarial'=> 'string|max:200',
-            'direccion'=> 'string|max:1000',
-            'sexo'=> 'required|string|in:Masculino,Femenino',
+            'direccion'=> 'required|string|max:1000',
+            'sexo'=> 'string|in:Masculino,Femenino',
             'fecha_nacimiento'=> 'required|date',
             'fecha_ingreso'=> 'required|date',
         ]);

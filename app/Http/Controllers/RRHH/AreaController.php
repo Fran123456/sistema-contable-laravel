@@ -91,10 +91,12 @@ class AreaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, RRHHArea $area)
-    {
+    {	
+	//Valida si el campo esta vacio
         $request->validate([
             'area'=>['required']
         ]);
+	//Son los parametros que están en el formulario
         $area->area = $request->input('area');
         $area->activo = $request->input('activo');
         //Guardar en la BBDD
@@ -111,6 +113,8 @@ class AreaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $area = RRHHArea::find($id);
+        $area->delete();
+        return back()->with('success','Se ha eliminado la area correctamente');
     }
 }

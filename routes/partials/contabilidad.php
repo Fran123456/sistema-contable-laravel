@@ -6,7 +6,6 @@ use App\Http\Controllers\Contabilidad\CuentaContableController;
 use App\Http\Controllers\Contabilidad\ConfiguracionController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
-use App\Http\Controllers\Contabilidad\BalanceContableController;
 
 
 //PERIODOS
@@ -60,13 +59,4 @@ Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
     Route::get('/reportes/estado-resultado', [ReportesContablesController::class, 'reporteEstadoResultado'])->name('reporteEstadoResultado');
 
 
-});
-
-// BALANCE DE EMPRESAS
-Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('balance', BalanceContableController::class);
-    Route::get('/balance', [BalanceContableController::class,'index'])->name('obtenerBalance');
-    Route::get('/balance/create', [BalanceContableController::class,'create'])->name('crearBalance');
-    Route::get('/balance/edit/{id}', [BalanceContableController::class,'edit'])->name('editarBalance');
-    Route::get('/balance/show/{id}', [BalanceContableController::class,'show'])->name('mostrarBalance');
 });

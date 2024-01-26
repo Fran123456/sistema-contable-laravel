@@ -22,9 +22,9 @@
             <div class="card-body">
                 <form action="{{route('rrhh.area.update', $area) }}" method="post"> 
                     @csrf   
-                    @method('PUT')    
+                    @method('PUT')
                     <div class="row">
-                        <div class="col-md-3 mt-2">
+                        <div class="col-md-8 mt-2">
                             <label for=""> <strong>Area</strong></label>
                             <input type="text" name="area" value="{{$area->area}}" required class="form-control">
                             @error('area')
@@ -32,14 +32,14 @@
                             @enderror
                         </div>
                                               
-                        <div class="col-md-3 mt-2">
+                        <div class="col-md-4 mt-2">
                             <label for=""> <strong>Activo</strong></label>
-                            <select required id="activo" name="activo" class="form-control">
+                            <select required id="activo" name="activo" class="form-control" id="">
                                 <option value="1">Activo</option>                                     
                                 <option value="0">Inactivo</option>                                     
                             </select>
                         </div>
-
+                        
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
                         </div>

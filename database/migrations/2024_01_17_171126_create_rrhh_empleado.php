@@ -22,11 +22,11 @@ return new class extends Migration
             $table->boolean('activo')->default(true);
             $table->string('correo', 200)->nullable();
             $table->string('telefono', 100);
-            $table->string('correo_empresarial', 200)->nullable();
-            $table->text('direccion');
+            $table->string('correo_empresarial', 200);
+            $table->text('direccion')->nullable();
             $table->string('sexo', 20)->enum('Femenino', 'Masculino');
             $table->date('fecha_nacimiento');
-            $table->date('fecha_ingreso');
+            $table->date('fecha_ingreso')->nullable();
             $table->timestamps();
 
         });
