@@ -108,6 +108,13 @@
                 style="">
                 <ul class="submenu-list list-unstyled">
                     <li class="submenu-item"><a class="submenu-link"
+                            href="{{ route('rrhh.empleado.index') }}">Empleado</a></li>
+                </ul>
+            </div>
+            <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
+                style="">
+                <ul class="submenu-list list-unstyled">
+                    <li class="submenu-item"><a class="submenu-link"
                             href="{{ route('rrhh.area.index') }}">Area</a></li>
                 </ul>
             </div>
@@ -154,8 +161,10 @@
                             href="{{ route('contabilidad.partidas.index') }}">Partidas contables</a></li>
                     <li class="submenu-item"><a class="submenu-link"
                             href="{{ route('contabilidad.copiar-data') }}">Copiar información</a></li>
-                            <li class="submenu-item"><a class="submenu-link"
+                    <li class="submenu-item"><a class="submenu-link"
                                 href="{{ route('contabilidad.reportes') }}">Reportes</a></li>
+                    <li class="submenu-item"><a class="submenu-link"
+                                href="{{ route('contabilidad.obtenerBalance') }}">Balance</a></li>
                 </ul>
             </div>
         </li>
