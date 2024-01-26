@@ -42,7 +42,7 @@
                     <tbody>
                     @foreach ($areas as $key => $area)
                         <tr>
-                            <th class="row">{{$key + 1}}</th>
+                            <th scope="row">{{$key + 1}}</th>
                             <td>{{ $area->area }}</td>
                             {{-- Mostramos el nombre de la empresa.
                                 1 parametro es de la función del Modelo

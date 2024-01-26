@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
-            <li class="breadcrumb-item"><a href="/rrhh/areas">Areas</a></li>
+            <li class="breadcrumb-item"><a href="/rrhh/area">Areas</a></li>
             <li class="breadcrumb-item active" aria-current="page">Editar area</li>
         </ol>
     </div>
