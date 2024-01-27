@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('conta_balance_conf', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('empresa_id');
             $table->string('categoria', 255);
             $table->string('titulo', 255)->default(null);
             $table->text('descripcion')->default(null)->nullable();
             $table->string('campo', 255)->default(null);
             $table->string('valor', 255)->default(null);
-            $table->bigInteger('empresa_id');
+            $table->string('tipo', 255)->nullable();
             $table->timestamps();
         });
     }

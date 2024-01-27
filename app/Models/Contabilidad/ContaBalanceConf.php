@@ -17,6 +17,7 @@ class ContaBalanceConf extends Model
         'descripcion',
         'campo',
         'valor',
+        'tipo',
         'created_at',
         'updated_at',
     ];
