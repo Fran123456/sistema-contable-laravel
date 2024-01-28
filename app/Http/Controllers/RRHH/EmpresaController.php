@@ -49,7 +49,7 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        RRHHEmpresa::create(['empresa'=> $request->empresa,'actualizada'=>true]);
+        RRHHEmpresa::create(['empresa'=> $request->empresa,'actualizada'=>true, 'abreviatura'=> $request->abreviatura]);
         Log::log('RRHH', 'crear empresa', 'El usuario '. Help::usuario()->name.' ha creado la empresa '. $request->empresa );
         return back()->with('success','Se ha creado la empresa correctamente');
     }
@@ -90,6 +90,7 @@ class EmpresaController extends Controller
         $empresa = RRHHEmpresa::find($id);
         $empresa->empresa = $request->empresa;
         $empresa->actualizada= true;
+        $empresa->abreviatura = $request->abreviatura;
         Log::log('RRHH', 'editar empresa', 'El usuario '. Help::usuario()->name.' ha editado la empresa '. $request->empresa );
         $empresa->save();
         return redirect()->route('rrhh.empresa.index')->with('success','Se ha editado la empresa correctamente');
@@ -111,8 +112,8 @@ class EmpresaController extends Controller
         Log::log('RRHH', 'eliminar empresa', 'El usuario '. Help::usuario()->name.' ha eliminado la empresa '. $empresa->empresa );
         $empresa->delete();
         return back()->with('success','Se ha eliminado la empresa correctamente');
-            
-        
+
+
 
     }
 }

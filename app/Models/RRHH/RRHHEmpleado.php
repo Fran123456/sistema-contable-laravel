@@ -24,7 +24,12 @@ class RRHHEmpleado extends Model
         'sexo',
         'fecha_nacimiento',
         'fecha_ingreso',
+        'codigo',
+        'foto',
+        'tipo_empleado_id',
         'created_at',
         'updated_at',
     ];
+
+
 }

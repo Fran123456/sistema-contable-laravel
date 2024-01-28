@@ -14,7 +14,11 @@ class RRHHEmpresa extends Model
     use HasFactory;
     protected $table = 'rrhh_empresa';
     protected $fillable = [
-        'actualizada','created_at','updated_at','empresa'
+        'empresa',
+        'actualizada',
+        'abreviatura',
+        'created_at',
+        'updated_at',
     ];
 
     //metodos de contabilidad

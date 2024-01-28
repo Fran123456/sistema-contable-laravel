@@ -5,6 +5,7 @@ namespace App\Http\Controllers\RRHH;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\RRHH\RRHHEmpleado;
+use App\Models\RRHH\RRHHTipoEmpleado;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Help\Log;
@@ -30,7 +31,8 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        return view('RRHH.empleado.create');
+        $tipoEmpleado = RRHHEmpleado::all();
+        return view('RRHH.empleado.create','tipoEmpleado');
     }
 
     /**
@@ -44,6 +46,7 @@ class EmpleadoController extends Controller
         $request->flash();
 
         $validate = Validator::make($request->all(), [
+            'tipo_empleado' => 'required|integer',
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
             'edad' => 'required|integer|min:18|max:120',
@@ -53,6 +56,7 @@ class EmpleadoController extends Controller
             'correo_empresarial'=> 'string|max:200',
             'direccion'=> 'string|max:1000',
             'sexo'=> 'required|string|in:Masculino,Femenino',
+            'codigo'=> 'required|string|max:255',
             'fecha_nacimiento'=> 'required|date',
             'fecha_ingreso'=> 'required|date',
         ]);
@@ -60,6 +64,7 @@ class EmpleadoController extends Controller
         $validate->validate();
 
         $empleado = RRHHEmpleado::create([
+            'tipo_empleado_id'=> $request->tipo_empleado,
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
             'nombre_completo' => $request->nombres.' '.$request->apellidos,
@@ -72,6 +77,8 @@ class EmpleadoController extends Controller
             'sexo'=> $request->sexo,
             'fecha_nacimiento'=> $request->fecha_nacimiento,
             'fecha_ingreso'=> $request->fecha_ingreso,
+            'codigo'=> $request->codigo,
+            'foto'=> $request->foto,
         ]);
         $empleado->save();
 
@@ -87,6 +94,7 @@ class EmpleadoController extends Controller
     public function show($id)
     {
         $empleado = RRHHEmpleado::find($id);
+        $tipoEmpleado = RRHHEmpleado::all();
         return view('rrhh.empleado.show', compact('empleado'));
     }
 
@@ -99,7 +107,8 @@ class EmpleadoController extends Controller
     public function edit($id)
     {
         $empleado = RRHHEmpleado::find($id);
-        return view('rrhh.empleado.edit', compact('empleado'));
+        $tipoEmpleado = RRHHEmpleado::all();
+        return view('rrhh.empleado.edit', compact('empleado','tipoEmpleado'));
     }
 
     /**
@@ -114,6 +123,7 @@ class EmpleadoController extends Controller
         $request->flash();
 
         $validate = Validator::make($request->all(), [
+            'tipo_empleado' => 'required|integer',
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
             'edad' => 'required|integer|min:18|max:120',
@@ -123,14 +133,17 @@ class EmpleadoController extends Controller
             'correo_empresarial'=> 'string|max:200',
             'direccion'=> 'string|max:1000',
             'sexo'=> 'required|string|in:Masculino,Femenino',
+            'codigo'=> 'required|string|max:255',
             'fecha_nacimiento'=> 'required|date',
             'fecha_ingreso'=> 'required|date',
+
         ]);
 
         $validate->validate();
 
         $empleado = RRHHEmpleado::find($id);
 
+        $empleado->tipo_empleado_id = $request->tipo_empleado;
         $empleado->nombres = $request->nombres;
         $empleado->apellidos  = $request->apellidos;
         $empleado->nombre_completo  = $request->nombres.' '.$request->apellidos;
@@ -143,7 +156,8 @@ class EmpleadoController extends Controller
         $empleado->sexo = $request->sexo;
         $empleado->fecha_nacimiento = $request->fecha_nacimiento;
         $empleado->fecha_ingreso = $request->fecha_ingreso;
-
+        $empleado->codigo = $request->sexo;
+        // $empleado->foto = $request->sexo;
 
         $empleado->save();
 

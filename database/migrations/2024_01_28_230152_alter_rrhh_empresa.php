@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rrhh_empresa', function (Blueprint $table) {
-            $table->id();
-            $table->string('empresa')->nullable();
-            $table->string("abreviatura", 10);
-            $table->boolean('actualizada')->nullable()->default(false);
-            $table->timestamps();
+        Schema::table("rrhh_empresa", function (Blueprint $table) {
+            $table->string("abreviatura", 10)->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rrhh_empresa');
+        Schema::table("rrhh_empresa", function (Blueprint $table) {
+            $table->dropColumn("abreviatura");
+        });
     }
 };

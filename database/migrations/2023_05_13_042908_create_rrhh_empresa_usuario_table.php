@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('usuario_id')->nullable();
             $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->string("abreviatura", 10);
             $table->boolean('activo')->nullable()->default(false);
             $table->timestamps();
 

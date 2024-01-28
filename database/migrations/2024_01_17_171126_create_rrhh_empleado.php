@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('rrhh_empleado', function (Blueprint $table) {
             $table->id();
+            $table->integer('tipo_empleado_id');
             $table->string('nombres', 300);
             $table->string('apellidos', 200);
             $table->string('nombre_completo', 300);
@@ -25,6 +26,8 @@ return new class extends Migration
             $table->string('correo_empresarial', 200)->nullable();
             $table->text('direccion');
             $table->string('sexo', 20)->enum('Femenino', 'Masculino');
+            $table->dropColumn('codigo');
+            $table->dropColumn('foto');
             $table->date('fecha_nacimiento');
             $table->date('fecha_ingreso');
             $table->timestamps();

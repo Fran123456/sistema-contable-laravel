@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rrhh_empresa', function (Blueprint $table) {
+        Schema::create('rrhh_tipo_empleado', function (Blueprint $table) {
             $table->id();
-            $table->string('empresa')->nullable();
-            $table->string("abreviatura", 10);
-            $table->boolean('actualizada')->nullable()->default(false);
+            $table->string('tipo', 80);
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rrhh_empresa');
+        Schema::dropIfExists('rrhh_tipo_empleado');
     }
 };
