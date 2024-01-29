@@ -19,10 +19,15 @@
 
     <form method="post" action="{{ route('rrhh.empresa.store') }}">
         <div class="row">
+            @csrf
             <div class="col-md-6   mt-2 mb-21">
                 <label for="">Empresa</label>
-                @csrf
                 <input name="empresa" required type="text" class="form-control">
+            </div>
+
+            <div class="col-md-6   mt-2 mb-21">
+                <label for="">Abreviatura</label>
+                <input name="abreviatura" type="text" class="form-control" max="10">
             </div>
 
             <div class="col-md-12 mb-3 mt-3">

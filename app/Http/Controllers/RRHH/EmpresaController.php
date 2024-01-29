@@ -89,9 +89,9 @@ class EmpresaController extends Controller
     {
         $empresa = RRHHEmpresa::find($id);
         $empresa->empresa = $request->empresa;
-        $empresa->actualizada= true;
+        $empresa->actualizada = true;
         $empresa->abreviatura = $request->abreviatura;
-        Log::log('RRHH', 'editar empresa', 'El usuario '. Help::usuario()->name.' ha editado la empresa '. $request->empresa );
+        Log::log('RRHH', 'editar empresa', 'El usuario '. Help::usuario()->name.' ha editado la empresa '. $request->empresa);
         $empresa->save();
         return redirect()->route('rrhh.empresa.index')->with('success','Se ha editado la empresa correctamente');
     }

@@ -14,7 +14,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/users">Empleados</a></li>
+                <li class="breadcrumb-item"><a href="/rrhh/empleado">Empleados</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Editar empleado</li>
             </ol>
         </nav>
@@ -105,6 +105,23 @@
                                 <select name="estado" id="estado" class="form-select" required>
                                     <option value="1" @if( (old('estado') == null && $empleado->activo == 1) || old('estado') == '1') selected @endif>Activo</option>
                                     <option value="0" @if( (old('estado') == null && $empleado->activo == 0) || old('estado') == '0') selected @endif>Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- codigo y tipo empleado --}}
+                        <div class=" row ">
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="codigo">Código</label><span class="text-danger">*</span>
+                                <input class="form-control" type="text" id="codigo" name="codigo" value="{{ old('codigo') ?: $empleado->codigo }}" required>
+                            </div>
+
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="tipo_empleado">Tipo Empleado</label><span class="text-danger">*</span>
+                                <select name="tipo_empleado" id="tipo_empleado" class="form-select" required>
+                                    @foreach ($tipoEmpleado as $key => $item )
+                                        <option value="{{ $item->id }}" @if( ( old('tipo_empleado') == null && $empleado->tipo_empleado_id == $item->id ) || old('tipo_empleado') == $item->id ) selected @endif>{{ $item->tipo }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

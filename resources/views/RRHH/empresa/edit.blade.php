@@ -33,6 +33,12 @@
                             <input type="text" name="empresa"  value="{{ $empresa->empresa }}"  required class="form-control">
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-3 mb-2">
+                            <label for=""><strong>Abreviatura</strong> </label>
+                            <input type="text" name="abreviatura"  value="{{ $empresa->abreviatura }}" class="form-control" max="10">
+                        </div>
+                    </div>
 
 
                     <div class="row">

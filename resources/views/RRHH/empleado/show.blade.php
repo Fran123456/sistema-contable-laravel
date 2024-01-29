@@ -14,7 +14,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/users">Empleados</a></li>
+                <li class="breadcrumb-item"><a href="/rrhh/empleado">Empleados</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Editar empleado</li>
             </ol>
         </nav>
@@ -101,6 +101,23 @@
                                 <select name="estado" id="estado" disabled class="form-select">
                                     <option value="1" @if($empleado->activo == 1) selected @endif>Activo</option>
                                     <option value="0" @if($empleado->activo == 0) selected @endif>Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- codigo y tipo empleado --}}
+                        <div class=" row ">
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="codigo">Código</label><span class="text-danger">*</span>
+                                <input class="form-control" type="text" id="codigo" name="codigo" value="{{ old('codigo') ?: $empleado->codigo }}" readonly>
+                            </div>
+
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="tipo_empleado">Tipo Empleado</label><span class="text-danger">*</span>
+                                <select name="tipo_empleado" id="tipo_empleado" class="form-select" disabled>
+                                    @foreach ($tipoEmpleado as $key => $item )
+                                        <option @if( $empleado->tipo_empleado_id == $item->id ) selected @endif>{{ $item->tipo }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

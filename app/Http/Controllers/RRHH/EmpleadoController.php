@@ -31,8 +31,8 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        $tipoEmpleado = RRHHEmpleado::all();
-        return view('RRHH.empleado.create','tipoEmpleado');
+        $tipoEmpleado = RRHHTipoEmpleado::all();
+        return view('RRHH.empleado.create', compact('tipoEmpleado'));
     }
 
     /**
@@ -94,8 +94,8 @@ class EmpleadoController extends Controller
     public function show($id)
     {
         $empleado = RRHHEmpleado::find($id);
-        $tipoEmpleado = RRHHEmpleado::all();
-        return view('rrhh.empleado.show', compact('empleado'));
+        $tipoEmpleado = RRHHTipoEmpleado::all();
+        return view('rrhh.empleado.show', compact('empleado', 'tipoEmpleado'));
     }
 
     /**
@@ -107,7 +107,7 @@ class EmpleadoController extends Controller
     public function edit($id)
     {
         $empleado = RRHHEmpleado::find($id);
-        $tipoEmpleado = RRHHEmpleado::all();
+        $tipoEmpleado = RRHHTipoEmpleado::all();
         return view('rrhh.empleado.edit', compact('empleado','tipoEmpleado'));
     }
 
