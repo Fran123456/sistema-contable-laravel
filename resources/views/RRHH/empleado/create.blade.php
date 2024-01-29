@@ -35,16 +35,7 @@
                             <x-errors></x-errors>
                         </div>
 
-                        <div class=" row ">
-                            <label for="">Empleado</label>
-                        </div>
 
-                        <div class=" row ">
-                            <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="foto">Foto empleado</label>
-                                <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpg, image/jpeg">
-                            </div>
-                        </div>
 
                         {{-- nombre y apellido empleado --}}
                         <div class=" row ">
@@ -146,6 +137,14 @@
                                 <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" />
                             </div>
                         </div>
+
+                        <div class=" row ">
+                            <div class=" col-md-12 mt-2 mb-12 ">
+                                <label for="foto">Foto empleado</label>
+                                <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpg, image/jpeg">
+                            </div>
+                        </div>
+
 
 
                         <div class="row">
