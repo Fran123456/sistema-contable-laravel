@@ -44,6 +44,8 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->flash();
+
         $validate = Validator::make($request->all(), [
             'foto'=>'image|mimes:jpg,png,jpeg|nullable',
             'tipo_empleado' => 'required|integer',
@@ -133,6 +135,7 @@ class EmpleadoController extends Controller
      */
     public function edit($id)
     {
+
         $empleado = RRHHEmpleado::find($id);
         $tipoEmpleado = RRHHTipoEmpleado::all();
         $foto = null;
@@ -157,6 +160,8 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->flash();
+
         $validate = Validator::make($request->all(), [
             'foto'=>'image|mimes:jpg,png,jpeg|nullable',
             'tipo_empleado' => 'required|integer',
