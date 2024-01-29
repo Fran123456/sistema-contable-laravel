@@ -6,7 +6,6 @@ use App\Http\Controllers\Contabilidad\CuentaContableController;
 use App\Http\Controllers\Contabilidad\ConfiguracionController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
-use App\Http\Controllers\Contabilidad\BalanceContableController;
 
 
 //PERIODOS

@@ -31,16 +31,18 @@
                 <table class="table table-sm" id="datatable-responsive">
                     <thead>
                         <tr>
-                            <th width="40" scope="col">#</th>
-                            <th scope="col" width="110">Area</th>
+                            <th scope="col" width="40">#</th>
+                            <th scope="col" width="90">Area</th>
                             <th scope="col" width="90">Empresa</th>
-                            <th scope="col" width="90">¿Activo?</th>
+                            <th scope="col" width="40">¿Activo?</th>
+                            <th scope="col" width="50" class="text-center">Acciones</th>
+                            <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($areas as $key => $area)
                         <tr>
-                            <td>{{$key + 1}}</td>
+                            <th scope="row">{{$key + 1}}</th>
                             <td>{{ $area->area }}</td>
                             {{-- Mostramos el nombre de la empresa.
                                 1 parametro es de la función del Modelo
@@ -50,8 +52,23 @@
                                 @if ($area->activo)
                                     Activo
                                 @else
-                                    No activo
+                                    Inactivo
                                 @endif
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ route('rrhh.area.edit', $area->id)}}"> <i class="fa-solid fa-file-pen fa-2x"></i> </a>
+                            </td>
+                            <td class="text-center">
+                                <form id="form{{ $area->id }}"
+                                    action="{{ route('rrhh.area.destroy', $area->id) }}"
+                                    method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button
+                                        onclick="confirm('form{{ $area->id }}','¿Desea eliminar el area?')"
+                                        class="btn btn-danger"
+                                        type="button"><i class="fas fa-trash"></i></button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

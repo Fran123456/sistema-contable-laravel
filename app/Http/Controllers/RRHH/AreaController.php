@@ -79,6 +79,8 @@ class AreaController extends Controller
     public function edit($id)
     {
         //
+        $area = RRHHArea::find($id);
+        return view('RRHH.area.edit', compact('area'));
     }
 
     /**
@@ -88,9 +90,19 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, RRHHArea $area)
+    {	
+	//Valida si el campo esta vacio
+        $request->validate([
+            'area'=>['required']
+        ]);
+	//Son los parametros que están en el formulario
+        $area->area = $request->input('area');
+        $area->activo = $request->input('activo');
+        //Guardar en la BBDD
+        $area->save();
+        //Redirecciona al area index
+        return redirect()->route('rrhh.area.index')->with('success','Area actualizada correctamente');
     }
 
     /**
@@ -101,6 +113,8 @@ class AreaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $area = RRHHArea::find($id);
+        $area->delete();
+        return back()->with('success','Se ha eliminado la area correctamente');
     }
 }
