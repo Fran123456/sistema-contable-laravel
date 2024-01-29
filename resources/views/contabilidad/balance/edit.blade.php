@@ -68,27 +68,15 @@
                                         value="{{ old('valor_text') ?: $balance->valor }}" type="phone"
                                         max="255">
                                 @else
-                                    @if ($tipo == 'cuenta')
-                                        <div class=" col-md-12 mt-2 mb-12 ">
-                                            <select name="valor" class="form-select">
-                                                @foreach ($opciones as $key => $item)
-                                                    <option name="valor_select" value="{{ $item->id }}"
-                                                        @if ((old('valor_select') == null && $balance->valor == $item->id) || old('valor_select') == $item->id) selected @endif>
-                                                        {{ $item->nombre_cuenta }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    @else
-                                        <div class=" col-md-12 mt-2 mb-12 ">
-                                            <select name="valor" class="form-select">
-                                                @foreach ($opciones as $key => $item)
-                                                    <option name="valor_select" value="{{ $item->id }}"
-                                                        @if ((old('valor_select') == null && $balance->valor == $item->id) || old('valor_select') == $item->id) selected @endif>
-                                                        {{ $item->descripcion }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    @endif
+                                <div class="col-md-12 mt-2 mb-12">
+                                    <select name="valor" class="form-select">
+                                        @foreach ($opciones as $key => $item)
+                                            <option name="valor_select" value="{{ $item->id }}"
+                                                @if ((old('valor_select') == null && $balance->valor == $item->id) || old('valor_select') == $item->id) selected @endif>
+                                                {{ $tipo == 'cuenta' ? $item->nombre_cuenta : $item->descripcion }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 @endif
                             </div>
                         </div>
