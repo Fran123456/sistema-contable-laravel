@@ -43,6 +43,20 @@
                             <label for="empleado">Empleado</label>
                         </div>
 
+                        {{-- Foto del empleado --}}
+                        @if( $foto )
+                        <div class=" row ">
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="foto">Foto</label>
+                            </div>
+                        </div>
+                        <div class=" row ">
+                                <div class=" col-md-12 mt-2 mb-12 ">
+                                    <img src="data:image/*;base64, {{ $foto }}" alt="Imagen empleado" style=" max-width:400px; max-height:300px;">
+                                </div>
+                        </div>
+                        @endif
+
                         {{-- nombre y apellido empleado --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">

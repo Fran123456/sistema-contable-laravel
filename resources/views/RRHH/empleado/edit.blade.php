@@ -28,7 +28,7 @@
         <div class="text-start">
             <h6>Ficha de: {{ $empleado->nombre_completo }} </h6>
         </div>
-        <form action="{{ route('rrhh.empleado.update', $empleado->id) }}" method="post">
+        <form action="{{ route('rrhh.empleado.update', $empleado->id) }}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="card">
@@ -44,6 +44,27 @@
                             <label for="empleado">Empleado</label>
                         </div>
 
+                        {{-- Foto del empleado --}}
+                        @if( $foto )
+                        <div class=" row ">
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="foto">Foto</label>
+                            </div>
+                        </div>
+                        <div class=" row ">
+                                <div class=" col-md-12 mt-2 mb-12 ">
+                                    <img src="data:image/*;base64, {{ $foto }}" alt="Imagen empleado" style=" max-width:400px; max-height:300px;">
+                                </div>
+                        </div>
+                        @endif
+
+                        {{-- Subir foto para actualizar --}}
+                        <div class=" row ">
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="foto">Subir foto empleado</label>
+                                <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpg, image/jpeg">
+                            </div>
+                        </div>
                         {{-- nombre y apellido empleado --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
