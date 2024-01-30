@@ -23,15 +23,19 @@ class RRHHEmpresa extends Model
     //metodos de contabilidad
     public function contaTiposPartidas(){
         return $this->hasMany(ContaTipoPartida::class, 'empresa_id', 'id');
-    } 
+    }
 
     public function contaClasificacion(){
         return $this->hasMany(ContaClasificacionCuenta::class, 'empresa_id', 'id');
-    } 
+    }
 
     public function contaNivel(){
         return $this->hasMany(ContaNivelCuenta::class, 'empresa_id', 'id');
-    } 
+    }
+
+    public function rrhhPeriodosPlanilla(){
+        return $this->hasMany(RRHHPeriodosPlanilla::class, 'empresa_id', 'id');
+    }
 
     //metodos generales
     public function usuarios()
@@ -39,6 +43,6 @@ class RRHHEmpresa extends Model
         return $this->belongsToMany(User::class, 'rrhh_empresa_usuario','empresa_id','usuario_id')
         ->withPivot('activo');
     }
-   
+
 
 }

@@ -78,7 +78,7 @@
                                         @csrf
                                         <button
                                             onclick="confirm('form{{ $item->id }}','¿Desea eliminar la empresa?')"
-                                            class="btn @if ($item->activo) btn-success @else btn-danger @endif "
+                                            class="btn @if ($item->activo) btn-success @else btn-danger @endif"
                                             type="button" ><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Contabilidad\BalanceContableController;
 use App\Http\Controllers\Contabilidad\TipoPartidaController;
 use App\Http\Controllers\Contabilidad\PeriodoContableController;
 use App\Http\Controllers\Contabilidad\CuentaContableController;
