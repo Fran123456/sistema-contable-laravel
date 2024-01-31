@@ -116,6 +116,8 @@ class DepartamentoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $departamento = RRHHDepartamento::find($id);
+        $departamento->delete();
+        return back()->with('success','Se ha eliminado el departamento correctamente');
     }
 }

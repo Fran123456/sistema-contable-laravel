@@ -48,13 +48,19 @@
                                 <a href="{{route('rrhh.departamento.edit', $item->id)}}"><i class="fa-solid fa-file-pen fa-2x"></i></a>
                             </td>
                             <td class="text-center">
+                                <form id="form{{ $item->id }}"
+                                    action="{{ route('rrhh.departamento.destroy', $item->id) }}"
+                                    method="post">
+                                    @method('DELETE')
+                                    @csrf
                                     <button
-                                        onclick="confirm('form','¿Desea eliminar el area?')"
+                                        onclick="confirm('form{{ $item->id }}','¿Desea eliminar el departamento?')"
                                         class="btn btn-danger"
                                         type="button"><i class="fas fa-trash"></i></button>
-                            </td>
+                                    </form>
+                                </td>
+                        @endforeach
                         </tr>
-                    @endforeach
                     </tbody>
                 </table>
             </div>
