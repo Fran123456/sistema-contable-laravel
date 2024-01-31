@@ -17,7 +17,7 @@
     
     <div class="col-md-12 text-end mt-2 mb-2">
         <!-- Button trigger modal -->
-        <a style="color: white" type="button" class="btn btn-primary" href="{{ route('rrhh.area.create') }}">
+        <a style="color: white" type="button" class="btn btn-primary" href="{{ route('rrhh.departamento.create') }}">
             <i class="fas fa-save"></i>
         </a>
 

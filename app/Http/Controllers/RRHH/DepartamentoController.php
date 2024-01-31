@@ -29,7 +29,12 @@ class DepartamentoController extends Controller
      */
     public function create()
     {
-        //
+        
+        $user = auth()->user();
+        $empresa_id = $user->empresa_id;
+        $departamentos = RRHHDepartamento::where('empresa_id', $empresa_id)->get();
+        
+        return view('RRHH.departamento.create' , compact('departamentos'));    
     }
 
     /**
@@ -40,7 +45,19 @@ class DepartamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validar que el nombre del departamento no este vacio
+        $request->validate([
+            'departamento'=>['required']
+        ]);
+
+        $departamento = new RRHHDepartamento;
+        $departamento->departamento = $request->input('departamento');
+        $departamento->area_id = $request->input('area_id');
+        $departamento->empresa_id = $request->input('empresa_id');
+        $departamento->save();
+        return to_route('rrhh.departamento.index')->with('success', 'Departamento creado correctamente');
+        
+
     }
 
     /**
