@@ -18,10 +18,9 @@ class PeriodoPlanillaController extends Controller
     public function index()
     {
         $periodos = RRHHPeriodosPlanilla::where("empresa_id", Help::empresa())->get();
-        // $periodos = RRHHPeriodosPlanilla::all();
 
         return view("rrhh.periodoPlanilla.index", compact("periodos"));
-        // return view("rrhh.periodoPlanilla.index");
+
     }
 
     /**
@@ -60,7 +59,7 @@ class PeriodoPlanillaController extends Controller
         ->where('empresa_id', $id_empresa)->where('tipo_periodo', $request->tipo_periodo)->where('periodo_dias', $request->periodo_dias)->get();
 
         if( $validarPeriodo->count() > 0 )
-            return back()->with('danger','Ya existe un periodo de planilla para el mismo mes, año y empresa');
+            return back()->with('danger','Ya existe un periodo de planilla con la información ingresada para esta empresa');
 
         $meses = [
             '1' => 'Enero',

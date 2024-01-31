@@ -34,10 +34,8 @@
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Periodo</th>
                                     <th scope="col">Activo</th>
-                                    <th width="50" class="text-center" scope="col"><i
-                                            class="fas fa-edit"></i></th>
-                                    <th width="50" class="text-center" scope="col"><i
-                                            class="fas fa-trash"></i></th>
+
+                                    <th width="50" class="text-center" scope="col"><i class="fas fa-trash"></i></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,7 +50,6 @@
                                     <td>{{ $item->periodo_dias }} </td>
                                     <td>{{ $item->activo == 1 ? 'Activo' : 'Inactivo' }}</td>
 
-                                    <td><a href="{{ route('rrhh.periodoPlanilla.edit', $item->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
                                     <td>
                                         <form id="form{{ $item->id }}"
                                             action="{{ route('rrhh.periodoPlanilla.destroy', $item->id) }}"
@@ -65,6 +62,7 @@
                                                 type="button" ><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
+
                                 </tr>
                             @endforeach
 

@@ -50,7 +50,7 @@
                                     $anioActual = date('Y');
                                 @endphp
                                 <select name="year" id="year" class="form-control" required>
-                                    @for ($anio = 2024; $anio <= $anioActual; $anio++)
+                                    @for ($anio = 2000; $anio <= 2050; $anio++)
                                         <option value="{{ $anio }}" @if ( $anio == $anioActual ) selected @endif>{{ $anio }}</option>
                                     @endfor
                                 </select>
