@@ -45,7 +45,7 @@
                             <td>{{ $item->departamento }}</td>
                             <td>{{ $item->area->area}}</td>
                             <td class="text-center"> 
-                                <a href=""><i class="fa-solid fa-file-pen fa-2x"></i></a>
+                                <a href="{{route('rrhh.departamento.edit', $item->id)}}"><i class="fa-solid fa-file-pen fa-2x"></i></a>
                             </td>
                             <td class="text-center">
                                     <button
