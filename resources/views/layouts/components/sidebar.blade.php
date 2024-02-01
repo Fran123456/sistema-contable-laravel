@@ -118,6 +118,12 @@
                         href="{{ route('rrhh.empleado.index') }}">Empleados</a></li>
             </ul>
         </div>
+                style="">
+                <ul class="submenu-list list-unstyled">
+                    <li class="submenu-item"><a class="submenu-link"
+                            href="{{ route('rrhh.departamento.index') }}">Departamentos</a></li>
+                </ul>
+            </div>
         </li>
 
 
