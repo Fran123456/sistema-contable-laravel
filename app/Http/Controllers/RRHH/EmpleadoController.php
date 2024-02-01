@@ -21,7 +21,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = RRHHEmpleado::all();
+        $empleados = RRHHEmpleado::where("empresa_id", Help::empresa())->get();
         return view('RRHH.empleado.index', compact('empleados'));
     }
 
@@ -59,6 +59,8 @@ class EmpleadoController extends Controller
             'direccion'=> 'string|max:1000',
             'sexo'=> 'required|string|in:Masculino,Femenino',
             'codigo'=> 'required|string|max:255',
+            'salario'=> 'required|float|min:0',
+            'salario_diario'=> 'required|float|min:0',
             'fecha_nacimiento'=> 'required|date',
             'fecha_ingreso'=> 'required|date',
         ]);
@@ -91,10 +93,12 @@ class EmpleadoController extends Controller
             'correo_empresarial'=> $request->correo_empresarial,
             'direccion'=> $request->direccion,
             'sexo'=> $request->sexo,
-            'fecha_nacimiento'=> $request->fecha_nacimiento,
-            'fecha_ingreso'=> $request->fecha_ingreso,
             'codigo'=> $request->codigo,
             'foto'=> $fotoSubida ? $url_foto : null,
+            'salario'=> $request->salario,
+            'salario_diario'=> $request->salario_diario,
+            'fecha_nacimiento'=> $request->fecha_nacimiento,
+            'fecha_ingreso'=> $request->fecha_ingreso,
         ]);
 
         $empleado->save();
@@ -162,8 +166,8 @@ class EmpleadoController extends Controller
         $request->flash();
 
         $validate = Validator::make($request->all(), [
-            'foto'=>'image|mimes:jpg,png,jpeg|nullable',
             'tipo_empleado' => 'required|integer',
+            'foto'=>'image|mimes:jpg,png,jpeg|nullable',
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
             'edad' => 'required|integer|min:18|max:120',
@@ -174,6 +178,8 @@ class EmpleadoController extends Controller
             'direccion'=> 'string|max:1000',
             'sexo'=> 'required|string|in:Masculino,Femenino',
             'codigo'=> 'required|string|max:255',
+            'salario'=> 'required|float|min:0',
+            'salario_diario'=> 'required|float|min:0',
             'fecha_nacimiento'=> 'required|date',
             'fecha_ingreso'=> 'required|date',
 
@@ -217,9 +223,11 @@ class EmpleadoController extends Controller
         $empleado->correo_empresarial = $request->correo_empresarial;
         $empleado->direccion = $request->direccion;
         $empleado->sexo = $request->sexo;
+        $empleado->codigo = $request->codigo;
+        $empleado->salario = $request->salario;
+        $empleado->salario_diario = $request->salario_diario;
         $empleado->fecha_nacimiento = $request->fecha_nacimiento;
         $empleado->fecha_ingreso = $request->fecha_ingreso;
-        $empleado->codigo = $request->sexo;
 
         if( $fotoSubida )
             $empleado->foto = $url_foto;

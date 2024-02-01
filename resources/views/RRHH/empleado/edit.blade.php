@@ -74,7 +74,7 @@
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="apellidos">Apellidos</label><span class="text-danger">*</span>
-                                <input name="apellidos" id="apellidos"  type="text" class="form-control" max="300" value="{{ old('apellidos') ?:$empleado->apellidos }}" required>
+                                <input name="apellidos" id="apellidos"  type="text" class="form-control" max="300" value="{{ old('apellidos') ?: $empleado->apellidos }}" required>
                             </div>
                         </div>
 
@@ -144,6 +144,17 @@
                             </div>
                         </div>
 
+                        {{-- salarios --}}
+                        <div class=" row ">
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="salario">Salario</label><span class="text-danger">*</span>
+                                <input class="form-control" type="number" id="salario" name="salario" value="{{ old('salario') ?: $empleado->salario }}" required>
+                            </div>
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="salario_diario">Salario diario</label><span class="text-danger">*</span>
+                                <input class="form-control" type="number" id="salario_diario" name="salario_diario" value="{{ old('salario_diario') ?: $empleado->salario_diario }}" required>
+                            </div>
+                        </div>
 
                         {{-- fecha de nacimiento e ingreso --}}
                         <div class=" row ">

@@ -26,10 +26,14 @@ class RRHHEmpleado extends Model
         'fecha_ingreso',
         'codigo',
         'foto',
+        'salario',
+        'salario_diario',
         'tipo_empleado_id',
         'created_at',
         'updated_at',
     ];
 
-
+    public function rrhhIncapacidad() {
+        return $this->hasMany(RRHHIncapacidad::class, 'empleado_id', 'id');
+    }
 }

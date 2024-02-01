@@ -37,6 +37,10 @@ class RRHHEmpresa extends Model
         return $this->hasMany(RRHHPeriodosPlanilla::class, 'empresa_id', 'id');
     }
 
+    public function rrhhIncapacidad() {
+        return $this->hasMany(RRHHIncapacidad::class, 'empresa_id', 'id');
+    }
+
     //metodos generales
     public function usuarios()
     {
