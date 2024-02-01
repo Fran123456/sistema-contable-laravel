@@ -69,15 +69,14 @@ class EmpleadoController extends Controller
         $fotoSubida = $request->hasFile('foto');
 
         if ( $fotoSubida ) {
-            // $imagen = $request->file('foto');
-            // $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
-            // $imagen->storeAs($carpeta, $nombreImagen);
+
             $imagen = $request->file('foto');
 
             $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
             $url_foto = $carpeta . '\\' . $nombreImagen;
 
             $imagen->storeAs($carpeta, $nombreImagen);
+
         }
 
         $empleado = RRHHEmpleado::create([
@@ -198,8 +197,8 @@ class EmpleadoController extends Controller
 
                 if(Storage::exists($urlFotoEliminar)){
 
-                    // Eliminar archivo
                     Storage::delete($urlFotoEliminar);
+
                 }
             }
 

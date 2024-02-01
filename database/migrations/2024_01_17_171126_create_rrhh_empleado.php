@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('rrhh_empleado', function (Blueprint $table) {
             $table->id();
-            $table->foreign('tipo_empleado_id')->references('id')->on('rrhh_tipo_empleado')->onUpdate('cascade');
             $table->integer('tipo_empleado_id');
+            $table->foreign('tipo_empleado_id')->references('id')->on('rrhh_tipo_empleado')->onUpdate('cascade');
             $table->string('nombres', 300);
             $table->string('apellidos', 200);
             $table->string('nombre_completo', 300);

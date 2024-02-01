@@ -42,8 +42,8 @@
 
         <li class="nav-item has-submenu">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-            <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-seguridad"
-                aria-expanded="true" aria-controls="submenu-seguridad">
+            <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
+                data-bs-target="#submenu-seguridad" aria-expanded="true" aria-controls="submenu-seguridad">
                 <span class="nav-icon">
                     <i class="fas fa-user-shield"></i>
 
@@ -107,23 +107,40 @@
             <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
                 style="">
                 <ul class="submenu-list list-unstyled">
-                    <li class="submenu-item"><a class="submenu-link"
-                            href="{{ route('rrhh.area.index') }}">Areas</a></li>
+                    <li class="submenu-item"><a class="submenu-link" href="{{ route('rrhh.area.index') }}">Areas</a>
+                    </li>
                 </ul>
             </div>
             <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
-            style="">
-            <ul class="submenu-list list-unstyled">
-                <li class="submenu-item"><a class="submenu-link"
-                        href="{{ route('rrhh.empleado.index') }}">Empleados</a></li>
-            </ul>
-        </div>
                 style="">
                 <ul class="submenu-list list-unstyled">
                     <li class="submenu-item"><a class="submenu-link"
-                            href="{{ route('rrhh.departamento.index') }}">Departamentos</a></li>
+                            href="{{ route('rrhh.departamento.index') }}">Departamentos</a>
+                    </li>
                 </ul>
             </div>
+
+            <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
+                style="">
+                <ul class="submenu-list list-unstyled">
+                    <li class="submenu-item"><a class="submenu-link"
+                            href="{{ route('rrhh.empleado.index') }}">Empleados</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
+                style="">
+                <ul class="submenu-list list-unstyled">
+                    <li class="submenu-item"><a class="submenu-link"
+                            href="{{ route('rrhh.periodoPlanilla.index') }}">Periodos Planillas</a></li>
+                </ul>
+            </div>
+
+            </div>
+
+
+
         </li>
 
 
@@ -159,8 +176,8 @@
                             href="{{ route('contabilidad.partidas.index') }}">Partidas contables</a></li>
                     <li class="submenu-item"><a class="submenu-link"
                             href="{{ route('contabilidad.copiar-data') }}">Copiar información</a></li>
-                            <li class="submenu-item"><a class="submenu-link"
-                                href="{{ route('contabilidad.reportes') }}">Reportes</a></li>
+                    <li class="submenu-item"><a class="submenu-link"
+                            href="{{ route('contabilidad.reportes') }}">Reportes</a></li>
                 </ul>
             </div>
         </li>
