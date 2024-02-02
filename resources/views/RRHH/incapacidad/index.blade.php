@@ -33,12 +33,12 @@
                             <th width="40" scope="col">#</th>
                             <th scope="col">Empleado</th>
                             <th scope="col">Periodo Planilla</th>
-                            <th scope="col">Fecha de inicio</th>
-                            <th scope="col">Cantidad de días</th>
-                            <th scope="col">Incapacidad</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Tipo</th>
 
-                            {{-- <th width="50" class="text-center" scope="col"><i class="fas fa-edit"></i></th>
-                            <th width="50" class="text-center" scope="col"><i class="fas fa-trash"></i></th> --}}
+                            {{-- <th width="50" class="text-center" scope="col"><i class="fas fa-edit"></i></th> --}}
+                            <th width="50" class="text-center" scope="col"><i class="fas fa-trash"></i></th>
 
                         </tr>
                     </thead>
@@ -51,13 +51,13 @@
 
                                 <td>{{ $item->empleado->nombre_completo }} </td>
                                 <td>{{ $item->periodoPlanilla->mes_string }} - {{ $item->periodoPlanilla->year }} {{ $item->periodoPlanilla->tipo_periodo }} {{ $item->periodoPlanilla->periodo_dias }}</td>
-                                <td>{{ $item->fecha_inicio }} </td>
+                                <td>{{ date_format(new DateTime($item->fecha_inicio), 'd-m-Y') }} </td>
                                 <td>{{ $item->cantidad }} </td>
                                 <td>{{ $item->tipoIncapacidad->tipo }} </td>
 
 
                                 {{-- <td><a href="{{ route('rrhh.incapacidad.edit', $item->id) }}" class="btn btn-warning"><i
-                                            class="fas fa-edit"></i></a></td>
+                                            class="fas fa-edit"></i></a></td> --}}
                                 <td>
                                     <form id="form{{ $item->id }}"
                                         action="{{ route('rrhh.incapacidad.destroy', $item->id) }}" method="post">
@@ -67,7 +67,7 @@
                                             onclick="confirm('form{{ $item->id }}','¿Desea eliminar el empleado?')"
                                             class="btn btn-danger" type="button"><i class="fas fa-trash"></i></button>
                                     </form>
-                                </td> --}}
+                                </td>
 
                             </tr>
                         @endforeach

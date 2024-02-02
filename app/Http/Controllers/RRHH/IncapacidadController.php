@@ -111,7 +111,7 @@ class IncapacidadController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -134,6 +134,14 @@ class IncapacidadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $incapacidad = RRHHIncapacidad::find($id);
+
+        if( $incapacidad == null)
+            return redirect()->route('rrhh.obtenerIncapacidades')->with('danger','No se pudo eliminar la incapacidad.');
+
+        $incapacidad->delete();
+
+
+        return redirect()->route('rrhh.obtenerIncapacidades')->with('success','La incapacidad se elimino con éxito.');
     }
 }
