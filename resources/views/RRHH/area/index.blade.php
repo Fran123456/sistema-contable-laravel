@@ -34,8 +34,10 @@
                             <th scope="col" width="40">#</th>
                             <th scope="col" width="90">Area</th>
                             <th scope="col" width="90">Empresa</th>
-                            <th scope="col" width="40">¿Activo?</th>
-                            <th scope="col" width="50" class="text-center">Acciones</th>
+                            <th scope="col" width="40">Activo</th>
+                            {{-- <th scope="col" width="50" class="text-center">Editar</th> --}}
+                            <th width="50" class="text-center" scope="col"><i
+                                class="fas fa-edit"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
                         </tr>
                     </thead>
@@ -56,7 +58,7 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                <a href="{{ route('rrhh.area.edit', $area->id)}}"> <i class="fa-solid fa-file-pen fa-2x"></i> </a>
+                                <a href="{{ route('rrhh.area.edit', $area->id)}}" class="btn btn-warning"> <i class="fas fa-edit"></i> </a>
                             </td>
                             <td class="text-center">
                                 <form id="form{{ $area->id }}"
