@@ -27,14 +27,15 @@
 
         <div class="card">
             <div class="card-body">
-                <h5>Areas</h5>
+                <h5>Departamentos</h5>
                 <table class="table table-sm" id="datatable-responsive">
                     <thead>
                         <tr>
                             <th scope="col" width="40">#</th>
                             <th scope="col" width="90">Departamento</th>
                             <th scope="col" width="90">Area</th>
-                            <th scope="col" width="50" class="text-center">Acciones</th>
+                            <th scope="col" width="90">Empresa</th>
+                            <th scope="col" width="50" class="text-center">Editar</th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
                         </tr>
                     </thead>
@@ -44,8 +45,9 @@
                             <th scope="row">{{$key + 1}}</th>
                             <td>{{ $item->departamento }}</td>
                             <td>{{ $item->area->area}}</td>
+                            <td>{{$item->empresa->empresa}}</td>
                             <td class="text-center"> 
-                                <a href="{{route('rrhh.departamento.edit', $item->id)}}"><i class="fa-solid fa-file-pen fa-2x"></i></a>
+                                <a href="{{route('rrhh.departamento.edit', $item->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                             </td>
                             <td class="text-center">
                                 <form id="form{{ $item->id }}"
