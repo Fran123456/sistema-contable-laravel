@@ -178,8 +178,8 @@ class EmpleadoController extends Controller
             'direccion'=> 'string|max:1000',
             'sexo'=> 'required|string|in:Masculino,Femenino',
             'codigo'=> 'required|string|max:255',
-            'salario'=> 'required|float|min:0',
-            'salario_diario'=> 'required|float|min:0',
+            'salario'=> 'required|min:0',
+            'salario_diario'=> 'required|min:0',
             'fecha_nacimiento'=> 'required|date',
             'fecha_ingreso'=> 'required|date',
 

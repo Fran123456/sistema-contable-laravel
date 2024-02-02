@@ -55,13 +55,6 @@
                         </div>
                         @endif
 
-                        {{-- Subir foto para actualizar --}}
-                        <div class=" row ">
-                            <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="foto">Subir foto empleado</label>
-                                <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpg, image/jpeg">
-                            </div>
-                        </div>
 
                         {{-- nombre y apellido empleado --}}
                         <div class=" row ">
@@ -161,24 +154,13 @@
                         {{-- fecha de nacimiento e ingreso --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
-<<<<<<< HEAD
-                                <label for="fecha_nacimiento">Fecha de nacimiento</label>
-                                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
-                                    class="form-control" value="{{ $empleado->fecha_nacimiento }}">
-=======
                                 <label for="fecha_nacimiento">Fecha de nacimiento</label><span class="text-danger">*</span>
                                 <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" value="{{ old('fecha_nacimiento') ?: $empleado->fecha_nacimiento }}" required>
->>>>>>> origin/dev-cristian
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="fecha_ingreso">Fecha de ingreso</label><span class="text-danger">*</span>
                                 @csrf
-<<<<<<< HEAD
-                                <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control"
-                                    value="{{ $empleado->fecha_ingreso }}">
-=======
                                 <input type="date" name="fecha_ingreso" id="fecha_ingreso" class="form-control" value="{{ old('fecha_ingreso') ?: $empleado->fecha_ingreso }}" required>
->>>>>>> origin/dev-cristian
                             </div>
                         </div>
 
