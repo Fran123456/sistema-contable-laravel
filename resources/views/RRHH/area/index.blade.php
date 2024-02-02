@@ -35,9 +35,7 @@
                             <th scope="col" width="90">Area</th>
                             <th scope="col" width="90">Empresa</th>
                             <th scope="col" width="40">Activo</th>
-                            {{-- <th scope="col" width="50" class="text-center">Editar</th> --}}
-                            <th width="50" class="text-center" scope="col"><i
-                                class="fas fa-edit"></i></th>
+                            <th scope="col" width="50" class="text-center">Editar</th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
                         </tr>
                     </thead>
