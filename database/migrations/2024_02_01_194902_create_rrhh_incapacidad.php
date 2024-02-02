@@ -19,7 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('empresa_id');
             $table->unsignedBigInteger('periodo_planilla_id');
             $table->unsignedBigInteger('tipo_incapacidad_id');
-            $table->integer('periodo');
+            $table->date('fecha_inicio');
+            $table->string('periodo', 15);
             $table->integer('mes');
             $table->integer('year');
             $table->integer('cantidad');

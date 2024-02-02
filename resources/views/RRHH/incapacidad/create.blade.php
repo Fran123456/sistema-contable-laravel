@@ -33,6 +33,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <x-errors></x-errors>
+                            <div class="col-md-12">
+                                <x-alert></x-alert>
+                            </div>
                         </div>
 
                         <div class=" row ">
@@ -52,11 +55,11 @@
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="periodo_planilla">Perido Planilla</label><span class="text-danger">*</span>
-                                <select name="periodo_planilla" id="periodo_planilla" class="form-select" required>
-                                    {{-- @foreach ($periodos_planillas as $key => $item )
-                                        <option value="{{ $item->id }}" @if( old('periodo_planilla') == $item->id || $loop->first ) selected @endif>{{ $item->periodo }}</option>
-                                    @endforeach --}}
+                                <label for="periodo_planilla_id">Perido Planilla</label><span class="text-danger">*</span>
+                                <select name="periodo_planilla_id" id="periodo_planilla_id" class="form-select" required>
+                                    @foreach ($periodosPlanillas as $key => $item )
+                                        <option value="{{ $item->id }}" @if( old('periodo_planilla_id') == $item->id || $loop->first ) selected @endif>{{ $item->mes_string }} - {{ $item->year }} {{ $item->tipo_periodo }} {{ $item->periodo_dias }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -65,44 +68,26 @@
                         {{-- salarios --}}
                         <div class=" row ">
 
-                            <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="periodo_planilla">Perido Planilla</label><span class="text-danger">*</span>
-                                <select name="periodo_planilla" id="periodo_planilla" class="form-select" required>
-                                    {{-- @foreach ($periodos_planillas as $key => $item )
-                                        <option value="{{ $item->id }}" @if( old('periodo_planilla') == $item->id || $loop->first ) selected @endif>{{ $item->periodo }}</option>
-                                    @endforeach --}}
+                            <div class=" col-md-4 mt-2 mb-12 ">
+                                <label for="fecha_inicio">Fecha de inicio</label><span class="text-danger">*</span>
+                                <input type="date" name="fecha_inicio" id="fecha_inicio" value="{{ old('fecha_inicio') ?: date('Y-m-d') }}" class="form-control" required />
+                            </div>
+
+                            <div class=" col-md-4 mt-2 mb-12 ">
+                                <label for="tipo_incapacidad_id">Tipo incapacidad</label><span class="text-danger">*</span>
+                                <select name="tipo_incapacidad_id" id="tipo_incapacidad_id" class="form-select" required>
+                                    @foreach ($tipoIncapacidades as $key => $item )
+                                        <option value="{{ $item->id }}" @if( old('tipo_incapacidad_id') == $item->id || $loop->first ) selected @endif>{{ $item->tipo }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
-                            <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="fecha_inicio">Fecha de nacimiento</label><span class="text-danger">*</span>
-                                <input type="date" name="fecha_inicio" id="fecha_inicio" value="{{ old('fecha_inicio') }}" class="form-control" required />
-                            </div>
-
-                            <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="tipo_incapacidad">Tipo incapacidad</label><span class="text-danger">*</span>
-                                <select name="tipo_incapacidad" id="tipo_incapacidad" class="form-select" required>
-                                    {{-- @foreach ($periodos_planillas as $key => $item )
-                                        <option value="{{ $item->id }}" @if( old('tipo_incapacidad') == $item->id || $loop->first ) selected @endif>{{ $item->tipo }}</option>
-                                    @endforeach --}}
-                                </select>
+                            <div class=" col-md-4 mt-2 mb-12 ">
+                                <label for="cantidad">Cantidad</label><span class="text-danger">*</span>
+                                <input class="form-control" name="cantidad" id="cantidad" type="number" min="1" value="{{ old('cantidad') ?: 1 }}" required>
                             </div>
 
                         </div>
-
-                        {{-- fecha de nacimiento e ingreso --}}
-                        {{-- <div class=" row ">
-                            <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="fecha_nacimiento">Fecha de nacimiento</label><span class="text-danger">*</span>
-                                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" class="form-control" required />
-                            </div>
-                            <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="fecha_ingreso">Fecha de ingreso</label><span class="text-danger">*</span>
-                                <input type="date" name="fecha_ingreso" id="fecha_ingreso" value="{{ old('fecha_ingreso') }}" class="form-control" required />
-                            </div>
-                        </div> --}}
-
-
 
                         <div class="row">
                             {{-- boton de guardado --}}

@@ -34,26 +34,29 @@
                             <th scope="col">Empleado</th>
                             <th scope="col">Periodo Planilla</th>
                             <th scope="col">Fecha de inicio</th>
-                            <th scope="col">Cantidad</th>
+                            <th scope="col">Cantidad de días</th>
+                            <th scope="col">Incapacidad</th>
 
-                            <th width="50" class="text-center" scope="col"><i class="fas fa-edit"></i></th>
-                            <th width="50" class="text-center" scope="col"><i class="fas fa-trash"></i></th>
+                            {{-- <th width="50" class="text-center" scope="col"><i class="fas fa-edit"></i></th>
+                            <th width="50" class="text-center" scope="col"><i class="fas fa-trash"></i></th> --}}
 
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($incapacidad as $key => $item)
+
+                        @foreach ($incapacidades as $key => $item)
                             <tr>
 
                                 <th scope="row">{{ $key + 1 }}</th>
 
-                                <td>{{ $item->empleado }} </td>
-                                <td>{{ $item->planilla }} </td>
+                                <td>{{ $item->empleado->nombre_completo }} </td>
+                                <td>{{ $item->periodoPlanilla->mes_string }} - {{ $item->periodoPlanilla->year }} {{ $item->periodoPlanilla->tipo_periodo }} {{ $item->periodoPlanilla->periodo_dias }}</td>
                                 <td>{{ $item->fecha_inicio }} </td>
                                 <td>{{ $item->cantidad }} </td>
+                                <td>{{ $item->tipoIncapacidad->tipo }} </td>
 
 
-                                <td><a href="{{ route('rrhh.incapacidad.edit', $item->id) }}" class="btn btn-warning"><i
+                                {{-- <td><a href="{{ route('rrhh.incapacidad.edit', $item->id) }}" class="btn btn-warning"><i
                                             class="fas fa-edit"></i></a></td>
                                 <td>
                                     <form id="form{{ $item->id }}"
@@ -64,11 +67,10 @@
                                             onclick="confirm('form{{ $item->id }}','¿Desea eliminar el empleado?')"
                                             class="btn btn-danger" type="button"><i class="fas fa-trash"></i></button>
                                     </form>
-                                </td>
+                                </td> --}}
 
                             </tr>
-                        @endforeach --}}
-
+                        @endforeach
 
                     </tbody>
                 </table>

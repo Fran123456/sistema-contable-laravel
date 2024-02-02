@@ -9,7 +9,7 @@ class RRHHTipoIncapacidad extends Model
 {
     use HasFactory;
 
-    protected $table = 'rrhh_tipo_incapacidad';
+    protected $table = 'rrhh_incapacidad_tipo';
 
     protected $fillable = [
         'id',

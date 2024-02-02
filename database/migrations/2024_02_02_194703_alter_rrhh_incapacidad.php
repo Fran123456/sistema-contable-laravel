@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table("rrhh_empleado", function (Blueprint $table) {
-
-            $table->unsignedBigInteger("empresa_id");
-            $table->float("salario", 10, 2)->default(0);
-            $table->float("salario_diario", 10, 2)->default(0);
-            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa');
+        Schema::table("rrhh_incapacidad", function (Blueprint $table) {
+            $table->date("fecha_inicio");
         });
     }
 
@@ -30,9 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('rrhh_empleado', function (Blueprint $table) {
-            $table->dropColumn('salario');
-            $table->dropColumn('salario_diario');
-            $table->dropColumn('empresa_id');
+            $table->dropColumn('fecha_inicio');
         });
     }
 };
