@@ -27,4 +27,8 @@ class RRHHPeriodosPlanilla extends Model
     public function empresa(){
         return $this->belongsTo(RRHHEmpresa::class, 'empresa_id')->withDefault(); //with default muestra los null
     }
+
+    public function rrhhIncapacidad() {
+        return $this->hasMany(RRHHIncapacidad::class, 'periodo_planilla', 'id');
+    }
 }

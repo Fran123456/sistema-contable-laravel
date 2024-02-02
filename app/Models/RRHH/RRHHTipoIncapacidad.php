@@ -2,23 +2,24 @@
 
 namespace App\Models\RRHH;
 
-use App\Models\RRHH\RRHHEmpleado;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RRHHTipoEmpleado extends Model
+class RRHHTipoIncapacidad extends Model
 {
     use HasFactory;
 
-    protected $table = 'rrhh_tipo_empleado';
+    protected $table = 'rrhh_incapacidad_tipo';
+
     protected $fillable = [
         'id',
         'tipo',
+        'activo',
         'created_at',
         'updated_at',
     ];
 
-    public function rrhhEmpleados() {
-        return $this->hasMany(RRHHEmpleado::class, 'tipo_empleado_id', 'id');
+    public function rrhhIncapacidad() {
+        return $this->hasMany(RRHHIncapacidad::class, 'tipo_incapacidad_id', 'id');
     }
 }
