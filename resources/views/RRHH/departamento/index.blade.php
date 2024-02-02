@@ -35,7 +35,7 @@
                             <th scope="col" width="90">Departamento</th>
                             <th scope="col" width="90">Area</th>
                             <th scope="col" width="90">Empresa</th>
-                            <th scope="col" width="50" class="text-center">Editar</th>
+                            <th scope="col" width="50" class="text-center"><i class="fas fa-edit"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
                         </tr>
                     </thead>
@@ -46,10 +46,10 @@
                             <td>{{ $item->departamento }}</td>
                             <td>{{ $item->area->area}}</td>
                             <td>{{$item->empresa->empresa}}</td>
-                            <td class="text-center"> 
+                            <td> 
                                 <a href="{{route('rrhh.departamento.edit', $item->id)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <form id="form{{ $item->id }}"
                                     action="{{ route('rrhh.departamento.destroy', $item->id) }}"
                                     method="post">

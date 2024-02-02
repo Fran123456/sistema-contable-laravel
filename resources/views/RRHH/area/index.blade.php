@@ -32,10 +32,10 @@
                     <thead>
                         <tr>
                             <th scope="col" width="40">#</th>
-                            <th scope="col" width="90">Area</th>
-                            <th scope="col" width="90">Empresa</th>
-                            <th scope="col" width="40">Activo</th>
-                            <th scope="col" width="50" class="text-center">Editar</th>
+                            <th scope="col">Area</th>
+                            <th scope="col">Empresa</th>
+                            <th scope="col">Activo</th>
+                            <th scope="col" width="50" class="text-center"><i class="fas fa-edit"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
                         </tr>
                     </thead>
@@ -55,10 +55,10 @@
                                     Inactivo
                                 @endif
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <a href="{{ route('rrhh.area.edit', $area->id)}}" class="btn btn-warning"> <i class="fas fa-edit"></i> </a>
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <form id="form{{ $area->id }}"
                                     action="{{ route('rrhh.area.destroy', $area->id) }}"
                                     method="post">
