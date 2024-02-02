@@ -55,6 +55,7 @@ class DepartamentoController extends Controller
         $departamento->departamento = $request->input('departamento');
         $departamento->area_id = $request->input('area_id');
         $departamento->empresa_id = $request->input('empresa_id');
+        $departamento->activo = $request->input('activo');
         $departamento->save();
         return to_route('rrhh.departamento.index')->with('success', 'Departamento creado correctamente');
 
@@ -104,6 +105,7 @@ class DepartamentoController extends Controller
         $departamento->departamento = $request->input('departamento');
         $departamento->area_id = $request->input('area_id');
         $departamento->empresa_id = $request->input('empresa_id');
+        $departamento->activo = $request->input('activo');
         $departamento->save();
         return to_route('rrhh.departamento.index')->with('sucess', 'Departamento actualizado correctamente');
     }

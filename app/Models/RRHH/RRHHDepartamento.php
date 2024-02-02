@@ -13,6 +13,7 @@ class RRHHDepartamento extends Model
         'departamento',
         'area_id',
         'empresa_id',
+        'activo',
         'created_at',
         'updated_at',
     ];
