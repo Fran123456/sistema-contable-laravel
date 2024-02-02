@@ -136,7 +136,7 @@ class IncapacidadController extends Controller
     {
         $incapacidad = RRHHIncapacidad::find($id);
 
-        if( $incapacidad == null)
+        if( $incapacidad->count() == 0 )
             return redirect()->route('rrhh.obtenerIncapacidades')->with('danger','No se pudo eliminar la incapacidad.');
 
         $incapacidad->delete();
