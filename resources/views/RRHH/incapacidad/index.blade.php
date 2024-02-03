@@ -37,7 +37,7 @@
                             <th scope="col">Cantidad</th>
                             <th scope="col">Tipo</th>
 
-                            {{-- <th width="50" class="text-center" scope="col"><i class="fas fa-edit"></i></th> --}}
+                            <th width="50" class="text-center" scope="col"><i class="fas fa-edit"></i></th>
                             <th width="50" class="text-center" scope="col"><i class="fas fa-trash"></i></th>
 
                         </tr>
@@ -56,8 +56,7 @@
                                 <td>{{ $item->tipoIncapacidad->tipo }} </td>
 
 
-                                {{-- <td><a href="{{ route('rrhh.incapacidad.edit', $item->id) }}" class="btn btn-warning"><i
-                                            class="fas fa-edit"></i></a></td> --}}
+                                <td><a href="{{ route('rrhh.incapacidad.edit', $item->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
                                 <td>
                                     <form id="form{{ $item->id }}"
                                         action="{{ route('rrhh.incapacidad.destroy', $item->id) }}" method="post">
