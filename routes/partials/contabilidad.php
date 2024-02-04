@@ -9,62 +9,65 @@ use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
 
 
-//PERIODOS
-Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('periodos', PeriodoContableController::class);
-});
 
-//TIPO DE PARTIDAS
-Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('tipos-de-partida', TipoPartidaController::class);
-});
+Route::middleware(['auth'])->group(function () {
 
-//CUENTAS CONTABLES
-Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('cuentas-contables', CuentaContableController::class);
-});
+    //PERIODOS
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::resource('periodos', PeriodoContableController::class);
+    });
 
-//IMPORTAR CATALOGOS
-Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::get('/copiar/data', [ConfiguracionController::class, 'indexCopiarInformacionContable'])->name('copiar-data');
-    Route::post('/copiar/data', [ConfiguracionController::class, 'copiarInformacionContable'])->name('copiar-data-store');
+    //TIPO DE PARTIDAS
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::resource('tipos-de-partida', TipoPartidaController::class);
+    });
 
-    Route::get('/importar/excel', [CuentaContableController::class, 'importarCuentasExcelView'])->name('importarCuentasExcelView');
-    Route::post('/importar/excel', [CuentaContableController::class, 'importarCuentasExcel'])->name('importarCuentasExcel');
-});
+    //CUENTAS CONTABLES
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::resource('cuentas-contables', CuentaContableController::class);
+    });
 
-//PARTIDAS CONTABLES
-Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('partidas', PartidasContablesController::class);
+    //IMPORTAR CATALOGOS
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::get('/copiar/data', [ConfiguracionController::class, 'indexCopiarInformacionContable'])->name('copiar-data');
+        Route::post('/copiar/data', [ConfiguracionController::class, 'copiarInformacionContable'])->name('copiar-data-store');
+
+        Route::get('/importar/excel', [CuentaContableController::class, 'importarCuentasExcelView'])->name('importarCuentasExcelView');
+        Route::post('/importar/excel', [CuentaContableController::class, 'importarCuentasExcel'])->name('importarCuentasExcel');
+    });
+
+    //PARTIDAS CONTABLES
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::resource('partidas', PartidasContablesController::class);
+        Route::get('/partida/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
+        //Route::get('/correlativo/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
+        Route::get('/partida/cerrar/{id}', [PartidasContablesController::class, 'cerrarPartida'])->name('cerrarPartida');
+        Route::get('/partida/reporte/{id}', [PartidasContablesController::class, 'reportePartidaContable'])->name('reportePartidaContable');
+        Route::delete('/partida/detalle/eliminar/{id}', [PartidasContablesController::class, 'eliminarDetallePartida'])->name('eliminarDetallePartida');
+
+    });
+
+    //REPORTES CONTABLES
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::get('/reportes', [ReportesContablesController::class, 'reportes'])->name('reportes');
+        Route::get('/reportes/saldo-cuenta', [ReportesContablesController::class, 'reporteSaldoCuenta'])->name('reporteSaldoCuenta');
+        Route::get('/reportes/libro-diario', [ReportesContablesController::class, 'reporteLibroDiario'])->name('reporteLibroDiario');
+        Route::get('/reportes/balance-comprobacion', [ReportesContablesController::class, 'reporteBalanceComprobacion'])->name('reporteBalanceComprobacion');
+        Route::get('/reportes/listado-partidas-contables', [ReportesContablesController::class, 'listadoDePartidas'])->name('listadoDePartidas');
+        Route::get('/reportes/libro-diario-mayor', [ReportesContablesController::class, 'libroDiarioMayor'])->name('libroDiarioMayor');
+
+        Route::get('/reportes/estado-resultado', [ReportesContablesController::class, 'reporteEstadoResultado'])->name('reporteEstadoResultado');
+
+
+    });
+
+    // BALANCE DE EMPRESAS
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::resource('balance', BalanceContableController::class);
+        Route::get('/balance', [BalanceContableController::class, 'index'])->name('obtenerBalance');
+        Route::get('/balance/edit/{id}', [BalanceContableController::class, 'edit'])->name('editarBalance');
+    });
 
 
 
-    Route::get('/partida/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
-
-    //Route::get('/correlativo/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
-    Route::get('/partida/cerrar/{id}', [PartidasContablesController::class, 'cerrarPartida'])->name('cerrarPartida');
-    Route::get('/partida/reporte/{id}', [PartidasContablesController::class, 'reportePartidaContable'])->name('reportePartidaContable');
-    Route::delete('/partida/detalle/eliminar/{id}', [PartidasContablesController::class, 'eliminarDetallePartida'])->name('eliminarDetallePartida');
-
-});
-
-//REPORTES CONTABLES
-Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::get('/reportes', [ReportesContablesController::class, 'reportes'])->name('reportes');
-    Route::get('/reportes/saldo-cuenta', [ReportesContablesController::class, 'reporteSaldoCuenta'])->name('reporteSaldoCuenta');
-    Route::get('/reportes/libro-diario', [ReportesContablesController::class, 'reporteLibroDiario'])->name('reporteLibroDiario');
-    Route::get('/reportes/balance-comprobacion', [ReportesContablesController::class, 'reporteBalanceComprobacion'])->name('reporteBalanceComprobacion');
-    Route::get('/reportes/listado-partidas-contables', [ReportesContablesController::class, 'listadoDePartidas'])->name('listadoDePartidas');
-    Route::get('/reportes/libro-diario-mayor', [ReportesContablesController::class, 'libroDiarioMayor'])->name('libroDiarioMayor');
-
-    Route::get('/reportes/estado-resultado', [ReportesContablesController::class, 'reporteEstadoResultado'])->name('reporteEstadoResultado');
-
-
-});
-
-// BALANCE DE EMPRESAS
-Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
-    Route::resource('balance', BalanceContableController::class);
-    Route::get('/balance', [BalanceContableController::class,'index'])->name('obtenerBalance');
-    Route::get('/balance/edit/{id}', [BalanceContableController::class,'edit'])->name('editarBalance');
 });
