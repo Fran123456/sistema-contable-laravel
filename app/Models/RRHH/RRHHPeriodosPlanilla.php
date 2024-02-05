@@ -31,4 +31,8 @@ class RRHHPeriodosPlanilla extends Model
     public function rrhhIncapacidad() {
         return $this->hasMany(RRHHIncapacidad::class, 'periodo_planilla', 'id');
     }
+
+    public function permiso(){
+        return $this->hasMany(RRHHPermiso::class, 'periodo_planilla_id', 'id');
+    }
 }

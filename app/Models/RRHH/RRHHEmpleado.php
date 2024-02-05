@@ -36,4 +36,8 @@ class RRHHEmpleado extends Model
     public function rrhhIncapacidad() {
         return $this->hasMany(RRHHIncapacidad::class, 'empleado_id', 'id');
     }
+
+    public function permiso() {
+        return $this->hasMany(RRHHPermiso::class,'empleado_id', 'id');
+    }
 }

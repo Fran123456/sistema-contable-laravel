@@ -21,7 +21,7 @@ class IncapacidadController extends Controller
      */
     public function index()
     {
-        $incapacidades = RRHHIncapacidad::with("empleado")->with("tipoIncapacidad")->with("periodoPlanilla")->get();
+        $incapacidades = RRHHIncapacidad::where("empresa_id", Help::empresa())->with("empleado")->with("tipoIncapacidad")->with("periodoPlanilla")->get();
         return view("RRHH.incapacidad.index", compact("incapacidades"));
     }
 
