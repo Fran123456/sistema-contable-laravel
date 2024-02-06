@@ -5,6 +5,7 @@ use App\Http\Controllers\RRHH\EmpresaController;
 use App\Http\Controllers\RRHH\EmpleadoController;
 use App\Http\Controllers\RRHH\DepartamentoController;
 use App\Http\Controllers\RRHH\PeriodoPlanillaController;
+use App\Http\Controllers\RRHH\PuestoController;
 
 
 
@@ -21,6 +22,9 @@ Route::name('rrhh.')->prefix('rrhh')->group(function () {
 
     //Rutas de RRHH Departamentos
     Route::resource('departamento', DepartamentoController::class);
+
+    //Rutas de RRHH Puetos
+    Route::resource('puesto', PuestoController::class);
 });
 
 // BALANCE DE EMPRESAS

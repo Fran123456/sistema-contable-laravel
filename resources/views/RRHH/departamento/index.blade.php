@@ -67,9 +67,9 @@
                                         onclick="confirm('form{{ $item->id }}','¿Desea eliminar el departamento?')"
                                         class="btn btn-danger"
                                         type="button"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                        @endforeach
+                                </form>
+                            </td>
+                    @endforeach
                         </tr>
                     </tbody>
                 </table>
