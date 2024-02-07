@@ -1,9 +1,8 @@
 <x-app-layout>
     <x-chosen></x-chosen>
-    <x-slot:title>
-        Crear puesto
+   <x-slot:title>
+       Editar puesto
     </x-slot>
-    
     <x-slot:subtitle>
     </x-slot>
 
@@ -12,24 +11,26 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
             <li class="breadcrumb-item"><a href="/rrhh/puesto">Puesto</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Crear puesto</li>
+            <li class="breadcrumb-item active" aria-current="page">Editar puesto</li>
         </ol>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>
     </div>
+
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{route('rrhh.puesto.store') }}" method="post"> 
-                    @csrf       
+                <form action="{{route('rrhh.puesto.update', $puesto->id) }}" method="post"> 
+                    @csrf   
+                    @method('PUT')
                     <div class="row">
                         <div class="col-md-4 mt-2">
-                            <label for=""> <strong>Cargo</strong></label>
-                            <input type="text" name="cargo"  required class="form-control">
+                            <label for=""><strong> Cargo </strong></label>
+                            <input type="text" name="cargo" value="{{$puesto->cargo}}" required class="form-control">
                             @error('cargo')
                                 {{$message}}
-                            @enderror 
+                            @enderror
                         </div>
                         <div class="col-md-4 mt-2">
                             <label for="area"><strong>Area</strong></label>
@@ -59,6 +60,7 @@
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
                         </div>
+
                     </div>
                 </form>
             </div>
@@ -89,5 +91,6 @@
             });
         });
     </script>
+
 
 </x-app-layout>

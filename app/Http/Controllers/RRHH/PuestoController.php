@@ -82,7 +82,12 @@ class PuestoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = auth()->user();
+        $empresa_id = $user->empresa_id;
+        $areas = RRHHArea::where('empresa_id', $empresa_id)->get();
+        $puesto = RRHHPuesto::find($id);
+
+        return view('rrhh.puesto.edit', compact('empresa_id','areas', 'puesto'));
     }
 
     /**
@@ -94,7 +99,20 @@ class PuestoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'cargo'=>['required'],
+        ]);
+
+        $puesto = RRHHPuesto::find($id);
+        $puesto->cargo = $request->input('cargo');
+        $puesto->empresa_id = $request->input('empresa_id');
+        $puesto->area_id = $request->input('area_id');
+        $puesto->departamento_id = $request->input('departamento_id');
+        $puesto->activo = $request->input('activo');
+        $puesto->save();
+        
+        return to_route('rrhh.puesto.index')->with('success','Cargo actualizado correctamente');
+ 
     }
 
     /**
@@ -105,7 +123,9 @@ class PuestoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $puesto = RRHHPuesto::find($id);
+        $puesto->delete();
+        return back()->with('success', 'Cargo eliminado correctamente');
     }
 
     public function obtenerDepartamentos($areaId)
