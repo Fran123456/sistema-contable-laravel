@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\RRHH;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\RRHH\RRHHEmpleado;
@@ -47,22 +48,22 @@ class EmpleadoController extends Controller
         $request->flash();
 
         $validate = Validator::make($request->all(), [
-            'foto'=>'image|mimes:jpg,png,jpeg|nullable',
+            'foto' => 'image|mimes:jpg,png,jpeg|nullable',
             'tipo_empleado' => 'required|integer',
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
             'edad' => 'required|integer|min:18|max:120',
-            'estado'=> 'required|integer|max:1|min:0',
-            'correo'=> 'string|max:200|nullable',
-            'telefono'=> 'required|string|max:100',
-            'correo_empresarial'=> 'string|max:200|nullable',
-            'direccion'=> 'string|max:1000',
-            'sexo'=> 'required|string|in:Masculino,Femenino',
-            'codigo'=> 'required|string|max:255',
-            'salario'=> 'required|float|min:0',
-            'salario_diario'=> 'required|float|min:0',
-            'fecha_nacimiento'=> 'required|date',
-            'fecha_ingreso'=> 'required|date',
+            'estado' => 'required|integer|max:1|min:0',
+            'correo' => 'string|max:200|nullable',
+            'telefono' => 'required|string|max:100',
+            'correo_empresarial' => 'string|max:200|nullable',
+            'direccion' => 'string|max:1000',
+            'sexo' => 'required|string|in:Masculino,Femenino',
+            'codigo' => 'required|string|max:255',
+            'salario' => 'required|numeric|min:0',
+            'salario_diario' => 'required|numeric|min:0',
+            'fecha_nacimiento' => 'required|date',
+            'fecha_ingreso' => 'required|date',
         ]);
 
         $validate->validate();
@@ -70,7 +71,7 @@ class EmpleadoController extends Controller
         $carpeta = 'foto_empleados';
         $fotoSubida = $request->hasFile('foto');
 
-        if ( $fotoSubida ) {
+        if ($fotoSubida) {
 
             $imagen = $request->file('foto');
 
@@ -81,29 +82,41 @@ class EmpleadoController extends Controller
 
         }
 
+        $empresa_id = Help::empresa();
+
         $empleado = RRHHEmpleado::create([
-            'tipo_empleado_id'=> $request->tipo_empleado,
+            'empresa_id' => $empresa_id,
+            'tipo_empleado_id' => $request->tipo_empleado,
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
-            'nombre_completo' => $request->nombres.' '.$request->apellidos,
+            'nombre_completo' => $request->nombres . ' ' . $request->apellidos,
             'edad' => $request->edad,
-            'activo'=> $request->estado,
-            'correo'=> $request->correo,
-            'telefono'=> $request->telefono,
-            'correo_empresarial'=> $request->correo_empresarial,
-            'direccion'=> $request->direccion,
-            'sexo'=> $request->sexo,
-            'codigo'=> $request->codigo,
-            'foto'=> $fotoSubida ? $url_foto : null,
-            'salario'=> $request->salario,
-            'salario_diario'=> $request->salario_diario,
-            'fecha_nacimiento'=> $request->fecha_nacimiento,
-            'fecha_ingreso'=> $request->fecha_ingreso,
+            'activo' => $request->estado,
+            'correo' => $request->correo,
+            'telefono' => $request->telefono,
+            'correo_empresarial' => $request->correo_empresarial,
+            'direccion' => $request->direccion,
+            'sexo' => $request->sexo,
+            'codigo' => $request->codigo,
+            'foto' => $fotoSubida ? $url_foto : null,
+            'salario' => $request->salario,
+            'salario_diario' => $request->salario_diario,
+            'fecha_nacimiento' => $request->fecha_nacimiento,
+            'fecha_ingreso' => $request->fecha_ingreso,
         ]);
 
-        $empleado->save();
+        try {
 
-        return redirect()->route('rrhh.empleado.index')->with('success', 'Empleado creado correctamente' );
+            $empleado->save();
+            $log = 'empleado creado para la empresa con id ' . $empleado->id . ' Para la empresa con id ' . Help::empresa();
+            Log::log('RRHH', 'empleado creado', $log);
+
+            return redirect()->route('rrhh.empleado.index')->with('success', 'Empleado creado correctamente ' . Help::empresa());
+
+        } catch (Exception $e) {
+            Log::log('RRHH', 'empleado error al crear empleado', $e);
+            return back()->with('danger', 'Ocurrio un error al crear el empleado');
+        }
     }
 
     /**
@@ -120,8 +133,8 @@ class EmpleadoController extends Controller
         $foto = null;
         $urlFotoEmpleado = $empleado->foto;
 
-        if( $urlFotoEmpleado ){
-            if(Storage::exists($urlFotoEmpleado)){
+        if ($urlFotoEmpleado) {
+            if (Storage::exists($urlFotoEmpleado)) {
                 $url_foto = storage_path('app\\' . $urlFotoEmpleado);
                 $foto = base64_encode(file_get_contents($url_foto));
             }
@@ -144,14 +157,14 @@ class EmpleadoController extends Controller
         $foto = null;
         $urlFotoEmpleado = $empleado->foto;
 
-        if( $urlFotoEmpleado ){
-            if(Storage::exists($urlFotoEmpleado)){
+        if ($urlFotoEmpleado) {
+            if (Storage::exists($urlFotoEmpleado)) {
                 $url_foto = storage_path('app\\' . $urlFotoEmpleado);
                 $foto = base64_encode(file_get_contents($url_foto));
             }
         }
 
-        return view('rrhh.empleado.edit', compact('empleado','tipoEmpleado', 'foto'));
+        return view('rrhh.empleado.edit', compact('empleado', 'tipoEmpleado', 'foto'));
     }
 
     /**
@@ -167,21 +180,21 @@ class EmpleadoController extends Controller
 
         $validate = Validator::make($request->all(), [
             'tipo_empleado' => 'required|integer',
-            'foto'=>'image|mimes:jpg,png,jpeg|nullable',
+            'foto' => 'image|mimes:jpg,png,jpeg|nullable',
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
             'edad' => 'required|integer|min:18|max:120',
-            'estado'=> 'required|integer|max:1|min:0',
-            'correo'=> 'string|max:200|nullable',
-            'telefono'=> 'required|string|max:100',
-            'correo_empresarial'=> 'string|max:200|nullable',
-            'direccion'=> 'string|max:1000',
-            'sexo'=> 'required|string|in:Masculino,Femenino',
-            'codigo'=> 'required|string|max:255',
-            'salario'=> 'required|float|min:0',
-            'salario_diario'=> 'required|float|min:0',
-            'fecha_nacimiento'=> 'required|date',
-            'fecha_ingreso'=> 'required|date',
+            'estado' => 'required|integer|max:1|min:0',
+            'correo' => 'string|max:200|nullable',
+            'telefono' => 'required|string|max:100',
+            'correo_empresarial' => 'string|max:200|nullable',
+            'direccion' => 'string|max:1000',
+            'sexo' => 'required|string|in:Masculino,Femenino',
+            'codigo' => 'required|string|max:255',
+            'salario' => 'required|numeric|min:0',
+            'salario_diario' => 'required|numeric|min:0',
+            'fecha_nacimiento' => 'required|date',
+            'fecha_ingreso' => 'required|date',
 
         ]);
 
@@ -192,16 +205,16 @@ class EmpleadoController extends Controller
         $carpeta = 'foto_empleados';
         $fotoSubida = $request->hasFile('foto');
 
-        if ( $fotoSubida ) {
+        if ($fotoSubida) {
             $imagen = $request->file('foto');
 
             $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
             $url_foto = $carpeta . '\\' . $nombreImagen;
 
-            if( $empleado->foto ) {
+            if ($empleado->foto) {
                 $urlFotoEliminar = $empleado->foto;
 
-                if(Storage::exists($urlFotoEliminar)){
+                if (Storage::exists($urlFotoEliminar)) {
 
                     Storage::delete($urlFotoEliminar);
 
@@ -214,9 +227,9 @@ class EmpleadoController extends Controller
 
         $empleado->tipo_empleado_id = $request->tipo_empleado;
         $empleado->nombres = $request->nombres;
-        $empleado->apellidos  = $request->apellidos;
-        $empleado->nombre_completo  = $request->nombres.' '.$request->apellidos;
-        $empleado->edad  = $request->edad;
+        $empleado->apellidos = $request->apellidos;
+        $empleado->nombre_completo = $request->nombres . ' ' . $request->apellidos;
+        $empleado->edad = $request->edad;
         $empleado->activo = $request->estado;
         $empleado->correo = $request->correo;
         $empleado->telefono = $request->telefono;
@@ -229,12 +242,20 @@ class EmpleadoController extends Controller
         $empleado->fecha_nacimiento = $request->fecha_nacimiento;
         $empleado->fecha_ingreso = $request->fecha_ingreso;
 
-        if( $fotoSubida )
+        if ( $fotoSubida )
             $empleado->foto = $url_foto;
 
-        $empleado->save();
+        try {
+            $log = 'Empleado actualizado para la empresa con id ' . $empleado->id . ' Para la empresa con id ' . Help::empresa();
+            Log::log('RRHH', 'empleado creado', $log);
+            $empleado->save();
+            return redirect()->route('rrhh.empleado.index')->with('success', 'Empleado creado correctamente');
 
-        return redirect()->route('rrhh.empleado.index')->with('success', 'Empleado Actualizado correctamente');
+        } catch (Exception $e) {
+            Log::log('RRHH', 'empleado error al crear empleado', $e);
+            return back()->with('danger', 'Ocurrio un error al actualizar el empleado');
+        }
+
     }
 
     /**
@@ -247,19 +268,22 @@ class EmpleadoController extends Controller
     {
         $empleado = RRHHEmpleado::find($id);
 
-        if ( !$empleado )
-            return back()->with('error','Ocurrio un error al eliminar el empleado');
+        if (!$empleado)
+            return back()->with('error', 'Ocurrio un error al eliminar el empleado');
 
 
         $urlFotoEmpleado = $empleado->foto == null ? ' ' : $empleado->foto;
 
-        if(Storage::exists($urlFotoEmpleado)){
+        if (Storage::exists($urlFotoEmpleado)) {
             Storage::delete($urlFotoEmpleado);
         }
 
         $empleado->delete();
 
-        return back()->with('success','Se ha eliminado el empleado correctamente');
+        $log = 'Empleado eliminado con id ' . $empleado->id . ' en la empresa con id ' . Help::empresa() . ' Por el usuario ' . Help::usuario()->name ;
+        Log::log('RRHH', 'empleado creado', $log);
+
+        return back()->with('success', 'Se ha eliminado el empleado correctamente');
     }
 
 }

@@ -33,9 +33,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <x-errors></x-errors>
-                            <div class="col-md-12">
-                                <x-alert></x-alert>
-                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <x-alert></x-alert>
                         </div>
 
                         <div class=" row ">

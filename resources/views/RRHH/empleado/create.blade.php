@@ -34,6 +34,9 @@
                         <div class="col-md-12">
                             <x-errors></x-errors>
                         </div>
+                        <div class="col-md-12">
+                            <x-alert></x-alert>
+                        </div>
 
                         <div class=" row ">
                             <label for="">Empleado</label>
@@ -124,6 +127,17 @@
                             </div>
                         </div>
 
+                        {{-- salarios --}}
+                        <div class=" row ">
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="salario">Salario</label><span class="text-danger">*</span>
+                                <input class="form-control" id="salario" name="salario" type="number"step="0.01" min="0" value="{{ old('salario') }}" required>
+                            </div>
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="salario_diario">Salario diario</label><span class="text-danger">*</span>
+                                <input class="form-control" id="salario_diario" name="salario_diario" type="number" step="0.01" min="0" value="{{ old('salario_diario') }}" required>
+                            </div>
+                        </div>
 
                         {{-- fecha de nacimiento e ingreso --}}
                         <div class=" row ">

@@ -136,6 +136,18 @@
                             </div>
                         </div>
 
+                        {{-- salarios --}}
+                        <div class=" row ">
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="salario">Salario</label><span class="text-danger">*</span>
+                                <input class="form-control" id="salario" name="salario" value="{{ $empleado->salario }}" readonly>
+                            </div>
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="salario_diario">Salario diario</label><span class="text-danger">*</span>
+                                <input class="form-control" id="salario_diario" name="salario_diario" value="{{ $empleado->salario_diario }}" readonly>
+                            </div>
+                        </div>
+
                         {{-- fecha de nacimiento e ingreso --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
