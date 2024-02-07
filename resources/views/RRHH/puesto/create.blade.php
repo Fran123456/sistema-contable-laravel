@@ -3,7 +3,7 @@
     <x-slot:title>
         Crear puesto
     </x-slot>
-    
+
     <x-slot:subtitle>
     </x-slot>
 
@@ -11,7 +11,7 @@
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
-            <li class="breadcrumb-item"><a href="/rrhh/puesto">Puesto</a></li>
+            <li class="breadcrumb-item"><a href="{{route('rrhh.puesto.index')}}">Puesto</a></li>
             <li class="breadcrumb-item active" aria-current="page">Crear puesto</li>
         </ol>
     </div>
@@ -21,20 +21,21 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{route('rrhh.puesto.store') }}" method="post"> 
-                    @csrf       
+                <form action="{{route('rrhh.puesto.store') }}" method="post">
+                    @csrf
                     <div class="row">
                         <div class="col-md-4 mt-2">
                             <label for=""> <strong>Cargo</strong></label>
-                            <input type="text" name="cargo"  required class="form-control">
+                            <input required type="text" name="cargo"  required class="form-control">
                             @error('cargo')
                                 {{$message}}
-                            @enderror 
+                            @enderror
                         </div>
                         <div class="col-md-4 mt-2">
                             <label for="area"><strong>Area</strong></label>
-                                <select  id="area" name="area_id" class="form-control">
+                                <select required  id="area" name="area_id" class="form-control">
                                     <!-- Opciones para las áreas, ya cargadas al cargar la página -->
+                                    <option value="0" selected disabled>Seleccionar...</option>
                                     @foreach($areas as $area)
                                         <option value="{{ $area->id }}">{{ $area->area }}</option>
                                     @endforeach
@@ -42,19 +43,19 @@
                         </div>
                         <div class="col-md-4 mt-2">
                             <label for="departamento"><strong>Departamento</strong></label>
-                                <select  id="departamento" name="departamento_id" class="form-control">
+                                <select required id="departamento" name="departamento_id" class="form-control">
                                 <!-- Opciones de departamentos que se cargarán dinámicamente con jQuery -->
                                 </select>
                         </div>
                         <div class="col-md-4 mt-2">
                             <label for=""> <strong>Activo</strong></label>
                             <select required id="activo" name="activo" class="form-control">
-                                <option value="1">Activo</option>                                     
-                                <option value="0">Inactivo</option>                                     
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
                             </select>
                         </div>
                         <div>
-                            <input type="hidden" name="empresa_id" value="{{$empresa_id}}"  class="form-control">                       
+                            <input type="hidden" name="empresa_id" value="{{$empresa_id}}"  class="form-control">
                         </div>
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
