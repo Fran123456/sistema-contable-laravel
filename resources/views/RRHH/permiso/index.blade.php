@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot:title>
-        Lista de incapacidades
+        Lista de permisos
     </x-slot>
 
     <x-slot:subtitle>
@@ -9,8 +9,8 @@
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-            <li class="breadcrumb-item" aria-current="page">Incapacidades</li>
-            <li class="breadcrumb-item active" aria-current="page">Lista de incapacidades</li>
+            <li class="breadcrumb-item" aria-current="page">Permisos</li>
+            <li class="breadcrumb-item active" aria-current="page">Lista de permisos</li>
         </ol>
     </div>
     <div class="col-md-12">
@@ -18,14 +18,14 @@
     </div>
 
     <div class="col-md-12 text-end mb-4">
-        <a class="btn btn-success" href="{{ route('rrhh.incapacidad.create') }}"> <i class="fas fa-user-plus"></i> </a>
+        <a class="btn btn-success" href="{{ route('rrhh.permisos.create') }}"> <i class="fas fa-user-plus"></i> </a>
     </div>
 
     <div class="col-md-12">
 
         <div class="card">
             <div class="card-body">
-                <h5>Incapacidades</h5>
+                <h5>Permisos</h5>
                 <table class="table table-sm" id="datatable-responsive">
                     <thead>
                         <tr>
@@ -44,22 +44,21 @@
                     </thead>
                     <tbody>
 
-                        @foreach ($incapacidades as $key => $item)
+                        @foreach ($permisos as $key => $item)
                             <tr>
 
                                 <th scope="row">{{ $key + 1 }}</th>
 
                                 <td>{{ $item->empleado->nombre_completo }} </td>
-                                <td>{{ $item->periodoPlanilla->mes_string }} - {{ $item->periodoPlanilla->year }} {{ $item->periodoPlanilla->tipo_periodo }} {{ $item->periodoPlanilla->periodo_dias }}</td>
+                                <td>{{ $item->periodo_planilla->mes_string }} - {{ $item->periodo_planilla->year }} {{ $item->periodo_planilla->tipo_periodo }} {{ $item->periodo_planilla->periodo_dias }}</td>
                                 <td>{{ date_format(new DateTime($item->fecha_inicio), 'd-m-Y') }} </td>
                                 <td>{{ $item->cantidad }} </td>
-                                <td>{{ $item->tipoIncapacidad->tipo }} </td>
+                                <td>{{ $item->tipoPermiso->tipo }} </td>
 
-
-                                <td><a href="{{ route('rrhh.incapacidad.edit', $item->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
+                                <td><a href="{{ route('rrhh.permisos.edit', $item->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
                                 <td>
                                     <form id="form{{ $item->id }}"
-                                        action="{{ route('rrhh.incapacidad.destroy', $item->id) }}" method="post">
+                                        action="{{ route('rrhh.permisos.destroy', $item->id) }}" method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button
@@ -70,7 +69,6 @@
 
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>
