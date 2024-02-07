@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             <th scope="col" width="40">#</th>
-                            <th scope="col">Puesto</th>
+                            <th scope="col">Cargo</th>
                             <th scope="col">Departamento</th>
                             <th scope="col">Area</th>
                             <th scope="col">Empresa</th>

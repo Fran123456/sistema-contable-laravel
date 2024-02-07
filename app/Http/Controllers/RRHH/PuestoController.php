@@ -4,6 +4,8 @@ namespace App\Http\Controllers\RRHH;
 
 use App\Http\Controllers\Controller;
 use App\Models\RRHH\RRHHPuesto;
+use App\Models\RRHH\RRHHArea;
+use App\Models\RRHH\RRHHDepartamento;
 use Illuminate\Http\Request;
 
 class PuestoController extends Controller
@@ -18,8 +20,8 @@ class PuestoController extends Controller
         $user = auth()->user();
         $empresa_id = $user->empresa_id;
         $puestos = RRHHPuesto::where('empresa_id', $empresa_id)->get();
-        
-        return view('RRHH.puesto.index', compact('puestos'));
+
+        return view('rrhh.puesto.index', compact('puestos'));
     }
 
     /**
@@ -29,7 +31,13 @@ class PuestoController extends Controller
      */
     public function create()
     {
-        //
+        $user = auth()->user();
+        $empresa_id = $user->empresa_id;
+        $areas = RRHHArea::where('empresa_id', $empresa_id)->get();
+        $departamentos = RRHHDepartamento::where('empresa_id', $empresa_id)->get();
+
+        return view('rrhh.puesto.create', compact('empresa_id', 'areas', 'departamentos'));
+        
     }
 
     /**
@@ -40,7 +48,19 @@ class PuestoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cargo'=>['required'],
+        ]);
+
+        $puesto = new RRHHPuesto;
+        $puesto->cargo = $request->input('cargo');
+        $puesto->empresa_id = $request->input('empresa_id');
+        $puesto->area_id = $request->input('area_id');
+        $puesto->departamento_id = $request->input('departamento_id');
+        $puesto->activo = $request->input('activo');
+        $puesto->save();
+        
+        return to_route('rrhh.puesto.index')->with('success','Cargo creado correctamente');
     }
 
     /**
@@ -86,5 +106,11 @@ class PuestoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function obtenerDepartamentos($areaId)
+    {
+        $departamentos = RRHHDepartamento::where('area_id', $areaId)->get();
+        return response()->json($departamentos);
     }
 }

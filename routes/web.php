@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\user\RoleController;
 use App\Http\Controllers\user\SettingController;
+use App\Http\Controllers\RRHH\PuestoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,11 @@ Route::resource('roles', RoleController::class);
 Route::name('roles')->prefix('roles')->group(function () {
     Route::delete('/permissions/destroy/{id}', [RoleController::class, 'destroyPermissions'])->name('.destroyPermissions');
     Route::get('/permissions/destroy/sub/one/{id}', [RoleController::class, 'destroyPermissionOne'])->name('.destroyPermissionOne');
+});
+
+//Ruta que ejecuta el codigo javascript para obtener el departamento correcto
+Route::name('rrhh.')->prefix('rrhh')->group(function () {
+    Route::get('/obtener-departamentos/{areaId}',[PuestoController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
 });
 
 
