@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{route('') }}" method="post">
+                <form action="{{route('rrhh.area.store') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-8 mt-2">
