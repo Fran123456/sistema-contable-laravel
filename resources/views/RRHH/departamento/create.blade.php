@@ -23,14 +23,22 @@
                 <form action="{{route('rrhh.departamento.store') }}" method="post"> 
                     @csrf       
                     <div class="row">
-                        <div class="col-md-8 mt-2">
+                        <div class="col-md-4 mt-2">
                             <label for=""> <strong>Departamento</strong></label>
                             <input type="text" name="departamento"  required class="form-control">
                             @error('departamento')
                                 {{$message}}
                             @enderror 
                         </div>
-                                                
+                        
+                        <div class="col-md-4 mt-2">
+                            <label for=""> <strong>Activo</strong></label>
+                            <select required id="activo" name="activo" class="form-control" id="">
+                                <option value="1">Activo</option>                                     
+                                <option value="0">Inactivo</option>                                     
+                            </select>
+                        </div>
+
                         <div class="col-md-4 mt-2">
                             <label for=""> <strong>Area</strong></label>
                             <select required id="area_id" name="area_id" class="form-control" id="">

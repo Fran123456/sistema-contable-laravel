@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\RRHH;
 
 use App\Http\Controllers\Controller;
-use App\Models\RRHH\RRHHDepartamento;
+use App\Models\RRHH\RRHHPuesto;
 use App\Models\RRHH\RRHHArea;
+use App\Models\RRHH\RRHHDepartamento;
 use Illuminate\Http\Request;
 
-class DepartamentoController extends Controller
+class PuestoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +19,9 @@ class DepartamentoController extends Controller
     {
         $user = auth()->user();
         $empresa_id = $user->empresa_id;
-        $departamentos = RRHHDepartamento::where('empresa_id', $empresa_id)->get();
-        
-        return view('RRHH.departamento.index' , compact('departamentos'));
+        $puestos = RRHHPuesto::where('empresa_id', $empresa_id)->get();
+
+        return view('rrhh.puesto.index', compact('puestos'));
     }
 
     /**
@@ -30,12 +31,13 @@ class DepartamentoController extends Controller
      */
     public function create()
     {
-        
         $user = auth()->user();
         $empresa_id = $user->empresa_id;
         $areas = RRHHArea::where('empresa_id', $empresa_id)->get();
+        $departamentos = RRHHDepartamento::where('empresa_id', $empresa_id)->get();
+
+        return view('rrhh.puesto.create', compact('empresa_id', 'areas', 'departamentos'));
         
-        return view('RRHH.departamento.create' , compact('empresa_id', 'areas'));    
     }
 
     /**
@@ -46,20 +48,19 @@ class DepartamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //Validar que el nombre del departamento no este vacio
         $request->validate([
-            'departamento'=>['required']
+            'cargo'=>['required'],
         ]);
 
-        $departamento = new RRHHDepartamento;
-        $departamento->departamento = $request->input('departamento');
-        $departamento->area_id = $request->input('area_id');
-        $departamento->empresa_id = $request->input('empresa_id');
-        $departamento->activo = $request->input('activo');
-        $departamento->save();
-        return to_route('rrhh.departamento.index')->with('success', 'Departamento creado correctamente');
-
-
+        $puesto = new RRHHPuesto;
+        $puesto->cargo = $request->input('cargo');
+        $puesto->empresa_id = $request->input('empresa_id');
+        $puesto->area_id = $request->input('area_id');
+        $puesto->departamento_id = $request->input('departamento_id');
+        $puesto->activo = $request->input('activo');
+        $puesto->save();
+        
+        return to_route('rrhh.puesto.index')->with('success','Cargo creado correctamente');
     }
 
     /**
@@ -84,9 +85,9 @@ class DepartamentoController extends Controller
         $user = auth()->user();
         $empresa_id = $user->empresa_id;
         $areas = RRHHArea::where('empresa_id', $empresa_id)->get();
-        $departamento_id = RRHHDepartamento::find($id);
+        $puesto = RRHHPuesto::find($id);
 
-        return view('RRHH.departamento.edit', compact('areas', 'departamento_id'));
+        return view('rrhh.puesto.edit', compact('empresa_id','areas', 'puesto'));
     }
 
     /**
@@ -99,15 +100,19 @@ class DepartamentoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'departamento'=>['required']
+            'cargo'=>['required'],
         ]);
-        $departamento = RRHHDepartamento::find($id);
-        $departamento->departamento = $request->input('departamento');
-        $departamento->area_id = $request->input('area_id');
-        $departamento->empresa_id = $request->input('empresa_id');
-        $departamento->activo = $request->input('activo');
-        $departamento->save();
-        return to_route('rrhh.departamento.index')->with('sucess', 'Departamento actualizado correctamente');
+
+        $puesto = RRHHPuesto::find($id);
+        $puesto->cargo = $request->input('cargo');
+        $puesto->empresa_id = $request->input('empresa_id');
+        $puesto->area_id = $request->input('area_id');
+        $puesto->departamento_id = $request->input('departamento_id');
+        $puesto->activo = $request->input('activo');
+        $puesto->save();
+        
+        return to_route('rrhh.puesto.index')->with('success','Cargo actualizado correctamente');
+ 
     }
 
     /**
@@ -118,8 +123,14 @@ class DepartamentoController extends Controller
      */
     public function destroy($id)
     {
-        $departamento = RRHHDepartamento::find($id);
-        $departamento->delete();
-        return back()->with('success','Se ha eliminado el departamento correctamente');
+        $puesto = RRHHPuesto::find($id);
+        $puesto->delete();
+        return back()->with('success', 'Cargo eliminado correctamente');
+    }
+
+    public function obtenerDepartamentos($areaId)
+    {
+        $departamentos = RRHHDepartamento::where('area_id', $areaId)->get();
+        return response()->json($departamentos);
     }
 }

@@ -24,7 +24,7 @@
                     @csrf   
                     @method('PUT')
                     <div class="row">
-                        <div class="col-md-8 mt-2">
+                        <div class="col-md-4 mt-2">
                             <label for=""><strong> Departamento </strong></label>
                             <input type="text" name="departamento" value="{{$departamento_id->departamento}}" required class="form-control">
                             @error('departamento')
@@ -41,6 +41,14 @@
                             </select>
                         </div>
                         
+                        <div class="col-md-4 mt-2">
+                            <label for=""> <strong>Activo</strong></label>
+                            <select required id="activo" name="activo" class="form-control" id="">
+                                <option value="1">Activo</option>                                     
+                                <option value="0">Inactivo</option>                                     
+                            </select>
+                        </div>
+
                         <div>
                             <input type="hidden" name="empresa_id" value="{{$item->empresa_id}}"  class="form-control">                       
                         </div>
