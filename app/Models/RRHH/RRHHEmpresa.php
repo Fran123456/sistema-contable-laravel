@@ -45,6 +45,10 @@ class RRHHEmpresa extends Model
         return $this->hasMany(RRHHPermiso::class,'empresa_id', 'id');
     }
 
+    public function empleado(){
+        return $this->hasMany(RRHHEmpleado::class,'empresa_id', 'id');
+    }
+
     //metodos generales
     public function usuarios()
     {
