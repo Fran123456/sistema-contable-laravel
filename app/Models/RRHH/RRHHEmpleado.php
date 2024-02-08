@@ -30,6 +30,9 @@ class RRHHEmpleado extends Model
         'foto',
         'salario',
         'salario_diario',
+        'area_id',
+        'departamento_id',
+        'cargo_id',
         'created_at',
         'updated_at',
     ];

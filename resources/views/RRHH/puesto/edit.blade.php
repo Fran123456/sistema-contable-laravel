@@ -25,29 +25,30 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-3 mt-2">
                             <label for=""><strong> Cargo </strong></label>
-                            <input type="text" name="cargo" value="{{$puesto->cargo}}" required class="form-control">
+                            <input required type="text" name="cargo" value="{{$puesto->cargo}}" required class="form-control">
                             @error('cargo')
                                 {{$message}}
                             @enderror
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-3 mt-2">
                             <label for="area"><strong>Area</strong></label>
-                                <select  id="area" name="area_id" class="form-control">
+                                <select required id="area" name="area_id" class="form-control">
                                     <!-- Opciones para las áreas, ya cargadas al cargar la página -->
+                                    <option value="0" selected disabled>Seleccionar...</option>
                                     @foreach($areas as $area)
                                         <option value="{{ $area->id }}">{{ $area->area }}</option>
                                     @endforeach
                                 </select>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-3 mt-2">
                             <label for="departamento"><strong>Departamento</strong></label>
-                                <select  id="departamento" name="departamento_id" class="form-control">
+                                <select required id="departamento" name="departamento_id" class="form-control">
                                 <!-- Opciones de departamentos que se cargarán dinámicamente con jQuery -->
                                 </select>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-3 mt-2">
                             <label for=""> <strong>Activo</strong></label>
                             <select required id="activo" name="activo" class="form-control">
                                 <option value="1">Activo</option>

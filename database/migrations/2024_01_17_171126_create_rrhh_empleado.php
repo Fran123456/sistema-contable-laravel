@@ -35,6 +35,12 @@ return new class extends Migration
             $table->float("salario_diario", 10, 2)->default(0);
             $table->date('fecha_nacimiento');
             $table->date('fecha_ingreso')->nullable();
+            $table->bigInteger('area_id');
+            $table->foreign('area_id')->references('id')->on('rrhh_area')->onUpdate('cascade');
+            $table->bigInteger('departamento_id');
+            $table->foreign('departamento_id')->references('id')->on('rrhh_departamento')->onUpdate('cascade');
+            $table->bigInteger('cargo_id');
+            $table->foreign('puesto_id')->references('id')->on('rrhh_puesto')->onUpdate('cascade');
             $table->timestamps();
 
         });
