@@ -46,17 +46,26 @@
 
                         {{-- Foto del empleado --}}
                         @if( $foto )
+                            <div class=" row ">
+                                <div class=" col-md-6 mt-2 mb-12 ">
+                                    <label for="foto">Foto actual</label>
+                                </div>
+                            </div>
+                            <div class=" row ">
+                                    <div class=" col-md-12 mt-2 mb-12 ">
+                                        <img src="data:image/*;base64, {{ $foto }}" alt="Imagen empleado" style=" max-width:400px; max-height:300px;">
+                                    </div>
+                            </div>
+                        @endif
+
+                        {{-- SUBIR TODO --}}
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="foto">Foto</label>
+                                <label for="foto">Subir foto empleado</label>
+                                <input class="form-control" type="file" name="foto" id="foto"
+                                    accept="image/png, image/jpg, image/jpeg">
                             </div>
                         </div>
-                        <div class=" row ">
-                                <div class=" col-md-12 mt-2 mb-12 ">
-                                    <img src="data:image/*;base64, {{ $foto }}" alt="Imagen empleado" style=" max-width:400px; max-height:300px;">
-                                </div>
-                        </div>
-                        @endif
 
 
                         {{-- nombre y apellido empleado --}}
@@ -168,53 +177,12 @@
                         </div>
 
 
-                        {{-- Foto del empleado --}}
-                        @if ($foto)
-                            <div class=" row ">
+                        {{-- BOTON DE ENVIAR --}}
 
-                                <div class=" col-md-6 mt-2 mb-12 ">
-                                    <label for="foto">Subir foto empleado</label>
-                                    <input class="form-control" type="file" name="foto" id="foto"
-                                        accept="image/png, image/jpg, image/jpeg">
-
-
-                                        <br>
-                                        <button class="btn btn-primary mb-2" style="color:white;" type="submit"> <i
-                                            class="fas fa-save"></i>
-                                    </button>
-                                </div>
-                                <div class=" col-md-6 mt-2 mb-12 ">
-                                    <br>
-                                    <label for="">Foto actual</label> <br>
-                                    <img src="data:image/*;base64, {{ $foto }}" alt="Imagen empleado"
-                                        style=" max-width:400px; max-height:300px;">
-                                </div>
-
-
-
-                            </div>
-                        @else
-                            <div class=" row ">
-                                <div class=" col-md-6 mt-2 mb-12 ">
-                                    <label for="foto">Subir foto empleado</label>
-                                    <input class="form-control" type="file" name="foto" id="foto"
-                                        accept="image/png, image/jpg, image/jpeg">
-                                </div>
-
-                                <div class="col-md-12 mb-3 mt-3">
-                                    <button class="btn btn-primary mb-2" style="color:white;" type="submit"> <i
-                                            class="fas fa-save"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        @endif
-
-                        {{-- Subir foto para actualizar --}}
-
-
-
-
-
+                        <div class="col-md-12 mb-3 mt-3">
+                            <button class="btn btn-primary mb-2" style="color:white;" type="submit"> <i class="fas fa-save"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
         </form>
