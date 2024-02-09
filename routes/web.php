@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\user\RoleController;
 use App\Http\Controllers\user\SettingController;
 use App\Http\Controllers\RRHH\PuestoController;
+use App\Http\Controllers\RRHH\EmpleadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,8 @@ Route::name('roles')->prefix('roles')->group(function () {
 //Ruta que ejecuta el codigo javascript para obtener el departamento correcto
 Route::name('rrhh.')->prefix('rrhh')->group(function () {
     Route::get('/obtener-departamentos/{areaId}',[PuestoController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
+    Route::get('/obtener-departamentos/{areaId}',[EmpleadoController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
+    Route::get('/obtener-cargos/{departamentoId}',[EmpleadoController::class, 'obtenerCargos'])->name('.obtenerCargos');
 });
 
 

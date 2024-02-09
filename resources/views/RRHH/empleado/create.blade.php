@@ -9,6 +9,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
@@ -142,15 +143,35 @@
                             </div>
                         </div>
 
+                        {{-- Empresa, area, departamento y cargo --}}
+                        <div class="row">
+                            <div class="col-md-4 mt-2 mb-12">
+                                <label for="area">Area</label><span class="text-danger">*</span>
+                                <select name="area_id" id="area" class="form-control" required>
+                                    <option value="0" selected disabled>Selecciona una opción</option>
+                                    @foreach($areas as $area)
+                                        <option value="{{ $area->id }}">{{ $area->area }}</option>
+                                    @endforeach
+                                </select>                       
+                            </div>
+                            <div class="col-md-4 mt-2 mb-12">
+                                <label for="departamento">Departamento</label><span class="text-danger">*</span>
+                                <select required id="departamento" name="departamento_id" class="form-control">
+                                </select>                      
+                            </div>
+                            <div class="col-md-4 mt-2 mb-12">
+                                <label for="cargo">Cargo</label><span class="text-danger">*</span>
+                                <select required id="cargo" name="cargo_id" class="form-control">
+                                </select>                      
+                            </div>
+                        </div>
+
                         <div class=" row ">
                             <div class=" col-md-12 mt-2 mb-12 ">
                                 <label for="foto">Foto empleado</label>
                                 <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpg, image/jpeg">
                             </div>
                         </div>
-
-
-
 
                         <div class="row">
                             {{-- boton de guardado --}}
@@ -165,7 +186,46 @@
             </div>
         </form>
     </div>
+    
     <script>
+        $(document).ready(function () {
+            $('#area').on('change',function () {
+                var areaId = $(this).val();
+                $.ajax({
+                    url: '/rrhh/obtener-departamentos/' + areaId, 
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#departamento').empty();
+                        $('#departamento').append("<option value=''>Selecciona un departamento</option>");
+                        $.each(data, function (key, value) {
+                            $('#departamento').append('<option value="'+ value.id +'">' + value.departamento + '</option>');
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+            $('#departamento').on('change',function () {
+                var departamentoId = $(this).val();
+                $.ajax({
+                    url: '/rrhh/obtener-cargos/' + departamentoId, 
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#cargo').empty();
+                        $('#cargo').append("<option value=''>Selecciona un cargo</option>");
+                        $.each(data, function (key, value) {
+                            $('#cargo').append('<option value="'+ value.id +'">' + value.cargo + '</option>');
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
         $(".chosen-select").chosen({
             no_results_text: "Oops, nothing found!"
         })

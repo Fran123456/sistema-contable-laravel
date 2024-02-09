@@ -4,6 +4,8 @@ namespace App\Models\RRHH;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\RRHH\RRHHArea;
+use App\Models\RRHH\RRHHEmpresa;
 
 class RRHHEmpleado extends Model
 {
@@ -48,4 +50,9 @@ class RRHHEmpleado extends Model
     public function empresa(){
         return $this->belongsTo(RRHHEmpresa::class, 'empresa_id')->withDefault(); //with default muestra los null
     }
+
+    public function area(){
+        return $this->belongsTo(RRHHArea::class, 'area_id');
+    }
+
 }
