@@ -167,6 +167,41 @@
                             </div>
                         </div>
 
+                        {{-- Empresa, area, departamento y cargo --}}
+                        <div class="row">
+                            <div class="col-md-4 mt-2 mb-12">
+                                <label for="area">Area</label><span class="text-danger">*</span>
+                                <select name="area_id" id="area" class="form-control" required>
+                                    <option value="0" selected disabled>Selecciona una opción</option>
+                                    @foreach($areas as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if ((old('area_id') == null && $empleado->area_id == $item->id) || old('area_id') == $item->id) selected @endif>{{ $item->area }}
+                                        </option>
+                                    @endforeach
+                                </select>                       
+                            </div>
+                            <div class="col-md-4 mt-2 mb-12">
+                                <label for="departamento">Departamento</label><span class="text-danger">*</span>
+                                <select required id="departamento" name="departamento_id" class="form-control">
+                                    @foreach($departamentos as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if ((old('departamento_id') == null && $empleado->departamento_id == $item->id) || old('departamento_id') == $item->id) selected @endif>{{ $item->departamento }}
+                                        </option>
+                                    @endforeach
+                                </select>                      
+                            </div>
+                            <div class="col-md-4 mt-2 mb-12">
+                                <label for="cargo">Cargo</label><span class="text-danger">*</span>
+                                <select required id="cargo" name="cargo_id" class="form-control">
+                                    @foreach($cargos as $item)
+                                        <option value="{{ $item->id }}"
+                                            @if ((old('cargo_id') == null && $empleado->cargo_id == $item->id) || old('cargo_id') == $item->id) selected @endif>{{ $item->cargo }}
+                                        </option>
+                                    @endforeach
+                                </select>                      
+                            </div>
+                        </div>
+
 
                         {{-- Foto del empleado --}}
                         @if ($foto)
@@ -220,6 +255,44 @@
         </form>
     </div>
     <script>
+        $(document).ready(function () {
+            $('#area').on('change',function () {
+                var areaId = $(this).val();
+                $.ajax({
+                    url: '/rrhh/obtener-departamentos/' + areaId, 
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#departamento').empty();
+                        $('#departamento').append("<option value=''>Selecciona un departamento</option>");
+                        $.each(data, function (key, value) {
+                            $('#departamento').append('<option value="'+ value.id +'">' + value.departamento + '</option>');
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+            $('#departamento').on('change',function () {
+                var departamentoId = $(this).val();
+                $.ajax({
+                    url: '/rrhh/obtener-cargos/' + departamentoId, 
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#cargo').empty();
+                        $('#cargo').append("<option value=''>Selecciona un cargo</option>");
+                        $.each(data, function (key, value) {
+                            $('#cargo').append('<option value="'+ value.id +'">' + value.cargo + '</option>');
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
         $(".chosen-select").chosen({
             no_results_text: "Oops, nothing found!"
         })
