@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{-- route('contabilidad.libroDiarioMayor') --}}" method="get" target="_Blank">
+                <form action="{{ route('rrhh.reporteIncapacidades') }}" method="get" target="_Blank">
                     <div class="row">
 
                         <div class="col-md-12 mt-2 mb-12">
@@ -26,7 +26,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 <input class="btn btn-primary" style="color: white" type="submit" name="excel"
-                                    value="excel">
+                                    value="Excel">
                                 <input class="btn btn-primary" style="color: white" type="submit" name="pdf"
                                     value="PDF">
                             </div>

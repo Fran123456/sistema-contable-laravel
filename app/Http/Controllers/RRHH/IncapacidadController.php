@@ -189,4 +189,8 @@ class IncapacidadController extends Controller
 
         return redirect()->route('rrhh.obtenerIncapacidades')->with('success', 'La incapacidad se elimino con éxito.');
     }
+
+    public function reporte(){
+
+    }
 }

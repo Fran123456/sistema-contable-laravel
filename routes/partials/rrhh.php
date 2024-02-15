@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RRHH\ReportesRRHHController;
 use App\Http\Controllers\RRHH\PermisoController;
 use App\Http\Controllers\RRHH\AreaController;
 use App\Http\Controllers\RRHH\EmpresaController;
@@ -45,5 +46,10 @@ Route::name('rrhh.')->prefix('rrhh')->group(function () {
     Route::resource('permisos', PermisoController::class);
     // Route::get('/permiso', [PermisoController::class, 'index'])->name('obtenerPermiso');
     Route::get('/permisos/edit/{id}', [PermisoController::class, 'edit'])->name('editPermiso');
+});
+
+// REPORTES
+Route::name('rrhh.')->prefix('rrhh')->group(function () {
+    Route::get('/reportes/incapacidades', [ReportesRRHHController::class, 'reporteIncapacidades'])->name('reporteIncapacidades');
 });
 
