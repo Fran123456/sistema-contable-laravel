@@ -4,16 +4,16 @@ namespace App\ReportsPDF\RRHH;
 
 use App\Help\PDF\EasyTable\easyTable;
 use App\Help\PDF\EasyTable\exfpdf;
-use App\Help\Help;
 use App\Help\PDF\EasyTable\Styles;
-use App\Help\Contabilidad\ReportesContables;
+use DateTime;
 
 class IncapacidadRpt
 {
 
-    public static function report($fechai, $fechaf, $data)
+    public static function report($planilla, $incapacidades)
     {
-        $pdf = new exFPDF('REPORTE DE INCAPACIDADES', "DEL " . Help::date($fechai) . " AL " .  Help::date($fechaf), 'P', 'mm', 'legal');
+        $header = 'MES DE ' . strtoupper($planilla->mes_string) . ' ' . $planilla->year . ' DE TIPO ' . strtoupper($planilla->tipo_periodo) . ' ' . $planilla->periodo_dias;
+        $pdf = new exFPDF('REPORTE DE INCAPACIDADES ', $header, 'P', 'mm', 'legal');
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->SetFont('Arial', '', 7);
@@ -26,58 +26,38 @@ class IncapacidadRpt
         $numberStyle = Styles::alignPaddingY('1.13', 'R');
         $alternativeStyleBorder = Styles::alignPaddingYBorder('1.07', 'C');
 
-        $table = new easyTable($pdf, '%{10,35,18,18,19}', 'width:550; border-color:#3C4048;border-width:0.2; font-size:7.5; border:0; paddingY:1.3;');
+        $table = new easyTable($pdf, '%{23,23,15,10,8,21}', 'width:550; border-color:#3C4048;border-width:0.2; font-size:7.5; border:0; paddingY:1.3;');
         $table->rowStyle('font-style:B;font-color:#3F3F3F;valign:M;');
 
+        $table->easyCell('Empresa', $style . "border:BTRL");
+        $table->easyCell("Empleado", $style . "border:BTRL");
+        $table->easyCell(utf8_decode("Período Planilla"), $style . "border:BTRL");
+        $table->easyCell("Fecha", $style . "border:BTRL");
+        $table->easyCell("Cantidad", $style . "border:BTRL");
+        $table->easyCell("Tipo", $style . "border:BTRL");
+        $table->printRow(true); //parametro true para indicar que es un header y replicar en las paginas
 
-        foreach ($data as $key => $dt) {
+        foreach ($incapacidades as $key => $item) {
 
+            $periodo = $item->periodoPlanilla->mes_string . ' ' . $item->periodoPlanilla->year . ' ' . $item->periodoPlanilla->tipo_periodo . ' ' . $item->periodoPlanilla->periodo_dias;
+            $diasInca = $item->cantidad;
 
-            $table->easyCell('Codigo', $style . "border:B");
-            $table->easyCell("Cuenta", $style . "border:B");
-            $table->easyCell("Debe", $style . "border:B");
-            $table->easyCell("Haber", $style . "border:B");
-            $table->easyCell("Saldo", $style . "border:B");
-            $table->printRow(true); //parametro true para indicar que es un header y replicar en las paginas
+            $table->easyCell(utf8_decode($item->empresa->empresa),$alternativeStyle . "border:BTRL" );
+            $table->easyCell(utf8_decode($item->empleado->nombre_completo),$alternativeStyle . "border:BTRL" );
+            $table->easyCell($periodo, $alternativeStyle . "border:BTRL" );
+            $table->easyCell(date_format(new DateTime($item->fecha_inicio), 'd-m-Y'),$alternativeStyle . "border:BTRL" );
+            $table->easyCell( $diasInca . ($diasInca == 1 ? utf8_decode(' día') : utf8_decode(' días')) , $alternativeStyle . "border:BTRL" );
+            $table->easyCell( utf8_decode($item->tipoIncapacidad->tipo), $alternativeStyle . "border:BTRL" );
+            $table->printRow();
 
-            // $table->easyCell($dt['cuenta']['codigo'],$alternativeStyle);
-            // $table->easyCell($dt['cuenta']['nombre'],$alternativeStyle);
-            // $table->easyCell("",$alternativeStyle);
-            // $table->easyCell("",$alternativeStyle);
-            // $table->easyCell( number_format($dt['cuenta']['saldo'],2 ) ,$numberStyle);
-            // $table->printRow();
-
-
-            foreach ($dt['detalle'] as $key => $d) {
-                $table->easyCell($d['cuenta'], $alternativeStyle);
-                $table->easyCell($d['nombre'], $alternativeStyle);
-                $table->easyCell(number_format($d['debe'], 2), $numberStyle);
-                $table->easyCell(number_format($d['haber'], 2), $numberStyle);
-                $table->easyCell("", $numberStyle);
-                $table->printRow();
-            }
-
-            // $table->easyCell("",$alternativeStyle);
-            // $table->easyCell("",$alternativeStyle);
-            // $table->easyCell( number_format($debe,2 )  ,$numberStyle);
-            // $table->easyCell( number_format($haber,2 )  ,$numberStyle);
-            // $table->easyCell("" ,$numberStyle);
-            // $table->printRow();
-
-            // for ($i=0; $i <4 ; $i++) {
-            //     $table->easyCell("",$alternativeStyle);
-            //     $table->easyCell("",$alternativeStyle);
-            //     $table->easyCell("",$alternativeStyle);
-            //     $table->easyCell("",$alternativeStyle);
-            //     $table->easyCell("" ,$numberStyle);
-            //     $table->printRow();
-            // }
         }
 
 
         $table->endTable(15);
 
-        $pdf->Output('I',  'reporte-incapacidades-del' . Help::date($fechai) . "-al-" .  Help::date($fechaf) . '.pdf');
+        $fecha = date("d-m-Y h:i:s");
+
+        $pdf->Output('I',  'REPORTE-INCAPACIDADES-DEL ' . $header . ' ' . $fecha .'pdf');
         exit;
     }
 }

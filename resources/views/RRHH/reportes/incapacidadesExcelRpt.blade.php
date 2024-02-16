@@ -11,7 +11,7 @@
 <body>
 
     @php
-        $header = 'MES DE ' . $planilla->mes_string . ' ' . $planilla->year . ' DE TIPO ' . $planilla->tipo_periodo . ' ' . $planilla->periodo_dias;
+        $header = 'MES DE ' . strtoupper($planilla->mes_string) . ' ' . $planilla->year . ' DE TIPO ' . strtoupper($planilla->tipo_periodo) . ' ' . $planilla->periodo_dias;
     @endphp
 
     <table style="text-align: center;">
@@ -29,7 +29,7 @@
                 <th scope="col" width="5" style="border: 1px solid #ddd;">#</th>
                 <th scope="col" width="25" style="border: 1px solid #ddd;"><strong>Empresa</strong></th>
                 <th scope="col" width="40" style="border: 1px solid #ddd;"><strong>Empleado</strong></th>
-                <th scope="col" width="30" style="border: 1px solid #ddd;"><strong>Periodo Planilla</strong></th>
+                <th scope="col" width="30" style="border: 1px solid #ddd;"><strong>Período Planilla</strong></th>
                 <th scope="col" width="15" style="border: 1px solid #ddd;"><strong>Fecha</strong></th>
                 <th scope="col" width="10" style="border: 1px solid #ddd;"><strong>Cantidad</strong></th>
                 <th scope="col" width="27" style="border: 1px solid #ddd;"><strong>Tipo</strong></th>

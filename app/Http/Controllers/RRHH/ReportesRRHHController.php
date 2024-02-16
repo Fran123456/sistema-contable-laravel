@@ -36,6 +36,6 @@ class ReportesRRHHController extends Controller
             return Excel::download(new IncapacidadesRpt($planilla, $incapacidades), "incapacidades-${f}.xlsx");
 
 
-        return redirect()->route('rrhh.obtenerIncapacidades')->with('success', 'Formulario PDF');
+        return IncapacidadRpt::report($planilla, $incapacidades);
     }
 }
