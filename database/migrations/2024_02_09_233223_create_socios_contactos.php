@@ -21,11 +21,14 @@ return new class extends Migration
             $table->string('telefono');
             $table->text('contactado_en')->nullable();
             $table->unsignedBigInteger('persona_encuentra_id');
-            $table->unsignedBigInteger('cargo_contacto_id');
+            $table->string('tipo_contrato');
+            $table->string('estado');
+            $table->binary('cv');
+            $table->unsignedBigInteger('cargo_id');
+            $table->unsignedBigInteger('registro_id');
             $table->timestamps();
-
             $table->foreign('persona_encuentra_id')->references('id')->on('users')->onUpdate('cascade');
-            $table->foreign('cargo_encuentra_id')->references('id')->on('socios_cargos')->onUpdate('cascade');
+            $table->foreign('cargo_id')->references('id')->on('socios_cargos')->onUpdate('cascade');
         });
     }
 
