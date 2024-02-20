@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\SociosDeNegocio;
+namespace App\Http\Controllers\SociosdeNegocio;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\SociosDeNegocio\SociosContacto;
+use App\Models\SociosdeNegocio\SociosCargo;
 
-
-class ContactoController extends Controller
+class CargoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class ContactoController extends Controller
      */
     public function index()
     {
-        //
-        $contactos = SociosContacto::all();
-        return view('sociosdenegocio.contacto.index', compact('contactos'));
+        $cargos = SociosCargo::all();
+        return view('sociosdenegocio.cargo.index', compact('cargos'));
+
     }
 
     /**

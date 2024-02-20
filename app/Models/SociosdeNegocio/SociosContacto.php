@@ -5,12 +5,13 @@ namespace App\Models\SociosDeNegocio;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\SociosdeNegocio\SociosCargo;
 
 class SociosContacto extends Model
 {
     use HasFactory;
     protected $table = "socios_contactos";
-    protected $filliable = [
+    protected $fillable = [
         'nombre',
         'apellido',
         'correo',
@@ -26,8 +27,11 @@ class SociosContacto extends Model
         'updated_at',
     ];
 
-    public function persona_encuentra_id(){
+    public function usuario(){
         return $this->belongsTo(User::class, 'persona_encuentra_id')->withDefault();
     }
 
+    public function cargo(){
+        return $this->belongsTo(SociosCargo::class, 'cargo_id')->withDefault();
+    }
 }
