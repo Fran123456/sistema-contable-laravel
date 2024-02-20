@@ -1,0 +1,13 @@
+
+  [37;41m ERROR [39;49m Command "cache" is not defined. Did you mean one of these?  
+
+  [90m⇂ cache:clear[39m  
+  [90m⇂ cache:forget[39m  
+  [90m⇂ cache:table[39m  
+  [90m⇂ config:cache[39m  
+  [90m⇂ event:cache[39m  
+  [90m⇂ permission:cache-reset[39m  
+  [90m⇂ route:cache[39m  
+  [90m⇂ schedule:clear-cache[39m  
+  [90m⇂ view:cache[39m  
+

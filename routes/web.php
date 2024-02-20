@@ -51,4 +51,4 @@ include('routes/partials/users.php');
 include('routes/partials/contabilidad.php');
 include('routes/partials/rrhh.php');
 include('routes/partials/config.php');
-
+include('routes/partials/sociosdenegocio.php');
