@@ -1,4 +1,9 @@
 <x-app-layout>
+    <script>
+        $(document).ready(function(){
+            $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+        });
+        </script>
     <x-slot:title>
         Lista de incapacidades
     </x-slot>
@@ -18,6 +23,9 @@
     </div>
 
     <div class="col-md-12 text-end mb-4">
+
+        @include('rrhh.incapacidad.modal.modal_incapacidades')
+        <a style="color:white" class="btn btn-success" href="#incapacidades_modal" data-bs-toggle="modal" data-bs-target="#incapacidades_modal"> Reporte </a>
         <a class="btn btn-success" href="{{ route('rrhh.incapacidad.create') }}"> <i class="fas fa-user-plus"></i> </a>
     </div>
 

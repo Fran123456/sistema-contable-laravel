@@ -38,7 +38,13 @@
                             <x-alert></x-alert>
                         </div>
 
-
+                        {{-- Foto del empleado --}}
+                        <div class=" row ">
+                            <div class=" col-md-12 mt-2 mb-12 ">
+                                <label for="foto">Foto empleado</label>
+                                <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpg, image/jpeg">
+                            </div>
+                        </div>
 
                         {{-- nombre y apellido empleado --}}
                         <div class=" row ">
@@ -141,16 +147,6 @@
                                 <input type="date" name="fecha_ingreso" id="fecha_ingreso" value="{{ old('fecha_ingreso') }}" class="form-control" required />
                             </div>
                         </div>
-
-                        <div class=" row ">
-                            <div class=" col-md-12 mt-2 mb-12 ">
-                                <label for="foto">Foto empleado</label>
-                                <input class="form-control" type="file" name="foto" id="foto" accept="image/png, image/jpg, image/jpeg">
-                            </div>
-                        </div>
-
-
-
 
                         <div class="row">
                             {{-- boton de guardado --}}
