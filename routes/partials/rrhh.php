@@ -1,15 +1,23 @@
 <?php
 
+use App\Http\Controllers\RRHH\PermisoController;
 use App\Http\Controllers\RRHH\AreaController;
 use App\Http\Controllers\RRHH\EmpresaController;
 use App\Http\Controllers\RRHH\EmpleadoController;
 use App\Http\Controllers\RRHH\DepartamentoController;
 use App\Http\Controllers\RRHH\IncapacidadController;
 use App\Http\Controllers\RRHH\PeriodoPlanillaController;
+use App\Http\Controllers\RRHH\PuestoController;
 
 
 
 Route::middleware(['auth'])->group(function () {
+
+    //Rutas de RRHH Departamentos
+    Route::resource('departamento', DepartamentoController::class);
+
+    //Rutas de RRHH Puetos
+    Route::resource('puesto', PuestoController::class);
 
 
     Route::name('rrhh.')->prefix('rrhh')->group(function () {
@@ -41,6 +49,20 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
+
+
+// INCAPACIDADES
+Route::name('rrhh.')->prefix('rrhh')->group(function () {
+    Route::resource('incapacidad', IncapacidadController::class);
+    Route::get('/incapacidad', [IncapacidadController::class,'index'])->name('obtenerIncapacidades');
+    Route::get('/incapacidad/edit/{id}', [IncapacidadController::class,'edit'])->name('editIncapacidad');
+    // Route::get('/incapacidad/edit/{id}', [IncapacidadController::class,'edit'])->name('editarIncapacidad');
 });
 
+Route::name('rrhh.')->prefix('rrhh')->group(function () {
+    Route::resource('permisos', PermisoController::class);
+    // Route::get('/permiso', [PermisoController::class, 'index'])->name('obtenerPermiso');
+    Route::get('/permisos/edit/{id}', [PermisoController::class, 'edit'])->name('editPermiso');
+});
 
+});

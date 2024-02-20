@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table("rrhh_empresa", function (Blueprint $table) {
-            $table->string("abreviatura", 10)->nullable();
+        Schema::create('rrhh_tipo_permiso', function (Blueprint $table) {
+            $table->id();
+            $table->string('tipo', 60);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table("rrhh_empresa", function (Blueprint $table) {
-            $table->dropColumn("abreviatura");
-        });
+        Schema::dropIfExists('rrhh_tipo_permiso');
     }
 };

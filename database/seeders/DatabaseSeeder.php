@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoEmpleadoSeeder::class);
         $this->call(RRHHTipoPlanilla::class);
         $this->call(RRHHIncapacidadTipo::class);
+        $this->call(RRHHTipoPermiso::class);
+
 
         // \App\Models\User::factory(10)->create();
 

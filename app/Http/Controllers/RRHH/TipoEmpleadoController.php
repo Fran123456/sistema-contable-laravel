@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\RRHH;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TipoEmpleadoController extends Controller
 {

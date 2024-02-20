@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <x-slot:title>
-        Agregar Incapacidad
+        Agregar Permiso
     </x-slot>
 
     <x-slot:subtitle>
@@ -14,18 +14,18 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/rrhh/incapacidad">Incapacidades</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Crear Incapacidad</li>
+                <li class="breadcrumb-item"><a href="/rrhh/permiso">Permisos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear Permisos</li>
             </ol>
         </nav>
     </div>
 
 
     <div class="col-md-12 mb-3">
-        <x-badge titulo="Nueva incapacidad" icono="fas fa-user-plus"></x-badge>
+        <x-badge titulo="Nuevo Permisos" icono="fas fa-user-plus"></x-badge>
     </div>
     <div class="col-md-12">
-        <form action="{{ route('rrhh.incapacidad.store') }}" method="post">
+        <form action="{{ route('rrhh.permisos.store') }}" method="post">
             @csrf
             <div class="card">
                 <div class="card-body">
@@ -33,13 +33,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <x-errors></x-errors>
-                        </div>
-                        <div class="col-md-12">
-                            <x-alert></x-alert>
+                            <div class="col-md-12">
+                                <x-alert></x-alert>
+                            </div>
                         </div>
 
                         <div class=" row ">
-                            <label for="">Incapacidad</label>
+                            <label for="">Permiso</label>
                         </div>
 
                         {{-- incapacidad periodo --}}
@@ -74,10 +74,10 @@
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
-                                <label for="tipo_incapacidad_id">Tipo incapacidad</label><span class="text-danger">*</span>
-                                <select name="tipo_incapacidad_id" id="tipo_incapacidad_id" class="form-select" required>
-                                    @foreach ($tipoIncapacidades as $key => $item )
-                                        <option value="{{ $item->id }}" @if( old('tipo_incapacidad_id') == $item->id || $loop->first ) selected @endif>{{ $item->tipo }}</option>
+                                <label for="tipo_permiso_id">Tipo permiso</label><span class="text-danger">*</span>
+                                <select name="tipo_permiso_id" id="tipo_permiso_id" class="form-select" required>
+                                    @foreach ($tipoPermisos as $key => $item )
+                                        <option value="{{ $item->id }}" @if( old('tipo_permiso_id') == $item->id || $loop->first ) selected @endif>{{ $item->tipo }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -87,6 +87,13 @@
                                 <input class="form-control" name="cantidad" id="cantidad" type="number" min="1" value="{{ old('cantidad') ?: 1 }}" required>
                             </div>
 
+                        </div>
+
+                        <div id="descripcion_row" class=" row d-none">
+                            <div class=" col-md-6 mt-2 mb-12 ">
+                                <label for="descripcion">Descripción</label>
+                                <input class="form-control" id="descripcion" name="descripcion" type="text" value="{{ old('descripcion') ?: ' ' }}">
+                            </div>
                         </div>
 
                         <div class="row">
@@ -107,6 +114,24 @@
             no_results_text: "Oops, nothing found!"
         })
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener referencias a los select
+            const tipoPermiso = document.getElementById('tipo_permiso_id');
+            const descripcionRow = document.getElementById('descripcion_row');
+            const descripcion = document.getElementById('descripcion');
 
+            tipoPermiso.addEventListener('change', function() {
+                let permiso = tipoPermiso.options[tipoPermiso.selectedIndex].textContent;
 
+                if( permiso.toLowerCase() === 'otros' || permiso.toLowerCase() === 'otro' ){
+                    descripcionRow.classList.remove('d-none');
+                    descripcion.value = '';
+                } else {
+                    descripcionRow.classList.add('d-none');
+                }
+            });
+
+        });
+    </script>
 </x-app-layout>

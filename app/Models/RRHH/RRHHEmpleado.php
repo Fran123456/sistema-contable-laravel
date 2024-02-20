@@ -12,6 +12,8 @@ class RRHHEmpleado extends Model
     protected $table = 'rrhh_empleado';
     protected $fillable = [
         'id',
+        'empresa_id',
+        'tipo_empleado_id',
         'nombres',
         'apellidos',
         'nombre_completo',
@@ -28,12 +30,19 @@ class RRHHEmpleado extends Model
         'foto',
         'salario',
         'salario_diario',
-        'tipo_empleado_id',
         'created_at',
         'updated_at',
     ];
 
     public function rrhhIncapacidad() {
         return $this->hasMany(RRHHIncapacidad::class, 'empleado_id', 'id');
+    }
+
+    public function permiso() {
+        return $this->hasMany(RRHHPermiso::class,'empleado_id', 'id');
+    }
+
+    public function empresa(){
+        return $this->belongsTo(RRHHEmpresa::class, 'empresa_id')->withDefault(); //with default muestra los null
     }
 }
