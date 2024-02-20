@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\RRHH\RRHHEmpleado;
 use App\Models\RRHH\RRHHTipoEmpleado;
+use App\Models\RRHH\RRHHArea;
+use App\Models\RRHH\RRHHDepartamento;
+use App\Models\RRHH\RRHHPuesto;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -33,8 +36,11 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
+        $empresa_id = Help::empresa();
+        $areas = RRHHArea::where('empresa_id', $empresa_id)->get();
+        $departamentos = RRHHDepartamento::where('empresa_id', $empresa_id)->get();
         $tipoEmpleado = RRHHTipoEmpleado::all();
-        return view('RRHH.empleado.create', compact('tipoEmpleado'));
+        return view('RRHH.empleado.create', compact('tipoEmpleado', 'areas', 'empresa_id', 'departamentos'));
     }
 
     /**
@@ -64,6 +70,9 @@ class EmpleadoController extends Controller
             'salario_diario' => 'required|numeric|min:0',
             'fecha_nacimiento' => 'required|date',
             'fecha_ingreso' => 'required|date',
+            'area_id' => 'required|integer',
+            'departamento_id' => 'required|integer',
+            'cargo_id' => 'required|integer',
         ]);
 
         $validate->validate();
@@ -103,6 +112,9 @@ class EmpleadoController extends Controller
             'salario_diario' => $request->salario_diario,
             'fecha_nacimiento' => $request->fecha_nacimiento,
             'fecha_ingreso' => $request->fecha_ingreso,
+            'area_id' => $request->area_id,
+            'departamento_id' => $request->departamento_id,
+            'cargo_id' => $request->cargo_id,
         ]);
 
         try {
@@ -156,6 +168,10 @@ class EmpleadoController extends Controller
         $tipoEmpleado = RRHHTipoEmpleado::all();
         $foto = null;
         $urlFotoEmpleado = $empleado->foto;
+        $empresa_id = Help::empresa();
+        $areas = RRHHArea::where('empresa_id', $empresa_id)->get();
+        $departamentos = RRHHDepartamento::where('empresa_id', $empresa_id)->get();
+        $cargos = RRHHPuesto::where('empresa_id', $empresa_id)->get();
 
         if ($urlFotoEmpleado) {
             if (Storage::exists($urlFotoEmpleado)) {
@@ -164,7 +180,7 @@ class EmpleadoController extends Controller
             }
         }
 
-        return view('rrhh.empleado.edit', compact('empleado', 'tipoEmpleado', 'foto'));
+        return view('rrhh.empleado.edit', compact('empleado', 'tipoEmpleado', 'foto', 'areas', 'departamentos', 'cargos'));
     }
 
     /**
@@ -195,7 +211,9 @@ class EmpleadoController extends Controller
             'salario_diario' => 'required|numeric|min:0',
             'fecha_nacimiento' => 'required|date',
             'fecha_ingreso' => 'required|date',
-
+            'area_id' => 'required|integer',
+            'departamento_id' => 'required|integer',
+            'cargo_id' => 'required|integer',
         ]);
 
         $validate->validate();
@@ -241,7 +259,9 @@ class EmpleadoController extends Controller
         $empleado->salario_diario = $request->salario_diario;
         $empleado->fecha_nacimiento = $request->fecha_nacimiento;
         $empleado->fecha_ingreso = $request->fecha_ingreso;
-
+        $empleado->area_id = $request->area_id;
+        $empleado->departamento_id = $request->departamento_id;
+        $empleado->cargo_id = $request->cargo_id;
         if ( $fotoSubida )
             $empleado->foto = $url_foto;
 
@@ -286,4 +306,16 @@ class EmpleadoController extends Controller
         return back()->with('success', 'Se ha eliminado el empleado correctamente');
     }
 
+    public function obtenerDepartamentos($areaId)
+    {
+        $departamentos = RRHHDepartamento::where('area_id', $areaId)->get();
+        return response()->json($departamentos);
+    }
+
+    
+    public function obtenerCargos($departamentoId)
+    {
+        $cargos = RRHHPuesto::where('departamento_id', $departamentoId)->get();
+        return response()->json($cargos);
+    }
 }
