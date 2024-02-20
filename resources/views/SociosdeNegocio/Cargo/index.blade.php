@@ -16,7 +16,7 @@
     </div>
     
     <div class="col-md-12 text-end mb-4">
-        <a class="btn btn-success" href="" title="Crear"> <i class="fas fa-save"></i> </a>
+        <a class="btn btn-success" href="{{route('socios.cargo.create')}}" title="Crear"> <i class="fas fa-save"></i> </a>
     </div>
 
     <div class="col-md-12">
@@ -41,15 +41,20 @@
                                 <td>{{$item->cargo}}</td>
                                 <td>{{$item->descripcion}}</td>
                                 <td> 
-                                    <a href="" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a>
+                                    <a href="{{route('socios.cargo.edit', $item->id)}}" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a>
                                 </td>
                                 <td>
-                                    <button
-                                        onclick="confirm('form','¿Desea eliminar el departamento?')"
-                                        class="btn btn-danger"
-                                        type="button" title="Eliminar"><i class="fas fa-trash"></i></button>
-                                </td>
-                                
+                                    <form id="form{{ $item->id }}"
+                                        action="{{ route('socios.cargo.destroy', $item->id) }}"
+                                        method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button
+                                            onclick="confirm('form{{ $item->id }}','¿Desea eliminar el cargo?')"
+                                            class="btn btn-danger"
+                                            type="button" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>  
                             </tr>
                         @endforeach
                     </tbody>

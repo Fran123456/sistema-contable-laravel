@@ -5,6 +5,9 @@ namespace App\Http\Controllers\SociosdeNegocio;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SociosdeNegocio\SociosCargo;
+use App\Help\Help;
+use App\Help\Log;
+
 
 class CargoController extends Controller
 {
@@ -27,7 +30,7 @@ class CargoController extends Controller
      */
     public function create()
     {
-        //
+        return view('sociosdenegocio.cargo.create');
     }
 
     /**
@@ -38,7 +41,24 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $request->validate([
+                'cargo'=> 'required',
+                'descripcion'=> 'max:200',
+            ]);
+
+            $cargo = SociosCargo::create([
+                'cargo' => $request->cargo,
+                'descripcion' => $request->descripcion,
+            ]);
+
+            $cargo->save();
+            return to_route('socios.cargo.index')->with('success', 'Cargo creado correctamente ');
+
+        } catch (Exception $e) {
+            Log::log('SociosdeNegocio', 'cargo error al crear el cargo', $e);
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
     }
 
     /**
@@ -60,7 +80,8 @@ class CargoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cargo = SociosCargo::find($id);
+        return view('sociosdenegocio.cargo.edit', compact('cargo'));
     }
 
     /**
@@ -72,7 +93,18 @@ class CargoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cargo = SociosCargo::find($id);
+        $cargo->cargo = $request->cargo;
+        $cargo->descripcion = $request->descripcion;
+
+        try {
+            $cargo->save();
+            return to_route('socios.cargo.index')->with('success', 'Cargo actualizado correctamente');
+
+        } catch (Exception $e) {
+            Log::log('SociosdeNegocio', 'cargo error al actualizar cargo', $e);
+            return back()->with('danger', 'Ocurrio un error al actualizar el cargo');
+        }
     }
 
     /**
@@ -83,6 +115,10 @@ class CargoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cargo = SociosCargo::find($id);
+
+        Log::log('SociosdeNegocio', 'eliminar cargo', 'El usuario '. Help::usuario()->name.' ha eliminado el cargo ');
+        $cargo->delete();
+        return back()->with('success','Se ha eliminado el cargo correctamente');
     }
 }
