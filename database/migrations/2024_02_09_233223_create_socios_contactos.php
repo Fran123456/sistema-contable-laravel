@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('persona_encuentra_id');
             $table->string('tipo_contrato');
             $table->string('estado');
-            $table->binary('cv');
+            $table->text('cv');
             $table->unsignedBigInteger('cargo_id');
             $table->unsignedBigInteger('registro_id');
             $table->timestamps();

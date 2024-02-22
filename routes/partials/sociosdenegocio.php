@@ -6,6 +6,8 @@ use App\Http\Controllers\SociosDeNegocio\ContactoController;
 //Rutas de contactos
 Route::name('socios.')->prefix('socios')->group(function () {
     Route::resource('contacto', ContactoController::class);
+
+    
 });
 
 //Rutas de cargos
