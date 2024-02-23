@@ -162,6 +162,7 @@ class ContactoController extends Controller
 
         try {
             $contacto->save();
+            Log::log('SociosdeNegocio', "Editar contacto",'El contacto ' .  $contacto->nombre . " ".$contacto->apellido .' ha sido actualizado por el usuario '. Help::usuario()->name);
             return to_route('socios.contacto.index')->with('success', 'Contacto actualizado correctamente');
 
         } catch (Exception $e) {
@@ -185,7 +186,7 @@ class ContactoController extends Controller
             Storage::delete($url);
         }
 
-        Log::log('SociosdeNegocio', 'eliminar contacto', 'El usuario '. Help::usuario()->name.' ha eliminado el contacto ');
+        Log::log('SociosdeNegocio', "Eliminar contacto",'El contacto ' .  $contacto->nombre . " ".$contacto->apellido .' ha sido eliminado por el usuario '. Help::usuario()->name);
         $contacto->delete();
         return to_route('socios.contacto.index')->with('success','Se ha eliminado el contacto correctamente');
 
