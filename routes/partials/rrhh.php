@@ -17,8 +17,7 @@ Route::middleware(['auth'])->group(function () {
     //Rutas de RRHH Departamentos
     Route::resource('departamento', DepartamentoController::class);
 
-    //Rutas de RRHH Puetos
-    Route::resource('puesto', PuestoController::class);
+
 
 
     Route::name('rrhh.')->prefix('rrhh')->group(function () {
@@ -29,7 +28,8 @@ Route::middleware(['auth'])->group(function () {
 
         //Rutas de RRHH Areas
         Route::resource('area', AreaController::class);
-
+        //Rutas de RRHH Puetos
+        Route::resource('puesto', PuestoController::class);
         //Rutas de RRHH Departamentos
         Route::resource('departamento', DepartamentoController::class);
     });
