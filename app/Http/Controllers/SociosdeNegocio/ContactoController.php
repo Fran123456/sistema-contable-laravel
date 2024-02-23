@@ -68,6 +68,10 @@ class ContactoController extends Controller
         }
         try {
             $contacto->save();
+            $registro = SociosRegistro::create([
+                'observacion' => "Se acaba de crear el contacto con estado ". $request->estado,
+                'contacto_id' => $contacto->id,
+            ]);
             return to_route('socios.contacto.index')->with('success', 'Contacto creado correctamente ');
 
         } catch (Exception $e) {

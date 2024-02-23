@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\SociosdeNegocio;
 
 use App\Http\Controllers\Controller;
+use App\Models\SociosdeNegocio\SociosCargo;
+use App\Models\SociosDeNegocio\SociosContacto;
 use App\Models\SociosDeNegocio\SociosRegistro;
 use Illuminate\Http\Request;
 use App\Help\Help;
@@ -17,7 +19,7 @@ class RegistroController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -27,7 +29,7 @@ class RegistroController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -66,8 +68,10 @@ class RegistroController extends Controller
     public function show($id)
     {
        $contactoId = $id;
+       $cargos = SociosCargo::all();
+       $contacto = SociosContacto::find($id);
         $registro = SociosRegistro::where('contacto_id', $id)->get();
-        return view('sociosdenegocio.registro.show', compact('registro', 'contactoId'));
+        return view('sociosdenegocio.registro.show', compact('registro', 'contactoId','contacto','cargos'));
     }
 
     /**
