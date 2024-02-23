@@ -4,7 +4,13 @@ namespace App\Http\Controllers\SociosDeNegocio;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\SociosDeNegocio\SociosContacto;
+use App\Models\SociosDeNegocio\SociosCargo;
+use App\Help\Log;
+use App\Help\Help;
+
+
 
 
 class ContactoController extends Controller
@@ -18,6 +24,7 @@ class ContactoController extends Controller
     {
         //
         $contactos = SociosContacto::all();
+        
         return view('sociosdenegocio.contacto.index', compact('contactos'));
     }
 
@@ -28,7 +35,9 @@ class ContactoController extends Controller
      */
     public function create()
     {
-        //
+        $usuario = auth()->user();
+        $cargos = SociosCargo::all();
+        return view('sociosdenegocio.contacto.create', compact('usuario', 'cargos'));
     }
 
     /**
@@ -39,7 +48,30 @@ class ContactoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre'=> 'required|string|max:200',
+            'apellido'=> 'required|string|max:200',
+            'telefono'=> 'required|string|max:8',
+            'cargo_id'=> 'required|string',
+            'estado'=> 'required|string',
+            'cv' => 'mimes:pdf,docx',
+        ]);
+        
+        $contacto = (new SociosContacto)->fill( $request->all());
+        
+        //Valida si el campo cv tiene un archivo, para no enviar datos null
+        if($request->hasFile('cv')){
+            //Guarda el archivo en la carpeta cv y con el nombre otiginal del archivo
+            $contacto->cv = $request->file('cv')->storeAs('public/cv', $contacto->cv->getClientOriginalName());
+        }
+        try {
+            $contacto->save();
+            return to_route('socios.contacto.index')->with('success', 'Contacto creado correctamente ');
+
+        } catch (Exception $e) {
+            Log::log('SociosdeNegocio', 'contacto error al crear el contacto', $e);
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
     }
 
     /**
@@ -50,7 +82,9 @@ class ContactoController extends Controller
      */
     public function show($id)
     {
-        //
+        $contacto = SociosContacto::find($id);
+        $cargos = SociosCargo::all();
+        return view('SociosdeNegocio.contacto.show', compact('contacto','cargos'));
     }
 
     /**
@@ -61,7 +95,10 @@ class ContactoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuario = auth()->user();
+        $contacto = SociosContacto::find($id);
+        $cargos = SociosCargo::all();
+        return view('sociosdenegocio.contacto.edit', compact('contacto', 'usuario', 'cargos'));
     }
 
     /**
@@ -73,7 +110,50 @@ class ContactoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre'=> 'required|string|max:200',
+            'apellido'=> 'required|string|max:200',
+            'telefono'=> 'required|string|max:8',
+            'cargo_id'=> 'required|string',
+            'estado'=> 'required|string',
+            'cv' => 'mimes:pdf,docx',
+        ]);
+
+        $contacto = SociosContacto::find($id);
+        
+        if ($request->hasFile('cv')) {
+            $cv = $request->file('cv');
+            $nombreCv = $cv->getClientOriginalName();
+            $url_cv = 'public/cv/' . $nombreCv;
+            ///Verificar si el archivo existe antes de eliminarlo
+            $eliminar = $contacto->cv;
+            if (Storage::exists($eliminar)) {
+                Storage::delete($eliminar);
+            }
+            
+            $cv->storeAs('public/cv/' , $nombreCv);
+        }
+
+        $contacto->nombre = $request->nombre;
+        $contacto->apellido = $request->apellido;
+        $contacto->correo= $request->correo;
+        $contacto->telefono = $request->telefono;
+        $contacto->contactado_en = $request->contactado_en;
+        $contacto->persona_encuentra_id = $request->persona_encuentra_id;
+        $contacto->tipo_contrato = $request->tipo_contrato;
+        $contacto->estado = $request->estado;
+        $contacto->cv = $url_cv;
+        $contacto->cargo_id = $request->cargo_id;
+        $contacto->registro_id = $request->registro_id;
+        
+        try {
+            $contacto->save();
+            return to_route('socios.contacto.index')->with('success', 'Contacto actualizado correctamente');
+
+        } catch (Exception $e) {
+            Log::log('SociosdeNegocio', 'contacto error al actualizar el contacto', $e);
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
     }
 
     /**
@@ -84,6 +164,17 @@ class ContactoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contacto = SociosContacto::find($id);
+        $url =  $contacto->cv;
+
+        if(Storage::exists($url)){
+            Storage::delete($url);
+        }
+
+        Log::log('SociosdeNegocio', 'eliminar contacto', 'El usuario '. Help::usuario()->name.' ha eliminado el contacto ');
+        $contacto->delete();
+        return to_route('socios.contacto.index')->with('success','Se ha eliminado el contacto correctamente');
+
+    
     }
 }

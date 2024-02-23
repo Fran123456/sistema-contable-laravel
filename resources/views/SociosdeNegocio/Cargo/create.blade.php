@@ -20,14 +20,6 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                {{-- Validar si hay errores en el ingreso a la base de datos --}}
-                <div class="col-md-12">
-                    <x-errors></x-errors>
-                </div>
-                <div class="col-md-12">
-                    <x-alert></x-alert>
-                </div>
-
                 <form action="{{route('socios.cargo.store') }}" method="post">
                     @csrf
                     <div class="row">
