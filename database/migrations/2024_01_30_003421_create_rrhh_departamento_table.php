@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('area_id');
             $table->unsignedBigInteger('empresa_id');
             $table->boolean('activo');
-            $table->timestamps();    
+            $table->timestamps();
             $table->foreign('area_id')->references('id')->on('rrhh_area')->onUpdate('cascade');
             $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
         });

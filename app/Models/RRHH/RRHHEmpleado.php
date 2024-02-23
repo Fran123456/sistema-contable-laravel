@@ -13,6 +13,7 @@ class RRHHEmpleado extends Model
     protected $fillable = [
         'id',
         'empresa_id',
+        'id_afp',
         'tipo_empleado_id',
         'nombres',
         'apellidos',
@@ -44,5 +45,9 @@ class RRHHEmpleado extends Model
 
     public function empresa(){
         return $this->belongsTo(RRHHEmpresa::class, 'empresa_id')->withDefault(); //with default muestra los null
+    }
+
+    public function afp(){
+        return $this->belongsTo(RRHHAfp::class, 'id_afp')->withDefault();
     }
 }

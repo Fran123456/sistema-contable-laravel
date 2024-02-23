@@ -15,15 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(ConfigSeeder::class);
-        $this->call(RRHHSeeder::class);
-        $this->call(ContabilidadSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(PermisosSeeder::class);
-        $this->call(TipoEmpleadoSeeder::class);
-        $this->call(RRHHTipoPlanilla::class);
-        $this->call(RRHHIncapacidadTipo::class);
-        $this->call(RRHHTipoPermiso::class);
+        // $this->call(ConfigSeeder::class);
+        // $this->call(RRHHSeeder::class);
+        // $this->call(ContabilidadSeeder::class);
+        // $this->call(UserSeeder::class);
+        // $this->call(PermisosSeeder::class);
+        // $this->call(TipoEmpleadoSeeder::class);
+        // $this->call(RRHHTipoPlanilla::class);
+        // $this->call(RRHHIncapacidadTipo::class);
+        // $this->call(RRHHTipoPermiso::class);
+        $this->call(RRHHAfp::class);
 
 
         // \App\Models\User::factory(10)->create();

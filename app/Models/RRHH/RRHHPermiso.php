@@ -21,6 +21,7 @@ class RRHHPermiso extends Model
         'empresa_id',
         'periodo_planilla_id',
         'tipo_permiso_id',
+        'tipo_permiso',
         'fecha_inicio',
         'periodo',
         'mes',

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Help\Log;
 use App\Help\Help;
+use App\Models\RRHH\RRHHAfp;
 
 class EmpleadoController extends Controller
 {
@@ -34,7 +35,8 @@ class EmpleadoController extends Controller
     public function create()
     {
         $tipoEmpleado = RRHHTipoEmpleado::all();
-        return view('RRHH.empleado.create', compact('tipoEmpleado'));
+        $afps = RRHHAfp::all();
+        return view('RRHH.empleado.create', compact('tipoEmpleado', 'afps'));
     }
 
     /**
@@ -49,6 +51,7 @@ class EmpleadoController extends Controller
 
         $validate = Validator::make($request->all(), [
             'foto' => 'image|mimes:jpg,png,jpeg|nullable',
+            'afp' => 'required|integer',
             'tipo_empleado' => 'required|integer',
             'nombres' => 'required|string|max:300',
             'apellidos' => 'required|string|max:200',
@@ -86,6 +89,7 @@ class EmpleadoController extends Controller
 
         $empleado = RRHHEmpleado::create([
             'empresa_id' => $empresa_id,
+            'id_afp' => $request->afp,
             'tipo_empleado_id' => $request->tipo_empleado,
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
@@ -128,6 +132,7 @@ class EmpleadoController extends Controller
     public function show($id)
     {
         $empleado = RRHHEmpleado::find($id);
+        $afps = RRHHAfp::all();
         $tipoEmpleado = RRHHTipoEmpleado::all();
 
         $foto = null;
@@ -140,7 +145,7 @@ class EmpleadoController extends Controller
             }
         }
 
-        return view('rrhh.empleado.show', compact('empleado', 'tipoEmpleado', 'foto'));
+        return view('rrhh.empleado.show', compact('empleado', 'tipoEmpleado', 'foto', 'afps'));
     }
 
     /**
@@ -154,6 +159,7 @@ class EmpleadoController extends Controller
 
         $empleado = RRHHEmpleado::find($id);
         $tipoEmpleado = RRHHTipoEmpleado::all();
+        $afps = RRHHAfp::all();
         $foto = null;
         $urlFotoEmpleado = $empleado->foto;
 
@@ -164,7 +170,7 @@ class EmpleadoController extends Controller
             }
         }
 
-        return view('rrhh.empleado.edit', compact('empleado', 'tipoEmpleado', 'foto'));
+        return view('rrhh.empleado.edit', compact('empleado', 'tipoEmpleado', 'foto', 'afps'));
     }
 
     /**
@@ -179,6 +185,7 @@ class EmpleadoController extends Controller
         $request->flash();
 
         $validate = Validator::make($request->all(), [
+            'afp' => 'required|integer',
             'tipo_empleado' => 'required|integer',
             'foto' => 'image|mimes:jpg,png,jpeg|nullable',
             'nombres' => 'required|string|max:300',
@@ -225,6 +232,7 @@ class EmpleadoController extends Controller
         }
 
 
+        $empleado->id_afp = $request->afp;
         $empleado->tipo_empleado_id = $request->tipo_empleado;
         $empleado->nombres = $request->nombres;
         $empleado->apellidos = $request->apellidos;

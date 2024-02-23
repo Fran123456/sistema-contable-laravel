@@ -23,7 +23,8 @@ class PermisoController extends Controller
     public function index()
     {
         $permisos = RRHHPermiso::where("empresa_id", Help::empresa())->with('empleado')->with('empresa')->with('periodo_planilla')->with('tipoPermiso')->get();
-        return view("RRHH.permiso.index", compact("permisos"));
+        $periodos = RRHHPeriodosPlanilla::where("empresa_id", Help::empresa())->where("activo", 1)->get();
+        return view("RRHH.permiso.index", compact("permisos", "periodos"));
     }
 
     /**

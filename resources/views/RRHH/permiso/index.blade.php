@@ -18,6 +18,8 @@
     </div>
 
     <div class="col-md-12 text-end mb-4">
+        @include('rrhh.reportes.modal.modal_permisos')
+        <a style="color:white" class="btn btn-success" href="#incapacidades_modal" data-bs-toggle="modal" data-bs-target="#incapacidades_modal"> Reporte </a>
         <a class="btn btn-success" href="{{ route('rrhh.permisos.create') }}"> <i class="fas fa-user-plus"></i> </a>
     </div>
 

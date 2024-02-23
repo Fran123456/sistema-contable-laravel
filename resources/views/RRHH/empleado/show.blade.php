@@ -138,13 +138,21 @@
 
                         {{-- salarios --}}
                         <div class=" row ">
-                            <div class=" col-md-6 mt-2 mb-12 ">
+                            <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="salario">Salario</label><span class="text-danger">*</span>
                                 <input class="form-control" id="salario" name="salario" value="{{ $empleado->salario }}" readonly>
                             </div>
-                            <div class=" col-md-6 mt-2 mb-12 ">
+                            <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="salario_diario">Salario diario</label><span class="text-danger">*</span>
                                 <input class="form-control" id="salario_diario" name="salario_diario" value="{{ $empleado->salario_diario }}" readonly>
+                            </div>
+                            <div class=" col-md-4 mt-2 mb-12 ">
+                                <label for="afp">AFP</label><span class="text-danger">*</span>
+                                <select id="afp" name="afp" class="form-select" disabled>
+                                    @foreach ($afps as $key => $item )
+                                        <option @if( $empleado->id_afp == $item->id ) selected @endif>{{ $item->afp }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

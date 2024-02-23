@@ -155,6 +155,14 @@
                             href="{{ route('rrhh.puesto.index') }}">Puestos</a></li>
                 </ul>
             </div>
+
+            <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
+                style="">
+                <ul class="submenu-list list-unstyled">
+                    <li class="submenu-item"><a class="submenu-link"
+                            href="{{ route('rrhh.afp.index') }}">AFP</a></li>
+                </ul>
+            </div>
         </li>
 
 
