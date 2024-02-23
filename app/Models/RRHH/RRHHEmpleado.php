@@ -4,8 +4,6 @@ namespace App\Models\RRHH;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\RRHH\RRHHArea;
-use App\Models\RRHH\RRHHEmpresa;
 
 class RRHHEmpleado extends Model
 {
@@ -32,9 +30,6 @@ class RRHHEmpleado extends Model
         'foto',
         'salario',
         'salario_diario',
-        'area_id',
-        'departamento_id',
-        'cargo_id',
         'created_at',
         'updated_at',
     ];
@@ -52,7 +47,14 @@ class RRHHEmpleado extends Model
     }
 
     public function area(){
+
         return $this->belongsTo(RRHHArea::class, 'area_id');
+
     }
 
+    public function afp(){
+
+        return $this->belongsTo(RRHHAfp::class, 'id_afp')->withDefault();
+
+    }
 }

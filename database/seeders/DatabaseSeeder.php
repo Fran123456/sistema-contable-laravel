@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RRHHTipoPlanilla::class);
         $this->call(RRHHIncapacidadTipo::class);
         $this->call(RRHHTipoPermiso::class);
+        $this->call(RRHHAfp::class);
 
 
         // \App\Models\User::factory(10)->create();

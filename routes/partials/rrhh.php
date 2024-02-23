@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RRHH\AfpController;
 use App\Http\Controllers\RRHH\ReportesRRHHController;
 use App\Http\Controllers\RRHH\PermisoController;
 use App\Http\Controllers\RRHH\AreaController;
@@ -33,6 +34,16 @@ Route::middleware(['auth'])->group(function () {
         //Rutas de RRHH Departamentos
         Route::resource('departamento', DepartamentoController::class);
     });
+        // REPORTES
+        Route::name('rrhh.')->prefix('rrhh')->group(function () {
+            Route::get('/reportes/incapacidades', [ReportesRRHHController::class, 'reporteIncapacidades'])->name('reporteIncapacidades');
+            Route::get('/reportes/permisos', [ReportesRRHHController::class, 'reportePermisos'])->name('reportePermisos');
+        });
+
+        Route::name('rrhh.')->prefix('rrhh')->group(function(){
+            Route::resource('afp', AfpController::class);
+            Route::get('/afp/edit/{id}', [AfpController::class, 'edit'])->name('editarAFP');
+        });
 
     // PERIODO PLANILLA
     Route::name('rrhh.')->prefix('rrhh')->group(function () {

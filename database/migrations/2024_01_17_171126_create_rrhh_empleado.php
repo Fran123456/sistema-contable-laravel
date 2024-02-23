@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('tipo_empleado_id')->references('id')->on('rrhh_tipo_empleado')->onUpdate('cascade');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
+            $table->unsignedBigInteger('id_afp');
+            $table->foreign('id_afp')->references('id')->on('rrhh_afp')->onUpdate('cascade');
             $table->string('nombres', 300);
             $table->string('apellidos', 200);
             $table->string('nombre_completo', 300);

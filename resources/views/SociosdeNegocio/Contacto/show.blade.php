@@ -17,7 +17,9 @@
         <x-alert></x-alert>
     </div>
     <div class="col-md-12 text-end mb-2">
-        <a class="btn btn-success " href="{{Storage::url($contacto->cv)}}" target="_blank" title="Ver CV">Ver CV</a>
+        {{--<a class="btn btn-success " href="{{Storage::url($contacto->cv)}}" target="_blank" title="Ver CV">Ver CV</a>--}}
+
+        <a class="btn btn-success " href="{{url('/')}}/cv/{{$contacto->cv}}" target="_blank" title="Ver CV">Ver CV</a>
     </div>
     <div class="col-md-12">
         <div class="card">
@@ -53,14 +55,14 @@
                     <div class="col-md-6 mt-2 mb-12">
                         <label for="medio_contacto"> <strong>Medio de contacto</strong> </label>
                         <input type="text" name="contactado_en" class="form-control" readonly value="{{$contacto->contactado_en}}">
-                    </div>                      
+                    </div>
                     <div class="col-md-6 mt-2 mb-12">
                         <label for="cargo"> <strong>Cargo</strong></label>
                         <select required id="cargo_id" name="cargo_id" class="form-control" readonly value="{{$contacto->cargo_id}}">
                             <option value="">Selecciona una opción</option>
                             @foreach ($cargos as $cargo)
-                                <option value="{{$cargo->id}}" @if ($cargo->id == $contacto->cargo_id) selected @endif>{{$cargo->cargo}}</option>                                                                      
-                            @endforeach    
+                                <option value="{{$cargo->id}}" @if ($cargo->id == $contacto->cargo_id) selected @endif>{{$cargo->cargo}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-6 mt-2 mb-12">

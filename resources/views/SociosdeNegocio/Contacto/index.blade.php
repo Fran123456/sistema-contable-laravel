@@ -14,7 +14,7 @@
     <div class="col-md-12">
         <x-alert></x-alert>
     </div>
-    
+
     <div class="col-md-12 text-end mb-4">
         <a class="btn btn-success" href="{{ route('socios.contacto.create') }}" title="Crear"> <i class="fas fa-user-plus"></i> </a>
     </div>
@@ -48,7 +48,10 @@
                                 <td>{{$item->cargo->cargo}}</td>
                                 <td>{{$item->estado}}</td>
                                 <td class="text-center"><a href="{{route('socios.registro.show', $item->id)}}" class="btn btn-secondary"><i class="fa-solid fa-file-lines"></i></a></td>
-                                <td> <a href="{{ Storage::url($item->cv) }}" target="_blank" class="btn btn-success" title="Descargar"> <i class="fa-solid fa-download"></i> </a> </td>
+
+                                {{--<td> <a href="{{ Storage::url($item->cv) }}" target="_blank" class="btn btn-success" title="Descargar"> <i class="fa-solid fa-download"></i> </a> </td>--}}
+                                <td> <a href="{{ url('/')}}/cv/{{$item->cv}}" target="_blank" class="btn btn-success" title="Descargar"> <i class="fa-solid fa-download"></i> </a> </td>
+
                                 <td><a href="{{route('socios.contacto.show', $item->id)}}" class="btn btn-success" title="Ver contacto"><i class="fas fa-eye"></i></a></td>
                                 <td><a href="{{route('socios.contacto.edit', $item->id)}}" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a></td>
                                 <td>

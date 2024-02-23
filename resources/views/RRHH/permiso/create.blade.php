@@ -14,7 +14,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/rrhh/permiso">Permisos</a></li>
+                <li class="breadcrumb-item"><a href="/rrhh/permisos">Permisos</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Crear Permisos</li>
             </ol>
         </nav>
@@ -47,18 +47,26 @@
 
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="empleado_id">Empleado</label><span class="text-danger">*</span>
-                                <select name="empleado_id" id="empleado_id" class=" chosen-select form-select " required>
-                                    @foreach ($empleados as $key => $item )
-                                        <option value="{{ $item->id }}" @if( old('empleado_id') == $item->id || $loop->first ) selected @endif>{{ $item->codigo }} - {{ $item->nombre_completo }}</option>
+                                <select name="empleado_id" id="empleado_id" class=" chosen-select form-select "
+                                    required>
+                                    @foreach ($empleados as $key => $item)
+                                        <option value="{{ $item->id }}"
+                                            @if (old('empleado_id') == $item->id || $loop->first) selected @endif>{{ $item->codigo }} -
+                                            {{ $item->nombre_completo }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
-                                <label for="periodo_planilla_id">Perido Planilla</label><span class="text-danger">*</span>
-                                <select name="periodo_planilla_id" id="periodo_planilla_id" class="form-select" required>
-                                    @foreach ($periodosPlanillas as $key => $item )
-                                        <option value="{{ $item->id }}" @if( old('periodo_planilla_id') == $item->id || $loop->first ) selected @endif>{{ $item->mes_string }} - {{ $item->year }} {{ $item->tipo_periodo }} {{ $item->periodo_dias }}</option>
+                                <label for="periodo_planilla_id">Perido Planilla</label><span
+                                    class="text-danger">*</span>
+                                <select name="periodo_planilla_id" id="periodo_planilla_id" class="form-select"
+                                    required>
+                                    @foreach ($periodosPlanillas as $key => $item)
+                                        <option value="{{ $item->id }}"
+                                            @if (old('periodo_planilla_id') == $item->id || $loop->first) selected @endif>{{ $item->mes_string }} -
+                                            {{ $item->year }} {{ $item->tipo_periodo }} {{ $item->periodo_dias }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -70,21 +78,25 @@
 
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="fecha_inicio">Fecha de inicio</label><span class="text-danger">*</span>
-                                <input type="date" name="fecha_inicio" id="fecha_inicio" value="{{ old('fecha_inicio') ?: date('Y-m-d') }}" class="form-control" required />
+                                <input type="date" name="fecha_inicio" id="fecha_inicio"
+                                    value="{{ old('fecha_inicio') ?: date('Y-m-d') }}" class="form-control" required />
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="tipo_permiso_id">Tipo permiso</label><span class="text-danger">*</span>
                                 <select name="tipo_permiso_id" id="tipo_permiso_id" class="form-select" required>
-                                    @foreach ($tipoPermisos as $key => $item )
-                                        <option value="{{ $item->id }}" @if( old('tipo_permiso_id') == $item->id || $loop->first ) selected @endif>{{ $item->tipo }}</option>
+                                    @foreach ($tipoPermisos as $key => $item)
+                                        <option value="{{ $item->id }}"
+                                            @if (old('tipo_permiso_id') == $item->id || (!old('tipo_permiso') && $loop->first)) selected @endif>{{ $item->tipo }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="cantidad">Cantidad</label><span class="text-danger">*</span>
-                                <input class="form-control" name="cantidad" id="cantidad" type="number" min="1" value="{{ old('cantidad') ?: 1 }}" required>
+                                <input class="form-control" name="cantidad" id="cantidad" type="number" min="1"
+                                    value="{{ old('cantidad') ?: 1 }}" required>
                             </div>
 
                         </div>
@@ -92,7 +104,8 @@
                         <div id="descripcion_row" class=" row d-none">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="descripcion">Descripción</label>
-                                <input class="form-control" id="descripcion" name="descripcion" type="text" value="{{ old('descripcion') ?: ' ' }}">
+                                <input class="form-control" id="descripcion" name="descripcion" type="text"
+                                    value="{{ old('descripcion') ?: ' ' }}">
                             </div>
                         </div>
 
@@ -105,8 +118,8 @@
                             </div>
                         </div>
 
+                    </div>
                 </div>
-            </div>
         </form>
     </div>
     <script>
@@ -115,23 +128,33 @@
         })
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+
+        window.addEventListener('load', function(event) {
             // Obtener referencias a los select
             const tipoPermiso = document.getElementById('tipo_permiso_id');
             const descripcionRow = document.getElementById('descripcion_row');
             const descripcion = document.getElementById('descripcion');
 
-            tipoPermiso.addEventListener('change', function() {
+            function verificarSeleccion() {
                 let permiso = tipoPermiso.options[tipoPermiso.selectedIndex].textContent;
 
-                if( permiso.toLowerCase() === 'otros' || permiso.toLowerCase() === 'otro' ){
+                if (permiso.toLowerCase().trim() == 'otros' || permiso.toLowerCase().trim() == 'otro') {
                     descripcionRow.classList.remove('d-none');
-                    descripcion.value = '';
                 } else {
                     descripcionRow.classList.add('d-none');
+                    descripcion.value = '';
                 }
+            }
+
+            tipoPermiso.addEventListener('change', function() {
+                verificarSeleccion();
             });
 
+            (function() {
+                verificarSeleccion();
+            })();
+
         });
+
     </script>
 </x-app-layout>

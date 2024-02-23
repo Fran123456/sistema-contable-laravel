@@ -52,14 +52,14 @@
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="medio_contacto"> <strong>Medio de contacto</strong> </label>
                             <input type="text" name="contactado_en" class="form-control" value="{{$contacto->contactado_en}}">
-                        </div>                      
+                        </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="cargo"> <strong>Cargo</strong></label>
                             <select required id="cargo_id" name="cargo_id" class="form-control" value="{{$contacto->cargo_id}}">
                                 <option value="">Selecciona una opción</option>
                                 @foreach ($cargos as $cargo)
-                                    <option value="{{$cargo->id}}" @if ($cargo->id == $contacto->cargo_id) selected @endif>{{$cargo->cargo}}</option>                                                                      
-                                @endforeach    
+                                    <option value="{{$cargo->id}}" @if ($cargo->id == $contacto->cargo_id) selected @endif>{{$cargo->cargo}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
@@ -85,10 +85,15 @@
                         </div>
                         <div class="col-md-12 mt-2 mb-12">
                             <label for="cv"><strong>CV</strong></label>
+
                             <input class="form-control" type="file" name="cv" id="cv" accept="application/pdf" value="{{$contacto->cv}}">
+
+                            @if ($contacto->cv)
+                            <a href="{{ url('/')}}/cv/{{$contacto->cv}}" target="_blank"  title="Descargar"> <i class="fa-solid fa-download"></i> Descarga </a>
+                            @endif
                         </div>
                         <div>
-                            <input type="hidden" name="persona_encuentra_id" value="{{$usuario->id}}"  class="form-control">                       
+                            <input type="hidden" name="persona_encuentra_id" value="{{$usuario->id}}"  class="form-control">
                         </div>
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
