@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\SociosDeNegocio\SociosContacto;
 use App\Models\SociosDeNegocio\SociosCargo;
 use App\Help\Log;
+use App\Help\Help;
 
 
 
@@ -81,6 +82,9 @@ class ContactoController extends Controller
      */
     public function show($id)
     {
+        $contacto = SociosContacto::find($id);
+        $cargos = SociosCargo::all();
+        return view('SociosdeNegocio.contacto.show', compact('contacto','cargos'));
     }
 
     /**
@@ -144,10 +148,10 @@ class ContactoController extends Controller
         
         try {
             $contacto->save();
-            return to_route('socios.contacto.index')->with('success', 'Contacto actualizado correctamente ');
+            return to_route('socios.contacto.index')->with('success', 'Contacto actualizado correctamente');
 
         } catch (Exception $e) {
-            Log::log('SociosdeNegocio', 'contacto error al actualizado el contacto', $e);
+            Log::log('SociosdeNegocio', 'contacto error al actualizar el contacto', $e);
             return back()->with('danger', 'Error, no se puede procesar la petición');
         }
     }
@@ -160,6 +164,17 @@ class ContactoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contacto = SociosContacto::find($id);
+        $url =  $contacto->cv;
+
+        if(Storage::exists($url)){
+            Storage::delete($url);
+        }
+
+        Log::log('SociosdeNegocio', 'eliminar contacto', 'El usuario '. Help::usuario()->name.' ha eliminado el contacto ');
+        $contacto->delete();
+        return to_route('socios.contacto.index')->with('success','Se ha eliminado el contacto correctamente');
+
+    
     }
 }

@@ -49,9 +49,21 @@
                                 <td>{{$item->estado}}</td>
                                 <td class="text-center"><a href="" class="btn btn-secondary"><i class="fa-solid fa-file-lines"></i></a></td>
                                 <td> <a href="{{ Storage::url($item->cv) }}" target="_blank" class="btn btn-success" title="Descargar"> <i class="fa-solid fa-download"></i> </a> </td>
-                                <td><a href="" class="btn btn-success" title="Ver contacto"><i class="fas fa-eye"></i></a></td>
+                                <td><a href="{{route('socios.contacto.show', $item->id)}}" class="btn btn-success" title="Ver contacto"><i class="fas fa-eye"></i></a></td>
                                 <td><a href="{{route('socios.contacto.edit', $item->id)}}" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a></td>
-                                <td><a href="" class="btn btn-danger" title="Eliminar"><i class="fas fa-trash"></i></a></td>
+                                <td>
+                                    <form id="form{{ $item->id }}"
+                                        action="{{ route('socios.contacto.destroy', $item->id) }}"
+                                        method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button
+                                            onclick="confirm('form{{ $item->id }}','¿Desea eliminar el contacto?')"
+                                            class="btn btn-danger"
+                                            type="button" title="Eliminar"><i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

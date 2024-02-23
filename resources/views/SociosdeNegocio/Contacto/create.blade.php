@@ -65,7 +65,7 @@
                             <label for="tipo_contrato"> <strong>Tipo de contrato</strong></label>
                             <select id="tipo_contrato" name="tipo_contrato" class="form-control">
                                 <option value="">Selecciona una opción</option>
-                                <option value="pasante">Pasante</option>
+                                <option value="Pasante">Pasante</option>
                                 <option value="Servicios profesionales">Servicios profesionales</option>
                                 <option value="Consultor">Consultor</option>
                                 <option value="Planilla">Planilla</option>
@@ -75,10 +75,10 @@
                             <label for="estado"> <strong>Estado</strong></label>
                             <select id="estado" name="estado" class="form-control" required>
                                 <option value="">Selecciona una opción</option>
-                                <option value="ingresado">Ingresado</option>
-                                <option value="inactivo">Inactivo</option>
-                                <option value="proceso de seleccion">En proceso de selección</option>
-                                <option value="descartado">Descartado</option>
+                                <option value="Ingresado">Ingresado</option>
+                                <option value="Inactivo">Inactivo</option>
+                                <option value="Proceso de seleccion">En proceso de selección</option>
+                                <option value="Descartado">Descartado</option>
                             </select>
                         </div>
                         <div class="col-md-12 mt-2 mb-12">
