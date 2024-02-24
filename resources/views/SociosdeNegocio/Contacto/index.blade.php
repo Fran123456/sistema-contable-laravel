@@ -47,7 +47,7 @@
                                 <td>{{$item->telefono}}</td>
                                 <td>{{$item->cargo->cargo}}</td>
                                 <td>{{$item->estado}}</td>
-                                <td class="text-center"><a href="" class="btn btn-secondary"><i class="fa-solid fa-file-lines"></i></a></td>
+                                <td class="text-center"><a href="{{route('socios.registro.show', $item->id)}}" class="btn btn-secondary"><i class="fa-solid fa-file-lines"></i></a></td>
                                 <td> <a href="{{ Storage::url($item->cv) }}" target="_blank" class="btn btn-success" title="Descargar"> <i class="fa-solid fa-download"></i> </a> </td>
                                 <td><a href="{{route('socios.contacto.show', $item->id)}}" class="btn btn-success" title="Ver contacto"><i class="fas fa-eye"></i></a></td>
                                 <td><a href="{{route('socios.contacto.edit', $item->id)}}" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a></td>
