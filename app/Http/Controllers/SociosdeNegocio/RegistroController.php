@@ -99,7 +99,7 @@ class RegistroController extends Controller
         $registro->observacion = $request->observacion;
         try {
             $registro->save();
-            return back()->with('success', 'Observacion actualizada correctamente ');
+            return to_route('socios.registro.show', $registro->contacto->id)->with('success', 'Observacion actualizada correctamente ');
 
         } catch (Exception $e) {
             Log::log('SociosdeNegocio', 'registro error al actualizar la observacion', $e);
