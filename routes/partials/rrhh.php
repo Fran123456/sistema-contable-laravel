@@ -8,6 +8,7 @@ use App\Http\Controllers\RRHH\EmpresaController;
 use App\Http\Controllers\RRHH\EmpleadoController;
 use App\Http\Controllers\RRHH\DepartamentoController;
 use App\Http\Controllers\RRHH\IncapacidadController;
+use App\Http\Controllers\RRHH\IngresoController;
 use App\Http\Controllers\RRHH\PeriodoPlanillaController;
 use App\Http\Controllers\RRHH\PuestoController;
 
@@ -58,5 +59,11 @@ Route::name('rrhh.')->prefix('rrhh')->group(function () {
 Route::name('rrhh.')->prefix('rrhh')->group(function(){
     Route::resource('afp', AfpController::class);
     Route::get('/afp/edit/{id}', [AfpController::class, 'edit'])->name('editarAFP');
+});
+
+Route::name('rrhh.')->prefix('rrhh')->group(function(){
+    Route::resource('ingreso', IngresoController::class);
+    Route::get('/ingreso/edit/{id}', [IngresoController::class, 'edit'])->name('editarIngreso');
+
 });
 
