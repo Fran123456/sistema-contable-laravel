@@ -2,7 +2,6 @@
 
 namespace App\Models\RRHH;
 
-use App\Models\RRHHTipoIngreso;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

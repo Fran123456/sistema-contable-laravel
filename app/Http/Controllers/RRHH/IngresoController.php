@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\RRHH\RRHHEmpleado;
 use App\Models\RRHH\RRHHIngreso;
 use App\Models\RRHH\RRHHPeriodosPlanilla;
-use App\Models\RRHHTipoIngreso;
+use App\Models\RRHH\RRHHTipoIngreso;
 use Exception;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
@@ -23,7 +23,7 @@ class IngresoController extends Controller
      */
     public function index()
     {
-        $ingresos = RRHHIngreso::where("id_empresa", Help::empresa())->with("empleado")->with('empleado')->with('periodo')->with('tipoIngreso')->get();
+        $ingresos = RRHHIngreso::where("id_empresa", Help::empresa())->with("empleado")->with('empleado')->with('planilla')->with('tipoIngreso')->get();
 
         return view('RRHH.ingreso.index', compact('ingresos'));
     }
@@ -35,8 +35,8 @@ class IngresoController extends Controller
      */
     public function create()
     {
-        $empleados = RRHHEmpleado::where("id_empresa", Help::empresa())->where('activo', 1)->get();
-        $planillas = RRHHPeriodosPlanilla::where("id_empresa", Help::empresa())->where('activo', 1)->get();
+        $empleados = RRHHEmpleado::where("empresa_id", Help::empresa())->where('activo', 1)->get();
+        $planillas = RRHHPeriodosPlanilla::where("empresa_id", Help::empresa())->where('activo', 1)->get();
         $tiposIngreso = RRHHTipoIngreso::all();
 
         return view('RRHH.ingreso.create', compact('empleados', 'planillas', 'tiposIngreso'));
@@ -63,7 +63,13 @@ class IngresoController extends Controller
 
         $validator->validate();
 
+        $ingreso = RRHHIngreso::where('id_empleado', $request->empleado)->where('id_tipo_ingreso', $request->tipo_ingreso)->where('id_periodo_planilla', $request->planilla)->first();
+
+        if($ingreso)
+            return back()->with('danger', 'Ya existe una resgistro con el mismo ingreso para el periodo planilla seleccionado');
+
         $ingreso = RRHHIngreso::create([
+            'id_empresa' => Help::empresa(),
             'id_empleado' => $request->empleado,
             'id_periodo_planilla' => $request->planilla,
             'id_tipo_ingreso' => $request->tipo_ingreso,
@@ -106,11 +112,11 @@ class IngresoController extends Controller
         if (!$ingreso)
             return back()->with('danger', 'No se encontro el registro de ingreso que se desea actualizar.');
 
-        $empleados = RRHHEmpleado::where("id_empresa", Help::empresa())->where('activo', 1)->get();
-        $planillas = RRHHPeriodosPlanilla::where("id_empresa", Help::empresa())->where('activo', 1)->orWhere('id', $ingreso->id_periodo_planilla)->get();
+        $empleados = RRHHEmpleado::where("empresa_id", Help::empresa())->where('activo', 1)->get();
+        $planillas = RRHHPeriodosPlanilla::where("empresa_id", Help::empresa())->where('activo', 1)->orWhere('id', $ingreso->id_periodo_planilla)->get();
         $tiposIngreso = RRHHTipoIngreso::all();
 
-        return view('RRHH.ingreso.create', compact('ingreso', 'empleados', 'planillas', 'tiposIngreso'));
+        return view('RRHH.ingreso.edit', compact('ingreso', 'empleados', 'planillas', 'tiposIngreso'));
     }
 
     /**
@@ -134,6 +140,11 @@ class IngresoController extends Controller
         ]);
 
         $validator->validate();
+
+        $ingreso = RRHHIngreso::where('id_empleado', $request->empleado)->where('id_tipo_ingreso', $request->tipo_ingreso)->where('id_periodo_planilla', $request->planilla)->first();
+
+        if($ingreso)
+            return back()->with('danger', 'Ya existe una resgistro con el mismo ingreso para el periodo planilla seleccionado');
 
         $ingreso = RRHHIngreso::where('id', $id)->first();
 

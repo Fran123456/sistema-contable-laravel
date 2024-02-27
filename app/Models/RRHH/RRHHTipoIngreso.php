@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\RRHH;
 
 use App\Models\RRHH\RRHHIngreso;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +22,7 @@ class RRHHTipoIngreso extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments()
+    public function tipoIngreso()
     {
         return $this->hasMany(RRHHIngreso::class, 'id_tipo_ingreso', 'id');
     }
