@@ -239,6 +239,14 @@
                     </li>
                 </ul>
             </div>
+            <div id="submenu-socios" class="submenu submenu-socios collapse " data-bs-parent="#menu-accordion"
+                style="">
+                <ul class="submenu-list list-unstyled">
+                    <li class="submenu-item">
+                        <a class="submenu-link" href="{{ route('socios.proveedores.index') }}">Proveedores</a>
+                    </li>
+                </ul>
+            </div>
         </li>
 
 

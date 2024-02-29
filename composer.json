@@ -34,7 +34,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Catalogo/TipoPersonalidad.php",
+            "app/Catalogo/TipoProveedor.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
