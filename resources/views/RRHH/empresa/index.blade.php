@@ -8,7 +8,7 @@
 
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item active" aria-current="page">Empresas</li>
           </ol>
     </div>
