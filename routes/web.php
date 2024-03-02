@@ -39,12 +39,6 @@ Route::name('roles')->prefix('roles')->group(function () {
     Route::get('/permissions/destroy/sub/one/{id}', [RoleController::class, 'destroyPermissionOne'])->name('.destroyPermissionOne');
 });
 
-//Ruta que ejecuta el codigo javascript para obtener el departamento correcto
-Route::name('rrhh.')->prefix('rrhh')->group(function () {
-    Route::get('/obtener-departamentos/{areaId}',[PuestoController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
-    Route::get('/obtener-departamentos/{areaId}',[EmpleadoController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
-    Route::get('/obtener-cargos/{departamentoId}',[EmpleadoController::class, 'obtenerCargos'])->name('.obtenerCargos');
-});
 
 
 include('routes/partials/users.php');
