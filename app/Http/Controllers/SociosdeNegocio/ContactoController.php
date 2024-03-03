@@ -26,7 +26,7 @@ class ContactoController extends Controller
         //
         $contactos = SociosContacto::orderBy('id','desc')->get();
 
-        return view('sociosdenegocio.contacto.index', compact('contactos'));
+        return view('sociosdenegocio.Contacto.index', compact('contactos'));
     }
 
     /**
@@ -38,7 +38,7 @@ class ContactoController extends Controller
     {
         $usuario = auth()->user();
         $cargos = SociosCargo::all();
-        return view('sociosdenegocio.contacto.create', compact('usuario', 'cargos'));
+        return view('sociosdenegocio.Contacto.create', compact('usuario', 'cargos'));
     }
 
     /**
@@ -90,7 +90,7 @@ class ContactoController extends Controller
     {
         $contacto = SociosContacto::find($id);
         $cargos = SociosCargo::all();
-        return view('SociosdeNegocio.contacto.show', compact('contacto','cargos'));
+        return view('SociosdeNegocio.Contacto.show', compact('contacto','cargos'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ContactoController extends Controller
         $usuario = auth()->user();
         $contacto = SociosContacto::find($id);
         $cargos = SociosCargo::all();
-        return view('sociosdenegocio.contacto.edit', compact('contacto', 'usuario', 'cargos'));
+        return view('sociosdenegocio.Contacto.edit', compact('contacto', 'usuario', 'cargos'));
     }
 
     /**
