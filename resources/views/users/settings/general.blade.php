@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
-            <li class="breadcrumb-item"><a href="/settings">Configuraciones</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('settings.settings') }}">Configuraciones</a></li>
             <li class="breadcrumb-item active" aria-current="page">General</li>
           </ol>
     </div>

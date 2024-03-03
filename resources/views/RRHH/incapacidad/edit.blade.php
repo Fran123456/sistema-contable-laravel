@@ -13,8 +13,8 @@
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/rrhh/incapacidad">Incapacidades</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('rrhh.incapacidad.index') }}">Incapacidades</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Editar Incapacidad</li>
             </ol>
         </nav>
