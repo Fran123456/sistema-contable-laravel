@@ -71,7 +71,7 @@ class RegistroController extends Controller
        $cargos = SociosCargo::all();
        $contacto = SociosContacto::find($id);
         $registro = SociosRegistro::where('contacto_id', $id)->get();
-        return view('sociosdenegocio.registro.show', compact('registro', 'contactoId','contacto','cargos'));
+        return view('sociosdeNegocio.Registro.show', compact('registro', 'contactoId','contacto','cargos'));
     }
 
     /**
@@ -84,7 +84,7 @@ class RegistroController extends Controller
     {
         $contactoId = $id;
         $registro = SociosRegistro::find($id);
-        return view('sociosdenegocio.registro.edit', compact('registro', 'contactoId'));
+        return view('sociosdeNegocio.Registro.edit', compact('registro', 'contactoId'));
     }
 
     /**
