@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\SociosdeNegocio\CargoController;
-use App\Http\Controllers\SociosDeNegocio\ContactoController;
+use App\Http\Controllers\SociosdeNegocio\ContactoController;
 use App\Http\Controllers\SociosdeNegocio\RegistroController;
 
 

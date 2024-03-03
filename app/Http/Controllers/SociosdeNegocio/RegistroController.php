@@ -4,8 +4,8 @@ namespace App\Http\Controllers\SociosdeNegocio;
 
 use App\Http\Controllers\Controller;
 use App\Models\SociosdeNegocio\SociosCargo;
-use App\Models\SociosDeNegocio\SociosContacto;
-use App\Models\SociosDeNegocio\SociosRegistro;
+use App\Models\SociosdeNegocio\SociosContacto;
+use App\Models\SociosdeNegocio\SociosRegistro;
 use Illuminate\Http\Request;
 use App\Help\Help;
 use App\Help\Log;

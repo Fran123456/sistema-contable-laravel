@@ -5,9 +5,9 @@ namespace App\Http\Controllers\SociosdeNegocio;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\SociosDeNegocio\SociosContacto;
-use App\Models\SociosDeNegocio\SociosCargo;
-use App\Models\SociosDeNegocio\SociosRegistro;
+use App\Models\SociosdeNegocio\SociosContacto;
+use App\Models\SociosdeNegocio\SociosCargo;
+use App\Models\SociosdeNegocio\SociosRegistro;
 use App\Help\Log;
 use App\Help\Help;
 
