@@ -14,8 +14,8 @@
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/rrhh/empleado">Empleados</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('rrrh.empleado.index') }}">Empleados</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Crear empleado</li>
             </ol>
         </nav>

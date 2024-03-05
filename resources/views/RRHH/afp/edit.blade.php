@@ -13,8 +13,8 @@
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="/rrhh/afp">AFP</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('rrhh.afp.index') }}">AFP</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Editar AFP</li>
             </ol>
         </nav>

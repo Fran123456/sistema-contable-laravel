@@ -8,7 +8,7 @@
     </x-slot>
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dasboard</a></li>
             <li class="breadcrumb-item"><a href="{{route('rrhh.area.index')}}">Areas</a></li>
             <li class="breadcrumb-item active" aria-current="page">Editar area</li>
         </ol>

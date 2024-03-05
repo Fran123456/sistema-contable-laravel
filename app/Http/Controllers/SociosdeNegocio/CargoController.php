@@ -19,7 +19,7 @@ class CargoController extends Controller
     public function index()
     {
         $cargos = SociosCargo::all();
-        return view('sociosdenegocio.cargo.index', compact('cargos'));
+        return view('sociosdeNegocio.Cargo.index', compact('cargos'));
 
     }
 
@@ -30,7 +30,7 @@ class CargoController extends Controller
      */
     public function create()
     {
-        return view('sociosdenegocio.cargo.create');
+        return view('sociosdeNegocio.Cargo.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class CargoController extends Controller
     public function edit($id)
     {
         $cargo = SociosCargo::find($id);
-        return view('sociosdenegocio.cargo.edit', compact('cargo'));
+        return view('sociosdeNegocio.Cargo.edit', compact('cargo'));
     }
 
     /**

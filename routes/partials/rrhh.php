@@ -18,9 +18,6 @@ Route::middleware(['auth'])->group(function () {
     //Rutas de RRHH Departamentos
     Route::resource('departamento', DepartamentoController::class);
 
-
-
-
     Route::name('rrhh.')->prefix('rrhh')->group(function () {
         Route::resource('empresa', EmpresaController::class);
         Route::resource('empleado', EmpleadoController::class);
@@ -78,4 +75,15 @@ Route::middleware(['auth'])->group(function () {
     Route::name('rrhh.')->prefix('rrhh')->group(function () {
         Route::get('/reportes/incapacidades', [ReportesRRHHController::class, 'reporteIncapacidades'])->name('reporteIncapacidades');
     });
+
+
+    //Ruta que ejecuta el codigo javascript para obtener el departamento correcto
+    Route::name('rrhh.')->prefix('rrhh')->group(function () {
+        Route::get('/obtener-departamentos/{areaId}',[PuestoController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
+        Route::get('/obtener-departamentos/{areaId}',[EmpleadoController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
+        Route::get('/obtener-cargos/{departamentoId}',[EmpleadoController::class, 'obtenerCargos'])->name('.obtenerCargos');
+    });
+
 });
+
+

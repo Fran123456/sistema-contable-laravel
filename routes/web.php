@@ -22,29 +22,26 @@ use App\Http\Controllers\RRHH\EmpleadoController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+Route::middleware(['auth'])->group(function () {
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::name('settings')->prefix('settings')->group(function () {
+        Route::get('/', [SettingController::class, 'settings'])->name('.settings');
+        Route::put('/update/{id}', [SettingController::class, 'updateSetting'])->name('.updateSetting');
+        Route::get('/general', [SettingController::class, 'generalSettings'])->name('.generalSettings');
+        Route::get('/{key}', [SettingController::class, 'settingsByKey'])->name('.settingsByKey');
+        Route::post('/{id}/change-logo', [SettingController::class, 'changeLogo'])->name('.changeLogo');
+    });
 
-Route::name('settings')->prefix('settings')->group(function () {
-    Route::get('/', [SettingController::class, 'settings'])->name('.settings');
-    Route::put('/update/{id}', [SettingController::class, 'updateSetting'])->name('.updateSetting');
-    Route::get('/general', [SettingController::class, 'generalSettings'])->name('.generalSettings');
-    Route::get('/{key}', [SettingController::class, 'settingsByKey'])->name('.settingsByKey');
-    Route::post('/{id}/change-logo', [SettingController::class, 'changeLogo'])->name('.changeLogo');
+    Route::resource('roles', RoleController::class);
+    Route::name('roles')->prefix('roles')->group(function () {
+        Route::delete('/permissions/destroy/{id}', [RoleController::class, 'destroyPermissions'])->name('.destroyPermissions');
+        Route::get('/permissions/destroy/sub/one/{id}', [RoleController::class, 'destroyPermissionOne'])->name('.destroyPermissionOne');
+    });
+
+
 });
 
-Route::resource('roles', RoleController::class);
-Route::name('roles')->prefix('roles')->group(function () {
-    Route::delete('/permissions/destroy/{id}', [RoleController::class, 'destroyPermissions'])->name('.destroyPermissions');
-    Route::get('/permissions/destroy/sub/one/{id}', [RoleController::class, 'destroyPermissionOne'])->name('.destroyPermissionOne');
-});
-
-//Ruta que ejecuta el codigo javascript para obtener el departamento correcto
-Route::name('rrhh.')->prefix('rrhh')->group(function () {
-    Route::get('/obtener-departamentos/{areaId}',[PuestoController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
-    Route::get('/obtener-departamentos/{areaId}',[EmpleadoController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
-    Route::get('/obtener-cargos/{departamentoId}',[EmpleadoController::class, 'obtenerCargos'])->name('.obtenerCargos');
-});
 
 
 include('routes/partials/users.php');

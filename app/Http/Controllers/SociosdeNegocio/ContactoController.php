@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\SociosDeNegocio;
+namespace App\Http\Controllers\SociosdeNegocio;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\SociosDeNegocio\SociosContacto;
-use App\Models\SociosDeNegocio\SociosCargo;
-use App\Models\SociosDeNegocio\SociosRegistro;
+use App\Models\SociosdeNegocio\SociosContacto;
+use App\Models\SociosdeNegocio\SociosCargo;
+use App\Models\SociosdeNegocio\SociosRegistro;
 use App\Help\Log;
 use App\Help\Help;
 
@@ -26,7 +26,7 @@ class ContactoController extends Controller
         //
         $contactos = SociosContacto::orderBy('id','desc')->get();
 
-        return view('sociosdenegocio.contacto.index', compact('contactos'));
+        return view('sociosdeNegocio.Contacto.index', compact('contactos'));
     }
 
     /**
@@ -38,7 +38,7 @@ class ContactoController extends Controller
     {
         $usuario = auth()->user();
         $cargos = SociosCargo::all();
-        return view('sociosdenegocio.contacto.create', compact('usuario', 'cargos'));
+        return view('sociosdeNegocio.Contacto.create', compact('usuario', 'cargos'));
     }
 
     /**
@@ -90,7 +90,7 @@ class ContactoController extends Controller
     {
         $contacto = SociosContacto::find($id);
         $cargos = SociosCargo::all();
-        return view('SociosdeNegocio.contacto.show', compact('contacto','cargos'));
+        return view('sociosdeNegocio.Contacto.show', compact('contacto','cargos'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ContactoController extends Controller
         $usuario = auth()->user();
         $contacto = SociosContacto::find($id);
         $cargos = SociosCargo::all();
-        return view('sociosdenegocio.contacto.edit', compact('contacto', 'usuario', 'cargos'));
+        return view('sociosdeNegocio.Contacto.edit', compact('contacto', 'usuario', 'cargos'));
     }
 
     /**
