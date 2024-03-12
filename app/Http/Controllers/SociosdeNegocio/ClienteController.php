@@ -23,7 +23,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $cliente = SociosCliente::where('activo', 1)->get();
+        $cliente = SociosCliente::orderBy('id', 'desc')->get();
         return view('sociosdenegocio.cliente.index', compact('cliente'));
     }
 
@@ -172,6 +172,15 @@ class ClienteController extends Controller
         Log::log('SociosdeNegocio', "Deshabilitar cliente",'El cliente ' .  $cliente->nombre . " ".$cliente->apellido .' ha sido deshabilitado por el usuario '. Help::usuario()->name);
         $cliente->save();
         return to_route('socios.cliente.index')->with('success','Se ha deshabilitado el cliente correctamente');
+    }
+
+    public function habilitarCliente($id){
+        $cliente = SociosCliente::find($id);
+        $cliente->activo = true;
+
+        Log::log('SociosdeNegocio', "Habilitar cliente",'El cliente ' .  $cliente->nombre . " ".$cliente->apellido .' ha sido habilitado por el usuario '. Help::usuario()->name);
+        $cliente->save();
+        return to_route('socios.cliente.index')->with('success','Se ha habilitado el cliente correctamente');
     }
 
     public function obtenerDepartamentos($paisId)

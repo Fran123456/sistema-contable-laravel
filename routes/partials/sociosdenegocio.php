@@ -45,9 +45,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/obtener-departamentos/{paisId}',[ClienteController::class, 'obtenerDepartamentos'])->name('.obtenerDepartamentos');
         Route::get('/obtener-distritos/{departamentoId}',[ClienteController::class, 'obtenerDistritos'])->name('.obtenerDistritos');
     });
-    //Ruta de clientes
+    //Ruta para habilitar y deshabilitar un cliente
     Route::name('socios')->prefix('socios')->group(function (){
         Route::get('/deshabilitar-cliente/{id}', [ClienteController::class, 'deshabilitarCliente'])->name('.deshabilitarCliente');
+        Route::get('/habilitar-cliente/{id}', [ClienteController::class, 'habilitarCliente'])->name('.habilitarCliente');        
     });
     
 });

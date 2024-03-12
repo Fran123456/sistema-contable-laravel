@@ -4,7 +4,7 @@
       </x-slot>
       <x-slot:subtitle>
       </x-slot>
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
@@ -40,15 +40,16 @@
                     </thead>
                     <tbody>
                         @foreach ($cliente as $key => $item)
-                            <tr>
+                            <tr class="@if($item->activo ==  false) table-danger @endif">
                                 <th scope="row">{{$key + 1}}</th>
                                 <td>{{$item->nombre}} {{$item->apellido}}</td> {{-- Nombre completo --}}
                                 <td>{{$item->clasificacion->tipo}}</td>
                                 <td>{{$item->tipo_cliente}}</td>
                                 <td>{{$item->correo}}</td>
                                 <td><a href="{{route('socios.cliente.show', $item->id)}}" class="btn btn-success" title="Ver cliente"><i class="fas fa-eye"></i></a></td>
-                                <td><a href="{{route('socios.cliente.edit', $item->id)}}" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a></td>
-
+                                <td>
+                                    <a href="{{route('socios.cliente.edit', $item->id)}}" class="btn btn-warning @if(!$item->activo) disabled @endif" title="Editar"><i class="fas fa-edit"></i></a>
+                                </td>
                                 <td>
                                     <form id="form{{ $item->id }}"
                                         action="{{ route('socios.cliente.destroy', $item->id) }}"
@@ -62,7 +63,7 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td><a href="{{route('socios.deshabilitarCliente', $item->id)}}" class="btn btn-warning" title="Deshabilitar Cliente"><i class="fa-solid fa-ban" style="color: #df1111;"></a></td>
+                                <td><a href="{{route('socios.deshabilitarCliente', $item->id)}}" class="btn btn-light @if(!$item->activo) disabled @endif" title="Deshabilitar Cliente"><i class="fa-solid fa-ban" style="color: #df1111;"></a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -71,5 +72,4 @@
         </div>
 
     </div>
-
 </x-app-layout>
