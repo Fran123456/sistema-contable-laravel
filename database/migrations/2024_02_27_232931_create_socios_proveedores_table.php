@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('celular')->nullable();
             $table->string('correo')->nullable();
-            $table->string('pais')->nullable();
+            $table->bigInteger('pais_id')->nullable();
             $table->timestamps();
         });
     }

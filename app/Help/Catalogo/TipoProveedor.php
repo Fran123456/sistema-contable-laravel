@@ -1,6 +1,6 @@
 <?php
 
-namespace App\TipoProveedor;
+namespace App\Help\TipoProveedor;
 
 class TipoProveedor
 {

@@ -101,10 +101,12 @@
                     </div>
                     <div class="col-md-4 mt-2 mb-12">
                         <label for="proveedores_pais"><strong>País</strong></label>
-                        <input type="text" name="pais" class="form-control" readonly value="{{$proveedor->pais}}">
-                    </div>
-                    <div class="col-md-12 mt-4 mb-1">
-                        <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
+                        <select required id="pais" name="pais" class="form-control" readonly required>
+                            <option value="">Selecciona una opción</option>
+                            @foreach ($pais as $pais)
+                            <option value="{{$pais->id}}" @if ($pais->id == $pais->id) selected @endif>{{$pais->pais}}</option>                                                                      
+                            @endforeach    
+                        </select>
                     </div>
                 </div>
             </div>

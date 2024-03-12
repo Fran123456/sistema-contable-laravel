@@ -36,8 +36,9 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Catalogo/TipoPersonalidad.php",
-            "app/Catalogo/TipoProveedor.php"
+            "app/Help/Catalogo/TipoPersonalidad.php",
+            "app/Help/Catalogo/TipoProveedor.php",
+            "app/Help/Cliente/Cliente.php"
         ]
     },
     "autoload-dev": {

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\SociosdeNegocio;
 
 use App\Http\Controllers\Controller;
 use App\Models\SociosdeNegocio\SociosProveedores;
-use App\TipoPersonalidad\TipoPersonalidad;
-use App\TipoProveedor\TipoProveedor;
+use App\Help\TipoPersonalidad\TipoPersonalidad;
+use App\Help\TipoProveedor\TipoProveedor;
+use App\Models\EntidadTerritorial\EntPais;
 use Illuminate\Http\Request;
 use App\Help\Log;
 use App\Help\Help;
@@ -34,7 +35,8 @@ class ProveedoresController extends Controller
         //Usa el helper que envía un array con el tipo de proveedor y tipo de personalidad
         $tipoProveedor = TipoProveedor::proveedor(); 
         $tipoPersonalidad = TipoPersonalidad::personalidad();
-        return view('sociosdenegocio.proveedores.create', compact('tipoProveedor', 'tipoPersonalidad'));
+        $pais = EntPais::all();
+        return view('sociosdenegocio.proveedores.create', compact('tipoProveedor', 'tipoPersonalidad', 'pais'));
     }
 
     /**
@@ -79,7 +81,8 @@ class ProveedoresController extends Controller
         $tipoProveedor = TipoProveedor::proveedor(); 
         $tipoPersonalidad = TipoPersonalidad::personalidad();
         $proveedor = SociosProveedores::find($id);
-        return view('sociosdenegocio.proveedores.show', compact('tipoProveedor', 'tipoPersonalidad', 'proveedor'));
+        $pais = EntPais::all();
+        return view('sociosdenegocio.proveedores.show', compact('tipoProveedor', 'tipoPersonalidad', 'proveedor', 'pais'));
     }
 
     /**
@@ -93,7 +96,8 @@ class ProveedoresController extends Controller
         $proveedor = SociosProveedores::find($id);
         $tipoProveedor = TipoProveedor::proveedor(); 
         $tipoPersonalidad = TipoPersonalidad::personalidad();
-        return view('sociosdenegocio.proveedores.edit', compact('proveedor', 'tipoPersonalidad', 'tipoProveedor'));
+        $pais = EntPais::all();
+        return view('sociosdenegocio.proveedores.edit', compact('proveedor', 'tipoPersonalidad', 'tipoProveedor', 'pais'));
     }
 
     /**
@@ -129,7 +133,7 @@ class ProveedoresController extends Controller
         $proveedor->direccion = $request->direccion;
         $proveedor->celular = $request->celular;
         $proveedor->correo = $request->correo;
-        $proveedor->pais = $request->pais;
+        $proveedor->pais_id = $request->pais_id;
 
         try {
             $proveedor->save();

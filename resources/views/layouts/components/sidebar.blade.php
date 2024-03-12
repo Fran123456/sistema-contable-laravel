@@ -247,6 +247,22 @@
                     </li>
                 </ul>
             </div>
+            <div id="submenu-socios" class="submenu submenu-socios collapse " data-bs-parent="#menu-accordion"
+                style="">
+                <ul class="submenu-list list-unstyled">
+                    <li class="submenu-item">
+                        <a class="submenu-link" href="{{ route('socios.clasificacion.index') }}">Clasificacion de clientes</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="submenu-socios" class="submenu submenu-socios collapse " data-bs-parent="#menu-accordion"
+                style="">
+                <ul class="submenu-list list-unstyled">
+                    <li class="submenu-item">
+                        <a class="submenu-link" href="{{ route('socios.cliente.index') }}">Clientes</a>
+                    </li>
+                </ul>
+            </div>
         </li>
 
 

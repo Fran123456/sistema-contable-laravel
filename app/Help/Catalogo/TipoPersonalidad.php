@@ -1,6 +1,6 @@
 <?php
 
-namespace App\TipoPersonalidad;
+namespace App\Help\TipoPersonalidad;
 
 class TipoPersonalidad
 {
