@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
     //Ruta de Proveedores
     Route::name('socios.')->prefix('socios')->group(function (){
         Route::resource('proveedores', ProveedoresController::class);
+        Route::get('/deshabilitar-proveedor/{id}', [ProveedoresController::class, 'deshabilitarProveedor'])->name('.deshabilitarProveedor');
+        Route::get('/habilitar-proveedor/{id}', [ProveedoresController::class, 'habilitarProveedor'])->name('.habilitarProveedor');        
     });
 
     //Ruta de clasificacion de clientes

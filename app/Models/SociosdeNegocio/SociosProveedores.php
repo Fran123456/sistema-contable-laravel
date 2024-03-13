@@ -23,6 +23,7 @@ class SociosProveedores extends Model
         'celular',
         'correo',
         'pais_id',
+        'activo',
         'created_at',
         'updated_at',
     ];

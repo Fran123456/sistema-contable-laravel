@@ -163,4 +163,22 @@ class ProveedoresController extends Controller
         return to_route('socios.proveedores.index')->with('success','Se ha eliminado el proveedor correctamente');
 
     }
+
+    public function deshabilitarProveedor($id){
+        $proveedor = SociosProveedores::find($id);
+        $proveedor->activo = false;
+
+        Log::log('SociosdeNegocio', "Deshabilitar proveedor",'El proveedor ' .  $proveedor->nombre . ' ha sido deshabilitado por el usuario '. Help::usuario()->name);
+        $proveedor->save();
+        return to_route('socios.proveedores.index')->with('success','Se ha deshabilitado el proveedor correctamente');
+    }
+
+    public function habilitarProveedor($id){
+        $proveedor = SociosProveedores::find($id);
+        $proveedor->activo = true;
+
+        Log::log('SociosdeNegocio', "Habilitar proveedor",'El proveedor ' .  $proveedor->nombre . ' ha sido habilitado por el usuario '. Help::usuario()->name);
+        $proveedor->save();
+        return to_route('socios.proveedores.index')->with('success','Se ha habilitado el proveedor correctamente');
+    }
 }

@@ -35,18 +35,19 @@
                             <th scope="col" width="50" class="text-center"><i class="fas fa-eye"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-edit"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
+                            <th scope="col" width="50" class="text-center"><i class="fa-solid fa-ban"></i></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($proveedores as $key => $item)
-                            <tr>
+                            <tr class="@if($item->activo ==  false) table-danger @endif">
                                 <th scope="row">{{$key + 1}}</th>
                                 <td>{{$item->nombre}}</td>
                                 <td>{{$item->giro}}</td>
                                 <td>{{$item->telefono}}</td>
                                 <td>{{$item->direccion}}</td>
                                 <td><a href="{{route('socios.proveedores.show', $item->id)}}" class="btn btn-success" title="Ver proveedor"><i class="fas fa-eye"></i></a></td>
-                                <td><a href="{{route('socios.proveedores.edit', $item->id)}}" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a></td>
+                                <td><a href="{{route('socios.proveedores.edit', $item->id)}}" class="btn btn-warning @if(!$item->activo) disabled @endif" title="Editar"><i class="fas fa-edit"></i></a></td>
                                 <td>
                                     <form id="form{{ $item->id }}"
                                         action="{{ route('socios.proveedores.destroy', $item->id) }}"
@@ -60,6 +61,7 @@
                                         </button>
                                     </form>
                                 </td>
+                                <td><a href="{{route('socios..deshabilitarProveedor', $item->id)}}" class="btn btn-light @if(!$item->activo) disabled @endif" title="Deshabilitar Proveedor"><i class="fa-solid fa-ban" style="color: #df1111;"></a></td>
                             </tr>
                         @endforeach
                        

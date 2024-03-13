@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('celular')->nullable();
             $table->string('correo')->nullable();
             $table->bigInteger('pais_id')->nullable();
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }

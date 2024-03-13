@@ -16,7 +16,9 @@
     <div class="col-md-12">
         <x-alert></x-alert>
     </div>
-
+    <div class="col-md-12 text-end mb-2">
+        <a class="btn btn-success @if($proveedor->activo) disabled @endif" href="{{route('socios..habilitarProveedor', $proveedor->id)}}" title="Habilitar proveedor">Habilitar</a>
+    </div>
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
