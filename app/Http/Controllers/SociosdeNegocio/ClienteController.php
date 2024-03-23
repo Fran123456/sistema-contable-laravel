@@ -24,7 +24,7 @@ class ClienteController extends Controller
     public function index()
     {
         $cliente = SociosCliente::orderBy('id', 'desc')->get();
-        return view('sociosdenegocio.cliente.index', compact('cliente'));
+        return view('SociosdeNegocio.cliente.index', compact('cliente'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ClienteController extends Controller
         $paises = EntPais::all();
         $clasificacion = SociosClasificacionCliente::orderBy('tipo')->get();
         $usuario_creo = auth()->user();
-        return view('sociosdenegocio.cliente.create', compact('tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'usuario_creo'));
+        return view('SociosdeNegocio.cliente.create', compact('tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'usuario_creo'));
     }
 
     /**
@@ -90,7 +90,7 @@ class ClienteController extends Controller
         $departamento = $cliente->departamento_id;
         $distrito = $cliente->distrito_id;
     
-        return view('sociosdenegocio.cliente.show', compact('cliente','tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'departamento','distrito'));
+        return view('SociosdeNegocio.cliente.show', compact('cliente','tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'departamento','distrito'));
     }
 
     /**
@@ -109,7 +109,7 @@ class ClienteController extends Controller
         $departamento = $cliente->departamento_id;
         $distrito = $cliente->distrito_id;
     
-        return view('sociosdenegocio.cliente.edit', compact('cliente','tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'departamento','distrito'));
+        return view('SociosdeNegocio.cliente.edit', compact('cliente','tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'departamento','distrito'));
 
     }
 
