@@ -2,7 +2,7 @@
 
 namespace App\Models\SociosdeNegocio;
 
-use App\Models\SociosDeNegocio\SociosContacto;
+use App\Models\SociosdeNegocio\SociosContacto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
