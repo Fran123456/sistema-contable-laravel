@@ -22,7 +22,7 @@ class ProveedoresController extends Controller
     public function index()
     {
         $proveedores = SociosProveedores::all();
-        return view('sociosdenegocio.proveedores.index', compact('proveedores'));
+        return view('SociosdeNegocio.Proveedores.index', compact('proveedores'));
     }
 
     /**
@@ -36,7 +36,7 @@ class ProveedoresController extends Controller
         $tipoProveedor = TipoProveedor::proveedor(); 
         $tipoPersonalidad = TipoPersonalidad::personalidad();
         $pais = EntPais::all();
-        return view('sociosdenegocio.proveedores.create', compact('tipoProveedor', 'tipoPersonalidad', 'pais'));
+        return view('SociosdeNegocio.Proveedores.create', compact('tipoProveedor', 'tipoPersonalidad', 'pais'));
     }
 
     /**
@@ -82,7 +82,7 @@ class ProveedoresController extends Controller
         $tipoPersonalidad = TipoPersonalidad::personalidad();
         $proveedor = SociosProveedores::find($id);
         $pais = EntPais::all();
-        return view('sociosdenegocio.proveedores.show', compact('tipoProveedor', 'tipoPersonalidad', 'proveedor', 'pais'));
+        return view('SociosdeNegocio.Proveedores.show', compact('tipoProveedor', 'tipoPersonalidad', 'proveedor', 'pais'));
     }
 
     /**
@@ -97,7 +97,7 @@ class ProveedoresController extends Controller
         $tipoProveedor = TipoProveedor::proveedor(); 
         $tipoPersonalidad = TipoPersonalidad::personalidad();
         $pais = EntPais::all();
-        return view('sociosdenegocio.proveedores.edit', compact('proveedor', 'tipoPersonalidad', 'tipoProveedor', 'pais'));
+        return view('SociosdeNegocio.Proveedores.edit', compact('proveedor', 'tipoPersonalidad', 'tipoProveedor', 'pais'));
     }
 
     /**
