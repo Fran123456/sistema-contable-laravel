@@ -5,7 +5,7 @@ namespace App\Http\Controllers\SociosdeNegocio;
 use App\Http\Controllers\Controller;
 use App\Models\SociosdeNegocio\SociosProveedores;
 use App\Help\TipoPersonalidad\TipoPersonalidad;
-use App\Help\TipoProveedor\TipoProveedor;
+use App\Help\Catalogo\TipoProveedor\TipoProveedor;
 use App\Models\EntidadTerritorial\EntPais;
 use Illuminate\Http\Request;
 use App\Help\Log;
