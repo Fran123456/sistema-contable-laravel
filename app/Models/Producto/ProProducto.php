@@ -16,7 +16,8 @@ class ProProducto extends Model
     protected $fillable=[
         'id',
         'producto',
-        'codigo','imagen','tipo_producto_id','requiere_lote','requiere_vencimiento'
+        'codigo','imagen','tipo_producto_id','requiere_lote','requiere_vencimiento','alerta_stock','descripcion', 'activo','created_at',
+        'updated_at',
     ];
 
     public function categorias(){
@@ -37,7 +38,7 @@ class ProProducto extends Model
 
     public function tipoProducto()
     {
-        return $this->belongsTo(ProTipoProducto::class, 'tipo_producto_id');
+        return $this->belongsTo(ProTipoProducto::class, 'tipo_producto_id')->withDefault();
     }
 
     public function productosPrecios() {

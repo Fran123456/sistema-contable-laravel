@@ -38,7 +38,8 @@
         "files": [
             "app/Help/Catalogo/TipoPersonalidad.php",
             "app/Help/Catalogo/TipoProveedor.php",
-            "app/Help/Cliente/Cliente.php"
+            "app/Help/Cliente/Cliente.php",
+            "app/Help/Producto/Identificador.php"
         ]
     },
     "autoload-dev": {
