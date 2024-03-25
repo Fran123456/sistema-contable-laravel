@@ -33,7 +33,9 @@
                             <th scope="col">Acción</th>
                             <th scope="col">Usuario</th>
                             <th scope="col"> Fecha</th>
+                            @if ($user->hasPermissionTo('general.log.eliminar'))
                             <th width="50" class="text-center" scope="col"><i class="fas fa-trash"></i></th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +48,7 @@
                                 <td>{{ $l->accion }}</td>
                                 <td>{{ $l->usuario->name }}</td>
                                 <td>{{ Help::hour($l->created_at)  }}</td>
+                                @if ($user->hasPermissionTo('general.log.eliminar'))
                                 <td>
                                     <form id="form{{ $l->id }}"
                                         action="{{ route('logs.destroy', $l->id) }}"
@@ -58,6 +61,7 @@
                                             type="button" ><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
 

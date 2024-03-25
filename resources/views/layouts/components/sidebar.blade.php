@@ -26,19 +26,21 @@
 
         <!--//nav-item-->
         <li class="nav-item">
-            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+
             @if (Help::usuario()->empresa_id != null)
-                <!-- <a class="nav-link" href="{{ route('users.index') }}">
-                    <span class="nav-icon">
-                        <i class="fas fa-users"></i>
-                    </span>
-                    <span class="nav-link-text">Usuarios</span>
-                </a>-->
+               
+                
+                @include('layouts.components.menus.seguridad')
 
+                @include('layouts.components.menus.rrhh')
 
+                @include('layouts.components.menus.contabilidad')
 
+                @include('layouts.components.menus.sociosnegocio')
 
+                @include('layouts.components.menus.productos')
 
+<<<<<<< HEAD
 
         <li class="nav-item has-submenu">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
@@ -305,6 +307,9 @@
 
         </li>
         @endif
+=======
+            @endif
+>>>>>>> fe5def407691c64eef4aa03cfbd0d48cb094fd8c
 
 
         <!--//nav-link-->

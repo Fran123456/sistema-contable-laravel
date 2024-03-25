@@ -17,7 +17,7 @@ class ClasificacionClienteController extends Controller
     public function index()
     {
         $tipos = SociosClasificacionCliente::all();
-        return view('sociosdenegocio.clasificacioncliente.index', compact('tipos'));
+        return view('SociosdeNegocio.ClasificacionCliente.index', compact('tipos'));
     }
 
     /**
@@ -73,7 +73,7 @@ class ClasificacionClienteController extends Controller
     public function edit($id)
     {
         $tipo = SociosClasificacionCliente::find($id);
-        return view('sociosdenegocio.clasificacioncliente.edit', compact('tipo'));
+        return view('SociosdeNegocio.ClasificacionCliente.edit', compact('tipo'));
     }
 
     /**

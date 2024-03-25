@@ -50,6 +50,14 @@
             background-color: #5cb377;
             border-color: #5cb377;
         }
+        .app-sidepanel .sidepanel-inner {
+            position: relative;
+            z-index: 10;
+            background: #fff;
+            box-shadow: rgba(0,0,0,.05) 0px 8px 15px;
+            width: 220px;
+            height: 100%;
+        }
     </style>
     <script src="{{ asset('js/jquery-3.6.4.min.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
@@ -115,13 +123,19 @@
             <!--//container-fluid-->
         </div>
         <!--//app-header-inner-->
+        <style>
+            .app-branding .logo-icon {
+                width: 136px;
+                height: 136px;
+            }
+        </style>
         <div id="app-sidepanel" class="app-sidepanel sidepanel-hidden">
             <div id="sidepanel-drop" class="sidepanel-drop"></div>
             <div class="sidepanel-inner d-flex flex-column">
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
-                <div class="app-branding">
-                    <a class="app-logo" href="index.html"><img class="logo-icon me-2"
-                            src="{{ asset(Help::getConfigByKey('general', 'logo')->value) }}" alt="logo"></a>
+                <div class="app-branding" style="text-align:center">
+                    <a class="app-logo" href="{{ route('dashboard') }}"><img style="width: 60px; height: 60px;text-align:center" class="logo-icon me-2"
+                           src="{{ asset(Help::getConfigByKey('general', 'logo')->value) }}" alt="logo"></a>
 
                 </div>
                 <!--//app-nav-->

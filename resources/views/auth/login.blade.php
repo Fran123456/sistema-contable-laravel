@@ -6,7 +6,7 @@
 
           
          <div class="text-center">
-            <img class="img-fluid" src="{{ asset(Help::getConfigByKey('general','logo')->value ) }}" />
+            <img class="img-fluid" width="200" height="200" src="{{ asset(Help::getConfigByKey('general','logo')->value ) }}" />
          </div>
 
             <x-jet-validation-errors class="mb-3 rounded-0" />
@@ -46,11 +46,11 @@
 
                 <div class="mb-0">
                     <div class="d-flex justify-content-end align-items-baseline">
-                        @if (Route::has('password.request'))
+                       {{--  @if (Route::has('password.request'))
                             <a class="text-muted me-3" href="{{ route('password.request') }}">
                                 {{ __('Has olvidado tu contraseña?') }}
                             </a>
-                        @endif
+                        @endif --}}
 
                         <x-jet-button>
                             {{ __('Accede') }}
