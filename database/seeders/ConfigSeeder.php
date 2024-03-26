@@ -111,16 +111,6 @@ class ConfigSeeder extends Seeder
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
-        
-        DB::table('config')->insert([
-            'category' => 'contabilidad',
-            'title' => 'Cantidad de digitos del correlativo de partidas contables',
-            'description'=>'Acción que nos permite poder modificar la cantidad de digitos que tendra el correlativo al crear partidads contables',
-            'field'=> 'correlativo',
-            'value'=>'5',
-            'created_at'=>date("Y-m-d h:i:s"),
-            'updated_at'=>date("Y-m-d h:i:s"),
-        ]);
 
         DB::table('config')->insert([
             'category' => 'producto',
