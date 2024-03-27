@@ -1,11 +1,11 @@
-@extends('metronic.base')
+{{-- @extends('metronic.base')
 
 
 @section('titulo')
     Productos - editar
 @endsection
 
-@section('content')
+@section('content') --}}
     {{-- <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -16,7 +16,7 @@
 
 
 
-    @include('sessions')
+    {{-- @include('sessions')
     <h2 style="text-align: center">Producto: {{ $data->producto }}</h2>
 
 
@@ -109,4 +109,117 @@
         @include('producto.producto.precios')
 
     </div>
-@endsection
+@endsection --}}
+
+
+<x-app-layout>
+    <x-chosen></x-chosen>
+   <x-slot:title>
+       Editar producto
+    </x-slot>
+
+    <x-slot:subtitle>
+    </x-slot>
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('producto.producto.index')}}">Productos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editar producto</li>
+        </ol>
+    </div>
+    <div class="col-md-12">
+        <x-alert></x-alert>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{route('producto.producto.update', $producto) }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="row">
+                        <div class="col-md-4 mt-3">
+                            <label for="producto_codigo"> <strong>Codigo</strong> </label>
+                            <input type="text" name="codigo" class="form-control" value={{$producto->codigo}} readonly>
+                            @error('codigo')
+                                {{$message}}
+                            @enderror
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <label for="producto_nombre"> <strong>Nombre</strong> </label>
+                            <input type="text" name="producto" class="form-control" value="{{$producto->producto}}" required>
+                            @error('producto')
+                                {{$message}}
+                            @enderror
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <label for="producto_tipo"> <strong>Tipo de producto</strong> </label>
+                            <select name="tipo_producto_id" id="tipo_producto_id" class="form-control">
+                               <option value="">Selecciona una opción</option> 
+                               @foreach ($tipoProductos as $tipoProducto)
+                                    <option value="{{$tipoProducto->id}}" @if ($tipoProducto->id == $producto->tipo_producto_id) selected @endif>
+                                        {{$tipoProducto->tipo}}
+                                    </option>                                   
+                               @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <label for="producto_stock"> <strong>Stock</strong> </label>
+                            <input type="number" name="alerta_stock" class="form-control" value="{{$producto->alerta_stock}}">
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <label for="producto_lote"> <strong>Requiere lote</strong> </label>
+                            <select name="requiere_lote" id="requiere_lote" class="form-control">
+                                <option value=""> Selecciona una opción </option>
+                                <option value="1" {{$producto->requiere_lote === 1 ? 'selected' : ' '}}> Si </option>
+                                <option value="0" {{$producto->requiere_lote === 0 ? 'selected' : ' '}}> No </option>
+                            </select>
+                        </div>   
+                        <div class="col-md-4 mt-3">
+                            <label for="producto_vencimiento"> <strong>¿Tiene fecha de vencimiento?</strong> </label>
+                            <select name="requiere_vencimiento" id="requiere_vencimiento" class="form-control">
+                                <option value=""> Selecciona una opción </option>
+                                <option value="1" {{$producto->requiere_vencimiento === 1 ? 'selected' : ' '}}> Si </option>
+                                <option value="0" {{$producto->requiere_vencimiento === 0 ? 'selected' : ' '}}> No </option>
+                            </select>
+                        </div> 
+                        <div class="col-md-4 mt-3">
+                            <label for="producto_activo"> <strong>Activo</strong> </label>
+                            <select name="activo" id="activo" class="form-control">
+                                <option value=""> Selecciona una opción </option>
+                                <option value="1" {{$producto->activo === 1 ? 'selected' : ' '}}> Activo </option>
+                                <option value="0" {{$producto->activo === 0 ? 'selected' : ' '}}> Inactivo </option>
+                            </select>
+                        </div>     
+                        <div class="col-md-4 mt-3">
+                            <label for="producto_descripcion"> <strong>Descripción</strong> </label>
+                            <textarea name="descripcion" class="form-control" cols="30" rows="10">{{$producto->descripcion}}</textarea>
+                        </div>   
+                        <div class="col-md-4 mt-3 ">
+                            <label for="producto_imagen"><strong>Imagen</strong></label>
+                            <input class="form-control" type="file" name="imagen" id="imagen" accept="image/png, image/jpg, image/jpeg" value="{{$producto->imagen}}">
+                        </div> 
+                        <div class="row">
+                            @if ($producto->imagen)
+                                <div class=" row ">
+                                    <div class=" col-md-6 mt-2 mb-12 ">
+                                        <label for="imagen_producto"><strong>Imagen actual</strong></label>
+                                    </div>
+                                </div>
+                                <div class=" row ">
+                                        <div class=" col-md-12 mt-2 mb-12 ">
+                                            <img src="/productos/{{$producto->imagen }}" alt="Imagen producto" style=" max-width:300px; max-height:200px;">
+                                        </div>
+                                </div>
+                            @endif
+                        </div>   
+                        <div class="col-md-12 mt-4 mb-1">
+                            <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</x-app-layout>

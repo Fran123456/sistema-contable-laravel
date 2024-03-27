@@ -5,7 +5,13 @@
 @endphp
 
 @if ($user->hasPermissionTo('rrhh.empresa')||$user->hasPermissionTo('rrhh.area')||$user->hasPermissionTo('rrhh.departamento')
-||$user->hasPermissionTo('rrhh.periodoPlanilla'))
+||$user->hasPermissionTo('rrhh.periodoPlanilla')
+||$user->hasPermissionTo('rrhh.incapacidades')
+||$user->hasPermissionTo('rrhh.permisos')
+||$user->hasPermissionTo('rrhh.cargos')
+||$user->hasPermissionTo('rrhh.apf')
+||$user->hasPermissionTo('rrhh.ingresos')
+)
 <li class="nav-item has-submenu">
     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
     <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-rrhh"
@@ -77,6 +83,7 @@
     </div>
     @endif
 
+    @if ($user->hasPermissionTo('rrhh.incapacidades'))
     <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
         style="">
         <ul class="submenu-list list-unstyled">
@@ -84,6 +91,9 @@
                     href="{{ route('rrhh.obtenerIncapacidades') }}">Incapacidades</a></li>
         </ul>
     </div>
+    @endif
+
+    @if ($user->hasPermissionTo('rrhh.permisos'))
     <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
         style="">
         <ul class="submenu-list list-unstyled">
@@ -91,8 +101,9 @@
                     href="{{ route('rrhh.permisos.index') }}">Permisos</a></li>
         </ul>
     </div>
+    @endif
 
-
+    @if ($user->hasPermissionTo('rrhh.cargos'))
     <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
         style="">
         <ul class="submenu-list list-unstyled">
@@ -100,7 +111,9 @@
                     href="{{ route('rrhh.puesto.index') }}">Puestos</a></li>
         </ul>
     </div>
+@endif
 
+@if ($user->hasPermissionTo('rrhh.apf'))
     <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
         style="">
         <ul class="submenu-list list-unstyled">
@@ -108,7 +121,9 @@
             </li>
         </ul>
     </div>
+@endif
 
+@if ($user->hasPermissionTo('rrhh.ingresos'))
     <div id="submenu-rrhh" class="submenu submenu-rrhh collapse " data-bs-parent="#menu-accordion"
         style="">
         <ul class="submenu-list list-unstyled">
@@ -117,4 +132,5 @@
         </ul>
     </div>
 </li>
+@endif
 @endif

@@ -52,7 +52,7 @@ class ContactoController extends Controller
         $request->validate([
             'nombre'=> 'required|string|max:200',
             'apellido'=> 'required|string|max:200',
-            'telefono'=> 'required|string|max:8',
+            'telefono'=> 'required|string|max:16',
             'cargo_id'=> 'required|string',
             'estado'=> 'required|string',
             'cv' => 'mimes:pdf,docx',

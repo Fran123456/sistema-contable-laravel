@@ -23,7 +23,15 @@
             <li class="submenu-item">
                 <a class="submenu-link" href="{{ route('producto.categoria.index') }}">Categorias</a>
             </li>
+        </ul> 
+
+        <ul class="submenu-list list-unstyled">
+            <li class="submenu-item">
+                <a class="submenu-link" href="{{ route('producto.producto.index') }}">Productos</a>
+            </li>
         </ul>
+    
     </div>
 
+  
 </li>
