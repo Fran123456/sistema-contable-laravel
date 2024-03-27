@@ -167,11 +167,18 @@ class ClienteController extends Controller
     
     public function deshabilitarCliente($id){
         $cliente = SociosCliente::find($id);
-        $cliente->activo = false;
+        $mensaje ='deshabilitado';
+        if($cliente->activo){
+            $cliente->activo =false;
+        }else{
+            $cliente->activo = true;
+            $mensaje ='habilitado';
+        }
+      
 
         Log::log('SociosdeNegocio', "Deshabilitar cliente",'El cliente ' .  $cliente->nombre . " ".$cliente->apellido .' ha sido deshabilitado por el usuario '. Help::usuario()->name);
         $cliente->save();
-        return to_route('socios.cliente.index')->with('success','Se ha deshabilitado el cliente correctamente');
+        return to_route('socios.cliente.index')->with('success','Se ha '.$mensaje.' el cliente correctamente');
     }
 
     public function habilitarCliente($id){

@@ -4,7 +4,7 @@
       </x-slot>
       <x-slot:subtitle>
       </x-slot>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
@@ -28,10 +28,10 @@
                     <thead>
                         <tr>
                             <th scope="col" width="40">#</th>
-                            <th scope="col">Nombre completo</th>
-                            <th scope="col">Clasificacion del cliente</th>
-                            <th scope="col">Tipo de cliente</th>
-                            <th scope="col">Correo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Clasificación</th>
+                            <th scope="col">Tipo</th>
+
                             <th scope="col" width="50" class="text-center"><i class="fas fa-eye"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-edit"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
@@ -41,12 +41,12 @@
                     <tbody>
                         @foreach ($cliente as $key => $item)
                             <tr class="@if($item->activo ==  false) table-danger @endif">
-                                <th scope="row">{{$key + 1}}</th>
+                                <td scope="row">{{$key + 1}}</td>
                                 <td>{{$item->nombre}} {{$item->apellido}}</td> {{-- Nombre completo --}}
                                 <td>{{$item->clasificacion->tipo}}</td>
                                 <td>{{$item->tipo_cliente}}</td>
-                                <td>{{$item->correo}}</td>
-                                <td><a href="{{route('socios.cliente.show', $item->id)}}" class="btn btn-success" title="Ver cliente"><i class="fas fa-eye"></i></a></td>
+                                
+                                <td><a target="_blank" href="{{route('socios.cliente.show', $item->id)}}" class="btn btn-success" title="Ver cliente"><i class="fas fa-eye"></i></a></td>
                                 <td>
                                     <a href="{{route('socios.cliente.edit', $item->id)}}" class="btn btn-warning @if(!$item->activo) disabled @endif" title="Editar"><i class="fas fa-edit"></i></a>
                                 </td>
@@ -63,7 +63,7 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td><a href="{{route('socios.deshabilitarCliente', $item->id)}}" class="btn btn-light @if(!$item->activo) disabled @endif" title="Deshabilitar Cliente"><i class="fa-solid fa-ban" style="color: #df1111;"></a></td>
+                                <td><a href="{{route('socios.deshabilitarCliente', $item->id)}}" class="btn btn-light" title="Deshabilitar Cliente"><i class="fa-solid fa-ban" style="color: #df1111;"></a></td>
                             </tr>
                         @endforeach
                     </tbody>
