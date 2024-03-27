@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto\ProCategoria;
 use App\Models\Producto\ProductoCategoria;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Help\Help;
 class CategoriaController extends Controller
 {
     /**
@@ -44,7 +44,8 @@ class CategoriaController extends Controller
     {
         ProCategoria::create([
             'categoria' => $request->categoria,
-            'pro_categoria_id' => $request->pro_categoria_id]);
+            'empresa_id'=>Help::usuario()->empresa_id 
+        ]);
         return back()->with('success', 'Se ha agregado la categoria correctamente');
     }
 

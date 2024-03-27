@@ -8,7 +8,7 @@
 
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item active" aria-current="page">Categorias de productos</li>
         </ol>
     </div>
@@ -16,9 +16,26 @@
         <x-alert></x-alert>
     </div>
 
-    <div class="col-md-12 text-end mb-4">
-        <a class="btn btn-success" href="{{ route('rrhh.afp.create') }}"> <i class="fas fa-user-plus"></i> </a>
+
+    <div class="col-md-12">
+        <form action="{{route('producto.categoria.store') }}" method="post">
+            @csrf
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <label for="socios_clasificacion"> <strong>Categoria</strong> </label>
+                    <input type="text" name="categoria" class="form-control" required>
+                   
+                </div>
+                
+                <div class="col-md-12 mb-3 mt-3">
+                    <button class="btn btn-primary mb-2" style="color:white;" type="submit"> <i class="fas fa-save"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
+
+   
 
     <div class="col-md-12">
 
@@ -39,10 +56,7 @@
                                 <tr>
 
                                     <th scope="row">{{ $key + 1 }}</th>
-
                                     <td>{{ $item->categoria }}</td>
-
-
 
                                     <td>
                                         <form id="form{{ $item->id }}"
