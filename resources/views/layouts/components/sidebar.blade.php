@@ -167,7 +167,7 @@
         </li>
 
 
-        <li class="nav-item has-submenu">
+        {{-- <li class="nav-item has-submenu">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
             <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-1"
                 aria-expanded="true" aria-controls="submenu-1">
@@ -203,7 +203,7 @@
                             href="{{ route('contabilidad.reportes') }}">Reportes</a></li>
                 </ul>
             </div>
-        </li>
+        </li> --}}
         @endif
 
 

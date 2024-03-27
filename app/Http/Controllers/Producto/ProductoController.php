@@ -10,7 +10,8 @@ use App\Models\Producto\ProTipoProducto;
 use App\Help\Producto\Producto;
 use App\Help\Help;
 use App\Help\log;
-
+use App\Models\Producto\ProCategoria;
+use App\Models\Producto\ProductoCategoria;
 
 class ProductoController extends Controller
 {
@@ -21,7 +22,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = ProProducto::orderBy('id', 'desc')->get();
+        $productos = ProProducto::with('categorias')->orderBy('id', 'desc')->get();
+        //$productos = ProProducto::orderBy('id', 'desc')->get();
         return view('producto.producto.index', compact('productos'));
 
     }
@@ -35,7 +37,8 @@ class ProductoController extends Controller
     {
         $codigoProducto = Producto::identificador();
         $tipoProductos = ProTipoProducto::all();
-        return view('producto.producto.create', compact('tipoProductos', 'codigoProducto'));
+        $categorias = ProCategoria::all();
+        return view('producto.producto.create', compact('tipoProductos', 'codigoProducto', 'categorias'));
     }
 
     /**
@@ -51,7 +54,7 @@ class ProductoController extends Controller
             'foto' => 'image|mimes:jpg,png,jpeg',
             'codigo' => 'required|string|max:9|unique:pro_producto,codigo',
         ]);
-
+        
         $producto = ProProducto::create([
             'producto' => $request->producto,
             'descripcion' => $request->descripcion,
@@ -63,6 +66,8 @@ class ProductoController extends Controller
             'alerta_stock' => $request->alerta_stock,
             'activo' => $request->activo, 
         ]);
+        
+        $producto->categorias()->attach($request->categorias);
 
         if($request->hasFile('imagen')){
             $producto->imagen = Help::uploadFile($request, 'productos', '', 'imagen', $ramdonName = true);
@@ -101,9 +106,15 @@ class ProductoController extends Controller
     public function edit($id)
     {
         $producto = ProProducto::find($id);
+        
+        //Categorias asociadas al producto
+        $categoriaProducto = $producto->categorias;
         $tipoProductos = ProTipoProducto::all();
 
-        return view('producto.producto.edit', compact('producto','tipoProductos'));
+        //Todas las categorias 
+        $categorias = ProCategoria::all();
+
+        return view('producto.producto.edit', compact('producto','tipoProductos', 'categorias', 'categoriaProducto'));
         
     }
 
@@ -121,24 +132,31 @@ class ProductoController extends Controller
             'foto' => 'image|mimes:jpg,png,jpeg',
         ]);
 
-        $producto = ProProducto::find($id);
+        $producto = ProProducto::findOrFail($id);
         $url_imagen = $producto->imagen;
 
         if($request->hasFile('imagen')){
             $imagen = $request->file('imagen');
-            $eliminar = 'cv/'.$producto->imagen;
+            $eliminar = 'productos/'.$producto->imagen;
             if (Storage::exists($eliminar)) {
                 Storage::delete($eliminar);
             }
             $producto->imagen = Help::uploadFile($request, 'productos', '','imagen', $ramdonName = true);
         }
-
+        
         $producto->update($request->all());
-
+        
+        //Verifica si la categoria no es duplicada
+        if ($producto->categorias->contains($request->categoria)) {
+            return redirect()->route('producto.producto.edit', $id)->with('danger', 'Categoria duplicada');
+        }
+        // Agrega las nuevas categorías asociadas al producto
+        $producto->categorias()->syncWithoutDetaching($request->categoria);
+        
         try {
             $producto->save();
-            Log::log('Producto', "Editar prodcuto",'El usuario ' .  $producto->producto . " ".' ha sido actualizado por el usuario '. Help::usuario()->name);
-            return to_route('producto.producto.index')->with('success', 'Producto actualizado correctamente');
+            Log::log('Producto', "Editar producto",'El producto ' .  $producto->producto . " ".' ha sido actualizado por el usuario '. Help::usuario()->name);
+            return to_route('producto.producto.edit', $id)->with('success', 'Producto actualizado correctamente');
 
         } catch (Exception $e) {
             Log::log('Producto', 'Producto error al actualizar el producto', $e);
@@ -162,9 +180,18 @@ class ProductoController extends Controller
             Storage::delete($url);
         }
 
+        $producto->categorias()->detach();
+        
         Log::log('Producto', "Eliminar prodcuto",'El producto' .  $producto->producto . " ". ' ha sido eliminado por el usuario '. Help::usuario()->name);
         $producto->delete();
         return to_route('producto.producto.index')->with('success','Se ha eliminado el producto correctamente');
 
+    }
+
+    // Elimina la categoria asociada a un producto
+    public function eliminarCategoria($id, $categoriaId){
+        $producto = ProProducto::find($id);
+        $producto->categorias()->detach($categoriaId);
+        return to_route('producto.producto.edit', $id)->with('success','Se ha eliminado la categoria correctamente');
     }
 }
