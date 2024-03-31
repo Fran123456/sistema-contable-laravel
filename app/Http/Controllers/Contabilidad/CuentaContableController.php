@@ -30,8 +30,9 @@ class CuentaContableController extends Controller
      */
     public function index()
     {
-
+      
         $cuentas = ContaCuentaContable::where('empresa_id',Help::empresa())->get();
+      
        return view('contabilidad.cuenta_contable.index',compact('cuentas'));
     }
 

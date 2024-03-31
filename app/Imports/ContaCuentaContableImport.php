@@ -62,9 +62,9 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
             'nivel'=>$nivel, 'clasificacion'=> $clasificacion,'saldo'=>$saldo );
 
             $error = false;
-            $nivelDB = ContaNivelCuenta::where('empresa_id', $this->empresa)->where('digitos',$nivel)->first();
+            $nivelDB = ContaNivelCuenta::where('empresa_id', $this->empresa)->where('nivel',$nivel)->first();
             if($nivelDB==null){
-                array_push($this->errores, array( $obj, "Error, No se ha encontrado el nivel en la base de datos"  ) );
+                array_push($this->errores, array( $obj, "Error, No se ha encontrado el nivel en la base de datos " . $nivel  ) );
                 $error = true;
             }
 

@@ -69,6 +69,7 @@ class ConfiguracionController extends Controller
             foreach ($acopiar as $key => $value) {
                 ContaNivelCuenta::create([
                  'nivel'=> $value->nivel,
+                 'digitos'=> $value->digitos,
                  'empresa_id'=>$empresaApasar->id,
              ]);
             }
