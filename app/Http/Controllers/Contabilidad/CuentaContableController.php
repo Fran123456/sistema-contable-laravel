@@ -104,7 +104,7 @@ class CuentaContableController extends Controller
 
        //$help = Help::uploadFile($request, 'import-excel-cuentas', '', 'excel', false);
         try {
-            DB::table('conta_cuenta_contable')->delete();
+            DB::table('conta_cuenta_contable')->where('empresa_id', Help::empresa())->delete();
             $import = new ContaCuentaContableImport(Help::empresa());
             Excel::import($import, request()->file('excel'));
             $rows        = $import->getNumeroFilas();

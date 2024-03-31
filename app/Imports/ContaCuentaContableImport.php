@@ -55,7 +55,7 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
             $nombreCuenta = utf8_decode($row['nombre_cuenta']);
             $codigoPadre = $row['codigo_padre'];
             $nivel = $row['nivel'];
-            $clasificacion = $row['clasificacion'];
+            $clasificacion = strtolower($row['clasificacion']);
             $saldo = $row['saldo'];
             $tipoCuenta = $row['tipo_cuenta'];
             $obj = array('codigo'=>$codigo, 'nombre_cuenta'=>$nombreCuenta ,'codigo_padre'=>$codigoPadre,
