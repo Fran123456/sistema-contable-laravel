@@ -1,7 +1,11 @@
 <x-app-layout>
+
+
+    @if (Help::periodoContable())
     <x-slot:title>
-        Listado de partidas contables periodo {{ Help::getNameMothByNumber(  ltrim(Help::periodoContable()->mes, "0")) }} {{ Help::periodoContable()->year }}
+        Listado de partidas contables periodo {{ Help::getNameMothByNumber(  ltrim(Help::periodoContable()?->mes, "0")) }} {{ Help::periodoContable()->year }}
     </x-slot>
+    @endif
 
     <x-slot:subtitle>
         {{--Periodo {!! Help::periodoContable()?->codigo!!}  --}}
