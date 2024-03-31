@@ -62,9 +62,18 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
             'nivel'=>$nivel, 'clasificacion'=> $clasificacion,'saldo'=>$saldo );
 
             $error = false;
+
+            $cuentaEncontrada = ContaCuentaContable::where('empresa_id', $this->empresa)->where('codigo',$row['codigo'])->first();
+            if($cuentaEncontrada!=null){
+                array_push($this->errores, array( $obj, "Error, la cuenta contable ya existe, se hizo caso omiso de dicha cuenta en el proceso "  ) );
+                $error = true;
+            }
+
+
+            
             $nivelDB = ContaNivelCuenta::where('empresa_id', $this->empresa)->where('nivel',$nivel)->first();
             if($nivelDB==null){
-                array_push($this->errores, array( $obj, "Error, No se ha encontrado el nivel en la base de datos " . $nivel  ) );
+                array_push($this->errores, array( $obj, "Error, No se ha encontrado el nivel en la base de datos "  ) );
                 $error = true;
             }
 
@@ -80,7 +89,7 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
                 $error = true;
             }
 
-            if($error==false){
+            if($error==false ){
 
                 ContaCuentaContable::create([
                     'codigo'=>$codigo , 'nombre_cuenta'=> $nombreCuenta, 'padre_id'=>$padreDB->id??null ,
