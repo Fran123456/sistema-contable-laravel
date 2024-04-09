@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Producto\ProCategoria;
 use App\Models\Producto\ProTipoPrecio;
-
+use App\Models\SociosdeNegocio\SociosProveedores;
 class ProProducto extends Model
 {
     use HasFactory;
@@ -43,6 +43,11 @@ class ProProducto extends Model
 
     public function productosPrecios() {
         return $this->hasMany(ProProductoTipoPrecio::class, 'producto_id');
+    }
+
+    public function proveedores(){
+        return $this->belongsToMany(SociosProveedores::class, 'pro_producto_proveedor', 'producto_id', 'proveedor_id')
+        ->withPivot(['precio_unitario','codigo', 'producto', 'id']);
     }
 
 }

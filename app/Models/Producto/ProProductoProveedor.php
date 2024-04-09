@@ -20,14 +20,14 @@ class ProProductoProveedor extends Model
     {
         return $this->belongsTo(ProProducto::class, "producto_id");
     }
-    public function proveedor()
-    {
-        return $this->belongsTo(Supplier::class, "proveedor_id");
-    }
+    // public function proveedor()
+    // {
+    //     return $this->belongsTo(Supplier::class, "proveedor_id");
+    // }
 
-    public function proveedores($productoVenta){
-        return ProProductoProveedor::with('proveedor')->where('producto_id', $productoVenta)->get();
-    }
+    // public function proveedores($productoVenta){
+    //     return ProProductoProveedor::with('proveedor')->where('producto_id', $productoVenta)->get();
+    // }
 
 
 

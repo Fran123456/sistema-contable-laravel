@@ -5,6 +5,7 @@ namespace App\Models\SociosdeNegocio;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EntidadTerritorial\EntPais;
+use App\Models\Producto\ProProducto;
 
 class SociosProveedores extends Model
 {
@@ -30,5 +31,9 @@ class SociosProveedores extends Model
 
     public function pais(){
         return $this->belongsTo(EntPais::class, 'pais_id')->withDefault();
+    }
+
+    public function productos(){
+        return $this->belongsToMany(ProProducto::class, 'pro_producto_proveedor', 'producto_id', 'proveedor_id');
     }
 }

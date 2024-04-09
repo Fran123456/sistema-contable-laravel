@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Producto\CategoriaController;
 use App\Http\Controllers\Producto\ProductoController;
+use App\Http\Controllers\Producto\ProductoProveedorController;
 
 Route::middleware(['auth'])->group(function () {
     Route::name('producto.')->prefix("producto")->group(function () {
@@ -9,4 +10,10 @@ Route::middleware(['auth'])->group(function () {
         //Elimina la categoria que esta asociada al producto
         Route::delete('eliminarCategoria/{producto}/{categoria}', [ProductoController::class, 'eliminarCategoria'])->name('eliminarCategoria');
     });
+
+    //Rutas para asociar productos a proveedores
+    Route::name('producto.')->prefix("producto")->group(function () {
+        Route::resource('producto_proveedor', ProductoProveedorController::class);
+    });
 });
+
