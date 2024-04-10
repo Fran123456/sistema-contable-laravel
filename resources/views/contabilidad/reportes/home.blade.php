@@ -42,7 +42,7 @@ $(document).ready(function(){
         </div>
         @include('contabilidad.reportes.modal.modal_balance_saldos')
 
-        <div class="col-md-4 mt-2">
+        {{-- <div class="col-md-4 mt-2">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Libro Diario Mayor</h5>
@@ -53,7 +53,7 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
-        @include('contabilidad.reportes.modal.modal_libro_diario_mayor')
+        @include('contabilidad.reportes.modal.modal_libro_diario_mayor') --}}
 
         <div class="col-md-4 mt-2">
             <div class="card">

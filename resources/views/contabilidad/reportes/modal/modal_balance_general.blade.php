@@ -24,8 +24,10 @@
               <div class="col-md-12">
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button style="color: white" type="button" class="btn btn-primary">PDF</button>
-                  <button style="color: white" type="button" class="btn btn-primary">EXCEL</button>
+                  <button disabled style="color: white" type="button" class="btn btn-primary">En remodelación</button>
+                
+                 {{--  <button style="color: white" type="button" class="btn btn-primary">PDF</button>
+                  <button style="color: white" type="button" class="btn btn-primary">EXCEL</button> --}}
                 </div>
               </div>
              </div>

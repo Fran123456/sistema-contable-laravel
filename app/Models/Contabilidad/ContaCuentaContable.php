@@ -50,11 +50,11 @@ class ContaCuentaContable extends Model
     }
 
     public function buscarPadre($cuenta, $nivel){ //int
-            $cuenta = ContaCuentaContable::find($cuenta)->padre; //objeto
-                if ( strlen($cuenta->codigo) == $nivel  ) {
+            $cuenta = ContaCuentaContable::find($cuenta)?->padre; //objeto
+                if ( strlen($cuenta?->codigo) == $nivel  ) {
                         return $cuenta; //retornar objeto
                 }else{
-                       return $this->buscarPadre($cuenta->id,$nivel); //retornar id
+                       return $this->buscarPadre($cuenta?->id,$nivel); //retornar id
                 }
 
     }

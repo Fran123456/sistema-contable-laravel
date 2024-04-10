@@ -3,6 +3,7 @@
 namespace App\Help\Contabilidad;
 
 use App\Models\Contabilidad\ContaCuentaContable;
+use App\Models\Contabilidad\ContaClasificacionCuenta;
 use Illuminate\Support\Facades\DB;
 use App\Help\Help;
 class ReportesContables
@@ -23,10 +24,14 @@ class ReportesContables
 
 
     public static function debeHaberPorCuentaByFechaGroupByCuenta($fechai, $fechaf){
+        $empresaId = Help::empresa();
+        $clasificacion =ContaClasificacionCuenta::where('clasificacion', 'detalle')->where('empresa_id', $empresaId)->first();
+
          return    DB::select("SELECT c.id, c.codigo,c.nombre_cuenta from conta_detalle_partida_contable tc
                              JOIN conta_partida_contable pc on tc.partida_id = pc.id
                              JOIN conta_cuenta_contable c on tc.cuenta_contable_id = c.id
-                             WHERE c.clasificacion_id=2 AND
+                             WHERE c.clasificacion_id=$clasificacion->id 
+                             and c.empresa_id = $empresaId AND
                                    (tc.fecha_contable  BETWEEN ? AND ?)
                                GROUP BY c.id
                                ORDER BY codigo desc",[$fechai,$fechaf]);

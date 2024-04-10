@@ -9,7 +9,7 @@ use App\Help\PDF\EasyTable\Styles;
 use App\Help\Contabilidad\ReportesContables;
 use App\Models\Contabilidad\ContaCuentaContable;
 
-
+use App\Models\Contabilidad\ContaClasificacionCuenta;
 class BalanceComprobacionRptNew
 {
 
@@ -44,16 +44,20 @@ class BalanceComprobacionRptNew
         $table->printRow();
 
         $cuentas1 = null;
-        $numeros = [1, 2, 3, 4, 5, 6];
+        $numeros = [1, 2, 3, 4, 5, 6,7,8 ];
         $superTotalHaber = 0;
         $superTotalDebe = 0;
         $supersaldo = 0;
         $debetotal = 0;
         $habertotal = 0;
-
+        $empresaId = Help::empresa();
+        $clasificacion =ContaClasificacionCuenta::where('clasificacion', 'detalle')->where('empresa_id', $empresaId)->first();
         foreach ($numeros as $key => $n) {
 
-            $cuentas1 = ContaCuentaContable::where('codigo', 'like', $n . '%')->where('clasificacion_id', 2)->orderBy('codigo')->get();
+            $cuentas1 = ContaCuentaContable::where('codigo', 'like', $n . '%')
+            ->where('clasificacion_id', $clasificacion->id)
+            ->where('empresa_id', $empresaId)
+            ->orderBy('codigo')->get();
             $data1 = array();
 
 

@@ -49,7 +49,7 @@ class ReportesContablesController extends Controller
             return Excel::download(new BalanceComprobacionRptExcel($request->fechai, $request->fechaf, $cuentas), "balance-comprobacion-${f}.xlsx");
         }*/
         $data = ReportesContables::debeHaberPorCuentaByFechaGroupByCuenta($request->fechai, $request->fechaf);
-
+   
         return BalanceComprobacionRptNew::report($request->fechai, $request->fechaf, $data);
         //return BalanceComprobacionRpt::report($request->fechai, $request->fechaf, $cuentas);
     }
