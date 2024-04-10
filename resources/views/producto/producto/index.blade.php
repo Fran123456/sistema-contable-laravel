@@ -309,7 +309,8 @@
                             <th scope="col" width="40">#</th>
                             <th scope="col">Codigo</th>
                             <th scope="col">Nombre</th>
-                            
+                            <th  scope="col">Categoría</th>
+                            <th scope="col">Descripción</th>
                             <th scope="col">Stock</th>
                             <th  scope="col">Tipo de producto</th>
                             <th scope="col">Activo</th>
@@ -324,7 +325,16 @@
                                 <th scope="row">{{$key + 1}}</th>
                                 <td>{{$item->codigo}}</td>
                                 <td>{{$item->producto}}</td>
-                                
+                                <td>
+                                    @if ($item->categorias->isEmpty())
+                                        Producto sin categoría
+                                    @else
+                                        @foreach ($item->categorias as $categoria)
+                                            {{$categoria->categoria}} - 
+                                        @endforeach                                        
+                                    @endif
+                                </td>
+                                <td>{{$item->descripcion}}</td>
                                 <td>{{$item->alerta_stock}}</td>
                                 <td>{{$item->tipoProducto->tipo}}</td>
                                 <td>

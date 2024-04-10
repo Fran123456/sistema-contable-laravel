@@ -111,7 +111,7 @@ class ConfigSeeder extends Seeder
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
-        
+
         DB::table('config')->insert([
             'category' => 'contabilidad',
             'title' => 'Cantidad de digitos del correlativo de partidas contables',
@@ -121,7 +121,7 @@ class ConfigSeeder extends Seeder
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
-
+        
         DB::table('config')->insert([
             'category' => 'producto',
             'title' => 'Identificador de producto',

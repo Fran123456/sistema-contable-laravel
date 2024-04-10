@@ -32,6 +32,7 @@
                             <th scope="col">Giro</th>
                             <th scope="col">Teléfono</th>
                             <th scope="col">Dirección</th>
+                            <th scope="col">Productos</th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-eye"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-edit"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
@@ -46,6 +47,7 @@
                                 <td>{{$item->giro}}</td>
                                 <td>{{$item->telefono}}</td>
                                 <td>{{$item->direccion}}</td>
+                                <td><a href="{{ route('socios.listarProductos', $item->id) }}" class="btn btn-success">Productos</a></td>
                                 <td><a href="{{route('socios.proveedores.show', $item->id)}}" class="btn btn-success" title="Ver proveedor"><i class="fas fa-eye"></i></a></td>
                                 <td><a href="{{route('socios.proveedores.edit', $item->id)}}" class="btn btn-warning @if(!$item->activo) disabled @endif" title="Editar"><i class="fas fa-edit"></i></a></td>
                                 <td>

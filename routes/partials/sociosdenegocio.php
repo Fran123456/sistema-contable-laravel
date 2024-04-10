@@ -30,6 +30,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('proveedores', ProveedoresController::class);
         Route::get('/deshabilitar-proveedor/{id}', [ProveedoresController::class, 'deshabilitarProveedor'])->name('.deshabilitarProveedor');
         Route::get('/habilitar-proveedor/{id}', [ProveedoresController::class, 'habilitarProveedor'])->name('.habilitarProveedor');        
+        
+        //Ruta para listar y crear  productos asociados a proveedores
+        Route::get('/listar-producto/{id}', [ProveedoresController::class, 'listarProductos'])->name('listarProductos');
     });
 
     //Ruta de clasificacion de clientes
@@ -52,7 +55,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/deshabilitar-cliente/{id}', [ClienteController::class, 'deshabilitarCliente'])->name('.deshabilitarCliente');
         Route::get('/habilitar-cliente/{id}', [ClienteController::class, 'habilitarCliente'])->name('.habilitarCliente');        
     });
-    
 });
 
 

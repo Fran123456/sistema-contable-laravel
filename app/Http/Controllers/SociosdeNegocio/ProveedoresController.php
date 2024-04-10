@@ -10,7 +10,8 @@ use App\Models\EntidadTerritorial\EntPais;
 use Illuminate\Http\Request;
 use App\Help\Log;
 use App\Help\Help;
-
+use App\Models\Producto\ProProducto;
+use App\Models\Producto\ProProductoProveedor;
 
 class ProveedoresController extends Controller
 {
@@ -180,5 +181,12 @@ class ProveedoresController extends Controller
         Log::log('SociosdeNegocio', "Habilitar proveedor",'El proveedor ' .  $proveedor->nombre . ' ha sido habilitado por el usuario '. Help::usuario()->name);
         $proveedor->save();
         return to_route('socios.proveedores.index')->with('success','Se ha habilitado el proveedor correctamente');
+    }
+
+    public function listarProductos($id){
+        $productoProveedor = ProProductoProveedor::where('proveedor_id', $id)->get();
+        $productos = ProProducto::all();
+        $idProveedor = $id;
+        return view('sociosdenegocio.proveedores.producto', compact('productoProveedor', 'productos', 'idProveedor'));
     }
 }

@@ -17,7 +17,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $data = ProCategoria::where('empresa_id', Help::usuario()->empresa_i)->get();
+        $data = ProCategoria::where('empresa_id', Help::usuario()->empresa_id)->get();
 
 
         /*GENERAL PARA TITULO DE VISTA*/

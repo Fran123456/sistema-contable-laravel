@@ -30,7 +30,15 @@
                                 {{$message}}
                             @enderror
                         </div>
-                        <div class="col-md-8 mt-3">
+                        <div class="col-md-4 mt-3">
+                            <label for=""> <strong>Categorias</strong></label>
+                            <select id="categoria-formulario" name="categorias[]" class="chosen-select form-select" multiple>
+                                @foreach ($categorias as $categoria)
+                                    <option value="{{$categoria->id}}">{{$categoria->categoria}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 mt-3">
                             <label for="producto_nombre"> <strong>Nombre</strong> </label>
                             <input type="text" name="producto" class="form-control" required>
                             @error('producto')
@@ -73,16 +81,14 @@
                                 <option value="0"> Inactivo </option>
                             </select>
                         </div>     
-
                         <div class="col-md-4 mt-3">
+                            <label for="producto_descripcion"> <strong>Descripción</strong> </label>
+                            <textarea name="descripcion" class="form-control" cols="30" rows="10"></textarea>
+                        </div>      
+                        <div class="col-md-12 mt-2 mb-12">
                             <label for="producto_imagen"><strong>Imagen</strong></label>
                             <input class="form-control" type="file" name="imagen" id="imagen" accept="image/png, image/jpg, image/jpeg">
-                        </div>  
-                        <div class="col-md-12 mt-3">
-                            <label for="producto_descripcion"> <strong>Descripción</strong> </label>
-                            <textarea  name="descripcion" class="form-control"  rows="10"></textarea>
                         </div>      
-                             
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
                         </div>
@@ -91,5 +97,10 @@
             </div>
         </div>
     </div>
-
+    
+    <script>
+        $(".chosen-select").chosen({
+            no_results_text: "No se ha encontrado la categoria"
+        })
+    </script>
 </x-app-layout>
