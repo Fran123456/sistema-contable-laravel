@@ -66,7 +66,7 @@ class ProductoProveedorController extends Controller
         
         try {
             $proveedor->save();
-            return to_route('producto.producto_proveedor.index')->with('success', 'Producto asociado correctamente');
+            return back()->with('success', 'Producto asociado correctamente');
 
         } catch (Exception $e) {
             Log::log('Producto', 'producto error al asociar el producto a proveedor', $e);
