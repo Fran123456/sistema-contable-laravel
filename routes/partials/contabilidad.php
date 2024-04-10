@@ -7,6 +7,7 @@ use App\Http\Controllers\Contabilidad\CuentaContableController;
 use App\Http\Controllers\Contabilidad\ConfiguracionController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
+use App\Http\Controllers\Contabilidad\BalanceConfiguracionController;
 
 
 
@@ -68,6 +69,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/balance/edit/{id}', [BalanceContableController::class, 'edit'])->name('editarBalance');
     });
 
+    // CONFIGURACION DE CONTABILIDAD
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::get('/configuracion', [BalanceConfiguracionController::class, 'index'])->name('configuracion');
+        Route::get('/configuracion/edit/{id}', [BalanceConfiguracionController::class, 'edit'])->name('editarConfiguracion');
+        Route::put('/configuracion/update/{id}', [BalanceConfiguracionController::class, 'update'])->name('updateConfiguracion');
+
+    });
 
 
 });
