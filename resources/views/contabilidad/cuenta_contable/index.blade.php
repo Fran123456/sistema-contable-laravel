@@ -42,6 +42,7 @@
                             <th scope="col">Cuenta</th>
                             <th scope="col">Clasificación</th>
                             <th scope="col">Nivel</th>
+                            <th scope="col">Padre</th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-edit"></i></th>
                             <th width="50" class="text-center" scope="col">Estado</th>
                             <th width="50" class="text-center" scope="col"><i class="fas fa-trash"></i></th>
@@ -57,6 +58,7 @@
                                 <td>{{ $item->nombre_cuenta }} </td>
                                 <td>{{ $item->clasificacion->clasificacion }} </td>
                                 <td>{{ $item->nivel->nivel }} </td>
+                                <td>{{ $item->padre?->codigo}} </td>
                                 <td> <a class="btn btn-warning" href="{{ route('contabilidad.cuentas-contables.edit', $item->id) }}"><i class="fas fa-edit"></i></a> </td>
                                 <td>
                                     <form id="form{{ $item->id }}p"

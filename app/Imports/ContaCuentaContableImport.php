@@ -55,21 +55,13 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
             $nombreCuenta = utf8_decode($row['nombre_cuenta']);
             $codigoPadre = $row['codigo_padre'];
             $nivel = $row['nivel'];
-            $clasificacion = strtolower($row['clasificacion']);
+            $clasificacion = strtolower(strtolower($row['clasificacion']));
             $saldo = $row['saldo'];
             $tipoCuenta = $row['tipo_cuenta'];
             $obj = array('codigo'=>$codigo, 'nombre_cuenta'=>$nombreCuenta ,'codigo_padre'=>$codigoPadre,
             'nivel'=>$nivel, 'clasificacion'=> $clasificacion,'saldo'=>$saldo );
 
             $error = false;
-
-            $cuentaEncontrada = ContaCuentaContable::where('empresa_id', $this->empresa)->where('codigo',$row['codigo'])->first();
-            if($cuentaEncontrada!=null){
-                array_push($this->errores, array( $obj, "Error, la cuenta contable ya existe, se hizo caso omiso de dicha cuenta en el proceso "  ) );
-                $error = true;
-            }
-
-
             
             $nivelDB = ContaNivelCuenta::where('empresa_id', $this->empresa)->where('nivel',$nivel)->first();
             if($nivelDB==null){
@@ -77,7 +69,7 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
                 $error = true;
             }
 
-            $clasificacionDB = ContaClasificacionCuenta::where('empresa_id', $this->empresa)->where('clasificacion',$clasificacion)->first();
+            $clasificacionDB = ContaClasificacionCuenta::where('empresa_id', $this->empresa)->where('clasificacion',strtolower($clasificacion))->first();
             if($clasificacionDB==null){
                 array_push($this->errores, array( $obj, "Error, No se ha encontrado la clasificación en la base de datos"  ) );
                 $error = true;
@@ -91,17 +83,31 @@ class ContaCuentaContableImport implements ToCollection,WithHeadingRow
 
             if($error==false ){
 
-                ContaCuentaContable::create([
-                    'codigo'=>$codigo , 'nombre_cuenta'=> $nombreCuenta, 'padre_id'=>$padreDB->id??null ,
-                    'hijos'=> 0, 'nivel_id'=> $nivelDB->id, 'clasificacion_id'=> $clasificacionDB->id,
-                    'saldo'=>$saldo,'activo'=> true,'empresa_id'=> $this->empresa,
-                    'tipo_cuenta'=> $tipoCuenta
-                ]);
-                if (isset($padreDB->id)) {
-                    $padreDB->hijos = $padreDB->hijos +1;
-                    $padreDB->save();
+
+                $cuentaEncontrada = ContaCuentaContable::where('empresa_id', $this->empresa)->where('codigo',$row['codigo'])->first();
+                if($cuentaEncontrada!=null){
+                   // array_push($this->errores, array( $obj, "Error, la cuenta contable ya existe, se hizo caso omiso de dicha cuenta en el proceso "  ) );
+                   // $error = true;
+
+                   $cuentaEncontrada->clasificacion_id  =$clasificacionDB->id;
+                   $cuentaEncontrada->tipo_cuenta  =$tipoCuenta;
+                   $cuentaEncontrada->padre_id=$padreDB->id??null;
+                   $cuentaEncontrada->save();
+                }else{
+                    ContaCuentaContable::create([
+                        'codigo'=>$codigo , 'nombre_cuenta'=> $nombreCuenta, 'padre_id'=>$padreDB->id??null ,
+                        'hijos'=> 0, 'nivel_id'=> $nivelDB->id, 'clasificacion_id'=> $clasificacionDB->id,
+                        'saldo'=>$saldo,'activo'=> true,'empresa_id'=> $this->empresa,
+                        'tipo_cuenta'=> $tipoCuenta
+                    ]);
+                    if (isset($padreDB->id)) {
+                        $padreDB->hijos = $padreDB->hijos +1;
+                        $padreDB->save();
+                    }
+                    ++$this->ingresados;
                 }
-                ++$this->ingresados;
+
+                
             }
 
         }
