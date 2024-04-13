@@ -24,28 +24,38 @@
                 <form action="{{ route('contabilidad.updateConfiguracion', $data->id)}}" method="post">
                     @method('PUT')
                     @csrf
-                    <h5>Configuración contable:  {{ Help::codigoPartida($data)  }} </h5>
+                    <h5>Configuración contable: {{ Help::usuario()->empresa->empresa }} </h5>
                     <div class="row">
-                        <div class="col-md-5 mt-2">
+                        <div class="col-md-12 mt-2">
                             <label for=""> <strong>Cuenta contable</strong></label>
                             <select name="cuenta" class="chosen-select form-control" id="">
                                 @foreach ($cuentas as $cuenta)
                                     @if ($cuenta->clasificacion != null)
-                                        <option value="{{ $cuenta->id }}">{{ strval($cuenta->codigo) }} -
+                                        <option 
+                                        @if ($cuenta->id == $data->cuenta_id )
+                                            selected
+                                        @endif
+                                        
+                                        value="{{ $cuenta->id }}">{{ strval($cuenta->codigo) }} -
                                             {{ $cuenta->nombre_cuenta }}</option>
                                     @endif
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-12 mt-2">
                             <label for=""><strong>Código</strong></label>
-                            <input value="{{$data->codigo}}" name="codigo" type="text" class="form-control">
+                            <input  value="{{$data->codigo}}" name="codigo" type="hidden" class="form-control">
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-6 mt-2">
                             <label for=""><strong>Balance</strong></label>
+                            @if ($data->balance=="balance")
+                            <input value="Balance de estado de resultado" name="balance" type="text" class="form-control" readonly>
+                            @else
                             <input value="{{$data->balance}}" name="balance" type="text" class="form-control" readonly>
+                            @endif
+                            
                         </div>
-                        <div class="col-md-5 mt-2">
+                        <div class="col-md-6 mt-2">
                             <label for=""><strong>Grupo</strong></label>
                             <input value="{{$data->grupo}}" name="balance" type="text" class="form-control" readonly>
                         </div>

@@ -20,11 +20,12 @@ class BalanceConfiguracionController extends Controller
     }
 
     public function edit($id)
-    {
+    { 
         $empresa = Help::empresa();
         $data = ContaBalanceConf::find($id);
-        $cuentas  = ContaCuentaContable::cuentasDetalle($empresa);
-
+      
+        $cuentas  = ContaCuentaContable::cuentas($empresa);
+    
         return view('contabilidad.configuracion.contabilidad_config_edit',compact('data', 'cuentas'));
     }
 
@@ -39,9 +40,10 @@ class BalanceConfiguracionController extends Controller
     {
 
         $configuracion = ContaBalanceConf::find($id);
-        $configuracion->codigo = $request->codigo;
-        $configuracion->nombre_cuenta = $request->cuenta;
-
+        $cuenta = ContaCuentaContable::find($request->cuenta);
+        $configuracion->codigo = $cuenta->codigo;
+        $configuracion->nombre_cuenta = $cuenta->nombre_cuenta;
+        $configuracion->cuenta_id = $cuenta->id;
         try {
             $configuracion->save();
             Log::log('Contabilidad', 'Editar configuracion contable','La configuracion ha sido actualizada por el usuario '. Help::usuario()->name);
