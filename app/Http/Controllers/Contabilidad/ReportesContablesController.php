@@ -23,7 +23,7 @@ use App\Exports\Contabilidad\BalanceComprobacionRpt as BalanceComprobacionRptExc
 use App\Models\Contabilidad\ContaPartidaContable;
 use App\ReportsPDF\Contabilidad\BalanceComprobacionRptNew;
 use App\Help\Fecha;
-
+use App\Models\Contabilidad\ContaClasificacionCuenta;
 
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -31,7 +31,11 @@ class ReportesContablesController extends Controller
 {
 
     public function reportes(){
-        $cuentas = ContaCuentaContable::where('clasificacion_id', 2)->get();
+
+       
+        $c  = ContaClasificacionCuenta::where('clasificacion', 'detalle')
+        ->where('empresa_id', Help::empresa())->first();
+        $cuentas = ContaCuentaContable::where('clasificacion_id', $c->id)->get();
         return view('contabilidad.reportes.home', compact('cuentas'));
     }
 
@@ -49,7 +53,7 @@ class ReportesContablesController extends Controller
             return Excel::download(new BalanceComprobacionRptExcel($request->fechai, $request->fechaf, $cuentas), "balance-comprobacion-${f}.xlsx");
         }*/
         $data = ReportesContables::debeHaberPorCuentaByFechaGroupByCuenta($request->fechai, $request->fechaf);
-   
+       
         return BalanceComprobacionRptNew::report($request->fechai, $request->fechaf, $data);
         //return BalanceComprobacionRpt::report($request->fechai, $request->fechaf, $cuentas);
     }
