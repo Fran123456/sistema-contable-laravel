@@ -160,7 +160,7 @@ class PartidasContables
 
     public static function operacion($debe, $haber, $tipo){
         $valor = 0;
-        if($tipo == "acreedora"){
+        if($tipo == "deudora"){
             $valor = $debe - $haber;
         }else{ //deudora
             $valor = $haber - $debe;
