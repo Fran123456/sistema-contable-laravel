@@ -34,7 +34,7 @@
                             <tr>
                                 <th scope="row">{{$key + 1}}</th>
                                 <td>{{$item->codigo}}</td>
-                                <td>{{$item->cuenta->nombre_cuenta}}</td>
+                                <td>{{$item?->cuenta?->nombre_cuenta}}</td>
                                 <td>{{$item->balance}}</td>
                                 <td>{{$item->grupo}}</td>
                                 <td><a href="{{route('contabilidad.editarConfiguracion', $item->id)}}" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a></td>
