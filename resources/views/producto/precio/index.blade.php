@@ -1,4 +1,4 @@
-@extends('metronic.base')
+{{-- @extends('metronic.base')
 @section('extracss')
 @endsection
 @section('extrajs')
@@ -16,10 +16,10 @@
       <li class="breadcrumb-item active" aria-current="page">Tipo precios</li>
     </ol>
   </nav> --}}
-
+{{-- 
     @include('sessions')
     {{-- <h3 style="text-align: center">Tipo de precios</h3> --}}
-    <div class="card shadow-sm">
+    {{-- <div class="card shadow-sm">
         <div class="card-body">
             <form method="post" action="{{ route('productoprecios.store') }}">
                 @csrf
@@ -71,3 +71,77 @@
         </div>
     </div>
 @endsection
+ --}} 
+
+ <x-app-layout>
+    <x-slot:title>
+        Lista de precios
+      </x-slot>
+      <x-slot:subtitle>
+      </x-slot>
+
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Precios</li>
+          </ol>
+    </div>
+    <div class="col-md-12">
+        <x-alert></x-alert>
+    </div>
+    
+    <form method="post" action="{{ route('producto.precio.store') }}">
+        <div class="row">
+            @csrf
+            <div class="col-md-6   mt-2 mb-21">
+                <label for="">Tipo de precio</label>
+                <input name="tipo" required type="text" class="form-control" required>
+            </div>
+            <input type="hidden" name="empresa_id" value={{$empresa}}>
+            <div class="col-md-12 mb-3 mt-3">
+                <button class="btn btn-primary mb-2" style="color:white;" type="submit"> <i class="fas fa-save"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="card-body">
+                <h5> Precios </h5>
+                <table class="table table-sm" id="datatable-responsive">
+                    <thead>
+                        <tr>
+                            <th scope="col" width="40">#</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($precios as $key => $item)
+                            <tr>
+                                <th scope="row">{{$key + 1}}</th>
+                                <td>{{$item->tipo}}</td>
+                                <td>
+                                    <form id="form{{ $item->id }}"
+                                        action="{{ route('producto.precio.destroy', $item->id) }}"
+                                        method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button
+                                            onclick="confirm('form{{ $item->id }}','¿Desea eliminar el precio?')"
+                                            class="btn btn-danger"
+                                            type="button" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>  
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</x-app-layout>

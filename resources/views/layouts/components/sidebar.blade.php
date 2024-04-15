@@ -40,6 +40,8 @@
 
                 @include('layouts.components.menus.productos')
 
+                @include('layouts.components.menus.pos')
+
 
         <li class="nav-item has-submenu">
             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->

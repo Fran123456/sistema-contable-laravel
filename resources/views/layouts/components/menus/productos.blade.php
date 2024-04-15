@@ -40,6 +40,14 @@
             <a class="submenu-link" href="{{ route('producto.producto_proveedor.index') }}">Proveedores de productos</a>
         </li>
     </ul>
-</div>
+    </div>
+    <div id="submenu-productos" class="submenu submenu-productos collapse " data-bs-parent="#menu-accordion"
+    style="">
+    <ul class="submenu-list list-unstyled">
+        <li class="submenu-item">
+            <a class="submenu-link" href="{{ route('producto.precio.index') }}">Precios</a>
+        </li>
+    </ul>
+    </div>
 
 </li>
