@@ -28,7 +28,7 @@ return new class extends Migration
             $table->unsignedBigInteger('registro_id');
             $table->timestamps();
             $table->foreign('persona_encuentra_id')->references('id')->on('users')->onUpdate('cascade');
-            $table->foreign('cargo_id')->references('id')->on('socios_cargos')->onUpdate('cascade');
+            $table->foreign('cargo_id')->references('id')->on('socios_cargo')->onUpdate('cascade');
         });
     }
 

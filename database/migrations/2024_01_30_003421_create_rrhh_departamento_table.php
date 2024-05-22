@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('rrhh_departamento', function (Blueprint $table) {
             $table->id();
             $table->string('departamento');
-            $table->bigInteger('area_id');
+            $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('empresa_id');
             $table->boolean('activo');
             $table->timestamps();

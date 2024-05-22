@@ -181,7 +181,6 @@
                 <thead>
                     <tr>
                         <td>#</td>
-                        <th>Partida</th>
                         <th>Codigo</th>
                         <th>Cuenta</th>
                         <th width="150">Concepto</th>
@@ -197,7 +196,6 @@
                     @foreach ($partida->detalles as $key => $item)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ Help::complementCode($partida->correlativo, Help::getConfigByKey('contabilidad', 'correlativo')->value, '0') }}
                             </td>
                             <td>{{ $item->cuentaContable->codigo }} </td>
                             <td>{{ $item->cuentaContable->nombre_cuenta }}</td>
@@ -212,7 +210,7 @@
                     @endforeach
 
                     <tr>
-                        <td style="border-top:1px solid black;font-weight:bolder;" colspan="5">Total</td>
+                        <td style="border-top:1px solid black;font-weight:bolder;" colspan="4">Total</td>
                         <td style="border-top:1px solid black;" class="money">
                             <strong>{{ number_format($TotalDebe, 2) }}</strong>
                         </td>

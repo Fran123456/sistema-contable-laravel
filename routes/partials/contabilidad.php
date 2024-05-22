@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/importar/excel', [CuentaContableController::class, 'importarCuentasExcelView'])->name('importarCuentasExcelView');
         Route::post('/importar/excel', [CuentaContableController::class, 'importarCuentasExcel'])->name('importarCuentasExcel');
+   
+        Route::post('/importar/partida/excel', [PartidasContablesController::class, 'importarPartidasExcel'])->name('importarPartidasExcel');
     });
 
     //PARTIDAS CONTABLES

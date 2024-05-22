@@ -53,6 +53,12 @@ class UserSeeder extends Seeder
             'current_team_id' => $team,
         ]);
 
+
+        DB::table('model_has_roles')->insertGetId([
+            'role_id' => 1,
+            'model_type' => 'App\Models\User',
+            'model_id' => 1,
+        ]);
         // $userInf DB::table('users')->where('id',$user)->first();
 
 

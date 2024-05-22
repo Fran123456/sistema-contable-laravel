@@ -20,8 +20,8 @@ return new class extends Migration
             $table->decimal('precio_unitario', 10, 2);
             $table->string('producto', 300)->nullable();
             $table->string('codigo', 300)->nullable();
-            $table->foreign('proveedores')->references('id')->on('socios_proveedores')->onDelete('cascade');
-            $table->foreign('productos')->references('id')->on('pro_producto')->onDelete('cascade');
+            $table->foreign('proveedor_id')->references('id')->on('socios_proveedores')->onDelete('cascade');
+            $table->foreign('producto_id')->references('id')->on('pro_producto')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -55,6 +55,18 @@ class PartidasContables
         return $partida;
     }
 
+
+    /*          $detalle = array(
+                    'partida_id'=> $partidaId,
+                    'periodo_id'=> $objPeriodo->id,
+                    'tipo_partida_id'=>$objTipoPartida->id,
+                    'cuenta_contable_id'=>$objCuenta->id,
+                    'debe'=>$debe,
+                    'haber'=>$haber,
+                    'fecha_contable'=> $fecha,
+                    'concepto'=> $conceptoDetalle
+                );
+     */
     public static function detalle($data)
     {
         try {
@@ -84,6 +96,14 @@ class PartidasContables
         }
     }
 
+    /*
+                $data = array(
+                    'concepto'=> $conceptoGeneral,
+                    'periodo_id'=> $objPeriodo->id,
+                    'tipo_partida_id'=> $objTipoPartida->id,
+                    'fecha_contable'=> $fecha
+                );
+    */
     public static function cabecera($data)
     {
 

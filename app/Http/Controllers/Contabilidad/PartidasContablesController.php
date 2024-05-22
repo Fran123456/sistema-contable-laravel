@@ -12,7 +12,8 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Help\Contabilidad\PartidasContables;
 use PDF;
 use App\Help\Log;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ContaPartidasContableImport;
 
 class PartidasContablesController extends Controller
 {
@@ -112,7 +113,8 @@ class PartidasContablesController extends Controller
      */
     public function show($id)
     {
-        //
+       $tipos = ContaTipoPartida::where('empresa_id', Help::empresa())->get();
+       return view('contabilidad.partidas_contables.importar_excel', compact('tipos'));
     }
 
     /**
@@ -197,4 +199,23 @@ class PartidasContablesController extends Controller
         Log::log('Contabilidad', 'Cerrar partida contable', 'El usuario '. Help::usuario()->name.' cerro la partida ' .$partida->correlativo);
         return redirect()->route('contabilidad.partidas.index')->with('success','Se ha cerrado la partida correctamente');
     }
+
+
+    public function importarPartidasExcel(Request $request){
+
+        //$help = Help::uploadFile($request, 'import-excel-cuentas', '', 'excel', false);
+       
+           //  DB::table('conta_cuenta_contable')->where('empresa_id', Help::empresa())->delete();
+             $import = new ContaPartidasContableImport(Help::empresa());
+             Excel::import($import, request()->file('excel'));
+             $rows        = $import->getNumeroFilas();
+             $errores  = $import->getErrores();
+             $ingresados = $import->getIngresados();
+             Log::log('Contabilidad', 'Importar partida contable ', 'El usuario '. Help::usuario()->name.' ha importado una partida contable ' .Help::usuario()->empresa->empresa );
+             return view('contabilidad.partidas_contables.importar_excel_resumen', compact('rows','errores','ingresados'));
+         
+ 
+ 
+     }
+ 
 }

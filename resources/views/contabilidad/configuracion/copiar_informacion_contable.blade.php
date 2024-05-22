@@ -138,17 +138,24 @@
 
                             </div>
 
-                            <label for="" class="mt-2"> <strong>Copiar de: </strong></label>
+                            @if (  (count($empresas)-1) >0 )
+                                <label for="" class="mt-2"> <strong>Copiar de: </strong></label>
 
 
-                            <select name="" id="emp{{ $item->id }}" class="form-control mt-2">
-                                <option disabled value="" selected>Seleccione..</option>
-                                @foreach ($empresas as $e)
-                                    @if ($item->id != $e->id)
-                                        <option value="{{ $e->id }}">{{ $e->empresa }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                                <select name="" id="emp{{ $item->id }}" class="form-control mt-2">
+                                    <option disabled value="" selected>Seleccione..</option>
+                                    @foreach ($empresas as $e)
+                                        @if ($item->id != $e->id)
+                                            <option value="{{ $e->id }}">{{ $e->empresa }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            @else 
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>No hay empresas para copiar</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
+                            @endif
 
 
                         </div>

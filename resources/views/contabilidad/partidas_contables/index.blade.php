@@ -26,7 +26,9 @@
         <a style="color: white" type="button" class="btn btn-primary" href="{{ route('contabilidad.partidas.create') }}">
             <i class="fas fa-save"></i>
         </a>
-
+        <a style="color: white" type="button" class="btn btn-primary" href="{{ route('contabilidad.partidas.show', 0) }}">
+            <i class="fas fa-file-excel"></i> Partida via Excel
+        </a>
 
     </div>
 

@@ -1,4 +1,17 @@
+
+
+
+
 <div class="row">
+    @if (count($cuentas)==0)
+    <div class="col-md-12">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Debe ingresar el catalogo de cuentas para poder generar partidas </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    </div>
+    @endif
+    <br>
     <h5>Detalle de la partida</h5>
     <div class="col-md-5 mt-2">
         <label for=""> <strong>Cuenta contable</strong></label>
@@ -31,7 +44,9 @@
         <textarea name="concepto_detalle" class="form-control" rows="10"></textarea>
     </div>
     <div class="col-md-12 mt-3">
-        <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar </button>
+        <button
+        @if (count($cuentas)==0) disabled @endif
+        class="btn btn-success" style="color:aliceblue" type="submit">Guardar </button>
     </div>
 </div>
 

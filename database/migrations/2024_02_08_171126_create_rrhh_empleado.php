@@ -19,8 +19,6 @@ return new class extends Migration
             $table->foreign('tipo_empleado_id')->references('id')->on('rrhh_tipo_empleado')->onUpdate('cascade');
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
-            $table->unsignedBigInteger('id_afp');
-            $table->foreign('id_afp')->references('id')->on('rrhh_afp')->onUpdate('cascade');
             $table->string('nombres', 300);
             $table->string('apellidos', 200);
             $table->string('nombre_completo', 300);
@@ -37,13 +35,17 @@ return new class extends Migration
             $table->float("salario_diario", 10, 2)->default(0);
             $table->date('fecha_nacimiento');
             $table->date('fecha_ingreso')->nullable();
-            $table->bigInteger('area_id');
+            $table->unsignedBigInteger('area_id');
             $table->foreign('area_id')->references('id')->on('rrhh_area')->onUpdate('cascade');
-            $table->bigInteger('departamento_id');
+            $table->unsignedBigInteger('departamento_id');
             $table->foreign('departamento_id')->references('id')->on('rrhh_departamento')->onUpdate('cascade');
-            $table->bigInteger('cargo_id');
-            $table->foreign('puesto_id')->references('id')->on('rrhh_puesto')->onUpdate('cascade');
+            $table->unsignedBigInteger('cargo_id');
+            $table->foreign('cargo_id')->references('id')->on('rrhh_puesto')->onUpdate('cascade');
+            $table->unsignedBigInteger('id_afp')->nullable();
             $table->timestamps();
+
+            $table->foreign('id_afp')->references('id')->on('rrhh_afp')->onUpdate('cascade');
+
 
         });
     }
