@@ -76,6 +76,22 @@
                         </div>
                     </div>
 
+
+
+                    <div class="row mt-4">
+
+                      <div class="col-md-12">
+                          <h5>Importante</h5>
+                          <p>Tanto debe como haber solo puede ir llenada en una casilla, es decir si el haber 
+                            es con valor de <strong>"100"</strong>, entonces el debe estara con valor de <strong>"0"</strong>, y viseversa.
+                            <br><br>
+                            El codigo de periodo siempre sera formado por el mes y el año por ejemplo 
+                            <strong>"022024"</strong> donde expresamos el periodo 02 = febrero y del año 2024
+                          </p>
+                      </div>
+                  </div>
+
+
                     <div class="row">
                         <div class="col-md-6 mt-3 mb-2">
                             <label for=""><strong>Subir partida en archivo Excel (.XLSX)</strong> </label>
