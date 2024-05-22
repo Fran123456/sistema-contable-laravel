@@ -211,7 +211,7 @@ class PartidasContablesController extends Controller
              $rows        = $import->getNumeroFilas();
              $errores  = $import->getErrores();
              $ingresados = $import->getIngresados();
-             Log::log('Contabilidad', 'Importar partida contable ', 'El usuario '. Help::usuario()->name.' ha importado una partida contable ' .Help::usuario()->empresa->empresa );
+             Log::log('Contabilidad', 'Importar partida contable ', 'El usuario '. Help::usuario()->name.' ha importado una partida contable para la empresa ' .Help::usuario()->empresa->empresa );
              return view('contabilidad.partidas_contables.importar_excel_resumen', compact('rows','errores','ingresados'));
          
  
