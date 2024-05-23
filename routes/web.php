@@ -7,7 +7,7 @@ use App\Http\Controllers\user\RoleController;
 use App\Http\Controllers\user\SettingController;
 use App\Http\Controllers\RRHH\PuestoController;
 use App\Http\Controllers\RRHH\EmpleadoController;
-
+use App\Http\Controllers\SupportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+
+Route::get('/support', [SupportController::class, 'askView'])->name('askView');
+Route::post('/support', [SupportController::class, 'ask'])->name('ask');
 
 include('routes/partials/users.php');
 include('routes/partials/contabilidad.php');
