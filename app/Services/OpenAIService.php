@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
-
+use App\Models\SupportPrincipal;
+use App\Help\Help;
 class OpenAIService
 {
     protected $client;
@@ -63,6 +64,7 @@ class OpenAIService
 
         $contextAndExamples = $this->getContextAndExamples($name);
         $fullPrompt = $contextAndExamples;
+        
 
         $response = $this->client->post('completions', [
             'json' => [
@@ -72,7 +74,19 @@ class OpenAIService
                 'max_tokens' => 150,
             ],
         ]);
-
-        return json_decode($response->getBody()->getContents(), true);
+        $responseArray = json_decode($response->getBody()->getContents(), true);
+        SupportPrincipal::create([
+            'mensaje'=> $prompt,
+            'gpt'=> false,
+            'usuario_id'=> Help::usuario()->id,
+            'fecha'=> date('Y-m-d H:i:s')
+        ]);
+       SupportPrincipal::create([
+            'mensaje'=> $responseArray['choices'][0]['message']['content'],
+            'gpt'=> true,
+            'usuario_id'=> Help::usuario()->id,
+            'fecha'=> date('Y-m-d H:i:s')
+        ]);
+        return $responseArray;
     }
 }

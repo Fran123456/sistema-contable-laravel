@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot:title>
-        Editar partida contable
+        chat de soporte
     </x-slot>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -97,6 +97,40 @@
 
     <script>
         $(document).ready(function() {
+ 
+              
+                $.ajax({
+                    url: '/support/chat',
+                    method: 'GET',
+                    success: function(response) {
+                       
+                        console.log(response);
+                        $.each(response, function(index, message) {
+                            var messageContainer = $('<div class="message-container"></div>');
+                            var messageContent = $('<div class="message"></div>');
+                            
+                            // Determinar el estilo del mensaje basado en el campo 'gpt'
+                            if (message.gpt == 1) {
+                                messageContent.addClass('bot-message');
+                            } else {
+                                messageContent.addClass('user-message');
+                            }
+                            
+                            messageContent.text(message.mensaje);
+                            messageContainer.append(messageContent);
+                            $('#chat').append(messageContainer);
+                        });
+                        $('#chat').scrollTop($('#chat')[0].scrollHeight);
+                        
+                    }
+                });
+            
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
             $('#supportForm').on('submit', function(e) {
                 e.preventDefault();
 
@@ -116,7 +150,7 @@
                     success: function(response) {
                         // Remueve el mensaje de "escribiendo..."
                         $('.typing-indicator').remove();
-
+                        console.log(response);
                         // Añade el mensaje del usuario
                         
                         // Añade el mensaje del asistente con un pequeño retraso
@@ -126,7 +160,7 @@
                             $('#chat').scrollTop($('#chat')[0].scrollHeight);
                             // Borra el contenido del input
                             $('#promptInput').val('');
-                        }, 1000); // Retraso de 1 segundo (simula la escritura)
+                        }, 10); // Retraso de 1 segundo (simula la escritura)
                     }
                 });
             });

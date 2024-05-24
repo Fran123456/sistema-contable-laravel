@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Services\OpenAIService;
 use Illuminate\Http\Request;
 use App\Help\Help;
+use App\Models\SupportPrincipal;
 class SupportController extends Controller
 {
     protected $openAIService;
@@ -20,6 +21,13 @@ class SupportController extends Controller
         $response = $this->openAIService->getChatResponse($prompt, $usuario->name);
 
         return response()->json($response);
+    }
+
+
+    public function askChat(Request $request)
+    {
+        $data = SupportPrincipal::where('usuario_id', Help::usuario()->id)->get();
+        return response()->json($data);
     }
 
     public function askView(){

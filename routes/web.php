@@ -39,13 +39,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/permissions/destroy/sub/one/{id}', [RoleController::class, 'destroyPermissionOne'])->name('.destroyPermissionOne');
     });
 
-
+    Route::get('/support', [SupportController::class, 'askView'])->name('support.askView');
+    Route::get('/support/chat', [SupportController::class, 'askChat'])->name('support.askChat');
+    
+    Route::post('/support', [SupportController::class, 'ask'])->name('ask');
 });
 
 
 
-Route::get('/support', [SupportController::class, 'askView'])->name('askView');
-Route::post('/support', [SupportController::class, 'ask'])->name('ask');
+
 
 include('routes/partials/users.php');
 include('routes/partials/contabilidad.php');
