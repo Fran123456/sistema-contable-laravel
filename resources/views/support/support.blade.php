@@ -96,11 +96,14 @@
     </div>
 
     <script>
+        var baseUrl = "{{ url('/') }}";
+    </script>
+    <script>
         $(document).ready(function() {
  
               
                 $.ajax({
-                    url: '/support/chat',
+                    url: baseUrl+'/support/chat',
                     method: 'GET',
                     success: function(response) {
                        
@@ -141,7 +144,7 @@
                 $('#chat').append('<div class="message-container typing-indicator">Escribiendo...</div>');
 
                 $.ajax({
-                    url: '/support',
+                    url: baseUrl+'/support',
                     method: 'POST',
                     data: {
                         prompt: prompt,
