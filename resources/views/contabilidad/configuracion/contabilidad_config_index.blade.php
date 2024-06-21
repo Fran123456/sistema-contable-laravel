@@ -17,7 +17,15 @@
 
         <div class="card">
             <div class="card-body">
-                <h5> Configuración </h5>
+                <h5> {{ $titulo }} </h5>
+                <form action="{{ route('contabilidad.configuracion')}}" method="get" >
+                    <select name="valor" class="form-control" id="">
+                        <option value="balance">balance</option>
+                        <option value="general">general</option>
+                    </select>
+                    <button type="submit" class="btn btn-success mt-2">Cargar</button>
+                </form>
+                <br>
                 <table class="table table-sm" id="datatable-responsive">
                     <thead>
                         <tr>

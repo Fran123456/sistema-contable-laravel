@@ -11,12 +11,24 @@ use App\Help\Log;
 
 class BalanceConfiguracionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $vlor = $request->valor;
         $empresa = Help::empresa();
-        $data = ContaBalanceConf::where('empresa_id', $empresa)->where('editar', 1)->get();
+        $titulo =  "Configuración de balance de resultado";
+        if($request->valor == null){
+            $data = ContaBalanceConf::where('empresa_id', $empresa)->where('balance', 'balance')->where('editar', 1)->get();
+        }else{
+            
+            $data = ContaBalanceConf::where('empresa_id', $empresa)->where('balance', $request->valor)->where('editar', 1)->get();
+            $titulo =  "Configuración de balance general";
+            if($vlor == "balance"){
+                $titulo =  "Configuración de balance de resultado";
+            }
+        }
+        
 
-        return view('contabilidad.configuracion.contabilidad_config_index', compact('data'));
+        return view('contabilidad.configuracion.contabilidad_config_index', compact('data','titulo'));
     }
 
     public function edit($id)
