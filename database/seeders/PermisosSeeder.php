@@ -65,7 +65,24 @@ class PermisosSeeder extends Seeder
                 'permission_id' => $value->id,
                 'role_id' => $admin,
             ]);
-
         }
+
+
+        $admin = DB::table('roles')->insertGetId([
+            'name' => 'Contador',
+            'guard_name' => 'web',
+            'created_at' => date("Y-m-d h:i:s"),
+            'updated_at' => date("Y-m-d h:i:s"),
+        ]);
+
+        $permisos = DB::table('permissions')->where('modulo','general')->get();
+        foreach ($permisos as $key => $value) {
+            DB::table('role_has_permissions')->insert([
+                'permission_id' => $value->id,
+                'role_id' => $admin,
+            ]);
+        }
+
+
     }
 }

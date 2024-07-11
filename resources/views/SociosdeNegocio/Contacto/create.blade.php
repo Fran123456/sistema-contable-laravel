@@ -76,6 +76,7 @@
                             <select id="estado" name="estado" class="form-control" required>
                                 <option value="">Selecciona una opción</option>
                                 <option value="Ingresado">Ingresado</option>
+                                <option value="Ingresado-Recomendado">Ingresado/Recomendado</option>
                                 <option value="Inactivo">Inactivo</option>
                                 <option value="Proceso de seleccion">En proceso de selección</option>
                                 <option value="Descartado">Descartado</option>
