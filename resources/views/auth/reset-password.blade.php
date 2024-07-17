@@ -5,25 +5,22 @@
         </x-slot>
 
         <div class="card-body">
-
             <x-jet-validation-errors class="mb-3" />
 
-            <form method="POST" action="/reset-password">
+            <form method="POST" action="{{ route('password.update') }}">
                 @csrf
 
-                <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                <input type="hidden" name="token" value="{{ $token }}">
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Email') }}" />
-
                     <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email"
-                                 :value="old('email', $request->email)" required autofocus />
+                                 :value="old('email', $email)" required autofocus />
                     <x-jet-input-error for="email"></x-jet-input-error>
                 </div>
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Password') }}" />
-
                     <x-jet-input class="{{ $errors->has('password') ? 'is-invalid' : '' }}" type="password"
                                  name="password" required autocomplete="new-password" />
                     <x-jet-input-error for="password"></x-jet-input-error>
@@ -31,7 +28,6 @@
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Confirm Password') }}" />
-
                     <x-jet-input class="{{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}" type="password"
                                  name="password_confirmation" required autocomplete="new-password" />
                     <x-jet-input-error for="password_confirmation"></x-jet-input-error>
