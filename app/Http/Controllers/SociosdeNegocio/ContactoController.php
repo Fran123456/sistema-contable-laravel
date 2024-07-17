@@ -191,7 +191,7 @@ class ContactoController extends Controller
         }
 
         Log::log('SociosdeNegocio', "Eliminar contacto",'El contacto ' .  $contacto->nombre . " ".$contacto->apellido .' ha sido eliminado por el usuario '. Help::usuario()->name);
-        $contacto->delete();
+        SociosContacto::destroy($id);
         return to_route('socios.contacto.index')->with('success','Se ha eliminado el contacto correctamente');
 
 
