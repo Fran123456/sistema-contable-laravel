@@ -56,6 +56,7 @@ class ContactoController extends Controller
             'cargo_id'=> 'required|string',
             'estado'=> 'required|string',
             'cv' => 'mimes:pdf,docx',
+            'portafolio' => 'nullable|string',
         ]);
 
         $contacto = (new SociosContacto)->fill( $request->all());
@@ -124,6 +125,7 @@ class ContactoController extends Controller
             'cargo_id'=> 'required|string',
             'estado'=> 'required|string',
             'cv' => 'mimes:pdf,docx',
+            'portafolio' => 'nullable|string',
         ]);
 
         $contacto = SociosContacto::find($id);
@@ -163,6 +165,7 @@ class ContactoController extends Controller
       //  $contacto->cv = $url_cv;
         $contacto->cargo_id = $request->cargo_id;
         $contacto->registro_id = $request->registro_id;
+        $contacto->portafolio = $request->portafolio;
 
         try {
             $contacto->save();

@@ -82,9 +82,16 @@
                                 <option value="Descartado">Descartado</option>
                             </select>
                         </div>
-                        <div class="col-md-12 mt-2 mb-12">
+                        <div class="col-md-6 mt-2 mb-6">
                             <label for="cv"><strong>CV</strong></label>
                             <input class="form-control" type="file" name="cv" id="cv" accept="application/pdf">
+                        </div>
+                        <div class="col-md-6 mt-2 mb-12">
+                            <label for="portafolio"> <strong>Portafolio</strong> </label>
+                            <input type="text" name="portafolio" class="form-control">
+                            @error('portafolio')
+                                {{$message}}
+                            @enderror
                         </div>
                         <div>
                             <input type="hidden" name="persona_encuentra_id" value="{{$usuario->id}}"  class="form-control">                       
