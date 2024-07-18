@@ -99,6 +99,15 @@
                                 {{$message}}
                             @enderror
                         </div>
+                        <div class="col-md-6 mt-2 mb-12">
+                            <label for="pais_id"> <strong>Pais</strong></label>
+                            <select required id="pais_id" name="pais_id" class="form-control">
+                                <option value="">Selecciona una opción</option>
+                                @foreach ($paises as $pais)
+                                    <option value="{{$pais->id}}" @if ($pais->id == $contacto->pais_id) selected @endif>{{$pais->pais}}</option>                                                                      --}}
+                                @endforeach    
+                            </select>
+                        </div>
                         <div>
                             <input type="hidden" name="persona_encuentra_id" value="{{$usuario->id}}"  class="form-control">
                         </div>
