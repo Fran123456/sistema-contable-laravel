@@ -16,24 +16,23 @@
         <x-alert></x-alert>
     </div>
 
-    <form action="{{ route('socios.registro.store') }}" method="post">
+    <form action="{{ route('socios.registro.store') }}" method="post" id="observacionForm">
         @csrf
         <div class="row">
-            <div class="col-md-12 mt-2 mb-12">
+            <div class="col-md-12 mt-2 mb-5">
                 <label for="socios_registro"> <strong>Observación</strong> </label>
                 {{-- <textarea name="observacion" class="form-control" requiredcols="30" rows="10"></textarea> --}}
 
 
-                <div id="editor" class="form-control" name="observacion">
-                    <h2>Demo Content</h2>
-                    <p>Preset build with <code>snow</code> theme, and some common formats.</p>
-                </div>
+                <div id="editor" class="form-control"></div>
+                <input type="hidden" name="observacion" id="observacion">
                 @error('observacion')
                     {{ $message }}
                 @enderror
             </div>
+
             <input type="hidden" name="contacto_id" id="contacto_id" value="{{ $contactoId }}">
-            <div class="col-md-12 mt-3 mb-3 ">
+            <div class="col-md-12 mt-5 mb-3 ">
                 <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
             </div>
 
@@ -184,8 +183,18 @@
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
     <script>
-        const quill = new Quill('#editor', {
-            theme: 'snow'
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // Se inicializa el richText
+            const quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+
+            // El contenido del richText se pasa a un input
+            document.querySelector('#observacionForm').onsubmit = function() {
+                const content = quill.root.innerHTML;
+                document.querySelector('#observacion').value = content;
+            };
         });
     </script>
 
