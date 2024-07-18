@@ -8,6 +8,9 @@ use App\Http\Controllers\user\SettingController;
 use App\Http\Controllers\RRHH\PuestoController;
 use App\Http\Controllers\RRHH\EmpleadoController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +25,24 @@ use App\Http\Controllers\SupportController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+Route::get('forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware(['guest'])->name('password.request');
+
+Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->middleware(['guest'])->name('password.email');
+
+Route::get('reset-password/{token}', function ($token, Request $request) {
+    return view('auth.reset-password', [
+        'token' => $token,
+        'email' => $request->email,
+    ]);
+})->middleware(['guest'])->name('password.reset');
+
+Route::post('reset-password', [NewPasswordController::class, 'store'])
+    ->middleware(['guest'])->name('password.update');
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');

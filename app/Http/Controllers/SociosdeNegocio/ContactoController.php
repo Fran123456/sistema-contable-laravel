@@ -56,6 +56,7 @@ class ContactoController extends Controller
             'cargo_id'=> 'required|string',
             'estado'=> 'required|string',
             'cv' => 'mimes:pdf,docx',
+            'portafolio' => 'nullable|string',
         ]);
 
         $contacto = (new SociosContacto)->fill( $request->all());
@@ -124,6 +125,7 @@ class ContactoController extends Controller
             'cargo_id'=> 'required|string',
             'estado'=> 'required|string',
             'cv' => 'mimes:pdf,docx',
+            'portafolio' => 'nullable|string',
         ]);
 
         $contacto = SociosContacto::find($id);
@@ -163,6 +165,7 @@ class ContactoController extends Controller
       //  $contacto->cv = $url_cv;
         $contacto->cargo_id = $request->cargo_id;
         $contacto->registro_id = $request->registro_id;
+        $contacto->portafolio = $request->portafolio;
 
         try {
             $contacto->save();
@@ -191,7 +194,7 @@ class ContactoController extends Controller
         }
 
         Log::log('SociosdeNegocio', "Eliminar contacto",'El contacto ' .  $contacto->nombre . " ".$contacto->apellido .' ha sido eliminado por el usuario '. Help::usuario()->name);
-        $contacto->delete();
+        SociosContacto::destroy($id);
         return to_route('socios.contacto.index')->with('success','Se ha eliminado el contacto correctamente');
 
 

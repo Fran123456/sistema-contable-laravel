@@ -86,6 +86,13 @@
                             <option value="Descartado" {{$contacto->estado === 'Descartado' ? 'selected' : ' '}}>Descartado</option>
                         </select>
                     </div>
+                    <div class="col-md-6 mt-2 mb-12">
+                        <label for="portafolio"> <strong>Portafolio</strong> </label>
+                        <input type="text" name="portafolio" class="form-control" readonly value="{{$contacto->portafolio}}" required>
+                        @error('portafolio')
+                            {{$message}}
+                        @enderror
+                    </div>
                 </div>
             </div>
         </div>

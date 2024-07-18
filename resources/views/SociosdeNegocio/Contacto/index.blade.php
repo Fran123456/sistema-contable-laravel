@@ -32,39 +32,26 @@
                             <th scope="col">Teléfono</th>
                             <th scope="col">Cargo</th>
                             <th scope="col">Estado</th>
-                            <th scope="col" width="50">Observaciones </th>
-                            <th scope="col" width="50" class="text-center">CV</th>
-                            <th scope="col" width="50" class="text-center"><i class="fas fa-eye"></i></th>
-                            <th scope="col" width="50" class="text-center"><i class="fas fa-edit"></i></th>
-                            <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
+                            <th scope="col" width="160px" >Acciones </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($contactos as $key => $item)
                             <tr>
-                                <th scope="row">{{$key + 1}}</th>
+                            <th scope="row">{{$key + 1}}</th>
                                 <td>{{$item->nombre}} {{$item->apellido}}</td> {{-- Nombre completo --}}
                                 <td>{{$item->telefono}}</td>
                                 <td>{{$item->cargo->cargo}}</td>
                                 <td>{{$item->estado}}</td>
-                                <td class="text-center"><a href="{{route('socios.registro.show', $item->id)}}" class="btn btn-secondary"><i class="fa-solid fa-file-lines"></i></a></td>
-
-                                {{--<td> <a href="{{ Storage::url($item->cv) }}" target="_blank" class="btn btn-success" title="Descargar"> <i class="fa-solid fa-download"></i> </a> </td>--}}
-                                <td> <a href="{{ url('/')}}/cv/{{$item->cv}}" target="_blank" class="btn btn-success" title="Descargar"> <i class="fa-solid fa-download"></i> </a> </td>
-
-                                <td><a href="{{route('socios.contacto.show', $item->id)}}" class="btn btn-success" title="Ver contacto"><i class="fas fa-eye"></i></a></td>
-                                <td><a href="{{route('socios.contacto.edit', $item->id)}}" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a></td>
-                                <td>
-                                    <form id="form{{ $item->id }}"
-                                        action="{{ route('socios.contacto.destroy', $item->id) }}"
-                                        method="post">
+                                <td class="text-center">
+                                    <a href="{{route('socios.registro.show', $item->id)}}" title="Ver detalles" class="mx-0.5"><i class="fa-solid fa-file-lines fa-lg"></i></a>
+                                    <a href="{{ url('/')}}/cv/{{$item->cv}}" target="_blank" title="Descargar CV" class="mx-0.5"><i class="fas fa-file-download fa-lg"></i></a>
+                                    <a href="{{route('socios.contacto.show', $item->id)}}" title="Ver contacto" class="mx-0.5"><i class="fas fa-eye fa-lg"></i></a>
+                                    <a href="{{route('socios.contacto.edit', $item->id)}}" title="Editar" class="mx-0.5"><i class="fas fa-edit fa-lg"></i></a>
+                                    <form id="form{{ $item->id }}" action="{{ route('socios.contacto.destroy', $item->id) }}" method="post" class="d-inline">
                                         @method('DELETE')
                                         @csrf
-                                        <button
-                                            onclick="confirm('form{{ $item->id }}','¿Desea eliminar el contacto?')"
-                                            class="btn btn-danger"
-                                            type="button" title="Eliminar"><i class="fas fa-trash"></i>
-                                        </button>
+                                        <a href="#" onclick="if(confirm('form{{ $item->id }}','¿Desea eliminar el contacto?')) { event.preventDefault(); this.closest('form').submit(); }" title="Eliminar" class="mx-0.5"><i class="fas fa-trash fa-lg" style="color: #f43e3e"></i></a>
                                     </form>
                                 </td>
                             </tr>
