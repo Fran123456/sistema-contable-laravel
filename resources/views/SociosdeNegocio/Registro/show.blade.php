@@ -155,7 +155,7 @@
                         @foreach ($registro as $key => $item)
                             <tr>
                                 <th scope="row">{{ $key + 1 }}</th>
-                                <td>{{ $item->observacion }}</td>
+                                <td>{!! $item->observacion !!}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>
                                     <a href="{{ route('socios.registro.edit', $item->id) }}" class="btn btn-warning"
