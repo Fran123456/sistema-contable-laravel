@@ -8,8 +8,8 @@
     </x-slot>
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
-            <li class="breadcrumb-item"><a href="{{route('socios.contacto.index')}}">Contactos</a></li>
+            <li class="breadcrumb-item"><a href="/" target="_blank">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('socios.contacto.index')}}" target="_blank">Contactos</a></li>
             <li class="breadcrumb-item active" aria-current="page">Ver contacto</li>
         </ol>
     </div>
