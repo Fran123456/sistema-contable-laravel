@@ -32,11 +32,8 @@
                             <th scope="col">Giro</th>
                             <th scope="col">Teléfono</th>
                             <th scope="col">Dirección</th>
-                            <th scope="col">Productos</th>
-                            <th scope="col" width="50" class="text-center"><i class="fas fa-eye"></i></th>
-                            <th scope="col" width="50" class="text-center"><i class="fas fa-edit"></i></th>
-                            <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
-                            <th scope="col" width="50" class="text-center"><i class="fa-solid fa-ban"></i></th>
+                            <th scope="col" width="110">Productos</th>
+                            <th scope="col" width="110px">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,23 +44,23 @@
                                 <td>{{$item->giro}}</td>
                                 <td>{{$item->telefono}}</td>
                                 <td>{{$item->direccion}}</td>
-                                <td><a href="{{ route('socios.listarProductos', $item->id) }}" class="btn btn-success">Productos</a></td>
-                                <td><a href="{{route('socios.proveedores.show', $item->id)}}" class="btn btn-success" title="Ver proveedor"><i class="fas fa-eye"></i></a></td>
-                                <td><a href="{{route('socios.proveedores.edit', $item->id)}}" class="btn btn-warning @if(!$item->activo) disabled @endif" title="Editar"><i class="fas fa-edit"></i></a></td>
-                                <td>
+                                <td><a href="{{ route('socios.listarProductos', $item->id) }}" title="Productos" class="mx-0.5"><i class="fab fa-product-hunt fa-lg"></i></a></td>
+                                <td class="">
+                                    <a href="{{route('socios.proveedores.show', $item->id)}}" title="Ver proveedor" class="mx-0.5"><i class="fas fa-eye fa-lg"></i></a>
+                                    <a href="{{route('socios.proveedores.edit', $item->id)}}" title="Editar proveedor" class="mx-0.5" @if(!$item->activo)  @endif><i class="fas fa-edit fa-lg"></i></a>
                                     <form id="form{{ $item->id }}"
                                         action="{{ route('socios.proveedores.destroy', $item->id) }}"
-                                        method="post">
+                                        method="post" class="d-inline">
                                         @method('DELETE')
                                         @csrf
-                                        <button
-                                            onclick="confirm('form{{ $item->id }}','¿Desea eliminar el proveedor?')"
-                                            class="btn btn-danger"
-                                            type="button" title="Eliminar"><i class="fas fa-trash"></i>
-                                        </button>
+                                        <a href="#" onclick="confirm('form{{ $item->id }}','¿Desea eliminar el proveedor?')" title="Eliminar" class="mx-0.5"><i class="fas fa-trash fa-lg"></i></a>
                                     </form>
-                                </td>
-                                <td><a href="{{route('socios..deshabilitarProveedor', $item->id)}}" class="btn btn-light @if(!$item->activo) disabled @endif" title="Deshabilitar Proveedor"><i class="fa-solid fa-ban" style="color: #df1111;"></a></td>
+                                    @if($item->activo)
+                                        <a href="{{route('socios..deshabilitarProveedor', $item->id)}}" title="Deshabilitar Proveedor" class="mx-0.5"><i class="fa-solid fa-ban fa-lg" style="color: #df1111;"></i></a>
+                                    @else
+                                        <a href="{{route('socios..habilitarProveedor', $item->id)}}" title="Habilitar Proveedor" class="mx-0.5"><i class="fa-solid fa-check fa-lg" style="color: #28a745;"></i></a>
+                                    @endif
+                                </td>    
                             </tr>
                         @endforeach
                        
