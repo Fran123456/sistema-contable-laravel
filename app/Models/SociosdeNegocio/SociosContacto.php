@@ -34,4 +34,8 @@ class SociosContacto extends Model
     public function cargo(){
         return $this->belongsTo(SociosCargo::class, 'cargo_id')->withDefault();
     }
+
+    public function registro(){
+        return $this->hasMany(SociosRegistro::class, 'contacto_id');
+    }
 }
