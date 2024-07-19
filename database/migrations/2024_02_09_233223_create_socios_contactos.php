@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('tipo_contrato');
             $table->string('estado');
             $table->text('cv');
+            $table->string('portafolio')->nullable();
             $table->unsignedBigInteger('cargo_id');
             $table->unsignedBigInteger('registro_id');
             $table->timestamps();
