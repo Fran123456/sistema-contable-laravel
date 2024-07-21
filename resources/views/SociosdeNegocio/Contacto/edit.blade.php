@@ -4,8 +4,30 @@
        Editar contacto
     </x-slot>
 
+
+
     <x-slot:subtitle>
     </x-slot>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // Se inicializa el richText
+            const quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+
+            // El contenido del richText se pasa a un input
+            document.querySelector('#observacionForm').onsubmit = function() {
+                const content = quill.root.innerHTML;
+                document.querySelector('#anexo').value = content;
+            };
+        });
+    </script>
+
+
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
@@ -129,21 +151,5 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-
-            // Se inicializa el richText
-            const quill = new Quill('#editor', {
-                theme: 'snow'
-            });
-
-            // El contenido del richText se pasa a un input
-            document.querySelector('#observacionForm').onsubmit = function() {
-                const content = quill.root.innerHTML;
-                document.querySelector('#anexo').value = content;
-            };
-        });
-    </script>
+    
 </x-app-layout>
