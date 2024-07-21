@@ -114,6 +114,12 @@
                         <input type="text" name="contactado_en" class="form-control" readonly
                             value="{{ $contacto->portafolio }}">
                     </div>
+
+                    <div class="col-md-12"><br>
+                        <label for=""><strong>Anexo</strong></label>
+                        <hr>
+                        {!! $contacto->anexo ?? "Sin anexos" !!}
+                    </div>
                 </div>
             </div>
         </div>

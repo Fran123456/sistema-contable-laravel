@@ -168,7 +168,7 @@ class ContactoController extends Controller
         //  $contacto->cv = $url_cv;
         $contacto->cargo_id = $request->cargo_id;
         $contacto->pais_id = $request->pais_id;
-        $contacto->registro_id = $request->registro_id;
+        $contacto->anexo = $request->anexo;
         $contacto->portafolio = $request->portafolio;
 
         try {

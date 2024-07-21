@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{route('socios.contacto.update', $contacto) }}" method="post" enctype="multipart/form-data">
+                <form action="{{route('socios.contacto.update', $contacto) }}" method="post" enctype="multipart/form-data" id="observacionForm">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -108,9 +108,18 @@
                                 @endforeach    
                             </select>
                         </div>
+
+                        <div class="col-md-12 mt-2 mb-12">
+                            <label for="medio_contacto"> <strong>Anexo</strong> </label>
+                            <div id="editor" class="form-control">{!! $contacto->anexo !!}</div>
+                            <input type="hidden" name="anexo" id="anexo" value="{!! $contacto->anexo !!}">
+                        </div> 
                         <div>
                             <input type="hidden" name="persona_encuentra_id" value="{{$usuario->id}}"  class="form-control">
                         </div>
+
+                        <br>
+                        <br>
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
                         </div>
@@ -119,5 +128,21 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
 
+            // Se inicializa el richText
+            const quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+
+            // El contenido del richText se pasa a un input
+            document.querySelector('#observacionForm').onsubmit = function() {
+                const content = quill.root.innerHTML;
+                document.querySelector('#anexo').value = content;
+            };
+        });
+    </script>
 </x-app-layout>

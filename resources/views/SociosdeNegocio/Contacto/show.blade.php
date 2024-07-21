@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/" target="_blank">Dasboard</a></li>
-            <li class="breadcrumb-item"><a href="{{route('socios.contacto.index')}}" target="_blank">Contactos</a></li>
+            <li class="breadcrumb-item"><a href="{{route('socios.contacto.index')}}">Contactos</a></li>
             <li class="breadcrumb-item active" aria-current="page">Ver contacto</li>
         </ol>
     </div>
@@ -102,6 +102,13 @@
                             @endforeach    
                         </select>
                     </div>
+                    
+                    <div class="col-md-12"><br>
+                        <label for=""><strong>Anexo</strong></label>
+                        <hr>
+                        {!! $contacto->anexo ?? "Sin anexos" !!}
+                    </div>
+
                 </div>
             </div>
         </div>
