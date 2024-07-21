@@ -10,9 +10,7 @@ use App\Models\SociosdeNegocio\SociosCargo;
 use App\Models\SociosdeNegocio\SociosRegistro;
 use App\Help\Log;
 use App\Help\Help;
-
-
-
+use App\Models\EntidadTerritorial\EntPais;
 
 class ContactoController extends Controller
 {
@@ -38,7 +36,8 @@ class ContactoController extends Controller
     {
         $usuario = auth()->user();
         $cargos = SociosCargo::all();
-        return view('sociosdeNegocio.Contacto.create', compact('usuario', 'cargos'));
+        $paises = EntPais::all();
+        return view('sociosdeNegocio.Contacto.create', compact('usuario', 'cargos','paises'));
     }
 
     /**
@@ -50,11 +49,12 @@ class ContactoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:200',
-            'apellido' => 'required|string|max:200',
-            'telefono' => 'required|string|max:16',
-            'cargo_id' => 'required|string',
-            'estado' => 'required|string',
+            'nombre'=> 'required|string|max:200',
+            'apellido'=> 'required|string|max:200',
+            'telefono'=> 'required|string|max:16',
+            'cargo_id'=> 'required|string',
+            'pais_id'=> 'required|string',
+            'estado'=> 'required|string',
             'cv' => 'mimes:pdf,docx',
             'portafolio' => 'nullable|string',
         ]);
@@ -91,7 +91,8 @@ class ContactoController extends Controller
     {
         $contacto = SociosContacto::find($id);
         $cargos = SociosCargo::all();
-        return view('sociosdeNegocio.Contacto.show', compact('contacto', 'cargos'));
+        $paises = EntPais::all();
+        return view('sociosdeNegocio.Contacto.show', compact('contacto','cargos','paises'));
     }
 
     /**
@@ -105,7 +106,8 @@ class ContactoController extends Controller
         $usuario = auth()->user();
         $contacto = SociosContacto::find($id);
         $cargos = SociosCargo::all();
-        return view('sociosdeNegocio.Contacto.edit', compact('contacto', 'usuario', 'cargos'));
+        $paises = EntPais::all();
+        return view('sociosdeNegocio.Contacto.edit', compact('contacto', 'usuario', 'cargos','paises'));
     }
 
     /**
@@ -119,11 +121,12 @@ class ContactoController extends Controller
     {
 
         $request->validate([
-            'nombre' => 'required|string|max:200',
-            'apellido' => 'required|string|max:200',
-            'telefono' => 'required|string|max:8',
-            'cargo_id' => 'required|string',
-            'estado' => 'required|string',
+            'nombre'=> 'required|string|max:200',
+            'apellido'=> 'required|string|max:200',
+            'telefono'=> 'required|string|max:8',
+            'cargo_id'=> 'required|string',
+            'pais_id'=> 'required|string',
+            'estado'=> 'required|string',
             'cv' => 'mimes:pdf,docx',
             'portafolio' => 'nullable|string',
         ]);
@@ -164,6 +167,7 @@ class ContactoController extends Controller
         $contacto->estado = $request->estado;
         //  $contacto->cv = $url_cv;
         $contacto->cargo_id = $request->cargo_id;
+        $contacto->pais_id = $request->pais_id;
         $contacto->registro_id = $request->registro_id;
         $contacto->portafolio = $request->portafolio;
 

@@ -41,9 +41,10 @@
                             <th scope="col" width="40">#</th>
                             <th scope="col"> </th>
                             <th scope="col">Nombre completo</th>
-                            <th scope="col">Teléfono</th>
+                  
                             <th scope="col">Cargo</th>
                             <th scope="col">Estado</th>
+                            <th scope="col">Pais</th>
                             <th scope="col" width="160px">Acciones </th>
                         </tr>
                     </thead>
@@ -59,9 +60,10 @@
                                     </div>
                                 </td>
                                 <td>{{ $item->nombre }} {{ $item->apellido }}</td> {{-- Nombre completo --}}
-                                <td>{{ $item->telefono }}</td>
+                               
                                 <td>{{ $item->cargo->cargo }}</td>
                                 <td>{{ $item->estado }}</td>
+                                <td>{{ $item->pais->pais}}</td>
                                 <td class="text-center">
                                     <a href="{{ route('socios.registro.show', $item->id) }}" title="Ver detalles"
                                         class="mx-0.5"><i class="fa-solid fa-file-lines fa-lg"></i></a>
