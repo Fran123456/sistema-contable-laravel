@@ -78,6 +78,7 @@
                             <select id="estado" name="estado" class="form-control" value="{{$contacto->estado}}" required>
                                 <option value="">Selecciona una opción</option>
                                 <option value="Ingresado" {{$contacto->estado === 'Ingresado' ? 'selected' : ' '}}>Ingresado</option>
+                                <option value="Ingresado-Recomendado" {{$contacto->estado === 'Inactivo' ? 'selected' : ' '}}>Ingresado/Recomendado</option>
                                 <option value="Inactivo" {{$contacto->estado === 'Inactivo' ? 'selected' : ' '}}>Inactivo</option>
                                 <option value="Proceso de seleccion" {{$contacto->estado === 'Proceso de seleccion' ? 'selected' : ' '}}>En proceso de selección</option>
                                 <option value="Descartado" {{$contacto->estado === 'Descartado' ? 'selected' : ' '}}>Descartado</option>
