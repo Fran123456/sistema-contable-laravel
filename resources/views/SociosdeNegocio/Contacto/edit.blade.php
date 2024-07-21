@@ -135,7 +135,7 @@
                         <div class="col-md-12 mt-2 mb-12">
                             <label for="medio_contacto"> <strong>Anexo</strong> </label>
                             <div id="editor" class="form-control">{!! $contacto->anexo !!}</div>
-                            <input type="hidden" name="anexo" id="anexo" value="{!! $contacto->anexo !!}">
+                            <input type="hidden" name="anexo" id="anexo" value="">
                         </div> 
                         <div>
                             <input type="hidden" name="persona_encuentra_id" value="{{$usuario->id}}"  class="form-control">
