@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
         //Route::get('/correlativo/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
         Route::get('/partida/cerrar/{id}', [PartidasContablesController::class, 'cerrarPartida'])->name('cerrarPartida');
         Route::get('/partida/reporte/{id}', [PartidasContablesController::class, 'reportePartidaContable'])->name('reportePartidaContable');
+        Route::post('/partida/detalle/actualizar/{id}', [PartidasContablesController::class, 'actualizarDetallePartida'])->name('actualizarDetallePartida');
         Route::delete('/partida/detalle/eliminar/{id}', [PartidasContablesController::class, 'eliminarDetallePartida'])->name('eliminarDetallePartida');
 
     });
