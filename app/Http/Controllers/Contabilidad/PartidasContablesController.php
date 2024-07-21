@@ -172,29 +172,28 @@ class PartidasContablesController extends Controller
     public function actualizarDetallePartida(Request $request, $id) 
     {
         $detalle = ContaDetallePartida::find($id);
-
+        $detalleOld = $detalle->replicate();
         if (!$detalle) {
             return redirect()->back()->with('danger', 'El detalle de la partida no se encontró.');
         }
 
         // Depuración: Verifica el valor del campo cuenta_contable_id
-        $cuentaId = $request->cuenta;
-        $cuentaContable = ContaCuentaContable::find($cuentaId);
-
+        $cuentaId = ContaCuentaContable::where('codigo',$request->cuenta)->where('empresa_id', Help::empresa())->first()?->id;
         // Depuración del campo "cuenta"
         // dd($cuentaId);
 
-        if (!$cuentaContable) {
-            return redirect()->back()->with('danger', 'El ID de cuenta contable no existe.');
+        if (!$cuentaId) {
+            return redirect()->back()->with('danger', 'La cuenta contable no existe { '.$request->cuenta.' } ');
         }
-
+       
         $detalle->cuenta_contable_id = $cuentaId;
         $detalle->concepto = $request->concepto_detalle;
         $detalle->debe = $request->debe ?? 0;
         $detalle->haber = $request->haber ?? 0;
         $detalle->fecha_contable = $request->fecha_detalle;
-
         $detalle->save();
+
+        PartidasContables::updateHaberDebeEdit($detalle->partida_id, $detalle->debe, $detalle->haber , $detalleOld->debe, $detalleOld->haber);
 
         Log::log('Contabilidad', 'Editar detalle de partida contable', 'El usuario ' . Help::usuario()->name . ' ha editado el detalle de la partida ' . $detalle->id);
 
