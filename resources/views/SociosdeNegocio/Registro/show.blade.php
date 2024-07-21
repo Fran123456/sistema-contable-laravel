@@ -16,28 +16,6 @@
         <x-alert></x-alert>
     </div>
 
-    <form action="{{ route('socios.registro.store') }}" method="post" id="observacionForm">
-        @csrf
-        <div class="row">
-            <div class="col-md-12 mt-2 mb-5">
-                <label for="socios_registro"> <strong>Observación</strong> </label>
-                {{-- <textarea name="observacion" class="form-control" requiredcols="30" rows="10"></textarea> --}}
-
-
-                <div id="editor" class="form-control"></div>
-                <input type="hidden" name="observacion" id="observacion">
-                @error('observacion')
-                    {{ $message }}
-                @enderror
-            </div>
-
-            <input type="hidden" name="contacto_id" id="contacto_id" value="{{ $contactoId }}">
-            <div class="col-md-12 mt-5 mb-3 ">
-                <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
-            </div>
-
-        </div>
-    </form>
 
 
 
@@ -131,11 +109,40 @@
                                 Descartado</option>
                         </select>
                     </div>
+                    <div class="col-md-12 mt-2 mb-12">
+                        <label for="medio_contacto"> <strong>Portafolio</strong> </label>
+                        <input type="text" name="contactado_en" class="form-control" readonly
+                            value="{{ $contacto->portafolio }}">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <br>
+    <form action="{{ route('socios.registro.store') }}" method="post" id="observacionForm">
+        @csrf
+        <div class="row">
+            <div class="col-md-12 mt-2 mb-5">
+                <label for="socios_registro"> <strong>Observación</strong> </label>
+                {{-- <textarea name="observacion" class="form-control" requiredcols="30" rows="10"></textarea> --}}
+
+
+                <div id="editor" class="form-control"></div>
+                <input type="hidden" name="observacion" id="observacion">
+                @error('observacion')
+                    {{ $message }}
+                @enderror
+            </div>
+
+            <input type="hidden" name="contacto_id" id="contacto_id" value="{{ $contactoId }}">
+            <div class="col-md-12 mt-5 mb-3 ">
+                <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
+            </div>
+
+        </div>
+    </form>
+
+
     <div class="col-md-12">
 
         <div class="card">

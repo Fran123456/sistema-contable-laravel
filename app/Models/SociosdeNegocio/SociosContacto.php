@@ -39,4 +39,7 @@ class SociosContacto extends Model
     public function pais(){
         return $this->belongsTo(EntPais::class, 'pais_id')->withDefault();
     }
+    public function registro(){
+        return $this->hasMany(SociosRegistro::class, 'contacto_id');
+    }
 }

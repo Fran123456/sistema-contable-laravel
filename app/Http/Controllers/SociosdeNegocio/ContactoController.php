@@ -191,7 +191,9 @@ class ContactoController extends Controller
     public function destroy($id)
     {
         $contacto = SociosContacto::find($id);
-        $url = $contacto->cv;
+        $url =  $contacto->cv;
+        
+        $contacto->registro()->delete();
 
         if (Storage::exists($url)) {
             Storage::delete($url);
