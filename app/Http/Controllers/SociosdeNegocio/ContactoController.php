@@ -133,7 +133,7 @@ class ContactoController extends Controller
         $contacto = SociosContacto::find($id);
         $estadoAnterior = $contacto->estado;
         $url_cv = $contacto->cv;
-        return $request->cv;
+        
         if ($request->hasFile('cv')) {
 
             $cv = $request->file('cv');
