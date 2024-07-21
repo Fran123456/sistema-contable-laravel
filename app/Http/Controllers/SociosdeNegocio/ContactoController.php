@@ -58,7 +58,7 @@ class ContactoController extends Controller
             'cv' => 'mimes:pdf,docx',
             'portafolio' => 'nullable|string',
         ]);
-
+        
         $contacto = (new SociosContacto)->fill($request->all());
 
         //Valida si el campo cv tiene un archivo, para no enviar datos null
@@ -68,6 +68,7 @@ class ContactoController extends Controller
             $contacto->cv = Help::uploadFile($request, 'cv', '', 'cv', $ramdonName = true);
         }
         try {
+            $contacto->portafolio = $request->portafolio;
             $contacto->save();
             $registro = SociosRegistro::create([
                 'observacion' => "Se acaba de crear el contacto con estado " . $request->estado,
