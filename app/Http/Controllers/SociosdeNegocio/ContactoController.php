@@ -51,7 +51,7 @@ class ContactoController extends Controller
         $request->validate([
             'nombre'=> 'required|string|max:200',
             'apellido'=> 'required|string|max:200',
-            'telefono'=> 'required|string|max:16',
+            'telefono'=> 'required|string|max:40',
             'cargo_id'=> 'required|string',
             'pais_id'=> 'required|string',
             'estado'=> 'required|string',
@@ -124,7 +124,7 @@ class ContactoController extends Controller
         $request->validate([
             'nombre'=> 'required|string|max:200',
             'apellido'=> 'required|string|max:200',
-            'telefono'=> 'required|string|max:15',
+            'telefono'=> 'required|string|max:40',
             'cargo_id'=> 'required|string',
             'pais_id'=> 'required|string',
             'estado'=> 'required|string',
@@ -133,6 +133,7 @@ class ContactoController extends Controller
         $contacto = SociosContacto::find($id);
         $estadoAnterior = $contacto->estado;
         $url_cv = $contacto->cv;
+        return $request->cv;
         if ($request->hasFile('cv')) {
 
             $cv = $request->file('cv');

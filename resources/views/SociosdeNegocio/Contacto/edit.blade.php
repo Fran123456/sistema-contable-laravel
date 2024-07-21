@@ -109,7 +109,7 @@
                         <div class="col-md-6 mt-2 mb-6">
                             <label for="cv"><strong>CV</strong></label>
 
-                            <input class="form-control" type="file" name="cv" id="cv" accept="application/pdf" value="{{$contacto->cv}}">
+                            <input class="form-control" type="file" name="cv" id="cv" accept="application/pdf" >
 
                             @if ($contacto->cv)
                             <a href="{{ url('/')}}/cv/{{$contacto->cv}}" target="_blank"  title="Descargar"> <i class="fa-solid fa-download"></i> Descarga </a>
