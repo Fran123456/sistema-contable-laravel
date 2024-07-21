@@ -92,7 +92,7 @@
                             <a href="{{ url('/')}}/cv/{{$contacto->cv}}" target="_blank"  title="Descargar"> <i class="fa-solid fa-download"></i> Descarga </a>
                             @endif
                         </div>
-                        <div class="col-md-6 mt-2 mb-12">
+                        <div class="col-md-12 mt-2 mb-12">
                             <label for="portafolio"> <strong>Portafolio</strong> </label>
                             <input type="text" name="portafolio" class="form-control" value="{{$contacto->portafolio}}">
                             @error('portafolio')
