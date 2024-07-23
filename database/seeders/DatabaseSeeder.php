@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RRHHAfp::class);
         $this->call(RRHHTipoIngreso::class);
         $this->call(FactEstadoFacturacionSeeder::class);
+        $this->call(FactTipoDocumentoSeeder::class);
 
         // \App\Models\User::factory(10)->create();
 
