@@ -24,11 +24,25 @@
     <!-- Fin Div para alertas -->
 
 
-    <!-- Botón para agregar tipo de precio -->
-    <div class="col-md-12 text-end mb-4">
-        <a class="btn btn-primary text-white" href="{{--route('producto.producto.create')--}}" title="Crear"><i class=""></i>AGREGAR TIPO DE PRECIO</a>
+    
+    <!-- Formulario para agregar tipo de precio -->
+    <div class="row mb-4">
+        <label for="tipo" class="my-2">Agregar tipo de precio</label>
+        <div class="col-md-12">
+            <form action="{{ route('producto.precio.store') }}" method="POST" class="form-inline">
+                @csrf
+                <div class="input-group">
+                    
+                    <input type="text" name="tipo" class="form-control me-5" id="tipo" placeholder="Tipo de Precio" required>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary text-white g-0">Agregar Tipo de Precio</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <!-- Fin botón para agregar tipo de precio -->
+    <!-- Fin formulario para agregar tipo de precio -->
+    
 
 
     <!-- Cuerpo de la vista -->
@@ -47,11 +61,25 @@
                             <th>Acciones</th>
                     </thead>
                     <tbody>
+                    @foreach ($tiposPrecios as $tipoPrecio)
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <td>{{ $tipoPrecio->id }}</td>
+                            <td>{{ $tipoPrecio->tipo }}</td>
+                            <td>
+                                <!-- Boton para eliminar -->
+                                <form id="form{{ $tipoPrecio->id }}"
+                                        action="{{ route('producto.precio.destroy', $tipoPrecio->id) }}"
+                                        method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button
+                                            onclick="confirm('form{{ $tipoPrecio->id }}','¿Desea eliminar el tipo de precio?')"
+                                            class="btn btn-danger"
+                                            type="button" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                    </form>
+                            </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
@@ -59,53 +87,6 @@
         </div>
     </div>
     <!-- Fin cuerpo de la vista -->
-
-
-
-    <!-- Modales para las acciones: Editar, Eliminar -->
-
-        <!-- Modal Editar -->
-        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Título del Modal</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Contenido del modal.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar cambios</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Eliminar -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Título del Modal</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Contenido del modal.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar cambios</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <!-- Fin modales para las acciones: Editar, Eliminar -->
 
 
 
