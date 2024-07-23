@@ -4,8 +4,30 @@
        Editar contacto
     </x-slot>
 
+
+
     <x-slot:subtitle>
     </x-slot>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // Se inicializa el richText
+            const quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+
+            // El contenido del richText se pasa a un input
+            document.querySelector('#observacionForm').onsubmit = function() {
+                const content = quill.root.innerHTML;
+                document.querySelector('#anexo').value = content;
+            };
+        });
+    </script>
+
+
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
@@ -20,7 +42,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{route('socios.contacto.update', $contacto) }}" method="post" enctype="multipart/form-data">
+                <form action="{{route('socios.contacto.update', $contacto) }}" method="post" enctype="multipart/form-data" id="observacionForm">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -78,6 +100,7 @@
                             <select id="estado" name="estado" class="form-control" value="{{$contacto->estado}}" required>
                                 <option value="">Selecciona una opción</option>
                                 <option value="Ingresado" {{$contacto->estado === 'Ingresado' ? 'selected' : ' '}}>Ingresado</option>
+                                <option value="Ingresado-Recomendado" {{$contacto->estado === 'Ingresado-Recomendado' ? 'selected' : ' '}}>Ingresado/Recomendado</option>
                                 <option value="Inactivo" {{$contacto->estado === 'Inactivo' ? 'selected' : ' '}}>Inactivo</option>
                                 <option value="Proceso de seleccion" {{$contacto->estado === 'Proceso de seleccion' ? 'selected' : ' '}}>En proceso de selección</option>
                                 <option value="Descartado" {{$contacto->estado === 'Descartado' ? 'selected' : ' '}}>Descartado</option>
@@ -86,22 +109,40 @@
                         <div class="col-md-6 mt-2 mb-6">
                             <label for="cv"><strong>CV</strong></label>
 
-                            <input class="form-control" type="file" name="cv" id="cv" accept="application/pdf" value="{{$contacto->cv}}">
+                            <input class="form-control" type="file" name="cv" id="cv" accept="application/pdf" >
 
                             @if ($contacto->cv)
                             <a href="{{ url('/')}}/cv/{{$contacto->cv}}" target="_blank"  title="Descargar"> <i class="fa-solid fa-download"></i> Descarga </a>
                             @endif
                         </div>
-                        <div class="col-md-6 mt-2 mb-12">
+                        <div class="col-md-12 mt-2 mb-12">
                             <label for="portafolio"> <strong>Portafolio</strong> </label>
                             <input type="text" name="portafolio" class="form-control" value="{{$contacto->portafolio}}">
                             @error('portafolio')
                                 {{$message}}
                             @enderror
                         </div>
+                        <div class="col-md-6 mt-2 mb-12">
+                            <label for="pais_id"> <strong>Pais</strong></label>
+                            <select required id="pais_id" name="pais_id" class="form-control">
+                                <option value="">Selecciona una opción</option>
+                                @foreach ($paises as $pais)
+                                    <option value="{{$pais->id}}" @if ($pais->id == $contacto->pais_id) selected @endif>{{$pais->pais}}</option>                                                                      --}}
+                                @endforeach    
+                            </select>
+                        </div>
+
+                        <div class="col-md-12 mt-2 mb-12">
+                            <label for="medio_contacto"> <strong>Anexo</strong> </label>
+                            <div id="editor" class="form-control">{!! $contacto->anexo !!}</div>
+                            <input type="hidden" name="anexo" id="anexo" value="">
+                        </div> 
                         <div>
                             <input type="hidden" name="persona_encuentra_id" value="{{$usuario->id}}"  class="form-control">
                         </div>
+
+                        <br>
+                        <br>
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
                         </div>
@@ -110,5 +151,5 @@
             </div>
         </div>
     </div>
-
+    
 </x-app-layout>

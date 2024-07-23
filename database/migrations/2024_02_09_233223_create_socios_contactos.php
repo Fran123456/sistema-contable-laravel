@@ -27,9 +27,11 @@ return new class extends Migration
             $table->string('portafolio')->nullable();
             $table->unsignedBigInteger('cargo_id');
             $table->unsignedBigInteger('registro_id');
+            $table->unsignedBigInteger('pais_id');
             $table->timestamps();
             $table->foreign('persona_encuentra_id')->references('id')->on('users')->onUpdate('cascade');
             $table->foreign('cargo_id')->references('id')->on('socios_cargo')->onUpdate('cascade');
+            $table->foreign('pais_id')->references('id')->on('ent_pais')->onUpdate('cascade');
         });
     }
 

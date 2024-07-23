@@ -2,6 +2,7 @@
 
 namespace App\Models\SociosdeNegocio;
 
+use App\Models\EntidadTerritorial\EntPais;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
@@ -22,9 +23,10 @@ class SociosContacto extends Model
         'estado',
         'cv',
         'cargo_id' ,
-        'registro_id',
+        'pais_id' ,
         'created_at',
         'updated_at',
+        'anexo'
     ];
 
     public function usuario(){
@@ -33,5 +35,12 @@ class SociosContacto extends Model
 
     public function cargo(){
         return $this->belongsTo(SociosCargo::class, 'cargo_id')->withDefault();
+    }
+
+    public function pais(){
+        return $this->belongsTo(EntPais::class, 'pais_id')->withDefault();
+    }
+    public function registro(){
+        return $this->hasMany(SociosRegistro::class, 'contacto_id');
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Contabilidad\ContaCuentaContable;
 use App\Models\Contabilidad\ContaPartidaContable;
 use App\Models\Contabilidad\ContaPeriodoContable;
 use App\Models\Contabilidad\ContaTipoPartida;
+use App\Models\Contabilidad\ContaDetallePartida;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -167,6 +168,37 @@ class PartidasContablesController extends Controller
         return redirect("/contabilidad/partidas/$partida->id/edit#detalles")->with('success','Se ha editado correctamente la partida contable');
     }
 
+    //editar detalle de partida
+    public function actualizarDetallePartida(Request $request, $id) 
+    {
+        $detalle = ContaDetallePartida::find($id);
+        $detalleOld = $detalle->replicate();
+        if (!$detalle) {
+            return redirect()->back()->with('danger', 'El detalle de la partida no se encontró.');
+        }
+
+        // Depuración: Verifica el valor del campo cuenta_contable_id
+        $cuentaId = ContaCuentaContable::where('codigo',$request->cuenta)->where('empresa_id', Help::empresa())->first()?->id;
+        // Depuración del campo "cuenta"
+        // dd($cuentaId);
+
+        if (!$cuentaId) {
+            return redirect()->back()->with('danger', 'La cuenta contable no existe { '.$request->cuenta.' } ');
+        }
+       
+        $detalle->cuenta_contable_id = $cuentaId;
+        $detalle->concepto = $request->concepto_detalle;
+        $detalle->debe = $request->debe ?? 0;
+        $detalle->haber = $request->haber ?? 0;
+        $detalle->fecha_contable = $request->fecha_detalle;
+        $detalle->save();
+
+        PartidasContables::updateHaberDebeEdit($detalle->partida_id, $detalle->debe, $detalle->haber , $detalleOld->debe, $detalleOld->haber);
+
+        Log::log('Contabilidad', 'Editar detalle de partida contable', 'El usuario ' . Help::usuario()->name . ' ha editado el detalle de la partida ' . $detalle->id);
+
+        return redirect("/contabilidad/partidas/{$detalle->partida_id}/edit#detalles")->with('success', 'Detalle de la partida actualizado correctamente');
+    }
 
     /**
      * Remove the specified resource from storage.
