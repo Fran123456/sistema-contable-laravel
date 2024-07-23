@@ -15,10 +15,60 @@
         <x-alert></x-alert>
     </div>
 
+    <div class="col-md-12">
+        <form action="{{ route('socios.contacto.index') }}" method="get">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">Cargos</label>
+                    <select name="cargo" class="form-control"  id="">
+                        <option value="" disabled selected >Seleccionar</option>
+                        @foreach ($cargos as $c)
+                            <option @if($cargo == $c->id) selected @endif value="{{ $c->id }}" >{{ $c->cargo }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Pais</label>
+                    <select name="pais" class="form-control"  id="">
+                        <option value="" disabled selected >Seleccionar</option>
+                        @foreach ($paises as $p)
+                            <option @if($pais == $p->id) selected @endif value="{{ $p->id }}" >{{ $p->pais }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Estados</label>
+                    <select name="estado" class="form-control"  id="">
+                        <option value="" disabled selected >Seleccionar</option>
+                        @foreach ($estados as $e)
+                            <option @if($pais == $e->id) selected @endif value="{{ $e->estado }}" >{{ $e->estado }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-12 mt-3">
+                   
+                    <div class="hstack gap-3">
+                        <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                        <a href="{{ route('socios.contacto.index') }}" class="btn btn-danger" ><i class="fa fa-trash"></i>
+                        </a>
+                       
+                    </div>
+                </div>
+               
+            </div>
+        </form>
+        <br>
+    </div>
+
     <div class="col-md-12 text-end mb-4">
         <a class="btn btn-success" href="{{ route('socios.contacto.create') }}" title="Crear"> <i
                 class="fas fa-user-plus"></i> </a>
     </div>
+
+
 
     <div class="col-md-12">
 
