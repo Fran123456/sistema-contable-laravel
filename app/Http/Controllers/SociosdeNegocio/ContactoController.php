@@ -19,12 +19,40 @@ class ContactoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $cargos = SociosCargo::all();
+        $paises = EntPais::all();
         $contactos = SociosContacto::orderBy('id', 'desc')->get();
+        $estados = SociosContacto::select('estado')->groupBy('estado')->get();
+       
+        $filtro = false;
+        $pais = $request->pais;
+        $cargo = $request->cargo;
+        $estado = $request->estado;
+        $query = SociosContacto::query();
 
-        return view('sociosdeNegocio.Contacto.index', compact('contactos'));
+        // Aplicamos filtros si las variables están presentes
+        if (!empty($pais)) {
+            $query->where('pais_id', $pais);
+            $filtro = true;
+        }
+
+        if (!empty($estado)) {
+            $query->where('estado', $estado);
+            $filtro = true;
+        }
+
+        if (!empty($cargo)) {
+            $query->where('cargo_id', $cargo);
+            $filtro = true;
+        }
+
+        // Ordenamos por 'id' en orden descendente y obtenemos los resultados
+        $contactos = $query->orderBy('id', 'desc')->get();
+        
+
+        return view('sociosdeNegocio.Contacto.index', compact('contactos','cargos','paises','pais','cargo','estados'));
     }
 
     /**
