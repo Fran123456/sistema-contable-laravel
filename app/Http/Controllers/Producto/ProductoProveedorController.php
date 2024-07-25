@@ -48,22 +48,24 @@ class ProductoProveedorController extends Controller
             'producto_id' => 'required',
             'proveedor_id' => 'required',
             'precio_unitario' => 'required',
+            'stock' => 'required'
         ]);
-        
+
         $data = ProProducto::find($request->producto_id);
-        if($request->codigo == null || $request->producto == null){
+        if ($request->codigo == null || $request->producto == null) {
             $proveedor = ProProductoProveedor::create([
                 'codigo' => $request->codigo ?? $data->codigo,
                 'producto_id' => $request->producto_id,
                 'proveedor_id' => $request->proveedor_id,
                 'precio_unitario' => $request->precio_unitario,
+                'stock' => $request->stock,
                 'producto' => $request->producto ?? $data->producto,
                 'proveedor' => $request->proveedor,
             ]);
-        }else{
+        } else {
             $proveedor = ProProductoProveedor::create($request->all());
         }
-        
+
         try {
             $proveedor->save();
             return back()->with('success', 'Producto asociado correctamente');
@@ -97,7 +99,7 @@ class ProductoProveedorController extends Controller
         $productos = ProProducto::all();
         $proveedores = SociosProveedores::where('activo', true)->get();
 
-        return view('producto.producto_proveedor.edit', compact('productoProveedor','productos', 'proveedores'));
+        return view('producto.producto_proveedor.edit', compact('productoProveedor', 'productos', 'proveedores'));
     }
 
     /**
@@ -113,13 +115,14 @@ class ProductoProveedorController extends Controller
             'producto_id' => 'required',
             'proveedor_id' => 'required',
             'precio_unitario' => 'required|numeric',
+            'stock' => 'required'
         ]);
         $proveedor = ProProductoProveedor::find($id);
         $proveedor->update($request->all());
 
         try {
             $proveedor->save();
-            Log::log('ProductoProveedor', "Editar proveedor",'El proveedor ' .  $proveedor->nombre . " ".' ha sido actualizado por el usuario '. Help::usuario()->name);
+            Log::log('ProductoProveedor', "Editar proveedor", 'El proveedor ' . $proveedor->nombre . " " . ' ha sido actualizado por el usuario ' . Help::usuario()->name);
             return to_route('producto.producto_proveedor.index')->with('success', 'Proveedor actualizado correctamente');
 
         } catch (Exception $e) {
@@ -138,8 +141,8 @@ class ProductoProveedorController extends Controller
     {
         $proveedor = ProProductoProveedor::find($id);
 
-        Log::log('Producto', "Eliminar proveedor",'El proveedor' .  $proveedor->nombre . " ". ' ha sido eliminado por el usuario '. Help::usuario()->name);
+        Log::log('Producto', "Eliminar proveedor", 'El proveedor' . $proveedor->nombre . " " . ' ha sido eliminado por el usuario ' . Help::usuario()->name);
         $proveedor->delete();
-        return to_route('producto.producto_proveedor.index')->with('success','Se ha eliminado el proveedor correctamente');
+        return to_route('producto.producto_proveedor.index')->with('success', 'Se ha eliminado el proveedor correctamente');
     }
 }

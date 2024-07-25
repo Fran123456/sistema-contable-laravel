@@ -82,22 +82,23 @@
 <x-app-layout>
     <x-slot:title>
         Lista de proveedores
-      </x-slot>
-      <x-slot:subtitle>
-      </x-slot>
+    </x-slot>
+    <x-slot:subtitle>
+    </x-slot>
 
     <div class="col-md-12">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
             <li class="breadcrumb-item active" aria-current="page">Proveedores</li>
-          </ol>
+        </ol>
     </div>
     <div class="col-md-12">
         <x-alert></x-alert>
     </div>
-    
+
     <div class="col-md-12 text-end mb-4">
-        <a class="btn btn-success" href="{{route('producto.producto_proveedor.create')}}" title="Crear"> <i class="fas fa-save"></i> </a>
+        <a class="btn btn-success" href="{{ route('producto.producto_proveedor.create') }}" title="Crear"> <i
+                class="fas fa-save"></i> </a>
     </div>
 
     <div class="col-md-12">
@@ -111,36 +112,39 @@
                             <th scope="col" width="40">#</th>
                             <th scope="col">Codigo</th>
                             <th scope="col">Producto</th>
-                            <th  scope="col">Precio unitario</th>
+                            <th scope="col">Precio unitario</th>
+                            <th scope="col">Stock</th>
                             <th scope="col">Proveedor</th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-edit"></i></th>
                             <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($productoProveedor as $key => $item)
+                        @foreach ($productoProveedor as $key => $item)
                             @foreach ($item->proveedores as $proveedor)
-                            <tr>
-                                <th scope="row">{{$key + 1}}</th>
-                                    <td>{{$proveedor->pivot->codigo}}</td>    
+                                <tr>
+                                    <th scope="row">{{ $key + 1 }}</th>
+                                    <td>{{ $proveedor->pivot->codigo }}</td>
                                     <td>{{ $proveedor->pivot->producto }}</td>
                                     <td>{{ $proveedor->pivot->precio_unitario }}</td>
-                                    <td>{{ $proveedor->nombre}}</td>
-                                    <td><a href="{{ route('producto.producto_proveedor.edit', $proveedor->pivot->id) }}" class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a></td>
+                                    <td>{{ $proveedor->pivot->stock }}</td>
+                                    <td>{{ $proveedor->nombre }}</td>
+                                    <td><a href="{{ route('producto.producto_proveedor.edit', $proveedor->pivot->id) }}"
+                                            class="btn btn-warning" title="Editar"><i class="fas fa-edit"></i></a></td>
                                     <td>
                                         <form id="form{{ $item->id }}"
                                             action="{{ route('producto.producto_proveedor.destroy', $proveedor->pivot->id) }}"
                                             method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button
-                                            onclick="confirm('form{{ $item->id }}','¿Desea eliminar el producto?')"
-                                            class="btn btn-danger"
-                                            type="button" title="Eliminar"><i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
+                                            @method('DELETE')
+                                            @csrf
+                                            <button
+                                                onclick="confirm('form{{ $item->id }}','¿Desea eliminar el producto?')"
+                                                class="btn btn-danger" type="button" title="Eliminar"><i
+                                                    class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
-                            </tr>
+                                </tr>
                             @endforeach
                         @endforeach
                     </tbody>

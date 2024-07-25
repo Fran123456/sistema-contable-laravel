@@ -8,31 +8,43 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Producto\ProCategoria;
 use App\Models\Producto\ProTipoPrecio;
 use App\Models\SociosdeNegocio\SociosProveedores;
+
 class ProProducto extends Model
 {
     use HasFactory;
     public $timestamps = true;
     protected $table = 'pro_producto';
-    protected $fillable=[
+    protected $fillable = [
         'id',
         'producto',
-        'codigo','imagen','tipo_producto_id','requiere_lote','requiere_vencimiento','alerta_stock','descripcion', 'activo','created_at',
+        'codigo',
+        'imagen',
+        'tipo_producto_id',
+        'requiere_lote',
+        'requiere_vencimiento',
+        'alerta_stock',
+        'descripcion',
+        'activo',
+        'created_at',
         'updated_at',
     ];
 
-    public function categorias(){
-        return $this->belongsToMany(ProCategoria::class, 'pro_producto_categoria','producto_id','categoria_id')
+    public function categorias()
+    {
+        return $this->belongsToMany(ProCategoria::class, 'pro_producto_categoria', 'producto_id', 'categoria_id')
         ;
     }
 
-    public function tiposPrecios(){
-        return $this->belongsToMany(ProTipoPrecio::class, 'pro_producto_tipo_precio','producto_id','tipo_precio_id')
-        ->withPivot('estado', 'precio','id','precio');
+    public function tiposPrecios()
+    {
+        return $this->belongsToMany(ProTipoPrecio::class, 'pro_producto_tipo_precio', 'producto_id', 'tipo_precio_id')
+            ->withPivot('estado', 'precio', 'id', 'precio');
     }
 
-    public function combos(){
-        return $this->belongsToMany(ProCombo::class, 'pro_combo_producto','producto_id','combo_id')
-        ->withPivot('estado');
+    public function combos()
+    {
+        return $this->belongsToMany(ProCombo::class, 'pro_combo_producto', 'producto_id', 'combo_id')
+            ->withPivot('estado');
     }
 
 
@@ -41,13 +53,15 @@ class ProProducto extends Model
         return $this->belongsTo(ProTipoProducto::class, 'tipo_producto_id')->withDefault();
     }
 
-    public function productosPrecios() {
+    public function productosPrecios()
+    {
         return $this->hasMany(ProProductoTipoPrecio::class, 'producto_id');
     }
 
-    public function proveedores(){
+    public function proveedores()
+    {
         return $this->belongsToMany(SociosProveedores::class, 'pro_producto_proveedor', 'producto_id', 'proveedor_id')
-        ->withPivot(['precio_unitario','codigo', 'producto', 'id']);
+            ->withPivot(['precio_unitario', 'codigo', 'producto', 'stock', 'id']);
     }
 
 }
