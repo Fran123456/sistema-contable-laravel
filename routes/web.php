@@ -68,11 +68,16 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-
-
 include('routes/partials/users.php');
 include('routes/partials/contabilidad.php');
 include('routes/partials/rrhh.php');
 include('routes/partials/config.php');
 include('routes/partials/sociosdenegocio.php');
 include('routes/partials/producto.php');
+
+// include_once __DIR__ . '/partials/users.php';
+// include_once __DIR__ . '/partials/contabilidad.php';
+// include_once __DIR__ . '/partials/rrhh.php';
+// include_once __DIR__ . '/partials/config.php';
+// include_once __DIR__ . '/partials/sociosdenegocio.php';
+// include_once __DIR__ . '/partials/producto.php';
