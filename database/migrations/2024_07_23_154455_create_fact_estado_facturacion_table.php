@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('fact_estado_facturacion', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('estado', 50);
+            $table->timestamps();
+            
         });
     }
 
