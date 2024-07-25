@@ -55,3 +55,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/habilitar-cliente/{id}', [ClienteController::class, 'habilitarCliente'])->name('.habilitarCliente');
     });
 });
+
+// Ejemplo en un framework como Laravel
+Route::get('/formulario-producto-proveedor/{id}', [ProveedoresController::class, 'viewFormProveedor'])->name('viewFormProveedor');
+Route::put('/formulario-productoProveedor-update/{id}', [ProveedoresController::class, 'updateFormProveedor'])->name('updateFormProveedor');

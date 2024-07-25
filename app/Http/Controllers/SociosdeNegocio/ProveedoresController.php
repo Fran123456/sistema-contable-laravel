@@ -34,7 +34,7 @@ class ProveedoresController extends Controller
     public function create()
     {
         //Usa el helper que envía un array con el tipo de proveedor y tipo de personalidad
-        $tipoProveedor = TipoProveedor::proveedor(); 
+        $tipoProveedor = TipoProveedor::proveedor();
         $tipoPersonalidad = TipoPersonalidad::personalidad();
         $pais = EntPais::all();
         return view('SociosdeNegocio.Proveedores.create', compact('tipoProveedor', 'tipoPersonalidad', 'pais'));
@@ -49,7 +49,7 @@ class ProveedoresController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre'=> 'required|string|max:200',
+            'nombre' => 'required|string|max:200',
             'tipo_proveedor' => 'required|string',
             'tipo_personalidad' => 'required|string',
             'giro' => 'required|string|max:200',
@@ -79,7 +79,7 @@ class ProveedoresController extends Controller
      */
     public function show($id)
     {
-        $tipoProveedor = TipoProveedor::proveedor(); 
+        $tipoProveedor = TipoProveedor::proveedor();
         $tipoPersonalidad = TipoPersonalidad::personalidad();
         $proveedor = SociosProveedores::find($id);
         $pais = EntPais::all();
@@ -95,7 +95,7 @@ class ProveedoresController extends Controller
     public function edit($id)
     {
         $proveedor = SociosProveedores::find($id);
-        $tipoProveedor = TipoProveedor::proveedor(); 
+        $tipoProveedor = TipoProveedor::proveedor();
         $tipoPersonalidad = TipoPersonalidad::personalidad();
         $pais = EntPais::all();
         return view('SociosdeNegocio.Proveedores.edit', compact('proveedor', 'tipoPersonalidad', 'tipoProveedor', 'pais'));
@@ -111,7 +111,7 @@ class ProveedoresController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nombre'=> 'required|string|max:200',
+            'nombre' => 'required|string|max:200',
             'tipo_proveedor' => 'required|string',
             'tipo_personalidad' => 'required|string',
             'giro' => 'required|string|max:200',
@@ -138,7 +138,7 @@ class ProveedoresController extends Controller
 
         try {
             $proveedor->save();
-            Log::log('SociosdeNegocio', "Editar proveedor",'El proveedor ' .  $proveedor->nombre . " ".' ha sido actualizado por el usuario '. Help::usuario()->name);
+            Log::log('SociosdeNegocio', "Editar proveedor", 'El proveedor ' . $proveedor->nombre . " " . ' ha sido actualizado por el usuario ' . Help::usuario()->name);
             return to_route('socios.proveedores.index')->with('success', 'Proveedor actualizado correctamente');
 
         } catch (Exception $e) {
@@ -159,34 +159,68 @@ class ProveedoresController extends Controller
     public function destroy($id)
     {
         $proveedor = SociosProveedores::find($id);
-        Log::log('SociosdeNegocio', "Eliminar proveedor",'El proveedor ' .  $proveedor->nombre . " ".' ha sido eliminado por el usuario '. Help::usuario()->name);
+        Log::log('SociosdeNegocio', "Eliminar proveedor", 'El proveedor ' . $proveedor->nombre . " " . ' ha sido eliminado por el usuario ' . Help::usuario()->name);
         $proveedor->delete();
-        return to_route('socios.proveedores.index')->with('success','Se ha eliminado el proveedor correctamente');
+        return to_route('socios.proveedores.index')->with('success', 'Se ha eliminado el proveedor correctamente');
 
     }
 
-    public function deshabilitarProveedor($id){
+    public function deshabilitarProveedor($id)
+    {
         $proveedor = SociosProveedores::find($id);
         $proveedor->activo = false;
 
-        Log::log('SociosdeNegocio', "Deshabilitar proveedor",'El proveedor ' .  $proveedor->nombre . ' ha sido deshabilitado por el usuario '. Help::usuario()->name);
+        Log::log('SociosdeNegocio', "Deshabilitar proveedor", 'El proveedor ' . $proveedor->nombre . ' ha sido deshabilitado por el usuario ' . Help::usuario()->name);
         $proveedor->save();
-        return to_route('socios.proveedores.index')->with('success','Se ha deshabilitado el proveedor correctamente');
+        return to_route('socios.proveedores.index')->with('success', 'Se ha deshabilitado el proveedor correctamente');
     }
 
-    public function habilitarProveedor($id){
+    public function habilitarProveedor($id)
+    {
         $proveedor = SociosProveedores::find($id);
         $proveedor->activo = true;
 
-        Log::log('SociosdeNegocio', "Habilitar proveedor",'El proveedor ' .  $proveedor->nombre . ' ha sido habilitado por el usuario '. Help::usuario()->name);
+        Log::log('SociosdeNegocio', "Habilitar proveedor", 'El proveedor ' . $proveedor->nombre . ' ha sido habilitado por el usuario ' . Help::usuario()->name);
         $proveedor->save();
-        return to_route('socios.proveedores.index')->with('success','Se ha habilitado el proveedor correctamente');
+        return to_route('socios.proveedores.index')->with('success', 'Se ha habilitado el proveedor correctamente');
     }
 
-    public function listarProductos($id){
+    public function listarProductos($id)
+    {
         $productoProveedor = ProProductoProveedor::where('proveedor_id', $id)->get();
         $productos = ProProducto::all();
         $idProveedor = $id;
         return view('sociosdenegocio.proveedores.producto', compact('productoProveedor', 'productos', 'idProveedor'));
+    }
+
+    public function viewFormProveedor($id)
+    {
+        $productoProveedor = ProProductoProveedor::where('proveedor_id', $id)->get();
+        $productos = ProProducto::all();
+        $idProveedor = $id;
+        return view('sociosdenegocio.proveedores.formProveedor', compact('productoProveedor', 'productos', 'idProveedor'));
+    }
+
+    public function updateFormProveedor(Request $request, $id)
+    {
+        $request->validate([
+            'producto_id' => 'required',
+            'proveedor_id' => 'required',
+            'precio_unitario' => 'required|numeric',
+            'stock' => 'required'
+        ]);
+        $proveedor = ProProductoProveedor::find($id);
+        $proveedor->update($request->all());
+
+        try {
+            $proveedor->save();
+            Log::log('ProductoProveedor', "Editar proveedor", 'El proveedor ' . $proveedor->nombre . " " . ' ha sido actualizado por el usuario ' . Help::usuario()->name);
+            return view('sociosdenegocio.proveedores.formProveedor')->with('success', 'Datos guardados exitosamente');
+
+        } catch (Exception $e) {
+            Log::log('ProductoProveedor', 'Proveedor error al actualizar el proveedor', $e);
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
+
     }
 }

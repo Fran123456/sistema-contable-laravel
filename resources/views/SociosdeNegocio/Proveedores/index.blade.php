@@ -45,7 +45,7 @@
                                 <td>{{$item->telefono}}</td>
                                 <td>{{$item->direccion}}</td>
                                 <td><a href="{{ route('socios.listarProductos', $item->id) }}" title="Productos" class="mx-0.5"><i class="fab fa-product-hunt fa-lg"></i></a>
-                                    <a href="{{ route('socios.listarProductos', $item->id) }}" title="Productos" class="mx-0.5"><i class="fa fa-link fa-lg"></i></a>
+                                    <a href="{{ route('viewFormProveedor', $item->id) }}" title="Formulario" class="mx-0.5"><i class="fa fa-link fa-lg"></i></a>
                                 </td>
                                 <td class="">
                                     <a href="{{route('socios.proveedores.show', $item->id)}}" title="Ver proveedor" class="mx-0.5"><i class="fas fa-eye fa-lg"></i></a>
