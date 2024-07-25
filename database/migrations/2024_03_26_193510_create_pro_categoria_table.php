@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('pro_categoria', function (Blueprint $table) {
             $table->id();
             $table->string('categoria', 200);
+            $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
             $table->timestamps();
         });
     }

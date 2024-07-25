@@ -24,6 +24,9 @@ return new class extends Migration
             $table->boolean('requiere_vencimiento');
             $table->integer('alerta_stock')->nullable();
             $table->boolean('activo')->default(true);
+
+            $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('pro_tipo_producto', function (Blueprint $table) {
             $table->id();
             $table->string('tipo');
+            
             $table->timestamps();
         });
     }

@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('departamentos', function (Blueprint $table) {
+        Schema::create('ent_pais', function (Blueprint $table) {
             $table->id();
-            $table->string('departamento');
-            $table->bigInteger('pais_id');
+            $table->string('pais');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departamentos');
+        Schema::dropIfExists('ent_pais');
     }
 };
