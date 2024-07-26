@@ -22,6 +22,9 @@ return new class extends Migration {
             $table->integer('stock')->nullable()->default(0);
             $table->foreign('proveedor_id')->references('id')->on('socios_proveedores')->onDelete('cascade');
             $table->foreign('producto_id')->references('id')->on('pro_producto')->onDelete('cascade');
+
+            $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
             $table->timestamps();
         });
     }
