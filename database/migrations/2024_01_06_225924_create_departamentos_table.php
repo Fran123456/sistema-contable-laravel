@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('socios_clasificacion_cliente', function (Blueprint $table) {
+        Schema::create('ent_departamento', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
-            $table->string('descripcion');
-            $table->unsignedBigInteger('empresa_id')->nullable();
-            $table->foreign('empresa_Id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
-
-            
+            $table->string('departamento');
+            $table->bigInteger('pais_id');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('socios_clasificacion_cliente');
+        Schema::dropIfExists('ent_departamento');
     }
 };

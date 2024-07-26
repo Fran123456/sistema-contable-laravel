@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('departamentos', function (Blueprint $table) {
-            $table->id();
-            $table->string('departamento');
-            $table->bigInteger('pais_id');
+        Schema::create('fact_tipo_documento', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('tipo');
+
+            
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departamentos');
+        Schema::dropIfExists('fact_tipo_documento');
     }
 };

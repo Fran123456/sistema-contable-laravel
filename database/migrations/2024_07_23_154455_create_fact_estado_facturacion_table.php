@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('distritos', function (Blueprint $table) {
+        Schema::create('fact_estado_facturacion', function (Blueprint $table) {
             $table->id();
-            $table->string('distrito');
-            $table->bigInteger('departamento_id');
+            $table->string('estado', 50);
             $table->timestamps();
+            
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('distritos');
+        Schema::dropIfExists('fact_estado_facturacion');
     }
 };

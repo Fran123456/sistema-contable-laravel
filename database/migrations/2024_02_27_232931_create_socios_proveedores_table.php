@@ -28,6 +28,9 @@ return new class extends Migration
             $table->string('correo')->nullable();
             $table->bigInteger('pais_id')->nullable();
             $table->boolean('activo')->default(true);
+
+            $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->foreign('empresa_Id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
             $table->timestamps();
         });
     }
