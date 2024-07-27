@@ -30,6 +30,12 @@
                 <a class="submenu-link" href="{{ route('producto.producto.index') }}">Productos</a>
             </li>
         </ul>
+
+        <ul class="submenu-list list-unstyled">
+            <li class="submenu-item">
+                <a class="submenu-link" href="{{ route('producto.servicio.index') }}">Servicios</a>
+            </li>
+        </ul>
     
     </div>
   
