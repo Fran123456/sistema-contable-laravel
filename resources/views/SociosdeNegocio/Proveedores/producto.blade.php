@@ -19,7 +19,7 @@
     <form action="{{ route('producto.producto_proveedor.store') }}" method="post">
         @csrf
         <div class="row">
-            <div class="col-md-3 mt-3">
+            <div class="col-md-12 mt-3">
                 <label for="producto_proveedor"> <strong>Producto</strong> </label>
                 <select name="producto_id" id="producto" class="form-control" required>
                     <option value="">Selecciona una opción</option>

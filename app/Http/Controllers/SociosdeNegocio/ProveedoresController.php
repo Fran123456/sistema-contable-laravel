@@ -54,10 +54,7 @@ class ProveedoresController extends Controller
             'tipo_personalidad' => 'required|string',
             'giro' => 'required|string|max:200',
             'forma_pago' => 'required|string',
-            'numero_registro' => 'required|string',
-            'nit' => 'required',
-            'telefono' => 'required|string|max:8',
-            'direccion' => 'required|string|max:200',
+            
         ]);
 
         $proveedor = SociosProveedores::create($request->all());
@@ -116,10 +113,7 @@ class ProveedoresController extends Controller
             'tipo_personalidad' => 'required|string',
             'giro' => 'required|string|max:200',
             'forma_pago' => 'required|string',
-            'numero_registro' => 'required|string',
-            'nit' => 'required',
-            'telefono' => 'required|string|max:8',
-            'direccion' => 'required|string|max:200',
+            
         ]);
 
         $proveedor = SociosProveedores::find($id);

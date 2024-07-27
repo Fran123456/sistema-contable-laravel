@@ -20,6 +20,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "quill": "^2.0.2",
         "sass": "^1.57.1",
         "sweetalert": "^2.1.2",
         "sweetalert2": "^11.6.13"

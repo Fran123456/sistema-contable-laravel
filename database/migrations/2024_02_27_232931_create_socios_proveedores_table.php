@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('tipo_personalidad');
             $table->string('giro');
             $table->string('forma_pago');
-            $table->string('numero_registro');
+            $table->string('numero_registro')->nullable();
             $table->string('nit');
-            $table->string('telefono');
-            $table->string('direccion');
+            $table->string('telefono')->nullable();;
+            $table->string('direccion')->nullable();;
             $table->string('celular')->nullable();
             $table->string('correo')->nullable();
             $table->bigInteger('pais_id')->nullable();
