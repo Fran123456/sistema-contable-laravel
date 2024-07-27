@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-between">
                     <h5>Contactos Seleccionados</h5>
                     <!-- Botón para compartir los contactos seleccionados -->
-                    <a class="btn btn-success mb-2" 
+                    <a class="btn btn-success mb-2" target="_blank"
                         href="{{ route('public-contactos', ['selected_ids' => implode(',', $contactosSeleccionados->pluck('id')->toArray())]) }}" >
                         Compartir Seleccionados
                     </a>
@@ -33,7 +33,6 @@
                                 <th>Apellido</th>
                                 <th>Correo</th>
                                 <th>Teléfono</th>
-                                <th>Portafolio</th>
                                 <th>País</th>
                                 <th>Cargo</th>
                                 <th>CV</th>
@@ -46,7 +45,6 @@
                                     <td>{{ $contacto->apellido }}</td>
                                     <td>{{ $contacto->correo }}</td>
                                     <td>{{ $contacto->telefono }}</td>
-                                    <td>{{ $contacto->portafolio }}</td>
                                     <td>{{ $contacto->pais?->pais }}</td>
                                     <td>{{ $contacto->cargo?->cargo??"sin encontrar" }}</td>
                                     <td>

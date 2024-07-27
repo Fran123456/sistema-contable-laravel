@@ -63,7 +63,13 @@
                                 <td>{{ $contacto->apellido }}</td>
                                 <td>{{ $contacto->correo }}</td>
                                 <td>{{ $contacto->telefono }}</td>
-                                <td>{{ $contacto->portafolio }}</td>
+                                <td class="text-center">
+                                    @if ( $contacto->portafolio )
+                                    <a href="{{ $contacto->portafolio }}" target="_blank"><i class="fas fa-folder"></i></a>
+                                    @else
+                                    
+                                    @endif
+                                </td>
                                 <td>{{ $contacto->pais?->pais }}</td>
                                 <td>{{ $contacto->cargo?->cargo }}</td>
                                 <td>

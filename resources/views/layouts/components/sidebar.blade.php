@@ -36,11 +36,12 @@
                 @include('layouts.components.menus.rrhh')
 
                 @include('layouts.components.menus.contabilidad')
+                @include('layouts.components.menus.iva')
 
                 @include('layouts.components.menus.sociosnegocio')
 
                 @include('layouts.components.menus.productos')
-
+                @include('layouts.components.menus.facturacion')
 
         
 
