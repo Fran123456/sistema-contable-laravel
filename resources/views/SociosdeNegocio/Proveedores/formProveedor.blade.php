@@ -45,7 +45,7 @@
                             <tr>
                                 <form class="update-form" method="POST"
                                     action="{{ route('updateFormProveedor', $item->id) }}">
-                                    {{-- @csrf --}}
+                                    @csrf
                                     @method('PUT')
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->codigo }}</td>

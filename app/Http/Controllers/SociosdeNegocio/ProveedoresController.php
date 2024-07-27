@@ -203,19 +203,20 @@ class ProveedoresController extends Controller
 
     public function updateFormProveedor(Request $request, $id)
     {
+
         $request->validate([
-            'producto_id' => 'required',
-            'proveedor_id' => 'required',
             'precio_unitario' => 'required|numeric',
             'stock' => 'required'
         ]);
+
         $proveedor = ProProductoProveedor::find($id);
         $proveedor->update($request->all());
 
         try {
             $proveedor->save();
             Log::log('ProductoProveedor', "Editar proveedor", 'El proveedor ' . $proveedor->nombre . " " . ' ha sido actualizado por el usuario ' . Help::usuario()->name);
-            return view('sociosdenegocio.proveedores.formProveedor')->with('success', 'Datos guardados exitosamente');
+            return back()->with('success', 'Datos guardados exitosamente');
+
 
         } catch (Exception $e) {
             Log::log('ProductoProveedor', 'Proveedor error al actualizar el proveedor', $e);
