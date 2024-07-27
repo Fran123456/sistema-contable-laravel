@@ -48,22 +48,22 @@
     <!-- Cuerpo de la vista -->
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-                <h3 class="m-2">Tipos de precio</h3>
-            </div>
+           
+            
             <div class="card-body">
+                <h5> Tipo precio </h5>
                 <!-- Declaración de datatable con clases -->
-                <table class="table table-sm" id="datatable-responsive">
+                <table class="table" id="datatable-responsive">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Tipo de precio</th>
                             <th>Acciones</th>
                     </thead>
                     <tbody>
-                    @foreach ($tiposPrecios as $tipoPrecio)
+                    @foreach ($tiposPrecios as $key => $tipoPrecio)
                         <tr>
-                            <td>{{ $tipoPrecio->id }}</td>
+                            <td>{{ $key+1 }}</td>
                             <td>{{ $tipoPrecio->tipo }}</td>
                             <td>
                                 <!-- Boton para eliminar -->

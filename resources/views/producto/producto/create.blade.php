@@ -25,53 +25,56 @@
                     <div class="row">
                         <div class="col-md-4 mt-3">
                             <label for="producto_codigo"> <strong>Codigo</strong> </label>
-                            <input type="text" name="codigo" class="form-control" value="PR-{{$codigoProducto}}">
+                            <input required type="text" name="codigo" class="form-control" value="PR-{{$codigoProducto}}">
                             @error('codigo')
                                 {{$message}}
                             @enderror
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for=""> <strong>Categorias</strong></label>
-                            <select id="categoria-formulario" name="categorias[]" class="chosen-select form-select" multiple>
+                            <select required id="categoria-formulario" name="categorias[]" class="chosen-select form-select" multiple>
                                 @foreach ($categorias as $categoria)
                                     <option value="{{$categoria->id}}">{{$categoria->categoria}}</option>
                                 @endforeach
                             </select>
                         </div>
+                        
                         <div class="col-md-4 mt-3">
+                            <label for="producto_tipo"> <strong>Tipo de producto</strong> </label>
+                            <select required name="tipo_producto_id" id="tipo_producto_id" class="form-control">
+                               <option disabled value="">Selecciona una opción</option> 
+                               @foreach ($tipoProductos as $tipoProducto)
+                                    <option value="{{$tipoProducto->id}}">{{$tipoProducto->tipo}}</option>                                   
+                               @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-12 mt-3">
                             <label for="producto_nombre"> <strong>Nombre</strong> </label>
                             <input type="text" name="producto" class="form-control" required>
                             @error('producto')
                                 {{$message}}
                             @enderror
                         </div>
-                        <div class="col-md-4 mt-3">
-                            <label for="producto_tipo"> <strong>Tipo de producto</strong> </label>
-                            <select name="tipo_producto_id" id="tipo_producto_id" class="form-control">
-                               <option value="">Selecciona una opción</option> 
-                               @foreach ($tipoProductos as $tipoProducto)
-                                    <option value="{{$tipoProducto->id}}">{{$tipoProducto->tipo}}</option>                                   
-                               @endforeach
-                            </select>
-                        </div>
+                        {{-- 
                         <div class="col-md-4 mt-3">
                             <label for="producto_stock"> <strong>Stock</strong> </label>
                             <input type="number" name="alerta_stock" class="form-control">
                         </div>
+                        --}}
                         <div class="col-md-4 mt-3">
                             <label for="producto_lote"> <strong>Requiere lote</strong> </label>
                             <select name="requiere_lote" id="requiere_lote" class="form-control">
-                                <option value=""> Selecciona una opción </option>
+                                
                                 <option value="1"> Si </option>
-                                <option value="0"> No </option>
+                                <option selected value="0"> No </option>
                             </select>
                         </div>   
                         <div class="col-md-4 mt-3">
                             <label for="producto_vencimiento"> <strong>¿Tiene fecha de vencimiento?</strong> </label>
                             <select name="requiere_vencimiento" id="requiere_vencimiento" class="form-control">
-                                <option value=""> Selecciona una opción </option>
+                              
                                 <option value="1"> Si </option>
-                                <option value="0"> No </option>
+                                <option value="0" selected> No </option>
                             </select>
                         </div> 
                         <div class="col-md-4 mt-3">
@@ -81,7 +84,7 @@
                                 <option value="0"> Inactivo </option>
                             </select>
                         </div>     
-                        <div class="col-md-4 mt-3">
+                        <div class="col-md-12 mt-3">
                             <label for="producto_descripcion"> <strong>Descripción</strong> </label>
                             <textarea name="descripcion" class="form-control" cols="30" rows="10"></textarea>
                         </div>      

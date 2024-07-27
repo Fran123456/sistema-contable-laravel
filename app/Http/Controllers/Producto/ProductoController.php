@@ -53,27 +53,10 @@ class ProductoController extends Controller
     {
         $request->validate([
             'producto' => 'required|string|max:200',
-            'foto' => 'image|mimes:jpg,png,jpeg',
             'codigo' => 'required|string|max:9|unique:pro_producto,codigo',
         ]);
         
-        $producto = ProProducto::create([
-            'producto' => $request->producto,
-            'descripcion' => $request->descripcion,
-            'codigo' => $request->codigo,
-            'imagen' => $request->imagen,
-            'tipo_producto_id' => $request->tipo_producto_id,
-            'requiere_lote' => $request->requiere_lote,
-            'requiere_vencimiento' => $request->requiere_vencimiento,
-            'alerta_stock' => $request->alerta_stock,
-            'activo' => $request->activo, 
-        ]);
-        
-        $producto->categorias()->attach($request->categorias);
-
-        if($request->hasFile('imagen')){
-            $producto->imagen = Help::uploadFile($request, 'productos', '', 'imagen', $ramdonName = true);
-        }
+      
         try {
             DB::beginTransaction();
             $producto = ProProducto::create([
