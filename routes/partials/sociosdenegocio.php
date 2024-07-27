@@ -7,11 +7,14 @@ use App\Http\Controllers\SociosdeNegocio\RegistroController;
 use App\Http\Controllers\SociosdeNegocio\ProveedoresController;
 use App\Http\Controllers\SociosdeNegocio\ClienteController;
 
+//Rutas públicas
+Route::get('/public-contactos/{selected_ids}', [ContactoController::class, 'verContactosCompartidosPublico'])->name('public-contactos');
+
 //Rutas de contactos
 Route::middleware(['auth'])->group(function () {
     Route::name('socios.')->prefix('socios')->group(function () {
         Route::resource('contacto', ContactoController::class);
-        Route::post('/contacto/selected-ids', [ContactoController::class, 'showSelectedIds'])->name('contacto.selectedIds');
+        Route::post('/contacto/seleccionados', [ContactoController::class, 'showSelectedIds'])->name('contacto.seleccionados');
     });
 
     //Rutas de cargos
