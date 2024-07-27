@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contactos Seleccionados</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         body {
             background-color: #f8f9fa;
@@ -42,7 +43,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover" id="datatable-responsive">
                     <thead class="thead-dark">
                         <tr>
                             <th>Nombre</th>
@@ -63,11 +64,16 @@
                                 <td>{{ $contacto->correo }}</td>
                                 <td>{{ $contacto->telefono }}</td>
                                 <td>{{ $contacto->portafolio }}</td>
-                                <td>{{ $contacto->pais }}</td>
-                                <td>{{ $contacto->cargo_id }}</td>
+                                <td>{{ $contacto->pais?->pais }}</td>
+                                <td>{{ $contacto->cargo?->cargo }}</td>
                                 <td>
                                     @if($contacto->cv)
-                                        <a class="btn btn-view-cv" href="{{url('/')}}/cv/{{$contacto->cv}}" target="_blank" title="Ver CV">Ver CV</a>
+                                        <a class="mx-0.5" 
+                                                href="{{url('/')}}/cv/{{$contacto->cv}}" 
+                                                target="_blank" 
+                                                title="Ver CV">
+                                                    <i class="success fa-solid fa-file-pdf fa-lg"></i>
+                                            </a>
                                     @else
                                         No disponible
                                     @endif
@@ -83,5 +89,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

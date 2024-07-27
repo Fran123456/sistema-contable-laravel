@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="tipo_contrato"> <strong>Tipo de contrato</strong></label>
-                            <select id="tipo_contrato" name="tipo_contrato" class="form-control">
+                            <select required id="tipo_contrato" name="tipo_contrato" class="form-control">
                                 <option value="">Selecciona una opción</option>
                                 <option value="Pasante">Pasante</option>
                                 <option value="Servicios profesionales">Servicios profesionales</option>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="estado"> <strong>Estado</strong></label>
-                            <select id="estado" name="estado" class="form-control" required>
+                            <select required id="estado" name="estado" class="form-control" required>
                                 <option value="">Selecciona una opción</option>
                                 <option value="Ingresado">Ingresado</option>
                                 <option value="Ingresado-Recomendado">Ingresado/Recomendado</option>

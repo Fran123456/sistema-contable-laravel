@@ -23,10 +23,10 @@
                     <!-- Botón para compartir los contactos seleccionados -->
                     <a class="btn btn-success mb-2" 
                         href="{{ route('public-contactos', ['selected_ids' => implode(',', $contactosSeleccionados->pluck('id')->toArray())]) }}" >
-                        Compartir Seleccionados2
+                        Compartir Seleccionados
                     </a>
                 </div>
-                    <table class="table table-bordered" id="socios_contactos">
+                    <table class="table table-sm" id="datatable-responsive">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -41,23 +41,22 @@
                         </thead>
                         <tbody>
                             @foreach ($contactosSeleccionados as $contacto)
-                                <script>
-                                    console.log(@json($contacto));
-                                </script>
                                 <tr>
                                     <td>{{ $contacto->nombre }}</td>
                                     <td>{{ $contacto->apellido }}</td>
                                     <td>{{ $contacto->correo }}</td>
                                     <td>{{ $contacto->telefono }}</td>
                                     <td>{{ $contacto->portafolio }}</td>
-                                    <td>{{ $contacto->pais }}</td>
-                                    <td>{{ $contacto->cargo_id }}</td>
+                                    <td>{{ $contacto->pais?->pais }}</td>
+                                    <td>{{ $contacto->cargo?->cargo??"sin encontrar" }}</td>
                                     <td>
                                         @if($contacto->cv)
-                                            {{-- <a class="btn btn-success "
-                                                href="{{ asset('storage/cv/' . $contacto->cv) }}" 
-                                                download>Descargar CV</a> --}}
-                                            <a class="btn btn-success " href="{{url('/')}}/cv/{{$contacto->cv}}" target="_blank" title="Ver CV">Ver CV</a>
+                                            <a class="mx-0.5" 
+                                                href="{{url('/')}}/cv/{{$contacto->cv}}" 
+                                                target="_blank" 
+                                                title="Ver CV">
+                                                    <i class="fa-solid fa-file-pdf fa-lg"></i>
+                                            </a>
                                         @else
                                             No disponible
                                         @endif
