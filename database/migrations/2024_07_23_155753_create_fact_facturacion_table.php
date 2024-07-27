@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('fact_facturacion', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('estado_id')->constrained('fact_estado_facturacion');
-            $table->foreignId('creado_por')->constrained('users');
+
+            $table->unsignedBigInteger('estado_id');
+            $table->foreign('estado_id')->references('id')->on('fact_estado_facturacion')->onUpdate('cascade');
+            $table->unsignedBigInteger('creado_por');
+            $table->foreign('creado_por')->references('id')->on('users')->onUpdate('cascade');
             $table->string('codigo');
             $table->decimal('monto_facturar', 10, 2);
             $table->decimal('monto_facturado', 10, 2);

@@ -2,12 +2,14 @@
 
 namespace App\Models\RRHH;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Facturacion\FactFacturacion;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Contabilidad\ContaNivelCuenta;
 use App\Models\Contabilidad\ContaTipoPartida;
 use App\Models\Contabilidad\ContaClasificacionCuenta;
-use App\Models\Contabilidad\ContaNivelCuenta;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class RRHHEmpresa extends Model
 {
     use HasFactory;
@@ -55,6 +57,12 @@ class RRHHEmpresa extends Model
         return $this->belongsToMany(User::class, 'rrhh_empresa_usuario','empresa_id','usuario_id')
         ->withPivot('activo');
     }
+
+    public function facturaciones()
+        {
+            return $this->hasMany(FactFacturacion::class, 'empresa_id');
+        }
+    
 
 
 }

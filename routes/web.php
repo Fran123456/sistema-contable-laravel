@@ -55,3 +55,4 @@ include('routes/partials/rrhh.php');
 include('routes/partials/config.php');
 include('routes/partials/sociosdenegocio.php');
 include('routes/partials/producto.php');
+include('routes/partials/facturacion.php');
