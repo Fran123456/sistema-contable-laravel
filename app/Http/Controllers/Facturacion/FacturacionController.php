@@ -13,8 +13,7 @@ class FacturacionController extends Controller
     public function index()
     {
         $empresaId = Auth::user()->empresa_id;
-        $facturaciones = FactFacturacion::where('empresa_id', $empresaId)
-            ->paginate(10);
+        $facturaciones = FactFacturacion::where('empresa_id', $empresaId)->get();
 
         return view('facturacion.index', compact('facturaciones'));
     }

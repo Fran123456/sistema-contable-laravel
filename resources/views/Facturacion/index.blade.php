@@ -22,7 +22,7 @@
             <div class="card-body">
                 <h5>Facturación</h5>
 
-                <table class="table table-sm">
+                <table class="table table-sm"  id="datatable-responsive">
                     <thead>
                         <tr>
                             <th scope="col">Orden</th>
@@ -43,10 +43,7 @@
                     </tbody>
                 </table>
 
-                <!-- Paginación -->
-                <div class="d-flex justify-content-center">
-                    {{ $facturaciones->links() }}
-                </div>
+           
             </div>
         </div>
     </div>
