@@ -80,7 +80,7 @@
                         @csrf
                         <input type="hidden" name="selected_ids" id="selectedIdsInput">
                         <button type="submit" class="btn btn-danger text-white disabled" id="idButton">Ver
-                            IDs</button>
+                            seleccionados</button>
                     </form>
                 </div>
 
