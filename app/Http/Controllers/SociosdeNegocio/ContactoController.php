@@ -250,6 +250,6 @@ class ContactoController extends Controller
         $contactosSeleccionados = SociosContacto::whereIn('id', $ids)->get();
 
         // Retorna la vista con los contactos seleccionados
-        return view('SociosdeNegocio.Contacto.shared', compact('contactosSeleccionados'));
+        return view('sociosdeNegocio.Contacto.shared', compact('contactosSeleccionados'));
     }
 }
