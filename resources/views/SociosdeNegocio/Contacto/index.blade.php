@@ -76,11 +76,11 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h5> Contactos </h5>
-                    <form action="{{ route('socios.contacto.selectedIds') }}" method="POST" id="selectedForm">
+                    <form action="{{ route('socios.contacto.seleccionados') }}" method="POST" id="selectedForm">
                         @csrf
                         <input type="hidden" name="selected_ids" id="selectedIdsInput">
                         <button type="submit" class="btn btn-danger text-white disabled" id="idButton">Ver
-                            IDs</button>
+                            seleccionados</button>
                     </form>
                 </div>
 

@@ -33,6 +33,7 @@
 
         <ul class="submenu-list list-unstyled">
             <li class="submenu-item">
+                <a class="submenu-link" href="{{ route('producto.servicio.index') }}">Servicios</a>
                 <a class="submenu-link" href="{{ route('producto.precio.index') }}">Precios</a>
             </li>
         </ul>

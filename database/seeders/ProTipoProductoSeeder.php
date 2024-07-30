@@ -16,20 +16,15 @@ class ProTipoProductoSeeder extends Seeder
     {
         DB::table('pro_tipo_producto')->insert([
             'tipo' => 'Venta',
-            'created_at'=>date("Y-m-d h:i:s"),
-            'updated_at'=>date("Y-m-d h:i:s"),
+            'created_at' => date("Y-m-d h:i:s"),
+            'updated_at' => date("Y-m-d h:i:s"),
         ]);
 
         DB::table('pro_tipo_producto')->insert([
             'tipo' => 'Interno',
-            'created_at'=>date("Y-m-d h:i:s"),
-            'updated_at'=>date("Y-m-d h:i:s"),
+            'created_at' => date("Y-m-d h:i:s"),
+            'updated_at' => date("Y-m-d h:i:s"),
         ]);
 
-        DB::table('pro_tipo_producto')->insert([
-            'tipo' => 'Combinado',
-            'created_at'=>date("Y-m-d h:i:s"),
-            'updated_at'=>date("Y-m-d h:i:s"),
-        ]);
     }
 }

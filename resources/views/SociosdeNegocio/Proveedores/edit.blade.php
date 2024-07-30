@@ -25,7 +25,7 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="col-md-4 mt-2 mb-12">
+                        <div class="col-md-12 mt-2 mb-12">
                             <label for="proveedor_nombre"> <strong>Nombre</strong> </label>
                             <input type="text" name="nombre" class="form-control" value="{{$proveedor->nombre}}" required>
                             @error('nombre')
@@ -47,7 +47,7 @@
                             @enderror
                         </div>
                         <div class="col-md-4 mt-2 mb-12">
-                            <label for="proveedores_nit"> <strong>NIT</strong> </label>
+                            <label for="proveedores_nit"> <strong>NIT/DUI</strong> </label>
                             <input type="text" name="nit" class="form-control"  value="{{$proveedor->nit}}" required>
                             @error('nit')
                                 {{$message}}
@@ -82,21 +82,21 @@
                         </div>
                         <div class="col-md-4 mt-2 mb-12">
                             <label for="proveedores_telefono"> <strong>Teléfono</strong> </label>
-                            <input type="text" name="telefono" class="form-control" value="{{$proveedor->telefono}}" required>
+                            <input type="text" name="telefono" class="form-control" value="{{$proveedor->telefono}}" >
                             @error('telefono')
                                 {{$message}}
                             @enderror
                         </div>                    
-                        <div class="col-md-4 mt-2 mb-12">
+                        <div class="col-md-8 mt-2 mb-12">
                             <label for="proveedores_direccion"><strong>Dirección</strong></label>
-                            <input type="text" name="direccion" class="form-control" value="{{$proveedor->direccion}}" required>
+                            <input type="text" name="direccion" class="form-control" value="{{$proveedor->direccion}}" >
                             @error('direccion')
                                 {{$message}}
                             @enderror
                         </div>
                         <div class="col-md-4 mt-2 mb-12">
                             <label for="proveedores_correo"><strong>Correo</strong></label>
-                            <input type="text" name="correo" class="form-control" value="{{$proveedor->correo}}" required>
+                            <input type="text" name="correo" class="form-control" value="{{$proveedor->correo}}" >
                         </div>
                         <div class="col-md-4 mt-2 mb-12">
                             <label for="proveedores_celular"><strong>Celular</strong></label>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="col-md-4 mt-2 mb-12">
                             <label for="proveedores_pais"><strong>País</strong></label>
-                            <select required id="pais_id" name="pais_id" class="form-control" required>
+                            <select  id="pais_id" name="pais_id" class="form-control" >
                                 <option value="">Selecciona una opción</option>
                                 @foreach ($pais as $pais )
                                 <option value="{{$pais->id}}" @if ($pais->id == $pais->id) selected @endif>{{$pais->pais}}</option>                                                                                                                                            

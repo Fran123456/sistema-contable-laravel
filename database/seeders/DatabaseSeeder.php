@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ConfigSeeder::class);
         $this->call(RRHHSeeder::class);
         $this->call(ContabilidadSeeder::class);
-        $this->call(UserSeeder::class);
         $this->call(PermisosSeeder::class);
         $this->call(TipoEmpleadoSeeder::class);
         $this->call(RRHHTipoPlanilla::class);
@@ -26,7 +25,12 @@ class DatabaseSeeder extends Seeder
         $this->call(RRHHTipoPermiso::class);
         $this->call(RRHHAfp::class);
         $this->call(RRHHTipoIngreso::class);
-
+        $this->call(FactEstadoFacturacionSeeder::class);
+        $this->call(FactTipoDocumentoSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(SociosCargoSeeder::class);
+        $this->call(ProTipoProductoSeeder::class);
+        $this->call(PaisesSeeder::class);
 
         // \App\Models\User::factory(10)->create();
 

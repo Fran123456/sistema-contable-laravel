@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="tipo_contrato"> <strong>Tipo de contrato</strong></label>
-                            <select id="tipo_contrato" name="tipo_contrato" class="form-control" value="{{$contacto->tipo_contrato}}">
+                            <select required id="tipo_contrato" name="tipo_contrato" class="form-control" value="{{$contacto->tipo_contrato}}">
                                 <option value="">Selecciona una opción</option>
                                 <option value="Pasante" {{$contacto->tipo_contrato === 'Pasante' ? 'selected' : ' '}}>Pasante</option>
                                 {{-- Si es true devuelve el valor y si es false devuelve una cadena vacia --}}
@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="estado"> <strong>Estado</strong></label>
-                            <select id="estado" name="estado" class="form-control" value="{{$contacto->estado}}" required>
+                            <select required id="estado" name="estado" class="form-control" value="{{$contacto->estado}}" required>
                                 <option value="">Selecciona una opción</option>
                                 <option value="Ingresado" {{$contacto->estado === 'Ingresado' ? 'selected' : ' '}}>Ingresado</option>
                                 <option value="Ingresado-Recomendado" {{$contacto->estado === 'Ingresado-Recomendado' ? 'selected' : ' '}}>Ingresado/Recomendado</option>

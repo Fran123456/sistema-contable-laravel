@@ -241,4 +241,15 @@ class ContactoController extends Controller
         return view('sociosdeNegocio.Contacto.showIds', compact('contactosSeleccionados'));
 
     }
+
+    public function verContactosCompartidosPublico($selected_ids)
+    {
+        // Recupera los IDs seleccionados
+        $ids = explode(',', $selected_ids);
+        // Se obtienen los contactos seleccionados
+        $contactosSeleccionados = SociosContacto::whereIn('id', $ids)->get();
+
+        // Retorna la vista con los contactos seleccionados
+        return view('sociosdeNegocio.Contacto.shared', compact('contactosSeleccionados'));
+    }
 }

@@ -17,6 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('tipo');
             $table->string('descripcion');
+            $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->foreign('empresa_Id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
+
+            
             $table->timestamps();
         });
     }
