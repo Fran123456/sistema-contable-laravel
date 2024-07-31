@@ -1,5 +1,5 @@
 
-
+a
 <!-- Vista de Precios (Tipos de precios) -->
 
 <x-app-layout>
