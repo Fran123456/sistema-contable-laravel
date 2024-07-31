@@ -61,7 +61,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary my-3">Actualizar combo</button>
+                            <button type="submit" class="btn btn-primary my-3 text-white">Actualizar combo</button>
                         </div>
                     </div>
                 </form>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary my-3">Añadir Tipo de Precio</button>
+                            <button type="submit" class="btn btn-primary my-3 text-white">Añadir Tipo de Precio</button>
                         </div>
                     </div>
                 </form>
@@ -176,7 +176,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary my-3">Añadir Producto</button>
+                            <button type="submit" class="btn btn-primary my-3 text-white">Añadir Producto</button>
                         </div>
                     </div>
                 </form>

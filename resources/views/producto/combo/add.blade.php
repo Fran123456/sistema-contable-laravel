@@ -51,7 +51,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary my-3">Agregar combo</button>
+                            <button type="submit" class="btn btn-primary my-3 text-white">Agregar combo</button>
                         </div>
                     </div>
                 </form>
