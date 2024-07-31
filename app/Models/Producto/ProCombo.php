@@ -4,36 +4,30 @@ namespace App\Models\Producto;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Producto\ProProducto;
-use Illuminate\Support\Facades\DB;
+
 class ProCombo extends Model
 {
     use HasFactory;
-    public $timestamps = true;
+
+    // Define the table associated with the model (optional if the table name matches the plural form of the model name)
     protected $table = 'pro_combo';
-    protected $fillable=[
-        'id',
+
+    // Define the attributes that are mass assignable
+    protected $fillable = [
         'combo',
-        'codigo',
+        'precio',
         'estado',
-        'precio','precio_fijo'
+        'codigo',
     ];
 
-
-    public function productos(){
-        return $this->belongsToMany(ProProducto::class, 'pro_combo_producto','combo_id','producto_id')
-        ->withPivot('estado','tipo_precio_producto_id','id', 'precio','precio_venta','cantidad');
+    // Optionally, you can define the attributes that should be cast to native types
+    protected $casts = [
+        'precio' => 'decimal:2',
+        'estado' => 'boolean',
+    ];
+    public function productos()
+    {
+        return $this->hasMany(ProComboProducto::class, 'combo_id');
     }
-
-
-
-    public function tiposPrecios(){
-        return $this->belongsToMany(ProTipoPrecio::class, 'pro_combo_tipo_precio','combo_id','tipo_precio_id')
-        ->withPivot('estado','id','precio');
-    }
-
-
-
-
 
 }
