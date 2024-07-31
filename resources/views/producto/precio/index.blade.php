@@ -65,6 +65,7 @@ a
                             <td>{{ $key+1 }}</td>
                             <td>{{ $tipoPrecio->tipo }}</td>
                             <td>
+                                
                                 <!-- Boton para eliminar -->
                                 <form id="form{{ $tipoPrecio->id }}"
                                         action="{{ route('producto.precio.destroy', $tipoPrecio->id) }}"
