@@ -146,7 +146,6 @@
 
             <script>
                 $(document).ready(function() {
-                    $('#datatable-responsive').DataTable();
                     $('#cliente-select, #tipo-documento-select').select2({
                         placeholder: 'Seleccione una opción',
                         dropdownParent: $('#clienteModal'),
