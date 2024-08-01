@@ -1,5 +1,5 @@
 
-
+a
 <!-- Vista de Precios (Tipos de precios) -->
 
 <x-app-layout>
@@ -31,9 +31,8 @@
         <div class="col-md-12">
             <form action="{{ route('producto.precio.store') }}" method="POST" class="form-inline">
                 @csrf
-                <div class="input-group">
-                    
-                    <input type="text" name="tipo" class="form-control me-5" id="tipo" placeholder="Tipo de Precio" required>
+                <div class="input-group">        
+                    <input type="text" name="tipo" class="form-control me-5" id="tipo" placeholder="Nombre del tipo de Precio" required>
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-primary text-white g-0">Agregar Tipo de Precio</button>
                     </div>

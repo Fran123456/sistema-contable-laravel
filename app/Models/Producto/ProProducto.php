@@ -43,8 +43,7 @@ class ProProducto extends Model
 
     public function combos()
     {
-        return $this->belongsToMany(ProCombo::class, 'pro_combo_producto', 'producto_id', 'combo_id')
-            ->withPivot('estado');
+        return $this->hasMany(ProComboProducto::class, 'producto_id');
     }
 
 

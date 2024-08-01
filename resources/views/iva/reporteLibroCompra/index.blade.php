@@ -15,12 +15,103 @@
         <x-alert></x-alert>
     </div>
 
-    <div class="col-md-12 text-end mb-4">
+    <div class="col-md-12">
     </div>
 
     <div class="col-md-12">
 
-        Hola Mundo
+        <h5 class="my-4">Opciones de Reporte de libro de compras</h5>
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="form-floating">
+                    <select class="form-select" id="selectedMonth">
+                        <!-- Opciones de meses  -->
+                    </select>
+                    <label for="selectMonth">Seleccione el mes</label>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="selectedYear" value="{{ date('Y') }}">
+                    <label for="selectedYear">Año</label>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-danger text-white">
+                    <i class="fa-regular fa-file-pdf fa-lg"></i> Generar Reporte PDF
+                </button>
+                <button type="button" class="btn btn-success">
+                    <i class="fa-regular fa-file-excel fa-lg"></i> Generar Reporte Excel
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const months = [{
+                    value: '01',
+                    content: 'Enero'
+                },
+                {
+                    value: '02',
+                    content: 'Febrero'
+                },
+                {
+                    value: '03',
+                    content: 'Marzo'
+                },
+                {
+                    value: '04',
+                    content: 'Abril'
+                },
+                {
+                    value: '05',
+                    content: 'Mayo'
+                },
+                {
+                    value: '06',
+                    content: 'Junio'
+                },
+                {
+                    value: '07',
+                    content: 'Julio'
+                },
+                {
+                    value: '08',
+                    content: 'Agosto'
+                },
+                {
+                    value: '09',
+                    content: 'Septiembre'
+                },
+                {
+                    value: '10',
+                    content: 'Octubre'
+                },
+                {
+                    value: '11',
+                    content: 'Noviembre'
+                },
+                {
+                    value: '12',
+                    content: 'Diciembre'
+                }
+            ];
+
+            const selectMonth = document.getElementById('selectedMonth');
+
+            months.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month.value;
+                option.textContent = month.content;
+                selectMonth.appendChild(option);
+            });
+        });
+    </script>
 
 </x-app-layout>
