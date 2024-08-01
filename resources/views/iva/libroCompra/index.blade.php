@@ -41,10 +41,10 @@
                             <tr>
 
                                 <th scope="row">{{ $key + 1 }}</th>
-                                <td>{{ $item->fecha_emision_en_pdf }}</td>
-                                <td>{{ $item->documento }}</td>
-                                <td>{{ $item->proveedor->nombre }}</td>
-                                <td>{{ $item->total_compra}}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($item->fecha_emision_en_pdf)->format('d-m-y') }}</td>
+                                <td class="text-center">{{ $item->documento }}</td>
+                                <td class="text-center">{{ $item->proveedor->nombre }}</td>
+                                <td class="text-center">${{ $item->total_compra}}</td>
                                 <td class="text-center">
                                     <a href="{{ route('iva.libro_compras.edit', $item->id) }}" title="Editar" class="mx-0.5">
                                         <i class="fas fa-edit fa-lg"></i>
