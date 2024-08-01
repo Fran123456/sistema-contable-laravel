@@ -4,6 +4,7 @@ namespace App\Models\Iva;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\SociosdeNegocio\SociosProveedores;
 
 class LibroCompra extends Model
 {
@@ -35,9 +36,14 @@ class LibroCompra extends Model
     ];
 
      // Definición de relaciones
+    // public function proveedor()
+    // {
+    //     return $this->belongsTo('App\Models\SociosdeNegocio\SociosProveedores', 'proveedor_id');
+    // }
+
     public function proveedor()
     {
-        return $this->belongsTo('App\Models\SociosdeNegocio\SociosProveedores', 'proveedor_id');
+        return $this->belongsTo(SociosProveedores::class, 'proveedor_id');
     }
 
     public function detallePartida()
