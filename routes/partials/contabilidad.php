@@ -8,8 +8,7 @@ use App\Http\Controllers\Contabilidad\ConfiguracionController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
 use App\Http\Controllers\Contabilidad\BalanceConfiguracionController;
-
-
+use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadController;
 
 Route::middleware(['auth'])->group(function () {
 
@@ -78,6 +77,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/configuracion/edit/{id}', [BalanceConfiguracionController::class, 'edit'])->name('editarConfiguracion');
         Route::put('/configuracion/update/{id}', [BalanceConfiguracionController::class, 'update'])->name('updateConfiguracion');
 
+    });
+
+    //CONFIGURACION DE ESTADO DE RESULTADO DE UTILIDAD
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::resource('utilidades', UtilidadController::class);
     });
 
 
