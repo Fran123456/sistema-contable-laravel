@@ -5,26 +5,25 @@ namespace App\Models\Producto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProProductoTipoPrecio extends Model
+class ProComboTipoPrecio extends Model
 {
     use HasFactory;
 
-    protected $table = 'pro_producto_tipo_precio';
+    protected $table = 'pro_combo_tipo_precio';
 
     protected $fillable = [
-        'producto_id',
+        'combo_id',
         'tipo_precio_id',
-        'estado',
         'precio',
+        'precio_venta',
+        'estado',
     ];
 
-    
-    public function producto()
+    public function combo()
     {
-        return $this->belongsTo(ProProducto::class, 'producto_id');
+        return $this->belongsTo(ProCombo::class, 'combo_id');
     }
 
-    
     public function tipoPrecio()
     {
         return $this->belongsTo(ProTipoPrecio::class, 'tipo_precio_id');

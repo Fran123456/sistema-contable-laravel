@@ -20,37 +20,37 @@
     <!-- Fin Div para alertas -->
 
     <div class="col-md-12">
-        <a class="btn btn-primary text-white my-3 g-0" href="{{route('producto.combo.create')}}">Nuevo combo</a>
+        <a class="btn btn-primary text-white my-3 g-0" href="{{ route('producto.combo.create') }}">Nuevo combo</a>
         <div class="card">
             <div class="card-body">
-                <h5> Combos </h5>
+                <h5>Combos</h5>
                 <table class="table" id="datatable-responsive">
                     <thead>
                         <tr>
                             <th>Código</th>
                             <th>Combo</th>
-                            <th>Precio</th>
+                            <th>Productos</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($combos as $combo)
-                        <tr>
-                            <td>{{ $combo->codigo }}</td>
-                            <td>{{ $combo->combo }}</td>
-                            <td>{{ $combo->precio }}</td>
-                            <td>{{ $combo->estado ? 'Activo' : 'Inactivo' }}</td>
-                            <td>
-                                <a href="{{ route('producto.combo.edit', $combo->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                                <form action="{{ route('producto.combo.destroy', $combo->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                        @foreach($combos as $combo)
+                            <tr>
+                                <td>{{ $combo->codigo }}</td>
+                                <td>{{ $combo->combo }}</td>
+                                <td>{{ $combo->productos->count() }}</td>
+                                <td>{{ $combo->estado ? 'Activo' : 'Inactivo' }}</td>
+                                <td>
+                                    <a href="{{ route('producto.combo.edit', $combo->id) }}" class="btn btn-sm btn-warning" title="Editar"><i class="fas fa-edit"></i></a>
+                                    <form id="form{{ $combo->id }}" action="{{ route('producto.combo.destroy', $combo->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button onclick="confirm('form{{ $combo->id }}', '¿Desea eliminar el combo?')" class="btn btn-sm btn-danger" type="button" title="Eliminar"><i class="fas fa-trash text-white"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -58,14 +58,11 @@
     </div>
 
     <script>
-        document.getElementById('show-add-combo-card').addEventListener('click', function() {
-            var addComboCard = document.getElementById('add-combo-card');
-            if (addComboCard.style.display === 'none') {
-                addComboCard.style.display = 'block';
-            } else {
-                addComboCard.style.display = 'none';
+        function confirmDelete(formId, message) {
+            if (confirm(message)) {
+                document.getElementById(formId).submit();
             }
-        });
+        }
     </script>
 
 </x-app-layout>

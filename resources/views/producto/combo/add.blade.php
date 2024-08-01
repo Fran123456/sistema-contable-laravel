@@ -43,15 +43,15 @@
                         </div>
                         <div class="col-md-6 my-2">
                             <label for="estado">Estado</label>
-                            <select class="form-control" id="estado" name="estado" disabled>
-                                <option value="0" selected>Inactivo</option>
+                            <select class="form-control" id="estado" name="estado" required>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
                             </select>
-                            <input type="hidden" name="estado" value="0">
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-auto">
-                            <button type="submit" class="btn btn-primary my-3">Agregar combo</button>
+                            <button type="submit" class="btn btn-primary my-3 text-white">Agregar combo</button>
                         </div>
                     </div>
                 </form>
