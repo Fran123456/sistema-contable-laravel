@@ -35,6 +35,9 @@
             <li class="submenu-item">
                 <a class="submenu-link" href="{{ route('contabilidad.configuracion') }}"> Configuración de contabilidad </a>
             </li>
+            <li class="submenu-item">
+                <a class="submenu-link" href="{{ route('contabilidad.utilidades.index') }}"> Configuración Estado de resultado</a>
+            </li>
         </ul>
     </div>
 </li>
