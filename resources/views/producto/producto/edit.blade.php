@@ -115,6 +115,14 @@
                 <br>
 
                 {{-- Agregar una categoria al producto --}}
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-3">
+        <div class="card">
+            <div class="card-body">
                 <h5>Categorias</h5>
                 <form action="{{route('producto.producto.update', $producto)}}" method="post">
                     @csrf
@@ -135,10 +143,8 @@
                         </div>
                     </div>
                 </form>
-                
-                {{-- Lista de categorias asociadas al producto --}}
-                <div class="card-body">
-                    <h5> Productos </h5>
+                <hr>
+                <h5> Productos </h5>
                     <table class="table table-sm" id="datatable-responsive">
                         <thead>
                             <tr>
@@ -171,7 +177,64 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- card para pro_productos_tipo_precio -->
+    <div class="col-md-12 mt-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Precios del Producto</h5>
+                <form action="{{ route('producto.agregarPrecio', $producto) }}" method="post">
+                    @csrf
+                    <div class="row align-items-end">
+                        <div class="col-md-4 mt-3">
+                            <label for="tipo_precio"><strong>Tipo de Precio</strong></label>
+                            <select id="tipo_precio" name="tipo_precio_id" required class="form-control">
+                                <option value="" selected disabled>Seleccionar opción</option>
+                                @foreach($tiposPrecios as $tipoPrecio)
+                                    <option value="{{ $tipoPrecio->id }}">{{ $tipoPrecio->tipo }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <label for="precio"><strong>Precio</strong></label>
+                            <input type="number" step="0.01" name="precio" required class="form-control">
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <button class="btn btn-success" style="color:aliceblue" type="submit">Agregar Precio</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <h5>Precios actuales</h5>
+                <table class="table table-sm" id="datatable-precios">
+                    <thead>
+                        <tr>
+                            <th scope="col" width="40">#</th>
+                            <th scope="col">Tipo de Precio</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col" width="50" class="text-center"><i class="fas fa-trash"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($producto->productosPrecios as $key => $item)
+                            <tr>
+                                <th scope="row">{{ $key + 1 }}</th>
+                                <td>{{ $item->tipoPrecio->tipo }}</td>
+                                <td>{{ $item->precio }}</td>
+                                <td>
+                                    <form action="{{ route('producto.eliminarPrecio', [$producto->id, $item->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" title="Eliminar"><i class="fas fa-trash text-white"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

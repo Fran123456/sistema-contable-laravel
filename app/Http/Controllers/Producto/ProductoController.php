@@ -13,6 +13,8 @@ use App\Help\log;
 use Illuminate\Support\Facades\DB;
 use App\Models\Producto\ProCategoria;
 use App\Models\Producto\ProductoCategoria;
+use App\Models\Producto\ProTipoPrecio;
+use App\Models\Producto\ProProductoTipoPrecio;
 
 
 class ProductoController extends Controller
@@ -118,7 +120,10 @@ class ProductoController extends Controller
         //Todas las categorias 
         $categorias = ProCategoria::all();
 
-        return view('producto.producto.edit', compact('producto','tipoProductos', 'categorias', 'categoriaProducto'));
+        // Todas las categorias
+        $tiposPrecios = ProTipoPrecio::all();
+
+        return view('producto.producto.edit', compact('producto','tipoProductos', 'categorias', 'categoriaProducto', 'tiposPrecios'));
         
     }
 
@@ -207,6 +212,49 @@ class ProductoController extends Controller
         return to_route('producto.producto.index')->with('success','Se ha eliminado el producto correctamente');
 
     }
+
+    // Método para agregar un precio a un producto
+    public function agregarPrecio(Request $request, $productoId)
+    {
+        $request->validate([
+            'tipo_precio_id' => 'required|exists:pro_tipo_precio,id',
+            'precio' => 'required|numeric',
+        ]);
+
+        $producto = ProProducto::findOrFail($productoId);
+
+        // Verificar si el precio ya existe para el tipo de precio dado
+        $existingPrecio = ProProductoTipoPrecio::where('producto_id', $productoId)
+            ->where('tipo_precio_id', $request->tipo_precio_id)
+            ->first();
+
+        if ($existingPrecio) {
+            return back()->with('danger', 'Este tipo de precio ya está asociado con el producto.');
+        }
+
+        // Crear la nueva relación de precio con el producto
+        ProProductoTipoPrecio::create([
+            'producto_id' => $productoId,
+            'tipo_precio_id' => $request->tipo_precio_id,
+            'precio' => $request->precio,
+            'estado' => 1, // Puedes ajustar este valor según tu lógica de negocio
+        ]);
+
+        return back()->with('success', 'Precio agregado correctamente.');
+    }
+
+    // Método para eliminar un precio de un producto
+    public function eliminarPrecio($productoId, $precioId)
+    {
+        $productoPrecio = ProProductoTipoPrecio::where('producto_id', $productoId)
+            ->where('id', $precioId)
+            ->firstOrFail();
+
+        $productoPrecio->delete();
+
+        return back()->with('success', 'Precio eliminado correctamente.');
+    }
+
 
     // Elimina la categoria asociada a un producto
     public function eliminarCategoria($id, $categoriaId){
