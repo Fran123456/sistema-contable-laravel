@@ -4,7 +4,6 @@
 <head>
     <title>{{ $title ?? 'Sistema contable' }}</title>
     <div>{{ $subtitle ?? 'Sistema contable' }}</div>
-
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,48 +16,10 @@
     @vite(['resources/sass/app.scss'])
     <!-- FontAwesome JS-->
     <script defer src="{{ asset('assets/plugins/fontawesome/js/all.min.js') }}"></script>
-
     <!-- App CSS -->
     <link id="theme-style" rel="stylesheet" href="{{ asset('assets/css/portal.css') }}">
-    <style>
-        .app-branding .logo-icon {
-            width: 136px;
-            height: 36px;
-        }
-
-        .btn-success {
-            --bs-btn-color: #fff;
-            --bs-btn-bg: #5cb377;
-            --bs-btn-border-color: #5cb377;
-            --bs-btn-hover-color: #dbfff0;
-            --bs-btn-hover-bg: #74be8b;
-            --bs-btn-hover-border-color: #6cbb85;
-            --bs-btn-focus-shadow-rgb: 78, 152, 101;
-            --bs-btn-active-color: #f3f3f3;
-            --bs-btn-active-bg: #7dc292;
-            --bs-btn-active-border-color: #6cbb85;
-            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-            --bs-btn-disabled-color: #fffdfd;
-            --bs-btn-disabled-bg: #5cb377;
-            --bs-btn-disabled-border-color: #5cb377;
-        }
-
-        .page-link.active,
-        .active>.page-link {
-            z-index: 3;
-            color: var(--bs-pagination-active-color);
-            background-color: #5cb377;
-            border-color: #5cb377;
-        }
-        .app-sidepanel .sidepanel-inner {
-            position: relative;
-            z-index: 10;
-            background: #fff;
-            box-shadow: rgba(0,0,0,.05) 0px 8px 15px;
-            width: 220px;
-            height: 100%;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('css/others.css') }}">
     <script src="{{ asset('js/jquery-3.6.4.min.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
         referrerpolicy="no-referrer" />
@@ -67,8 +28,6 @@
 
     @include('layouts.components.datatable')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
     <script src="{{ asset('js/confirm.js') }}"></script>
 
 </head>
@@ -164,20 +123,17 @@
         @include('layouts.components.footer')
     </div>
     <!--//app-wrapper-->
-
-
     <!-- Javascript -->
     <script src="{{ asset('assets/plugins/popper.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Page Specific JS -->
 
     <script src="{{ asset('assets/js/app.js') }}"></script>
-
     @stack('modals')
-
     @livewireScripts
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   
 </body>
 
 </html>

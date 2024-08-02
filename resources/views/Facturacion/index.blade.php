@@ -85,62 +85,6 @@
                 </div>
             </div>
 
-            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-            <style>
-                .modal-content {
-                    border-radius: 8px;
-                }
-
-                .modal-header {
-                    border-bottom: 1px solid #dee2e6;
-                    padding: 1rem 1.5rem;
-                }
-
-                .modal-body {
-                    padding: 1.5rem;
-                }
-
-                .form-label {
-                    display: block;
-                    margin-bottom: 0.5rem;
-                }
-
-                .btn-success {
-                    background-color: #28a745;
-                    border-color: #28a745;
-                }
-
-                .btn-success:hover {
-                    background-color: #218838;
-                    border-color: #1e7e34;
-                }
-
-                .w-100 {
-                    width: 100% !important;
-                }
-
-                .select2-container--default .select2-selection--single {
-                    height: calc(2.25rem + 2px);
-                    padding: 0.375rem 0.75rem;
-                    font-size: 1rem;
-                    line-height: 1.5;
-                    color: #495057;
-                    background-color: #fff;
-                    border: 1px solid #ced4da;
-                    border-radius: 0.375rem;
-                    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-                    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-                }
-
-                .select2-container--default .select2-selection--single .select2-selection__rendered {
-                    line-height: calc(2.25rem + 2px);
-                }
-
-                .select2-container .select2-dropdown {
-                    border-radius: 0.375rem;
-                }
-            </style>
-            
             <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
             <script>
