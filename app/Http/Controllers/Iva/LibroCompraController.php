@@ -44,8 +44,8 @@ class LibroCompraController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request->validate([
+        // dd(request()->all());
+        $validate = $request->validate([
             'fecha_emision' => 'required|date',
             'fecha_emision_en_pdf' => 'required|date',
             'documento' => 'required|string|max:255',
@@ -63,12 +63,19 @@ class LibroCompraController extends Controller
             'mostrar' => 'required|boolean',
         ]);
 
-        $data = $request->all();
-        $data['empresa_id'] = Auth::user()->empresa_id;
+        // $data = $request->all();
+        // $data['empresa_id'] = Auth::user()->empresa_id;
+        // LibroCompra::create($validate);
+        // return redirect()->route('iva.libro_compras.index')->with('success', 'Libro de compra creado exitosamente.');
+        $libroCompra = (new LibroCompra)->fill($request->all());
+        $libroCompra->save();
+        return to_route('iva.libro_compras.index')->with('success', 'Libro de compra creado exitosamente ');
+        try {
+        } catch (Exception $e) {
+            Log::log('LibroCompra', 'contacto error al crear el libro compra', $e);
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
 
-        LibroCompra::create($data);
-
-        return redirect()->route('iva.libro_compras.index')->with('success', 'Libro de compra creado exitosamente.');
     }
 
     /**
@@ -80,7 +87,8 @@ class LibroCompraController extends Controller
     public function show($id)
     {
         //
-        // return view('libro_compras.show', compact('libroCompra'));
+        $libroCompra = LibroCompra::find($id);
+        return view('libro_compras.show', compact('libroCompra'));
     }
 
     /**
@@ -89,9 +97,10 @@ class LibroCompraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(LibroCompra $libroCompra)
+    public function edit($id)
     {
-        //
+        //dd($id);
+        $libroCompra = LibroCompra::find($id);
         $proveedores = SociosProveedores::all();
         return view('iva.libroCompra.edit', compact('libroCompra', 'proveedores'));
     }
@@ -103,8 +112,10 @@ class LibroCompraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LibroCompra $libroCompra)
+    public function update(Request $request, $id)
     {
+        // dd($request->all());
+
         $request->validate([
             'fecha_emision' => 'required|date',
             'fecha_emision_en_pdf' => 'required|date',
@@ -123,9 +134,32 @@ class LibroCompraController extends Controller
             'mostrar' => 'required|boolean',
         ]);
 
-        $libroCompra->update($request->all());
 
-        return redirect()->route('iva.libro_compras.index')->with('success', 'Libro de compra actualizado exitosamente.');
+        $libroCompra = LibroCompra::find($id);
+
+        $libroCompra->fecha_emision = $request->fecha_emision;
+        $libroCompra->fecha_emision_en_pdf = $request->fecha_emision_en_pdf;
+        $libroCompra->documento = $request->documento;
+        $libroCompra->proveedor_id = $request->proveedor_id;
+        $libroCompra->excentas_internas = $request->excentas_internas;
+        $libroCompra->excentas_importaciones = $request->excentas_importaciones;
+        $libroCompra->gravadas_internas = $request->gravadas_internas;
+        $libroCompra->gravadas_importaciones = $request->gravadas_importaciones;
+        $libroCompra->gravada_iva = $request->gravada_iva;
+        $libroCompra->contribucion_especial = $request->contribucion_especial;
+        $libroCompra->anticipo_iva_retenido = $request->anticipo_iva_retenido;
+        $libroCompra->anticipo_iva_recibido = $request->anticipo_iva_recibido;
+        $libroCompra->total_compra = $request->total_compra;
+        $libroCompra->compras_excluidas = $request->compras_excluidas;
+        $libroCompra->mostrar = $request->mostrar;
+
+        try {
+            $libroCompra->save();
+            return to_route('iva.libro_compras.index')->with('success', 'Libro de compra actualizado exitosamente.');
+        } catch (Exception $e) {
+            Log::log('librocompra', 'contacto error al actualizar el contacto', $e);
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
     }
 
     /**
@@ -134,11 +168,13 @@ class LibroCompraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LibroCompra $libroCompra)
+    public function destroy($id)
     {
         //parametro: LibroCompra $libroCompra
+        $libroCompra = LibroCompra::find($id);
+        
         $libroCompra->delete();
-
-        return redirect()->route('iva.libro_compras.index')->with('success', 'Libro de compra eliminado exitosamente.');
+        LibroCompra::destroy($id);
+        return to_route('iva.libro_compras.index')->with('success', 'Libro de compra eliminado exitosamente.');
     }
 }

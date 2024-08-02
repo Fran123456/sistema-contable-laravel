@@ -5,6 +5,8 @@ namespace App\Models\Iva;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\SociosdeNegocio\SociosProveedores;
+use App\Models\Contabilidad\ContaDetallePartida;
+use App\Models\Contabilidad\ContaPartidaContable;
 
 class LibroCompra extends Model
 {
@@ -32,14 +34,10 @@ class LibroCompra extends Model
         'mostrar',
         'detalle_partida_id',
         'partida_id',
-        'empresa_id'
+        'empresa_id',
+        'created_at',
+        'updated_at'
     ];
-
-     // Definición de relaciones
-    // public function proveedor()
-    // {
-    //     return $this->belongsTo('App\Models\SociosdeNegocio\SociosProveedores', 'proveedor_id');
-    // }
 
     public function proveedor()
     {
@@ -48,11 +46,11 @@ class LibroCompra extends Model
 
     public function detallePartida()
     {
-        return $this->belongsTo('App\Models\Contabilidad\ContaDetallePartida', 'detalle_partida_id');
+        return $this->belongsTo(ContaDetallePartida::class, 'detalle_partida_id');
     }
 
     public function partida()
     {
-        return $this->belongsTo('App\Models\Contabilidad\ContaPartidaContable', 'partida_id');
+        return $this->belongsTo(ContaPartidaContable::class, 'partida_id');
     }
 }

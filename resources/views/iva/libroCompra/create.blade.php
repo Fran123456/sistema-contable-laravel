@@ -19,7 +19,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('iva.libro_compras.store') }}" method="post">
+                <form action="{{ route('iva.libro_compras.store') }}" method="post" id="observacionForm2">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 mt-2 mb-12">
@@ -33,6 +33,18 @@
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="documento" class="form-label">Documento</label>
                             <input type="text" class="form-control" id="documento" name="documento" required>
+                        </div>
+                        <div class="col-md-6 mt-2 mb-12">
+                            <label for="excentas_internas" class="form-label">NIT</label>
+                            <input type="number" step="1" class="form-control" id="nit" name="nit">
+                        </div>
+                        <div class="col-md-6 mt-2 mb-12">
+                            <label for="excentas_importaciones" class="form-label">DUI</label>
+                            <input type="number" step="1" class="form-control" id="dui" name="dui">
+                        </div>
+                        <div class="col-md-6 mt-2 mb-12">
+                            <label for="gravadas_internas" class="form-label">NRC</label>
+                            <input type="number" step="1" class="form-control" id="nrc" name="nrc">
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="proveedor_id" class="form-label">Proveedor</label>
@@ -95,4 +107,21 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // Se inicializa el richText
+            const quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+
+            // El contenido del richText se pasa a un input
+            document.querySelector('#observacionForm2').onsubmit = function() {
+                const content = quill.root.innerHTML;
+                document.querySelector('#anexo').value = content;
+            };
+        });
+    </script>
 </x-app-layout>

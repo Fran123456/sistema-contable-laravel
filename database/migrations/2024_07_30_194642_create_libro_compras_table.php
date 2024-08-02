@@ -40,9 +40,9 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign key constraints
-            $table->foreign('proveedor_id')->references('id')->on('socios_proveedores')->onUpdate('set null');
-            $table->foreign('detalle_partida_id')->references('id')->on('conta_detalle_partida_contable')->onUpdate('set null');
-            $table->foreign('partida_id')->references('id')->on('conta_partida_contable')->onUpdate('set null');
+            $table->foreign('proveedor_id')->references('id')->on('socios_proveedores')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('detalle_partida_id')->references('id')->on('conta_detalle_partida_contable')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('partida_id')->references('id')->on('conta_partida_contable')->onUpdate('cascade')->onDelete('set null');
         });
     }
 

@@ -16,7 +16,7 @@
     </div>
 
     <div class="col-md-12 text-end mb-4">
-        <a href="{{ route('iva.libro_compras.create') }}" class="btn btn-success">
+        <a href="{{ route('iva.libro_compras.create') }}" class="btn btn-success" title="Crear">
             <i class="fa-solid fa-circle-plus"></i>
         </a>
     </div>
@@ -49,10 +49,14 @@
                                     <a href="{{ route('iva.libro_compras.edit', $item->id) }}" title="Editar" class="mx-0.5">
                                         <i class="fas fa-edit fa-lg"></i>
                                     </a>
-                                    <form id="form{{ $item->id }}" action="{{ route('iva.libro_compras.destroy', $item->id) }}" method="post" class="d-inline">
+                                    <form id="form{{ $item->id }}" 
+                                        action="{{ route('iva.libro_compras.destroy', $item->id) }}" method="post" 
+                                        class="d-inline">
                                         @method('DELETE')
                                         @csrf
-                                        <a href="#" onclick="if(confirm('¿Desea eliminar este libro de compra?')) { event.preventDefault(); this.closest('form').submit(); }" title="Eliminar" class="mx-0.5">
+                                        <a href="#" 
+                                            onclick="if(confirm('form{{ $item->id }}','¿Desea eliminar este libro de compra?')) { event.preventDefault(); this.closest('form').submit(); }" 
+                                            title="Eliminar" class="mx-0.5">
                                             <i class="fas fa-trash fa-lg" style="color: #f43e3e"></i>
                                         </a>
                                     </form>

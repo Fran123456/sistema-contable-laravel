@@ -247,7 +247,7 @@ class ContactoController extends Controller
         // Recupera los IDs seleccionados
         $ids = explode(',', $selected_ids);
         // Se obtienen los contactos seleccionados
-        $contactosSeleccionados = SociosContacto::whereIn('id', $ids)->get();
+        $contactosSeleccionados = SociosContacto::whereIn('id', $ids)->paginate(10);
 
         // Retorna la vista con los contactos seleccionados
         return view('sociosdeNegocio.Contacto.shared', compact('contactosSeleccionados'));
