@@ -36,7 +36,7 @@
                                 @foreach ($facturaciones as $facturacion)
                                 <tr>
                                     <td>{{ $facturacion->codigo }}</td>
-                                    <td>{{ $facturacion->fecha_facturacion }}</td>
+                                    <td>{{ $facturacion->fecha_facturacion??"Sin asignar" }}</td>
                                     <td>{{ $facturacion->monto_facturar }}</td>
                                     <td>{{ $facturacion->monto_facturado }}</td>
                                 </tr>
@@ -140,8 +140,7 @@
                     border-radius: 0.375rem;
                 }
             </style>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+            
             <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
             <script>
@@ -150,7 +149,7 @@
                         placeholder: 'Seleccione una opción',
                         dropdownParent: $('#clienteModal'),
                         allowClear: true,
-                        closeOnSelect: false,
+                        closeOnSelect: true,
                         width: '100%'
                     });
                 });
