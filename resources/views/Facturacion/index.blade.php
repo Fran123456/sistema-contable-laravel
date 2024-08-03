@@ -30,6 +30,7 @@
                                     <th scope="col">Fecha de Facturación</th>
                                     <th scope="col">Monto a Facturar</th>
                                     <th scope="col">Monto Facturado</th>
+                                    <th scope="col">Estado</th>
                                     <th class="text-center">Acciones</th>
                                 </tr>
                             </thead>
@@ -40,6 +41,7 @@
                                     <td>{{ $facturacion->fecha_facturacion??"Sin asignar" }}</td>
                                     <td>{{ $facturacion->monto_facturar }}</td>
                                     <td>{{ $facturacion->monto_facturado }}</td>
+                                    <td>{{ $facturacion->estado?->estado }}</td>
                                     <td>
                                         <a href="{{ route('facturacion.agregarItemsFactura', $facturacion->id) }}"><i class="fas fa-file-invoice-dollar"></i></a>
                                     </td>

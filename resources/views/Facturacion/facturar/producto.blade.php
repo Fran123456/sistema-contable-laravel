@@ -33,7 +33,7 @@
             </div>
             
             
-            @if ($ov->documentos[0]->tipoDocumento?->id ==1 || $ov->documentos[0]->tipoDocumento?->id ==2)
+            @if ($ov->documentos[0]->tipoDocumento?->id ==1 || $ov->documentos[0]->tipoDocumento?->id ==3)
             <div class="col-md-12 mt-2">
                 <label for="S"> <strong>Iva</strong> </label>
                 <select name="iva" id=""  class="form-control">

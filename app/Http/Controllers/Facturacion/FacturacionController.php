@@ -11,6 +11,7 @@ use App\Models\SociosdeNegocio\SociosCliente;
 use App\Models\Facturacion\FactDocumento;
 use App\Help\Help;
 use App\Help\Facturacion\CCF;
+use App\Help\Facturacion\Factura;
 use App\Models\Producto\Servicio;
 use App\Models\Producto\ProProducto;
 use App\Models\Facturacion\FactDocumentoDetalle;
@@ -55,9 +56,15 @@ class FacturacionController extends Controller
     public function facturarItems(Request $request){
 
         $documento = FactDocumento::find($request->doc_id);
+        $facturacion = FactFacturacion::find($request->facturacion_id);
+        $facturacion->estado_id = 3;
+        $facturacion->save();
         $data = null;
         if($documento->tipo_documento_id == 1){
            $data =  CCF::operacion($request);
+        }
+        if($documento->tipo_documento_id == 3){
+            $data =  Factura::operacion($request);
         }
 
         if($data['error']){
