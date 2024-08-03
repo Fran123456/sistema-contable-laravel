@@ -48,6 +48,7 @@
                                 {{$message}}
                             @enderror
                         </div>
+                        <input type="hidden" name="empresa_id" value="{{ $empresa }}">
                         <div class="col-md-6 mt-2">
                             <label for="cuenta_contable_costo"> <strong>cuenta costo</strong> </label>
                             <select id="" name="cuenta_contable_costo" class="chosen-select form-select">
