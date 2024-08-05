@@ -22,32 +22,43 @@
 
         <h5 class="my-4">Opciones de Reporte de libro de compras</h5>
 
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <div class="form-floating">
-                    <select class="form-select" id="selectedMonth">
-                        <!-- Opciones de meses  -->
-                    </select>
-                    <label for="selectMonth">Seleccione el mes</label>
-                </div>
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div class="col-12 col-md-6">
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="selectedYear" value="{{ date('Y') }}">
-                    <label for="selectedYear">Año</label>
+        @endif
+
+
+        <form action="{{ route('iva.reportePdf') }}" method="get" target="_blank">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-floating">
+                        <select class="form-select" name="month" id="selectedMonth">
+                            <!-- Opciones de meses  -->
+                        </select>
+                        <label for="selectMonth">Seleccione el mes</label>
+                    </div>
                 </div>
-            </div>
-            <div class="col-12 text-center">
-                <button type="button" class="btn btn-danger text-white">
-                    <i class="fa-regular fa-file-pdf fa-lg"></i> Generar Reporte PDF
-                </button>
-                <button type="button" class="btn btn-success">
-                    <i class="fa-regular fa-file-excel fa-lg"></i> Generar Reporte Excel
-                </button>
+                <div class="col-12 col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" name="year" id="selectedYear"
+                            value="{{ date('Y') }}">
+                        <label for="selectedYear">Año</label>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-danger text-white" name="pdf" value="pdf">
+                        <i class="fa-regular fa-file-pdf fa-lg"></i> Generar Reporte PDF
+                    </button>
+                    <button type="submit" class="btn btn-success" name="excel" value="excel">
+                        <i class="fa-regular fa-file-excel fa-lg"></i> Generar Reporte Excel
+                    </button>
+
+                </div>
 
             </div>
-
-        </div>
+        </form>
 
     </div>
 
