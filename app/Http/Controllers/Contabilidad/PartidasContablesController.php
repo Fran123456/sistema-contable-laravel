@@ -154,7 +154,7 @@ class PartidasContablesController extends Controller
             'cuenta_contable_id'=>$request['cuenta'],
             'debe'=>$request['debe']??0,
             'haber'=>$request['haber']??0,
-            'fecha_contable'=>$request['fecha_detalle'],
+           'fecha_contable'=>$request['fecha_detalle'],
             'concepto'=>$request['concepto_detalle']??$partida->concepto);
 
             PartidasContables::detalle($detalle);
@@ -190,7 +190,7 @@ class PartidasContablesController extends Controller
         $detalle->concepto = $request->concepto_detalle;
         $detalle->debe = $request->debe ?? 0;
         $detalle->haber = $request->haber ?? 0;
-        $detalle->fecha_contable = $request->fecha_detalle;
+       // $detalle->fecha_contable = $request->fecha_detalle;
         $detalle->save();
 
         PartidasContables::updateHaberDebeEdit($detalle->partida_id, $detalle->debe, $detalle->haber , $detalleOld->debe, $detalleOld->haber);
