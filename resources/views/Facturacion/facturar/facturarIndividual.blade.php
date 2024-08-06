@@ -17,6 +17,13 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
+                <div class="text-end">
+                    @if (count($doc->detalles)>0)
+                    @include('facturacion.facturar.facturarIndividualModal')
+                    @endif
+                    
+                </div>
+                
                 <h5>Orden Venta: {{ $ov->codigo }}</h5>
                 <h6>Cliente: {{ $ov->cliente->nombre }} {{ $ov->cliente->apellido }}</h6>
                 <p>
@@ -32,6 +39,8 @@
     <br>
     <div class="col-md-12">
         <div class="card">
+            <!-- Button trigger modal -->
+           
             <div class="card-body">
                 <h5>Documento: {{ $ov->documentos[0]->tipoDocumento?->tipo }}</h5>
 
