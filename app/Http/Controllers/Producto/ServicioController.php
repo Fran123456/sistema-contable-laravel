@@ -34,7 +34,7 @@ class ServicioController extends Controller
         $empresa = Help::empresa();
         $cuentas  = ContaCuentaContable::cuentasDetalle($empresa);
 
-        return view('producto.servicio.create', compact('cuentas'));
+        return view('producto.servicio.create', compact('cuentas','empresa'));
     }
 
     /**
@@ -46,7 +46,7 @@ class ServicioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'codigo' => 'required|string|unique:servicios',
+            'codigo' => 'required|string|unique:pro_servicios',
             'nombre' => 'required|string',
             'cuenta_contable_ingreso' => 'nullable|string',
             'cuenta_contable_costo' => 'nullable|string',

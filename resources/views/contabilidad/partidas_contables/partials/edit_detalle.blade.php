@@ -94,6 +94,12 @@
                                         class="form-control"
                                         value="{{ $item->haber }}">
                                 </div>
+
+                                {{-- <div class="col-md-12 mt-2">
+                                    <label for=""><strong>Fecha</strong></label>
+                     <input required value="{{  Help::dateByYear($item->fecha_contable,'-') }}" name="fecha_detalle" id="fecha_detalle{{ $item->id}}" type="date"
+                                             class="form-control">
+                                    </div> --}}
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     <button type="submit" class="btn btn-success">Modificar</button>
@@ -153,16 +159,7 @@
     });
 </script>
 
-<!-- Inicialización de Chosen -->
-<script>
-    $(document).ready(function() {
-        $('#modalEditar{{ $item->id }}').on('shown.bs.modal', function () {
-            $('.chosen-select').chosen({
-                width: '100%'
-            });
-        });
-    });
-</script>
+
 
 <!-- CSS personalizado -->
 <style>
@@ -183,3 +180,54 @@
         overflow-y: auto; /* Scroll en caso de que la lista sea larga */
     }
 </style>
+
+<script>
+    $(document).ready(function() {
+        $("#periodo").change(function() {
+            obtenerUltimoDiaDelMes();
+        });
+    });
+
+    
+    function obtenerUltimoDiaDelMes() {
+        var codigo = $('#periodo option:selected').html();
+        var f = codigo.substring(2, 6)+'-'+codigo.substring(0, 2) +"-01";//fecha inicial
+        var ff = codigo.substring(2, 6)+'-'+codigo.substring(0, 2) +"-01 00:00:00"; //fecha inicial con hora
+        const fechaFin = new Date(ff);
+        let final = new Date(fechaFin.getFullYear(), fechaFin.getMonth() + 1, 0);
+        const mes = final.getMonth() + 1;
+        const dia = final.getDate();
+        const formateadafinal  =  `${final.getFullYear()}-${(mes < 10 ? '0' : '').concat(mes)}-${(dia < 10 ? '0' : '').concat(dia)}`;
+
+        var fechaActual = new Date(ff); // Fecha actual
+        var ultimoDiaDelMes = formateadafinal;
+        var dateInput = $("#fecha");
+        dateInput.prop('max', ultimoDiaDelMes);
+        dateInput.prop('min', f);
+       // dateInput.prop('value', f);
+
+        var dateInput2 = $("#fecha_detalle");
+        dateInput2.prop('max', ultimoDiaDelMes);
+        dateInput2.prop('min', f);
+       // dateInput2.prop('value', f);
+        dateInput2.val($("#fecha").val());
+        var dateInput3 = $("#fecha_detalle{{ $item->id}}");
+        dateInput3.prop('max', ultimoDiaDelMes);
+        dateInput3.prop('min', f);
+        alert("2")
+    }
+
+</script>
+
+<!-- Inicialización de Chosen -->
+<script>
+    $(document).ready(function() {
+        $('#modalEditar{{ $item->id }}').on('shown.bs.modal', function () {
+            $('.chosen-select').chosen({
+                width: '100%'
+            });
+            obtenerUltimoDiaDelMes();
+
+        });
+    });
+</script>

@@ -9,7 +9,7 @@ class Servicio extends Model
 {
     use HasFactory;
 
-    protected $table = 'servicios';
+    protected $table = 'pro_servicios';
 
     protected $fillable = [
         'id',
@@ -19,6 +19,7 @@ class Servicio extends Model
         'cuenta_contable_costo',
         'cuenta_contable_ingreso_exterior',
         'cuenta_contable_costo_exterior',
+        'empresa_id'
     ];
 
 }

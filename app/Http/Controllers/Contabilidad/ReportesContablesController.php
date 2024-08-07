@@ -253,6 +253,8 @@ class ReportesContablesController extends Controller
         ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])->get();
         $cuenta = ContaCuentaContable::find($request->cuenta);
         $f = date("d-m-Y h:i:s");
+
+        
         if($request->excel){
             return Excel::download(new SaldoCuentaRptExcel($request->fechai, $request->fechaf, $data, $saldo, $cuenta), "saldoCuenta-${f}.xlsx");
         }

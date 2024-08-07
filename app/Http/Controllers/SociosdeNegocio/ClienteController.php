@@ -53,12 +53,7 @@ class ClienteController extends Controller
         $request->validate([
             'nombre'=> 'required|string|max:200',
             'apellido'=> 'required|string|max:200',
-            'nit'=> 'required|string',
-            'dui'=> 'required|string',
-            'correo'=> 'required|string|max:200',
-            'clasificacion_cliente_id'=> 'required|integer',
-            'tipo_cliente'=> 'required|string|max:200',
-            'magnitud_cliente'=> 'required|string|max:200',
+           
 
         ]);
         
@@ -125,12 +120,7 @@ class ClienteController extends Controller
         $request->validate([
             'nombre'=> 'required|string|max:200',
             'apellido'=> 'required|string|max:200',
-            'nit'=> 'required|string',
-            'dui'=> 'required|string',
-            'correo'=> 'required|string|max:200',
-            'clasificacion_cliente_id'=> 'required|integer',
-            'tipo_cliente'=> 'required|string|max:200',
-            'magnitud_cliente'=> 'required|string|max:200',
+            
 
         ]);
 

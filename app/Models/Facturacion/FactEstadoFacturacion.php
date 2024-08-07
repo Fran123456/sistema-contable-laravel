@@ -2,8 +2,9 @@
 
 namespace App\Models\Facturacion;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Facturacion\FactFacturacion;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class FactEstadoFacturacion extends Model
 {
