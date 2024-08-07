@@ -19,7 +19,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h5>Facturación</h5>
-
                         <table class="table table-sm" id="datatable-responsive">
                             <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#clienteModal">
                                 <i class="fas fa-file-invoice-dollar"></i> Facturar sin cotización
