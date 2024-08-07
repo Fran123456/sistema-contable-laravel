@@ -89,6 +89,6 @@ class ReporteCompraController extends Controller
         // if ($request->excel) {
 
         // }
-        return LibroCompraRpt::report($mes, $anio, $data);
+        return LibroCompraRpt::report($data,$mes, $anio );
     }
 }

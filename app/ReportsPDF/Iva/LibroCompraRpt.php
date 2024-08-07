@@ -11,8 +11,9 @@ use App\Help\Contabilidad\ReportesContables;
 class LibroCompraRpt
 {
     public static function report($data, $mes, $anio)
-    {
-        $pdf = new exFPDF('REPORTE DE LIBRO DE COMPRA', "MES: " . $mes . " AÑO: " . $anio, 'P', 'mm', 'A4');
+    {   $titulo = "MES: " . $mes . " AÑO: " . $anio;
+
+        $pdf = new exFPDF('REPORTE DE LIBRO DE COMPRA',$titulo, 'P', 'mm', 'A4');
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->SetFont('Arial', '', 7);
@@ -22,7 +23,7 @@ class LibroCompraRpt
         $numberStyle = Styles::alignPaddingY('1.13', 'R');
 
         // Crea la tabla
-        $table = new easyTable($pdf, '%{5,10,13,25,15,15,15,15,10}', 'width:190; border-color:#3C4048;border-width:0.2; font-size:8; border:0; paddingY:1.3;');
+        $table = new easyTable($pdf, '%{5,10,12,23,10,10,10,10,10}', 'width:190; border-color:#3C4048;border-width:0.2; font-size:8; border:0; paddingY:1.3;');
         $table->rowStyle('font-style:B;font-color:#3F3F3F;valign:M;');
         $table->easyCell("No", $style . 'border:B;');
         $table->easyCell('Fecha', $style . 'border:B;');
