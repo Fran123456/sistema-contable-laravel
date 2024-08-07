@@ -10,6 +10,7 @@ use App\Models\Producto\ProTipoPrecio;
 use App\Models\Producto\ProComboTipoPrecio;
 use App\Models\Producto\ProProducto;
 use App\Models\Producto\ProComboProducto;
+use App\Models\Producto\ProProductoTipoPrecio;
 
 
 
@@ -107,12 +108,32 @@ class ComboController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $combo = ProCombo::findOrFail($id);
         $tiposPrecios = ProTipoPrecio::all();
         $productos = ProProducto::all();
-        return view('producto.combo.edit', compact('combo', 'tiposPrecios','productos'));
+        $codigo_producto = '';
+        $codigo_producto = '';
+        $tiposPreciosAsociados = [];
+        $precio_venta = null;
+
+        if ($request->has('producto_id')) {
+            $productoSeleccionado = ProProducto::find($request->input('producto_id'));
+            if ($productoSeleccionado) {
+                $codigo_producto = $productoSeleccionado->codigo;
+                $tiposPreciosAsociados = ProProductoTipoPrecio::where('producto_id', $productoSeleccionado->id)->with('tipoPrecio')->get();
+                
+                if ($request->has('tipo_precio')) {
+                    $tipoPrecioSeleccionado = $tiposPreciosAsociados->firstWhere('tipo_precio_id', $request->input('tipo_precio'));
+                    if ($tipoPrecioSeleccionado) {
+                        $precio_venta = $tipoPrecioSeleccionado->precio;
+                    }
+                }
+            }
+        }
+
+        return view('producto.combo.edit', compact('combo', 'tiposPrecios', 'productos', 'codigo_producto', 'tiposPreciosAsociados', 'precio_venta'));
     }
 
     /**
@@ -265,4 +286,10 @@ class ComboController extends Controller
 
         return redirect()->route('producto.combo.edit', $combo_id)->with('success', 'Producto eliminado correctamente.');
     }
+    public function getTiposPrecios($productoId)
+    {
+        $tiposPrecios = ProProductoTipoPrecio::where('producto_id', $productoId)->with('tipoPrecio')->get();
+        return response()->json($tiposPrecios);
+    }
+
 }
