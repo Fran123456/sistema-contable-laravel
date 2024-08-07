@@ -20,14 +20,17 @@ return new class extends Migration
             $table->string('tipo_personalidad');
             $table->string('giro');
             $table->string('forma_pago');
-            $table->string('numero_registro');
+            $table->string('numero_registro')->nullable();
             $table->string('nit');
-            $table->string('telefono');
-            $table->string('direccion');
+            $table->string('telefono')->nullable();;
+            $table->string('direccion')->nullable();;
             $table->string('celular')->nullable();
             $table->string('correo')->nullable();
             $table->bigInteger('pais_id')->nullable();
             $table->boolean('activo')->default(true);
+
+            $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->foreign('empresa_Id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
             $table->timestamps();
         });
     }

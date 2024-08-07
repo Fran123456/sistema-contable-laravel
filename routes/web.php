@@ -8,6 +8,10 @@ use App\Http\Controllers\user\SettingController;
 use App\Http\Controllers\RRHH\PuestoController;
 use App\Http\Controllers\RRHH\EmpleadoController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +26,24 @@ use App\Http\Controllers\SupportController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+Route::get('forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware(['guest'])->name('password.request');
+
+Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->middleware(['guest'])->name('password.email');
+
+Route::get('reset-password/{token}', function ($token, Request $request) {
+    return view('auth.reset-password', [
+        'token' => $token,
+        'email' => $request->email,
+    ]);
+})->middleware(['guest'])->name('password.reset');
+
+Route::post('reset-password', [NewPasswordController::class, 'store'])
+    ->middleware(['guest'])->name('password.update');
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -41,18 +63,24 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/support', [SupportController::class, 'askView'])->name('support.askView');
     Route::get('/support/chat', [SupportController::class, 'askChat'])->name('support.askChat');
-    
+
     Route::post('/support', [SupportController::class, 'ask'])->name('ask');
 });
 
 
 
+include ('routes/partials/users.php');
+include ('routes/partials/contabilidad.php');
+include ('routes/partials/rrhh.php');
+include ('routes/partials/config.php');
+include ('routes/partials/sociosdenegocio.php');
+include ('routes/partials/producto.php');
+include ('routes/partials/facturacion.php');
+include ('routes/partials/iva.php');
 
-
-include('routes/partials/users.php');
-include('routes/partials/contabilidad.php');
-include('routes/partials/rrhh.php');
-include('routes/partials/config.php');
-include('routes/partials/sociosdenegocio.php');
-include('routes/partials/producto.php');
-include('routes/partials/facturacion.php');
+// include_once __DIR__ . '/partials/users.php';
+// include_once __DIR__ . '/partials/contabilidad.php';
+// include_once __DIR__ . '/partials/rrhh.php';
+// include_once __DIR__ . '/partials/config.php';
+// include_once __DIR__ . '/partials/sociosdenegocio.php';
+// include_once __DIR__ . '/partials/producto.php';

@@ -36,6 +36,14 @@ class PartidasContables
         $partida->save();
     }
 
+    public static function updateHaberDebeEdit($partidaId, $debe, $haber, $debeAnterior, $haberAnterior)
+    {
+        $partida = ContaPartidaContable::find($partidaId);
+        $partida->debe = ($partida->debe - $debeAnterior) + $debe;
+        $partida->haber = ($partida->haber-$haberAnterior) + $haber;
+        $partida->save();
+    }
+
     public static function destroyDetalle($id){
         $dt =ContaDetallePartida::find($id);
         ContaDetallePartida::destroy($id);

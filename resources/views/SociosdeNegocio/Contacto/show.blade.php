@@ -8,7 +8,7 @@
     </x-slot>
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dasboard</a></li>
+            <li class="breadcrumb-item"><a href="/" target="_blank">Dasboard</a></li>
             <li class="breadcrumb-item"><a href="{{route('socios.contacto.index')}}">Contactos</a></li>
             <li class="breadcrumb-item active" aria-current="page">Ver contacto</li>
         </ol>
@@ -86,6 +86,29 @@
                             <option value="Descartado" {{$contacto->estado === 'Descartado' ? 'selected' : ' '}}>Descartado</option>
                         </select>
                     </div>
+                    <div class="col-md-12 mt-2 mb-12">
+                        <label for="portafolio"> <strong>Portafolio</strong> </label>
+                        <input type="text" name="portafolio" class="form-control" readonly value="{{$contacto->portafolio}}" required>
+                        @error('portafolio')
+                            {{$message}}
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mt-2 mb-12">
+                        <label for="pais_id"> <strong>Pais</strong></label>
+                        <select required id="pais_id" name="pais_id" class="form-control" readonly disabled>
+                            <option value="">Selecciona una opción</option>
+                            @foreach ($paises as $pais)
+                                <option value="{{$pais->id}}" @if ($pais->id == $contacto->pais_id) selected @endif>{{$pais->pais}}</option>                                                                      --}}
+                            @endforeach    
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-12"><br>
+                        <label for=""><strong>Anexo</strong></label>
+                        <hr>
+                        {!! $contacto->anexo ?? "Sin anexos" !!}
+                    </div>
+
                 </div>
             </div>
         </div>

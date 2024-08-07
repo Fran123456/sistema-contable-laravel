@@ -38,7 +38,7 @@
                             <tr class="@if($item->activo == false) table-danger @endif">
                                 <td scope="row">{{$key + 1}}</td>
                                 <td>{{$item->nombre}} {{$item->apellido}}</td> {{-- Nombre completo --}}
-                                <td>{{$item->clasificacion->tipo}}</td>
+                                <td>{{$item->clasificacion?->tipo ?? "Sin clasificación"}}</td>
                                 <td>{{$item->tipo_cliente}}</td>
                                 <td class="text-center">
                                     <a target="_blank" href="{{route('socios.cliente.show', $item->id)}}" title="Ver cliente" class="mx-0.5"><i class="fas fa-eye fa-lg"></i></a>

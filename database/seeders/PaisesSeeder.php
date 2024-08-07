@@ -15,7 +15,7 @@ class PaisesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('paises')->insert([
+        DB::table('ent_pais')->insert([
             ['pais' => 'El Salvador'],
             ['pais' => 'México'],
             ['pais' => 'Guatemala'],

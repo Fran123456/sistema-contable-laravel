@@ -12,6 +12,7 @@ use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\RRHH\RRHHEmpresa;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -76,5 +77,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(RRHHEmpresa::class, 'rrhh_empresa_usuario','usuario_id','empresa_id')
         ->withPivot('activo');
+    }
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }

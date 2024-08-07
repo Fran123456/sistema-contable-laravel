@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('paises', function (Blueprint $table) {
+        Schema::create('conta_grupo_resultado_rpt', function (Blueprint $table) {
             $table->id();
-            $table->string('pais');
+            $table->string('grupo', 200)->nullable();
+            $table->string('signo', 10)->nullable();
+            $table->unsignedBigInteger('utilidad_id')->nullable();
+            $table->foreign('utilidad_id')->references('id')->on("conta_utilidad_rpt")->OnUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paises');
+        Schema::dropIfExists('conta_grupo_resultado_rpt');
     }
 };

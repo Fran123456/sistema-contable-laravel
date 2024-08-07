@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('departamentos', function (Blueprint $table) {
+        Schema::create('conta_utilidad_rpt', function (Blueprint $table) {
             $table->id();
-            $table->string('departamento');
-            $table->bigInteger('pais_id');
+            $table->string('utilidad',200);
+            $table->decimal('saldo',12,2)->nullable();
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departamentos');
+        Schema::dropIfExists('conta_utilidad_rpt');
     }
 };

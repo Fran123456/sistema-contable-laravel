@@ -8,8 +8,7 @@ use App\Http\Controllers\Contabilidad\ConfiguracionController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
 use App\Http\Controllers\Contabilidad\BalanceConfiguracionController;
-
-
+use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadController;
 
 Route::middleware(['auth'])->group(function () {
 
@@ -46,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
         //Route::get('/correlativo/partidas', [PartidasContablesController::class, 'obtenerCorrelativoAjax'])->name('obtenerCorrelativoAjax');
         Route::get('/partida/cerrar/{id}', [PartidasContablesController::class, 'cerrarPartida'])->name('cerrarPartida');
         Route::get('/partida/reporte/{id}', [PartidasContablesController::class, 'reportePartidaContable'])->name('reportePartidaContable');
+        Route::post('/partida/detalle/actualizar/{id}', [PartidasContablesController::class, 'actualizarDetallePartida'])->name('actualizarDetallePartida');
         Route::delete('/partida/detalle/eliminar/{id}', [PartidasContablesController::class, 'eliminarDetallePartida'])->name('eliminarDetallePartida');
 
     });
@@ -77,6 +77,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/configuracion/edit/{id}', [BalanceConfiguracionController::class, 'edit'])->name('editarConfiguracion');
         Route::put('/configuracion/update/{id}', [BalanceConfiguracionController::class, 'update'])->name('updateConfiguracion');
 
+    });
+
+    //CONFIGURACION DE ESTADO DE RESULTADO DE UTILIDAD
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::resource('utilidades', UtilidadController::class);
     });
 
 

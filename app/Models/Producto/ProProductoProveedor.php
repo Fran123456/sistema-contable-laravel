@@ -6,14 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Producto\ProProducto;
+
 class ProProductoProveedor extends Model
 {
     use HasFactory;
     public $timestamps = true;
     protected $table = 'pro_producto_proveedor';
-    protected $fillable=[
-        'producto_id','id',
-        'proveedor_id','precio_unitario','producto','codigo','created_at','updated_at'
+    protected $fillable = [
+        'producto_id',
+        'id',
+        'proveedor_id',
+        'precio_unitario',
+        'producto',
+        'codigo',
+        'stock',
+        'created_at',
+        'updated_at'
     ];
 
     public function productoVenta()
