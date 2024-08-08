@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Iva;
 
-use App\Http\Controllers\Controller;
-use App\Models\Iva\LibroCompra;
 use App\Help\Help;
+use Illuminate\Http\Request;
+use App\Models\Iva\LibroCompra;
+use App\Models\RRHH\RRHHEmpresa;
+use App\Http\Controllers\Controller;
+
+
+use Maatwebsite\Excel\Facades\Excel;
 use App\ReportsPDF\Iva\LibroCompraRpt;
 use App\Exports\IVA\LibroCompraRpt as LibroCompraRptExcel;
-
-
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ReporteCompraController extends Controller
 {
