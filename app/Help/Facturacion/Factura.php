@@ -48,6 +48,8 @@ class Factura
         return $montoConDescuento+$iva;
     }
 
+    
+
     public static function operacion($request){
 
         $montoSinDescuento =  Operaciones::monto($request->cantidad,$request->precio);

@@ -7,6 +7,7 @@ use App\Models\Producto\Servicio;
 use App\Models\Producto\ProProducto;
 use App\Models\Facturacion\FactDocumentoDetalle;
 use App\Models\Facturacion\FactDocumento;
+
 class CCF
 {
     public static function monto($cantidad, $unidad)
@@ -96,6 +97,10 @@ class CCF
         ]);
         return array("error"=> false, 'mensaje'=> "Se ha agregado el item correctamente");
 
+    }
+
+    public static function libroVenta(){
+        
     }
 
     
