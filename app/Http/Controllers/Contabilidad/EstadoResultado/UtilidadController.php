@@ -27,7 +27,7 @@ class UtilidadController extends Controller
      */
     public function create()
     {
-        
+        return redirect()->route('contabilidad.utilidades.index')->with('success', 'utilidad modificado correctamente ');
     }
 
     /**
@@ -94,7 +94,14 @@ class UtilidadController extends Controller
         try {
             $utilidad = ContaUtilidadRpt::findOrFail($id);
             $utilidad->update($request->all());
-            return response()->json(['success' => true]);
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Utilidad actualizada correctamente.'
+                ]);
+            }
+    
+            return redirect()->route('contabilidad.utilidades.index')->with('success', 'Utilidad actualizada correctamente.');
         } catch (\Throwable $e) {
             return back()->with('danger', 'no se puede procesar la petición');
         }
@@ -111,7 +118,7 @@ class UtilidadController extends Controller
         try {
             $utilidad = ContaUtilidadRpt::findOrFail($id);
             $utilidad->delete();
-            return redirect()->route('contabilidad.utilidad.index')->with('success','Se ha eliminado utilidad correctamente');
+            return redirect()->route('contabilidad.utilidades.index')->with('success','Se ha eliminado utilidad correctamente');
         } catch (\Throwable $th) {
             return back()->with('danger', 'no se puede procesar la petición');
         }
