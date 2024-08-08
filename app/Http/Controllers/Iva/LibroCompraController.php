@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Iva;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Contabilidad\ContaDetallePartida;
+use App\Models\Contabilidad\ContaPartidaContable;
+use App\Models\Facturacion\FactFacturacion;
 use App\Models\Iva\LibroCompra;
+use App\Models\RRHH\RRHHEmpresa;
 use App\Models\SociosdeNegocio\SociosProveedores;
 use Illuminate\Http\Request;
 
@@ -17,9 +21,6 @@ class LibroCompraController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        // $proveedores = SociosProveedores::all();
-
         $libro_compras = LibroCompra::with('proveedor')->orderBy('id', 'desc')->get();
         return view('iva.libroCompra.index', compact('libro_compras'));
     }
@@ -31,9 +32,13 @@ class LibroCompraController extends Controller
      */
     public function create()
     {
-        //
+        $usuario = auth()->user();
         $proveedores = SociosProveedores::all();
-        return view('iva.libroCompra.create', compact('proveedores'));
+        $empresas = RRHHEmpresa::all();
+        $facturas = FactFacturacion::all();
+        $partidas = ContaPartidaContable::all();
+        $detPartidas = ContaDetallePartida::all();
+        return view('iva.libroCompra.create', compact('proveedores', 'empresas', 'facturas', 'partidas', 'detPartidas'));
     }
 
     /**
@@ -45,32 +50,21 @@ class LibroCompraController extends Controller
     public function store(Request $request)
     {
         // dd(request()->all());
-        $validate = $request->validate([
+        // return $request->mostrar;
+
+        $request->validate([
             'fecha_emision' => 'required|date',
             'fecha_emision_en_pdf' => 'required|date',
             'documento' => 'required|string|max:255',
             'proveedor_id' => 'nullable|exists:socios_proveedores,id',
-            'excentas_internas' => 'nullable|numeric',
-            'excentas_importaciones' => 'nullable|numeric',
-            'gravadas_internas' => 'nullable|numeric',
-            'gravadas_importaciones' => 'nullable|numeric',
-            'gravada_iva' => 'nullable|numeric',
-            'contribucion_especial' => 'nullable|numeric',
-            'anticipo_iva_retenido' => 'nullable|numeric',
-            'anticipo_iva_recibido' => 'nullable|numeric',
-            'total_compra' => 'nullable|numeric',
-            'compras_excluidas' => 'nullable|numeric',
-            'mostrar' => 'required|boolean',
+            'mostrar' => 'required|boolean'
         ]);
+        
 
-        // $data = $request->all();
-        // $data['empresa_id'] = Auth::user()->empresa_id;
-        // LibroCompra::create($validate);
-        // return redirect()->route('iva.libro_compras.index')->with('success', 'Libro de compra creado exitosamente.');
-        $libroCompra = (new LibroCompra)->fill($request->all());
-        $libroCompra->save();
-        return to_route('iva.libro_compras.index')->with('success', 'Libro de compra creado exitosamente ');
         try {
+            $libroCompra = (new LibroCompra)->fill($request->all());
+            $libroCompra->save();
+            return to_route('iva.libro_compras.index')->with('success', 'Libro de compra creado exitosamente ');
         } catch (Exception $e) {
             Log::log('LibroCompra', 'contacto error al crear el libro compra', $e);
             return back()->with('danger', 'Error, no se puede procesar la petición');
@@ -86,7 +80,6 @@ class LibroCompraController extends Controller
      */
     public function show($id)
     {
-        //
         $libroCompra = LibroCompra::find($id);
         return view('libro_compras.show', compact('libroCompra'));
     }
@@ -99,10 +92,12 @@ class LibroCompraController extends Controller
      */
     public function edit($id)
     {
-        //dd($id);
         $libroCompra = LibroCompra::find($id);
         $proveedores = SociosProveedores::all();
-        return view('iva.libroCompra.edit', compact('libroCompra', 'proveedores'));
+        $facturas = FactFacturacion::all();
+        $partidas = ContaPartidaContable::all();
+        $detPartidas = ContaDetallePartida::all(); 
+        return view('iva.libroCompra.edit', compact('libroCompra', 'proveedores', 'facturas', 'partidas', 'detPartidas'));
     }
 
     /**
@@ -114,23 +109,21 @@ class LibroCompraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
-
         $request->validate([
             'fecha_emision' => 'required|date',
             'fecha_emision_en_pdf' => 'required|date',
             'documento' => 'required|string|max:255',
             'proveedor_id' => 'nullable|exists:socios_proveedores,id',
-            'excentas_internas' => 'nullable|numeric',
-            'excentas_importaciones' => 'nullable|numeric',
-            'gravadas_internas' => 'nullable|numeric',
-            'gravadas_importaciones' => 'nullable|numeric',
-            'gravada_iva' => 'nullable|numeric',
-            'contribucion_especial' => 'nullable|numeric',
-            'anticipo_iva_retenido' => 'nullable|numeric',
-            'anticipo_iva_recibido' => 'nullable|numeric',
-            'total_compra' => 'nullable|numeric',
-            'compras_excluidas' => 'nullable|numeric',
+            // 'excentas_internas' => 'nullable|numeric',
+            // 'excentas_importaciones' => 'nullable|numeric',
+            // 'gravadas_internas' => 'nullable|numeric',
+            // 'gravadas_importaciones' => 'nullable|numeric',
+            // 'gravada_iva' => 'nullable|numeric',
+            // 'contribucion_especial' => 'nullable|numeric',
+            // 'anticipo_iva_retenido' => 'nullable|numeric',
+            // 'anticipo_iva_recibido' => 'nullable|numeric',
+            // 'total_compra' => 'nullable|numeric',
+            // 'compras_excluidas' => 'nullable|numeric',
             'mostrar' => 'required|boolean',
         ]);
 
@@ -170,7 +163,6 @@ class LibroCompraController extends Controller
      */
     public function destroy($id)
     {
-        //parametro: LibroCompra $libroCompra
         $libroCompra = LibroCompra::find($id);
         
         $libroCompra->delete();

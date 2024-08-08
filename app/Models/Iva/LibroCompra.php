@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\SociosdeNegocio\SociosProveedores;
 use App\Models\Contabilidad\ContaDetallePartida;
 use App\Models\Contabilidad\ContaPartidaContable;
+use App\Models\Facturacion\FactFacturacion;
+use App\Models\RRHH\RRHHEmpresa;
 
 class LibroCompra extends Model
 {
@@ -44,6 +46,11 @@ class LibroCompra extends Model
         return $this->belongsTo(SociosProveedores::class, 'proveedor_id');
     }
 
+    public function factura()
+    {
+        return $this->belongsTo(FactFacturacion::class, 'documento_id');
+    }
+
     public function detallePartida()
     {
         return $this->belongsTo(ContaDetallePartida::class, 'detalle_partida_id');
@@ -52,5 +59,10 @@ class LibroCompra extends Model
     public function partida()
     {
         return $this->belongsTo(ContaPartidaContable::class, 'partida_id');
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo(RRHHEmpresa::class, 'empresa_id');
     }
 }
