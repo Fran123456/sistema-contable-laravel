@@ -2,9 +2,10 @@
 
 namespace App\Exports\IVA;
 
-use Maatwebsite\Excel\Concerns\Exportable;
+use App\Models\RRHH\RRHHEmpresa;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\Exportable;
 
 class LibroCompraRpt implements FromView
 {
@@ -27,10 +28,19 @@ class LibroCompraRpt implements FromView
 
     public function view(): View
     {
+        $empresa = auth()->user()->empresa;
+        $empresa = RRHHEmpresa::find($empresa);
+        $nombreEmpresa = $empresa->empresa ?? 'SIN EMPRESA';
+        $nrc = $empresa->nrc ?? 'NO DISPONIBLE';
+        $nit = $empresa->nit ?? 'NO DISPONIBLE';
+
         return view('iva.reporteLibroCompra.excel',[       
                         'data'=> $this->data ,
                         'mes'=> $this->mes,
-                        'anio'=> $this->anio
+                        'anio'=> $this->anio,
+                        'nombreEmpresa'=> $nombreEmpresa,
+                        'nrc'=> $nrc,
+                        'nit'=> $nit
         ]);
     }
 }
