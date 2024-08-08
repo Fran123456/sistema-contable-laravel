@@ -37,4 +37,8 @@ class FactDocumento extends Model
     {
         return $this->hasMany(FactDocumentoDetalle::class, 'documento_id');
     }
+
+    public function total(){
+        return $this->detalles()->sum('total');
+    }
 }

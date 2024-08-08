@@ -18,12 +18,16 @@
         <div class="card">
             <div class="card-body">
                 <div class="text-end">
-                    @if (count($doc->detalles)>0)
-                    @include('facturacion.facturar.facturarIndividualModal')
+                    @if ($doc->estado_facturacion_id != 2)
+                        @if (count($doc->detalles)>0)
+                        @include('facturacion.facturar.facturarIndividualModal')
+                        @endif
+                    @else
+                     <h3> <strong>FACTURADO</strong></h3>
                     @endif
                     
                 </div>
-                
+                <h5>Documento: {{ $ov->documentos[0]->tipoDocumento?->tipo }}</h5>
                 <h5>Orden Venta: {{ $ov->codigo }}</h5>
                 <h6>Cliente: {{ $ov->cliente->nombre }} {{ $ov->cliente->apellido }}</h6>
                 <p>
@@ -37,6 +41,8 @@
         </div>
     </div>
     <br>
+
+    @if ($doc->estado_facturacion_id != 2)
     <div class="col-md-12">
         <div class="card">
             <!-- Button trigger modal -->
@@ -79,6 +85,8 @@
             </div>
         </div>
     </div>
+    @endif
+   
 
     <br>
 

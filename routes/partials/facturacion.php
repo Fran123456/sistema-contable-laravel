@@ -8,6 +8,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/facturacion', [FacturacionController::class, 'store'])->name('facturacion.store');
     Route::get('/facturacion/items/facturar/{id}', [FacturacionController::class, 'agregarItemsFactura'])->name('facturacion.agregarItemsFactura');
     Route::post('/facturacion/items/post', [FacturacionController::class, 'facturarItems'])->name('facturacion.postItemsFactura');
+    Route::post('/facturacion/facturar/post', [FacturacionController::class, 'facturar'])->name('facturacion.facturar');
 
     
 });
