@@ -7,6 +7,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/reporte-libro-compra-pdf', [ReporteCompraController::class, 'getReporteLibroCompra'])->name('reportePdf');
 
+        Route::get('/reporte-libro-compra-excel', [ReporteCompraController::class, 'getReporteLibroCompra'])->name('reporteExcel');
+
     });
 
 });
