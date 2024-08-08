@@ -10,6 +10,7 @@ use App\ReportsPDF\Iva\LibroCompraRpt;
 
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReporteCompraController extends Controller
 {
@@ -86,9 +87,10 @@ class ReporteCompraController extends Controller
             return back()->with('error', 'No hay datos para generar');
 
         }
-        // if ($request->excel) {
+        if ($request->has('excel')) {
+            return Excel::download(new LibroCompraRpt($data, $mes, $anio), 'libro_compra.xlsx');
+        }
 
-        // }
         return LibroCompraRpt::report($data,$mes, $anio );
     }
 }
