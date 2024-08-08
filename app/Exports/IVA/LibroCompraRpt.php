@@ -27,7 +27,7 @@ class LibroCompraRpt implements FromView
 
     public function view(): View
     {
-        return view('iva.reportes.libroComprasExcelRpt',[       
+        return view('iva.reporteLibroCompra.excel',[       
                         'data'=> $this->data ,
                         'mes'=> $this->mes,
                         'anio'=> $this->anio

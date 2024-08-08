@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Iva\LibroCompra;
 use App\Help\Help;
 use App\ReportsPDF\Iva\LibroCompraRpt;
-
+use App\Exports\IVA\LibroCompraRpt as LibroCompraRptExcel;
 
 
 use Illuminate\Http\Request;
@@ -88,7 +88,7 @@ class ReporteCompraController extends Controller
 
         }
         if ($request->has('excel')) {
-            return Excel::download(new LibroCompraRpt($data, $mes, $anio), 'libro_compra.xlsx');
+            return Excel::download(new LibroCompraRptExcel($data, $mes, $anio), 'libro_compra.xlsx');
         }
 
         return LibroCompraRpt::report($data,$mes, $anio );
