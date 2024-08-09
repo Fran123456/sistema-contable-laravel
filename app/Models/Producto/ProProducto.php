@@ -25,6 +25,7 @@ class ProProducto extends Model
         'alerta_stock',
         'descripcion',
         'activo',
+        'empresa_id',
         'created_at',
         'updated_at',
     ];
