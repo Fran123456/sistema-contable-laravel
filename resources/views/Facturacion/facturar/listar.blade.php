@@ -38,7 +38,7 @@
                 <td class="text-end">{{ number_format( $item->cantidad*$item->precio_unitario,2)  }}</td>
                 <td class="text-end">{{ number_format($item->descuento,2) }}</td>
                 <td class="text-end">{{ number_format($item->gravada ,2) }}</td>
-                <td class="text-end">{{ number_format($item->excenta,2) }}</td>
+                <td class="text-end">{{ number_format($item->exenta,2) }}</td>
                 <td class="text-end">{{ number_format($item->iva,2) }}</td>
                 <td class="text-end">{{ number_format($item->total,2) }}</td>
               
