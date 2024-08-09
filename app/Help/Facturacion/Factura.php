@@ -14,27 +14,42 @@ class Factura
         return $cantidad*$unidad;
     }
 
-    public static function iva($montoConDescuento, $iva)
+    public static function iva($montoConDescuento, $iva, $sujeto)
     {
-        if($iva){
-            return $montoConDescuento*0.13;
+        if($sujeto==1){
+
+        }else{
+            if($iva){
+                return $montoConDescuento*0.13;
+            }
+            
         }
+       
         return 0;
     }
 
-    public static function excenta($montoConDescuento, $iva )
+    public static function excenta($montoConDescuento, $iva, $sujeto )
     {
-        if($iva==false){
-            return $montoConDescuento;
+        if($sujeto==1){
+
+        }else{
+            if($iva==false){
+                return $montoConDescuento;
+            }
+            
         }
         return 0;
     }
 
     //$iva = bool 
-    public static function gravada($montoConDescuento, $iva )
+    public static function gravada($montoConDescuento, $iva, $sujeto )
     {
-        if($iva){
-            return $montoConDescuento;
+        if($sujeto==1){
+
+        }else{
+            if($iva){
+                return $montoConDescuento;
+            }
         }
         return 0;
     }
@@ -46,6 +61,14 @@ class Factura
     //$iva = decimal 
     public static function total($montoConDescuento, $iva){
         return $montoConDescuento+$iva;
+    }
+
+    public static function sujeto($montoConDescuento, $sujeto)
+    {
+        if($sujeto==1){
+            return $montoConDescuento;
+        }
+        return 0;
     }
 
     
@@ -72,7 +95,11 @@ class Factura
         }
 
 
-        $iva  = self::iva($montoConDescuento, $request->iva);
+        $iva  = self::iva($montoConDescuento, $request->iva,$request->sujeto);
+        $excenta  = self::excenta($montoConDescuento, $request->iva,$request->sujeto );
+        $gravada = self::gravada($montoConDescuento, $request->iva,$request->sujeto ) +$iva;
+        $sujeto = self::sujeto($montoConDescuento , $request->sujeto);
+
         FactDocumentoDetalle::create([
             'documento_id'=>$request->doc_id,
             'facturacion_id'=>$request->facturacion_id,
@@ -88,9 +115,9 @@ class Factura
             'iva'=> $iva,
             'iva_percibido'=>0,
             'iva_retenido'=>0,
-            'nosujeta'=>0,
-            'exenta'=>self::excenta($montoConDescuento, $request->iva ),
-            'gravada'=>self::gravada($montoConDescuento, $request->iva ) +$iva,
+            'nosujeta'=>$sujeto,
+            'exenta'=>$excenta,
+            'gravada'=>$gravada,
             'sub_total'=>self::subTotal($montoConDescuento, $iva),
             'total'=>self::total($montoConDescuento, $iva),
             'creador_id'=>Help::usuario()->id,

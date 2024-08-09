@@ -43,7 +43,7 @@
             <div class="col-md-6 mt-2 mr-4 ml-4">
                 <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="sujeto">
                 <label class="form-check-label" for="flexCheckDefault">
-                  <strong>Sujeto Excluido</strong>
+                  <strong>Venta no sujeta</strong>
                 </label>
               </div>
             <input type="hidden" value="{{ $ov->documentos[0]->id }}" name="doc_id">
