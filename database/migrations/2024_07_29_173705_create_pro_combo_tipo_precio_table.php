@@ -14,17 +14,17 @@ class CreateProComboTipoPrecioTable extends Migration
     public function up()
     {
         Schema::create('pro_combo_tipo_precio', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('combo_id')->nullable()->unsigned();
-            $table->integer('tipo_precio_id')->nullable()->unsigned();
-            $table->decimal('precio', 10, 2)->nullable();
-            $table->decimal('precio_venta', 10, 2)->nullable();
-            $table->tinyInteger('estado')->nullable();
-            $table->timestamps(0); // Con precision 0 como en el SQL original
+            $table->id();
+            $table->unsignedBigInteger('combo_id');
+            $table->unsignedBigInteger('tipo_precio_id');
+            $table->decimal('precio', 10, 2);
+            $table->decimal('precio_venta', 10, 2);
+            $table->boolean('estado')->default(true);
+            $table->timestamps();
 
-            // Agregar índices
-            $table->index('combo_id');
-            $table->index('tipo_precio_id');
+            // Define foreign keys
+            $table->foreign('combo_id')->references('id')->on('pro_combo');
+            $table->foreign('tipo_precio_id')->references('id')->on('pro_tipo_precio');
         });
     }
 
@@ -38,4 +38,3 @@ class CreateProComboTipoPrecioTable extends Migration
         Schema::dropIfExists('pro_combo_tipo_precio');
     }
 }
-

@@ -18,6 +18,7 @@ class FactEstadoFacturacionSeeder extends Seeder
         DB::table('fact_estado_facturacion')->insert([
             ['estado' => 'Sin facturar'],
             ['estado' => 'Facturado'],
+            ['estado' => 'En proceso'],
         ]);
     }
 }

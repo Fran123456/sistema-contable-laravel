@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('codigo', 200)->nullable();
             $table->unsignedBigInteger('sub_grupo_id')->nullable();
             $table->unsignedBigInteger('grupo_id')->nullable();
+            $table->foreign('grupo_id')->references('id')->on('conta_grupo_resultado_rpt')->onUpdate('cascade');   
             $table->foreign('sub_grupo_id')->references('id')->on('conta_grupo_sub_resultado_rpt')->onUpdate('cascade');
-            $table->foreign('grupo_id')->references('id')->on('conta_grupo_resultado_rpt')->onUpdate('cascade');
             $table->timestamps();
         });
     }

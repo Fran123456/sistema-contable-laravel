@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Iva;
 
+use App\Help\Help;
+use Illuminate\Http\Request;
+use App\Models\Iva\LibroCompra;
+use App\Models\RRHH\RRHHEmpresa;
 use App\Http\Controllers\Controller;
 
 
-use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\ReportsPDF\Iva\LibroCompraRpt;
+use App\Exports\IVA\LibroCompraRpt as LibroCompraRptExcel;
 
 class ReporteCompraController extends Controller
 {
@@ -62,5 +68,30 @@ class ReporteCompraController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function getReporteLibroCompra(Request $request)
+    {
+        $empresa_id = Help::empresa();
+        $mes = $request->month;
+        $anio = $request->year;
+
+        $data = LibroCompra::whereYear('fecha_emision', $anio)
+            ->whereMonth('fecha_emision', $mes)
+            ->where('empresa_id', $empresa_id)
+            ->get();
+
+
+        if ($data->isEmpty()) {
+            // Retornar una respuesta adecuada si no hay datos
+            return back()->with('error', 'No hay datos para generar');
+
+        }
+        if ($request->has('excel')) {
+            return Excel::download(new LibroCompraRptExcel($data, $mes, $anio), 'libro_compra.xlsx');
+        }
+
+        return LibroCompraRpt::report($data,$mes, $anio );
     }
 }

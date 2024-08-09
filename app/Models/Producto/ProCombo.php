@@ -29,5 +29,9 @@ class ProCombo extends Model
     {
         return $this->hasMany(ProComboProducto::class, 'combo_id');
     }
+    public function comboTiposPrecios()
+    {
+        return $this->hasMany(ProComboTipoPrecio::class, 'combo_id');
+    }
 
 }
