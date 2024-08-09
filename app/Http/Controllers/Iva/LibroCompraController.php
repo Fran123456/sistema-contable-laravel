@@ -49,9 +49,6 @@ class LibroCompraController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(request()->all());
-        // return $request->mostrar;
-
         $request->validate([
             'fecha_emision' => 'required|date',
             'fecha_emision_en_pdf' => 'required|date',
@@ -114,16 +111,6 @@ class LibroCompraController extends Controller
             'fecha_emision_en_pdf' => 'required|date',
             'documento' => 'required|string|max:255',
             'proveedor_id' => 'nullable|exists:socios_proveedores,id',
-            // 'excentas_internas' => 'nullable|numeric',
-            // 'excentas_importaciones' => 'nullable|numeric',
-            // 'gravadas_internas' => 'nullable|numeric',
-            // 'gravadas_importaciones' => 'nullable|numeric',
-            // 'gravada_iva' => 'nullable|numeric',
-            // 'contribucion_especial' => 'nullable|numeric',
-            // 'anticipo_iva_retenido' => 'nullable|numeric',
-            // 'anticipo_iva_recibido' => 'nullable|numeric',
-            // 'total_compra' => 'nullable|numeric',
-            // 'compras_excluidas' => 'nullable|numeric',
             'mostrar' => 'required|boolean',
         ]);
 
@@ -144,6 +131,9 @@ class LibroCompraController extends Controller
         $libroCompra->anticipo_iva_recibido = $request->anticipo_iva_recibido;
         $libroCompra->total_compra = $request->total_compra;
         $libroCompra->compras_excluidas = $request->compras_excluidas;
+        $libroCompra->documento_id = $request->documento_id;
+        $libroCompra->partida_id = $request->partida_id;
+        $libroCompra->detalle_partida_id = $request->detalle_partida_id;
         $libroCompra->mostrar = $request->mostrar;
 
         try {

@@ -96,8 +96,8 @@
                             <input type="number" step="0.01" class="form-control" id="compras_excluidas" name="compras_excluidas" value="0.00">
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
-                            <label for="factura_id" class="form-label">Factura</label>
-                            <select class="form-control" id="factura_id" name="factura_id">
+                            <label for="documento_id" class="form-label">Factura</label>
+                            <select class="form-control" id="documento_id" name="documento_id">
                                 <option value="">Seleccione una factura</option>
                                 @foreach ($facturas as $factura)
                                     <option value="{{ $factura->id }}">{{ $factura->codigo }}</option>
@@ -114,8 +114,8 @@
                             </select>
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
-                            <label for="detalle_id" class="form-label">Detalle partida</label>
-                            <select class="form-control" id="detalle_id" name="detalle_id">
+                            <label for="detalle_partida_id" class="form-label">Detalle partida</label>
+                            <select class="form-control" id="detalle_partida_id" name="detalle_partida_id">
                                 <option value="">Seleccione un detalle</option>
                                 @foreach ($detPartidas as $detalle)
                                     <option value="{{ $detalle->id }}">{{ $detalle->codigo_cuenta }}</option>

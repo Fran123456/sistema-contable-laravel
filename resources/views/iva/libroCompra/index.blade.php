@@ -43,23 +43,25 @@
                                 <th scope="row">{{ $key + 1 }}</th>
                                 <td>{{ \Carbon\Carbon::parse($item->fecha_emision_en_pdf)->format('d-m-y') }}</td>
                                 <td>{{ $item->documento }}</td>
-                                <td>{{ $item->proveedor->nombre }}</td>
+                                <td>{{ $item->proveedor?->nombre??"n/a" }}</td>
                                 <td>${{ $item->total_compra}}</td>
                                 <td>
                                     <a href="{{ route('iva.libro_compras.edit', $item->id) }}" title="Editar" class="mx-0.5">
                                         <i class="fas fa-edit fa-lg"></i>
                                     </a>
-                                    <form id="form{{ $item->id }}" 
-                                        action="{{ route('iva.libro_compras.destroy', $item->id) }}" method="post" 
-                                        class="d-inline">
-                                        @method('DELETE')
-                                        @csrf
-                                        <a href="#" 
-                                            onclick="if(confirm('form{{ $item->id }}','¿Desea eliminar este libro de compra?')) { event.preventDefault(); this.closest('form').submit(); }" 
-                                            title="Eliminar" class="mx-0.5">
-                                            <i class="fas fa-trash fa-lg" style="color: #f43e3e"></i>
-                                        </a>
-                                    </form>
+                                    @if(!$item->documento_id && !$item->partida_id && !$item->detalle_partida_id)
+                                        <form id="form{{ $item->id }}" 
+                                            action="{{ route('iva.libro_compras.destroy', $item->id) }}" method="post" 
+                                            class="d-inline">
+                                            @method('DELETE')
+                                            @csrf
+                                            <a href="#" 
+                                                onclick="if(confirm('form{{ $item->id }}','¿Desea eliminar este libro de compra?')) { event.preventDefault(); this.closest('form').submit(); }" 
+                                                title="Eliminar" class="mx-0.5">
+                                                <i class="fas fa-trash fa-lg" style="color: #f43e3e"></i>
+                                            </a>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

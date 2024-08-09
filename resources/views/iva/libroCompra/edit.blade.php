@@ -107,8 +107,8 @@
                             <input type="number" step="0.01" class="form-control" id="compras_excluidas" name="compras_excluidas" value="{{ $libroCompra->compras_excluidas }}">
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
-                            <label for="proveedor_id" class="form-label">Factura</label>
-                            <select class="form-control" id="proveedor_id" name="proveedor_id">
+                            <label for="documento_id" class="form-label">Factura</label>
+                            <select class="form-control" id="documento_id" name="documento_id">
                                 <option value="">Seleccione una factura</option>
                                 @foreach ($facturas as $factura)
                                     <option value="{{ $factura->id }}" {{ $libroCompra->documento_id == $factura->id ? 'selected' : '' }}>{{ $factura->codigo }}</option>
@@ -116,8 +116,8 @@
                             </select>
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
-                            <label for="proveedor_id" class="form-label">Partida</label>
-                            <select class="form-control" id="proveedor_id" name="proveedor_id">
+                            <label for="partida_id" class="form-label">Partida</label>
+                            <select class="form-control" id="partida_id" name="partida_id">
                                 <option value="">Seleccione una partida</option>
                                 @foreach ($partidas as $partida)
                                     <option value="{{ $partida->id }}" {{ $libroCompra->partida_id == $partida->id ? 'selected' : '' }}>{{ $partida->concepto }}</option>
@@ -125,8 +125,8 @@
                             </select>
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
-                            <label for="proveedor_id" class="form-label">Detalle partida</label>
-                            <select class="form-control" id="proveedor_id" name="proveedor_id">
+                            <label for="detalle_partida_id" class="form-label">Detalle partida</label>
+                            <select class="form-control" id="detalle_partida_id" name="detalle_partida_id">
                                 <option value="">Seleccione un detalle</option>
                                 @foreach ($detPartidas as $detPartida)
                                     <option value="{{ $detPartida->id }}" {{ $libroCompra->detalle_partida_id == $detPartida->id ? 'selected' : '' }}>{{ $detPartida->codigo_cuenta }}</option>
