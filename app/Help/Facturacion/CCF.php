@@ -7,6 +7,7 @@ use App\Models\Producto\Servicio;
 use App\Models\Producto\ProProducto;
 use App\Models\Facturacion\FactDocumentoDetalle;
 use App\Models\Facturacion\FactDocumento;
+use App\Models\SociosdeNegocio\SociosCliente;
 
 class CCF
 {
@@ -45,8 +46,8 @@ class CCF
     }
 
     //$iva = decimal 
-    public static function total($montoConDescuento, $iva){
-        return $montoConDescuento+$iva;
+    public static function total($montoConDescuento, $iva, $ivaRetenido){
+        return $montoConDescuento+$iva-$ivaRetenido;
     }
 
     public static function operacion($request){
@@ -70,8 +71,12 @@ class CCF
             return array("error"=> true,'mensaje'=> "El descuento es mayor al monto de la venta");
         }
 
-
+        
         $iva  = self::iva($montoConDescuento, $request->iva);
+        $ivaRetenido = self::ivaRetenido($montoConDescuento,$documento->cliente_id);
+        $excenta = self::excenta($montoConDescuento, $request->iva );
+        $gravada  = self::gravada($montoConDescuento, $request->iva );
+
         FactDocumentoDetalle::create([
             'documento_id'=>$request->doc_id,
             'facturacion_id'=>$request->facturacion_id,
@@ -86,12 +91,12 @@ class CCF
             'cantidad'=> $request->cantidad,
             'iva'=> $iva,
             'iva_percibido'=>0,
-            'iva_retenido'=>0,
+            'iva_retenido'=>$ivaRetenido,
             'nosujeta'=>0,
-            'exenta'=>self::excenta($montoConDescuento, $request->iva ),
-            'gravada'=>self::gravada($montoConDescuento, $request->iva ),
+            'exenta'=> $excenta,
+            'gravada'=>$gravada ,
             'sub_total'=>self::subTotal($montoConDescuento, $iva),
-            'total'=>self::total($montoConDescuento, $iva),
+            'total'=>self::total($montoConDescuento, $iva, $ivaRetenido),
             'creador_id'=>Help::usuario()->id,
             'empresa_id'=>Help::empresa(),
         ]);
@@ -99,8 +104,12 @@ class CCF
 
     }
 
-    public static function libroVenta(){
-        
+    public static function ivaRetenido($montoConDescuento, $clienteId){
+        $cliente = SociosCliente::find($clienteId);
+        if($cliente->magnitud_cliente =='Contribuyente grande'){
+            return $montoConDescuento*0.01;
+        }
+        return 0;
     }
 
     
