@@ -39,13 +39,20 @@
                 <strong><label for="" id="descuento_label">Descuento</label></strong>
                 <input required class="form-control" type="number" value="0" step="0.01" name="descuento" id="descuento" min="0.01">
             </div>
+
+            <div class="col-md-6 mt-2 mr-4 ml-4">
+                <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="sujeto">
+                <label class="form-check-label" for="flexCheckDefault">
+                  <strong>Sujeto Excluido</strong>
+                </label>
+              </div>
             <input type="hidden" value="{{ $ov->documentos[0]->id }}" name="doc_id">
             <input type="hidden" value="{{ $ov->cliente_id }}" name="cliente_id">
             <input type="hidden" value="{{ $ov->id }}" name="facturacion_id">
             <input type="hidden" value="{{ $tipo }}" name="tipo">
             <input type="hidden" value="{{ $itemObj->id }}" name="itemId">
             <div class="col-md-12 mt-2 text-end">
-                <button type="submit" class="btn btn-success">Agrgear</button>
+                <button type="submit" class="btn btn-success">Agregar</button>
             </div>
         </div>
      </form>

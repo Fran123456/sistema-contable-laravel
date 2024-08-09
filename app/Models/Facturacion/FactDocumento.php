@@ -60,4 +60,8 @@ class FactDocumento extends Model
     public function gravadas(){
         return $this->detalles()->sum('gravada');
     }
+
+    public function noSujeto(){
+        return $this->detalles()->sum('nosujeta');
+    }
 }

@@ -78,7 +78,8 @@ class FacturacionController extends Controller
     }
 
     public function facturarItems(Request $request){
-
+       
+       
         $documento = FactDocumento::find($request->doc_id);
         $facturacion = FactFacturacion::find($request->facturacion_id);
         $facturacion->estado_id = 3;

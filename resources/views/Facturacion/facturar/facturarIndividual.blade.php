@@ -115,6 +115,7 @@
     <div class="col-md-12">
         <x-alert></x-alert>
     </div>
+    <br>
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -141,7 +142,7 @@
                         <tr>
                             <td>VENTA NO SUJETA</td>
                             <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
-                                    style="font-weight: bold;margin:0;" class="float-right">0.00</label></td>
+                                    style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->noSujeto() }}</label></td>
                         </tr>
                         <tr>
                             <td>VENTA EXENTA</td>
