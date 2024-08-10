@@ -31,7 +31,7 @@ class LibroCompraRpt
 
 
     public static function report($data, $mes, $anio)
-    {   $titulo = "MES: " . $mes . " AÑO: " . $anio;
+    {   $titulo = "MES: " . self::getNameMothByNumber((int)$mes) . " AÑO: " . $anio;
 
         $pdf = new exFPDF('REPORTE DE LIBRO DE COMPRA',utf8_decode($titulo), 'L', 'mm', 'legal','',false);
         $pdf->AliasNbPages();
@@ -49,7 +49,7 @@ class LibroCompraRpt
         $write->easyCell("NOMBRE DEL CONTRIBUYENTE: ".$empresa->empresa);
         $write->easyCell("NRC: ". $empresa?->nrc);
         $write->easyCell("NIT :".$empresa?->nit);
-        $write->easyCell('MES: '.self::getNameMothByNumber(  (int)$mes ));
+        $write->easyCell('MES: '.self::getNameMothByNumber((int)$mes));
         $write->easyCell(utf8_decode('AÑO: ' . $anio));
         $write->printRow();
         $write->endTable();
