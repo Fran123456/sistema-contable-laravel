@@ -41,7 +41,7 @@
                             <tr>
 
                                 <th scope="row">{{ $key + 1 }}</th>
-                                <td>{{ \Carbon\Carbon::parse($item->fecha_emision_en_pdf)->format('d-m-y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->fecha_emision_en_pdf)->format('d/m/Y') }}</td>
                                 <td>{{ $item->documento }}</td>
                                 <td>{{ $item->proveedor?->nombre??"n/a" }}</td>
                                 <td>${{ $item->total_compra}}</td>

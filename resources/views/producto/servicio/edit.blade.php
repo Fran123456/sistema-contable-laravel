@@ -87,7 +87,7 @@
                             @enderror
                         </div>
  
-  
+                        <input type="hidden" value="{{ Help::empresa() }}" name="empresa_id">
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
                         </div>

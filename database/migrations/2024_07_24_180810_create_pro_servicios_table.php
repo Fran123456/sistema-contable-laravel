@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('codigo')->unique();
             $table->string('nombre');
-
+            $table->unsignedBigInteger('empresa_id')->nullable();
             // Campos para cuentas contables
             $table->string('cuenta_contable_ingreso')->nullable();
             $table->string('cuenta_contable_costo')->nullable();
