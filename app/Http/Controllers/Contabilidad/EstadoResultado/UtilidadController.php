@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Contabilidad\EstadoResultado;
 
+use App\Help\Help;
 use App\Http\Controllers\Controller;
 use App\Models\Contabilidad\ContaUtilidadRpt;
 use Illuminate\Http\Request;
@@ -41,6 +42,12 @@ class UtilidadController extends Controller
         $request->validate([
             'utilidad'=> 'required|string|max:200',
         ]);
+
+        if(Help::empresa()){
+            $request->merge(["empresa_id" => Help::empresa()]);
+        }else{
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
 
         $utilidad = (new ContaUtilidadRpt())->fill($request->all());
         try {
