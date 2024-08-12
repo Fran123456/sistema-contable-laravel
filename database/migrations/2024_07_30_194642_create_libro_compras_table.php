@@ -36,13 +36,15 @@ return new class extends Migration
             $table->boolean('mostrar');
             $table->unsignedBigInteger('detalle_partida_id')->nullable();
             $table->unsignedBigInteger('partida_id')->nullable();
-            $table->unsignedBigInteger('empresa_id');
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->timestamps();
 
             // Foreign key constraints
-            $table->foreign('proveedor_id')->references('id')->on('socios_proveedores')->onUpdate('set null');
-            $table->foreign('detalle_partida_id')->references('id')->on('conta_detalle_partida_contable')->onUpdate('set null');
-            $table->foreign('partida_id')->references('id')->on('conta_partida_contable')->onUpdate('set null');
+            $table->foreign('proveedor_id')->references('id')->on('socios_proveedores')->onUpdate('cascade');
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
+            $table->foreign('documento_id')->references('id')->on('fact_documento')->onUpdate('cascade');
+            $table->foreign('detalle_partida_id')->references('id')->on('conta_detalle_partida_contable')->onUpdate('cascade');
+            $table->foreign('partida_id')->references('id')->on('conta_partida_contable')->onUpdate('cascade');
         });
     }
 

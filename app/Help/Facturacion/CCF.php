@@ -7,6 +7,8 @@ use App\Models\Producto\Servicio;
 use App\Models\Producto\ProProducto;
 use App\Models\Facturacion\FactDocumentoDetalle;
 use App\Models\Facturacion\FactDocumento;
+use App\Models\SociosdeNegocio\SociosCliente;
+
 class CCF
 {
     public static function monto($cantidad, $unidad)
@@ -14,38 +16,63 @@ class CCF
         return $cantidad*$unidad;
     }
 
-    public static function iva($montoConDescuento, $iva)
+    public static function iva($montoConDescuento, $iva, $sujeto)
     {
-        if($iva){
-            return $montoConDescuento*0.13;
+        if($sujeto==1){
+
+        }else{
+            if($iva){
+                return $montoConDescuento*0.13;
+            }
+            
         }
+       
         return 0;
     }
 
-    public static function excenta($montoConDescuento, $iva )
+    public static function excenta($montoConDescuento, $iva, $sujeto )
     {
-        if($iva==false){
-            return $montoConDescuento;
+        if($sujeto==1){
+
+        }else{
+            if($iva==false){
+                return $montoConDescuento;
+            }
+            
         }
         return 0;
     }
 
     //$iva = bool 
-    public static function gravada($montoConDescuento, $iva )
+    public static function gravada($montoConDescuento, $iva, $sujeto )
     {
-        if($iva){
+        if($sujeto==1){
+
+        }else{
+            if($iva){
+                return $montoConDescuento;
+            }
+        }
+        return 0;
+    }
+
+    public static function sujeto($montoConDescuento, $sujeto)
+    {
+        if($sujeto==1){
             return $montoConDescuento;
         }
         return 0;
     }
+
+
     //$iva = decimal 
     public static function subTotal($montoConDescuento, $iva){
         return $montoConDescuento+$iva;
     }
 
     //$iva = decimal 
-    public static function total($montoConDescuento, $iva){
-        return $montoConDescuento+$iva;
+    public static function total($montoConDescuento, $iva, $ivaRetenido){
+        return $montoConDescuento+$iva-$ivaRetenido;
     }
 
     public static function operacion($request){
@@ -69,8 +96,13 @@ class CCF
             return array("error"=> true,'mensaje'=> "El descuento es mayor al monto de la venta");
         }
 
+        
+        $iva  = self::iva($montoConDescuento, $request->iva,$request->sujeto);
+        $ivaRetenido = self::ivaRetenido($montoConDescuento,$documento->cliente_id, $request->sujeto);
+        $excenta = self::excenta($montoConDescuento, $request->iva,$request->sujeto );
+        $gravada  = self::gravada($montoConDescuento, $request->iva,$request->sujeto );
+        $sujeto = self::sujeto($montoConDescuento , $request->sujeto);
 
-        $iva  = self::iva($montoConDescuento, $request->iva);
         FactDocumentoDetalle::create([
             'documento_id'=>$request->doc_id,
             'facturacion_id'=>$request->facturacion_id,
@@ -85,17 +117,25 @@ class CCF
             'cantidad'=> $request->cantidad,
             'iva'=> $iva,
             'iva_percibido'=>0,
-            'iva_retenido'=>0,
-            'nosujeta'=>0,
-            'exenta'=>self::excenta($montoConDescuento, $request->iva ),
-            'gravada'=>self::gravada($montoConDescuento, $request->iva ),
+            'iva_retenido'=>$ivaRetenido,
+            'nosujeta'=>$sujeto ,
+            'exenta'=> $excenta,
+            'gravada'=>$gravada ,
             'sub_total'=>self::subTotal($montoConDescuento, $iva),
-            'total'=>self::total($montoConDescuento, $iva),
+            'total'=>self::total($montoConDescuento, $iva, $ivaRetenido),
             'creador_id'=>Help::usuario()->id,
             'empresa_id'=>Help::empresa(),
         ]);
         return array("error"=> false, 'mensaje'=> "Se ha agregado el item correctamente");
 
+    }
+
+    public static function ivaRetenido($montoConDescuento, $clienteId, $sujeto){
+        $cliente = SociosCliente::find($clienteId);
+        if($cliente->magnitud_cliente =='Contribuyente grande' && $montoConDescuento>= 100 &&$sujeto ==null ){
+            return $montoConDescuento*0.01;
+        }
+        return 0;
     }
 
     

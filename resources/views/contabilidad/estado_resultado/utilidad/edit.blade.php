@@ -44,16 +44,19 @@
             $('#editForm').on('submit', function(event) {
             event.preventDefault();
             let id = $('#id').val();
-            console.log(id);
             $.ajax({
                 url: `/contabilidad/utilidades/${id}`,
                 method: 'PUT',
                 data: $(this).serialize(),
                 success: function(response) {
-                    window.location.href = '/contabilidad/utilidades';
+                    console.log(response);
+                    if (response.success) {
+                        // Redireccionar a la página del índice
+                        window.location.href = "{{ route('contabilidad.utilidades.create') }}";
+                    }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error updating data:', error);
+                    console.error('Error al modificar utilidad:', error);
                 }
             });
             });

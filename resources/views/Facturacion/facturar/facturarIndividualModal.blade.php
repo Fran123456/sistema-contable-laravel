@@ -11,12 +11,12 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Facturar documento</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="">
+        <form action="{{ route('facturacion.facturar') }}" method="post">
         <div class="modal-body text-start">
-         
+         @csrf
              <div>
                 <label for=""> <strong>Fecha</strong> </label>
-                <input type="text" required name="fecha_facturar" type="fecha" class="form-control">
+                <input type="date" required name="fecha_facturar" type="fecha" class="form-control">
              </div>
              <br>
              <div>
@@ -32,6 +32,11 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           <button type="submit" class="btn btn-primary" style="color:white">Facturar</button>
         </div>
+
+ 
+            <input type="hidden" value="{{ $ov->documentos[0]->id }}" name="doc">
+            <input type="hidden" value="{{ $ov->cliente_id }}" name="cliente">
+            <input type="hidden" value="{{ $ov->id }}" name="facturacion">
     </form>
       </div>
     </div>

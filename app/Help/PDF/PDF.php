@@ -26,7 +26,7 @@ class PDF extends  Fpdf
         // dd(public_path('images\logo.png'));
         if($this->orientation=='P') {
 
-            $this->Image(public_path(  Help::getConfigByKey('general','logo')->value   ), 185, 12, 18, 0, 'PNG');
+           // $this->Image(public_path(  Help::getConfigByKey('general','logo')->value   ), 185, 12, 18, 0, 'PNG');
             $this->SetFont('Arial', 'B', 13);
             $this->Cell(80);        // Move to the right
             $this->Cell(30, 10, Help::usuario()->empresa->empresa, 0, 0, 'C');// Title
@@ -40,7 +40,7 @@ class PDF extends  Fpdf
             $this->Cell(190, 10, $this->subtittle, 0, 0, 'C');
         }
         else{
-            $this->Image(public_path( Help::getConfigByKey('general','logo')->value ),240,5,18,0,'PNG');
+          //  $this->Image(public_path( Help::getConfigByKey('general','logo')->value ),240,5,18,0,'PNG');
             $this->SetFont('Arial','B',13);
             $this->Cell(80);// Move to the right
             $this->Cell(100,10,$this->title??Help::usuario()->empresa->empresa,0,0,'C');// Title

@@ -37,4 +37,31 @@ class FactDocumento extends Model
     {
         return $this->hasMany(FactDocumentoDetalle::class, 'documento_id');
     }
+
+    public function total(){
+        return $this->detalles()->sum('total');
+    }
+
+    public function iva(){
+        return $this->detalles()->sum('iva');
+    }
+
+    public function subTotal(){
+        return $this->detalles()->sum('sub_total');
+    }
+
+    public function ivaRetenido(){
+        return $this->detalles()->sum('iva_retenido');
+    }
+
+    public function excentas(){
+        return $this->detalles()->sum('exenta');
+    }
+    public function gravadas(){
+        return $this->detalles()->sum('gravada');
+    }
+
+    public function noSujeto(){
+        return $this->detalles()->sum('nosujeta');
+    }
 }
