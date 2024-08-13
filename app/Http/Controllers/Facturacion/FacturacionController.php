@@ -19,15 +19,52 @@ use App\Models\Facturacion\FactDocumentoDetalle;
 
 class FacturacionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $empresaId = Auth::user()->empresa_id;
-        $facturaciones = FactFacturacion::where('empresa_id', $empresaId)->get();
+
+        // Obtener las fechas de los inputs
+        $fechaInicio = $request->input('fecha_inicio');
+        $fechaFin = $request->input('fecha_fin');
+
+        // Validar que fechaInicio no sea posterior a fechaFin
+        if ($fechaInicio && $fechaFin && $fechaInicio > $fechaFin) {
+            return redirect()->route('facturacion.index')
+                            ->withErrors(['date' => 'La fecha de inicio no puede ser posterior a la fecha final.'])
+                            ->withInput();
+        }
+
+        // Manejar fechas predeterminadas si no se ingresan
+        if (!$fechaInicio || !$fechaFin) {
+            $fechaFin = now()->endOfMonth()->format('Y-m-d');
+            $fechaInicio = now()->startOfMonth()->format('Y-m-d');
+        }
+
+
+        // Validar el formato de las fechas
+        if (!$this->isValidDate($fechaInicio) || !$this->isValidDate($fechaFin)) {
+            return redirect()->route('facturacion.index')
+                            ->withErrors(['date' => 'Las fechas ingresadas no son válidas.'])
+                            ->withInput();
+        }
+
+        // Consultar las facturaciones filtradas
+        $facturaciones = FactFacturacion::where('empresa_id', $empresaId)
+                                        ->whereBetween('fecha_facturacion', [$fechaInicio, $fechaFin])
+                                        ->get();
+
         $clientes = SociosCliente::orderBy('id', 'desc')->get();
         $tiposDocumento = FactTipoDocumento::whereIn('id', [1, 2, 3, 5])->get();
 
         return view('facturacion.index', compact('facturaciones', 'clientes', 'tiposDocumento'));
     }
+
+    // Método para validar el formato de una fecha
+    private function isValidDate($date)
+    {
+        return \DateTime::createFromFormat('Y-m-d', $date) !== false;
+    }
+
 
     public function facturar(Request $request){
         

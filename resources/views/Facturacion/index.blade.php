@@ -13,12 +13,38 @@
             </div>
             <div class="col-md-12">
                 <x-alert></x-alert>
+                <!-- Mostrar errores de validación -->
+                @if ($errors->any())
+                    <!-- cambio 1: Mensaje de error para fechas inválidas -->
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+        @endif
             </div>
 
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <h5>Facturación</h5>
+
+                        <!-- Formulario de filtro por fecha -->
+                        <form action="{{ route('facturacion.index') }}" method="GET" class="mb-3">
+                            <div class="row">
+                                <div class="col-md-3"> 
+                                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" value="{{ request('fecha_inicio') }}" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" value="{{ request('fecha_fin') }}" required>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn btn-primary w-100 text-white">Filtrar</button>
+                                </div>
+                            </div>
+                        </form>
 
                         <table class="table table-sm" id="datatable-responsive">
                             <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#clienteModal">
@@ -38,7 +64,7 @@
                                 @foreach ($facturaciones as $facturacion)
                                 <tr>
                                     <td>{{ $facturacion->codigo }}</td>
-                                    <td>{{ $facturacion->fecha_facturacion??"Sin asignar" }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($facturacion->fecha_facturacion)->format('d-m-Y') ?? "Sin asignar" }}</td>
                                     <td>{{ $facturacion->monto_facturar }}</td>
                                     <td>{{ $facturacion->monto_facturado }}</td>
                                     <td>{{ $facturacion->estado?->estado }}</td>
