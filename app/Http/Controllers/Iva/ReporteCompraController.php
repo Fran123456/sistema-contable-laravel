@@ -82,16 +82,16 @@ class ReporteCompraController extends Controller
             ->where('empresa_id', $empresa_id)
             ->get();
 
-
-        if ($data->isEmpty()) {
-            // Retornar una respuesta adecuada si no hay datos
-            return back()->with('error', 'No hay datos para generar');
-
-        }
-        if ($request->has('excel')) {
+        if ($request->type == 'excel') {
             return Excel::download(new LibroCompraRptExcel($data, $mes, $anio), 'libro_compra.xlsx');
         }
 
-        return LibroCompraRpt::report($data,$mes, $anio );
+        if ($data->isEmpty()) {
+            dd($data);
+            // Retornar una respuesta adecuada si no hay datos
+            return back()->with('error', 'No hay datos para generar');
+        }
+
+        return LibroCompraRpt::report($data, $mes, $anio);
     }
 }

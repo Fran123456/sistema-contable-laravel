@@ -29,16 +29,15 @@ class LibroCompraRpt implements FromView
     public function view(): View
     {
         $empresa = auth()->user()->empresa;
-        $empresa = RRHHEmpresa::find($empresa);
-        $nombreEmpresa = $empresa->empresa ?? 'SIN EMPRESA';
-        $nrc = $empresa->nrc ?? 'NO DISPONIBLE';
-        $nit = $empresa->nit ?? 'NO DISPONIBLE';
 
+        $empresa = $empresa->empresa ?? ' SIN EMPRESA';
+        $nrc = $empresa->nrc ?? ' NO DISPONIBLE';
+        $nit = $empresa->nit ?? ' NO DISPONIBLE';
         return view('iva.reporteLibroCompra.excel',[       
                         'data'=> $this->data ,
                         'mes'=> $this->mes,
                         'anio'=> $this->anio,
-                        'nombreEmpresa'=> $nombreEmpresa,
+                        'empresa'=> $empresa,
                         'nrc'=> $nrc,
                         'nit'=> $nit
         ]);
