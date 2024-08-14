@@ -23,6 +23,9 @@
             <li class="submenu-item">
                 <a class="submenu-link" href="{{ route('facturacion.index') }}">Facturación</a>
             </li>
+            <li class="submenu-item">
+                <a class="submenu-link" href="{{ route('serial-facturacion.index') }}">Serial Facturación</a>
+            </li>
         </ul>
     </div>
     
