@@ -68,6 +68,38 @@ class PartidasContablesController extends Controller
         return PartidasContables::correlativo($request->periodo, $request->tipo);
     }
 
+    public function duplicar(Request $request)
+    {
+       // Obtenemos la empresa y el periodo de la partida original
+        $empresa = Help::empresa();
+        $partidaId = $request->input('partida_id');
+        $partida = ContaPartidaContable::findOrFail($partidaId);
+        $periodoId = $partida->periodo_id;
+        $tipoPartidaId = $partida->tipo_partida_id;
+
+        // Utilizar el método correlativo de la clase PartidasContables para obtener el nuevo correlativo
+        $nuevoCorrelativo = PartidasContables::correlativo($periodoId, $tipoPartidaId);
+
+        // Duplicar la partida con el nuevo correlativo
+        $nuevaPartida = $partida->replicate();
+        $nuevaPartida->correlativo = $nuevoCorrelativo;
+        $nuevaPartida->save();
+
+        // Actualizar el correlativo después de duplicar la partida
+        PartidasContables::updateCorrelativo($periodoId, $tipoPartidaId);
+
+        // Duplicar los detalles de la partida
+        foreach ($partida->detalles as $detalle) {
+            $nuevoDetalle = $detalle->replicate();
+            $nuevoDetalle->partida_id = $nuevaPartida->id;
+            $nuevoDetalle->save();
+        }
+
+        return redirect()->route('contabilidad.partidas.index')
+            ->with('success', 'Partida contable duplicada con éxito.');
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *

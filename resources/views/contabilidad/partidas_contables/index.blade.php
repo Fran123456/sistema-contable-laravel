@@ -74,9 +74,12 @@
                                             <i class="fa-solid fa-file-pdf fa-2x"></i></a>
 
                                         @if ($item->anulada == false && $item->cerrada == false)
-                                            <a
-                                                href="{{ route('contabilidad.partidas.edit', $item->id) }}"
-                                               ><i class="fa-solid fa-file-pen fa-2x"></i></a>
+                                            <a href="{{ route('contabilidad.partidas.edit', $item->id) }}">
+                                                <i class="fa-solid fa-file-pen fa-2x"></i></a>
+
+                                                <a href="#" class="" data-bs-toggle="modal" data-bs-target="#duplicarModal" data-id="{{ $item->id }}" title="duplicar">
+                                                    <i class="fa-solid fa-copy fa-2x"></i>
+                                                </a>
                                         @endif
                                     </td>
                                     <td class="text-center">
@@ -117,4 +120,40 @@
 
     </div>
 
+
+    <!-- Modal de confirmación -->
+<div class="modal fade" id="duplicarModal" tabindex="-1" aria-labelledby="duplicarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="duplicarModalLabel">Confirmación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Desea duplicar la partida contable?
+            </div>
+            <div class="modal-footer">
+                <form id="duplicarForm" action="{{ route('contabilidad.duplicarPartida') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="partida_id" id="partida_id">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Sí, Duplicar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var duplicarModal = document.getElementById('duplicarModal');
+        duplicarModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget; 
+            var partidaId = button.getAttribute('data-id'); 
+            var modalBodyInput = duplicarModal.querySelector('#partida_id'); 
+            modalBodyInput.value = partidaId; 
+        });
+    });
+</script>
 </x-app-layout>

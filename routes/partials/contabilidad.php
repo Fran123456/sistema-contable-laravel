@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/partida/reporte/{id}', [PartidasContablesController::class, 'reportePartidaContable'])->name('reportePartidaContable');
         Route::post('/partida/detalle/actualizar/{id}', [PartidasContablesController::class, 'actualizarDetallePartida'])->name('actualizarDetallePartida');
         Route::delete('/partida/detalle/eliminar/{id}', [PartidasContablesController::class, 'eliminarDetallePartida'])->name('eliminarDetallePartida');
+        Route::post('/partida/duplicar', [PartidasContablesController::class, 'duplicar'])->name('duplicarPartida');
 
     });
 
