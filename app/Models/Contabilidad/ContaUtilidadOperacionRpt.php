@@ -14,10 +14,14 @@ class ContaUtilidadOperacionRpt extends Model
     protected $fillable = [
         'signo',
         'utilidad_id',
-        'utilidad_operacion_id',
+        'utilidad_operar_id',
+        'empresa_id'
     ];
 
     public function utilidad(){
         return $this->belongsTo(ContaUtilidadRpt::class, 'utilidad_id')->withDefault();
+    }
+    public function utilidadOperacion(){
+        return $this->belongsTo(ContaUtilidadRpt::class, 'utilidad_operar_id')->withDefault();
     }
 }

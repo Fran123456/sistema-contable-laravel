@@ -8,7 +8,9 @@ use App\Http\Controllers\Contabilidad\ConfiguracionController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
 use App\Http\Controllers\Contabilidad\BalanceConfiguracionController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\GrupoResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadOperacionController;
 
 Route::middleware(['auth'])->group(function () {
 
@@ -82,7 +84,12 @@ Route::middleware(['auth'])->group(function () {
     //CONFIGURACION DE ESTADO DE RESULTADO DE UTILIDAD
     Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
         Route::resource('utilidades', UtilidadController::class);
+        Route::get('/utilidadOperaciones/{utilidad_id}', [UtilidadOperacionController::class, 'index'])->name('utilidadOperaciones.index');
+        Route::post('/utilidadOperaciones/{utilidad_id}', [UtilidadOperacionController::class, 'store'])->name('utilidadOperaciones.store');
+        Route::delete('/utilidadOperaciones/{utilidad_id}/{id}', [UtilidadOperacionController::class, 'destroy'])->name('utilidadOperaciones.destroy');
+        Route::get('/grupoResultado/{utilidad_id}', [GrupoResultadoController::class, 'index'])->name('grupoResultado.index');
+        Route::post('/grupoResultado/{utilidad_id}', [GrupoResultadoController::class, 'store'])->name('grupoResultado.store');
+        Route::put('/grupoResultado/{utilidad_id}/{id}', [GrupoResultadoController::class, 'update'])->name('grupoResultado.update');
+        Route::delete('/grupoResultado/{utilidad_id}/{id}', [GrupoResultadoController::class, 'destroy'])->name('grupoResultado.destroy');
     });
-
-
 });

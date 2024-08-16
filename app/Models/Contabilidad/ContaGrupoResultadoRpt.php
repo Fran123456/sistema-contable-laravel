@@ -15,6 +15,7 @@ class ContaGrupoResultadoRpt extends Model
         'grupo',
         'utilidad_id',
         'signo',
+        'empresa_id'
     ];
 
     public function utilidad(){
