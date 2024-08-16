@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Contabilidad\EstadoResultado;
 use App\Help\Help;
 use App\Http\Controllers\Controller;
 use App\Models\Contabilidad\ContaUtilidadOperacionRpt;
-use App\Models\Contabilidad\ContaUtilidadRpt;
 use Illuminate\Http\Request;
 
 class UtilidadOperacionController extends Controller
@@ -18,9 +17,10 @@ class UtilidadOperacionController extends Controller
     public function index($utilidad_id)
     {
         $utilidadOperaciones = ContaUtilidadOperacionRpt::OrderBy('id', 'desc')->where('utilidad_id','=',$utilidad_id)->with('utilidad',"utilidadOperacion")->get();
-        $utilidades = ContaUtilidadRpt::Where('empresa_id','=', Help::empresa())->get();
+        $utilidades = UtilidadController::getUtilidadesByEmpresa();
+        $utilidadSeleccionada = UtilidadController::getUtilidadById($utilidad_id);
 
-        return view('contabilidad.estado_resultado.utilidadOperaciones.index', compact('utilidadOperaciones','utilidades','utilidad_id'));
+        return view('contabilidad.estado_resultado.utilidadOperaciones.index', compact('utilidadOperaciones','utilidades','utilidad_id','utilidadSeleccionada'));
     }
 
     /**

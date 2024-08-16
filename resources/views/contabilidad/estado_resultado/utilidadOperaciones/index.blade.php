@@ -7,7 +7,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dasboard</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a href="{{route('contabilidad.utilidades.index')}}">Configuración Estado de resultado</a></li>
-            <li class="breadcrumb-item">Operaciones</li>
+            <li class="breadcrumb-item">Operaciones de {{$utilidadSeleccionada->utilidad}}</li>
         </ol>
     </div>
     <div class="col-md-12">
@@ -19,7 +19,7 @@
 
                 <div class="mt-2 mb-3">
                      <a type="button" title="Editar" class="mx-0.5 btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
-                        Agregar nueva operacion
+                        Agregar nueva operación
                     </a>
                     @include('contabilidad.estado_resultado.utilidadOperaciones.create')
                 </div>

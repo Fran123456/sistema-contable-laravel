@@ -16,9 +16,10 @@ class GrupoResultadoController extends Controller
      */
     public function index($utilidad_id)
     {
+        $utilidadSeleccionada = UtilidadController::getUtilidadById($utilidad_id);
         $grupos = ContaGrupoResultadoRpt::OrderBy('id', 'desc')->where('utilidad_id','=',$utilidad_id)->with('utilidad')->get();
 
-        return view('contabilidad.estado_resultado.grupoResultado.index', compact('grupos', 'utilidad_id'));
+        return view('contabilidad.estado_resultado.grupoResultado.index', compact('grupos', 'utilidad_id', 'utilidadSeleccionada'));
     }
 
     /**
