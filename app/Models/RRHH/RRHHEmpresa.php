@@ -18,7 +18,7 @@ class RRHHEmpresa extends Model
         'empresa',
         'actualizada',
         'abreviatura',
-        'ncr',
+        'nrc',
         'nit',
         'razon_social',
         'created_at',
