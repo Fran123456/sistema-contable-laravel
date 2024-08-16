@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('combo/tipo-precio/{comboTipoPrecio}', [ComboController::class, 'destroyComboTipoPrecio'])->name('combo.destroyComboTipoPrecio');
         Route::post('combo/{combo}/producto', [ComboController::class, 'storeComboProducto'])->name('combo.storeComboProducto');
         Route::delete('combo/producto/{comboProducto}', [ComboController::class, 'destroyComboProducto'])->name('combo.destroyComboProducto');
+        Route::get('/api/productos/{productoId}/tipos-precios', [ComboController::class, 'getTiposPrecios']);
+
         
         // Elimina la categoria que esta asociada al producto
         Route::delete('eliminarCategoria/{producto}/{categoria}', [ProductoController::class, 'eliminarCategoria'])->name('eliminarCategoria');

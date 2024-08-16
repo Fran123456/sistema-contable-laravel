@@ -88,6 +88,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
+                    {{ $contactosSeleccionados->links('pagination::bootstrap-4') }}
+                </div>
             </div>
         </div>
     </div>

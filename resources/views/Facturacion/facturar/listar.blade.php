@@ -11,13 +11,21 @@
               <th scope="col">Valor</th>
               <th>Desc</th>
               <th>Gravada</th>
-              <th>Excenta</th>
+              <th>Excenta</th> <th>No Sujeta</th>
               <th>Iva</th>
               <th>Total</th>
             </tr>
           </thead>
           <tbody class="table-group-divider">
-
+            @php
+                $valor = 0;
+                $desc = 0;
+                $nosujeta = 0;
+                $gravada = 0;
+                $excenta = 0;
+                $iva = 0;
+                $total = 0;
+            @endphp
             @foreach ($doc->detalles as $key => $item)
             <tr>
                 <th scope="row">{{ $key+1 }}</th>
@@ -38,28 +46,38 @@
                 <td class="text-end">{{ number_format($item->cantidad*$item->precio_unitario,2)  }}</td>
                 <td class="text-end">{{ number_format($item->descuento,2) }}</td>
                 <td class="text-end">{{ number_format($item->gravada ,2) }}</td>
-                <td class="text-end">{{ number_format($item->excenta,2) }}</td>
+                <td class="text-end">{{ number_format($item->exenta,2) }}</td>
+                <td class="text-end">{{ number_format($item->nosujeta,2) }}</td>
                 <td class="text-end">{{ number_format($item->iva,2) }}</td>
                 <td class="text-end">{{ number_format($item->total,2) }}</td>
-              
+                @php
+                    $valor = $valor+ ($item->cantidad*$item->precio_unitario);
+                    $desc = $desc+ $item->descuento;
+                    $nosujeta = $nosujeta+$item->nosujeta;
+                    $gravada = $gravada+$item->gravada;
+                    $excenta = $excenta+$item->exenta;
+                    $iva = $iva+$item->iva;
+                    $total =$total+$item->total;
+                @endphp
               </tr>
             @endforeach
+
+            <tr>
+              <th colspan="2" class="text-end">TOTAL</th>
+              <th id="totalCantidad" class="text-center"></th>
+              <th></th>
+              <th id="totalValor" class="text-end">{{ number_format($valor,2) }}</th>
+              <th id="totalDesc" class="text-end">{{ number_format($desc,2) }}</th>
+              <th id="totalGravada" class="text-end">{{ number_format($nosujeta,2) }}</th>
+              <th id="totalExcenta" class="text-end">{{ number_format($gravada,2) }}</th>
+              <th  class="text-end">{{ number_format($nosujeta,2) }}</th>
+              <th id="totalIva" class="text-end">{{ number_format($iva,2) }}</th>
+              <th id="totalTotal" class="text-end">{{ number_format($total,2) }}</th>
+          </tr>
             
             
           </tbody>
-          <tfoot>
-            <tr>
-                <th colspan="2" class="text-end">TOTAL</th>
-                <th id="totalCantidad" class="text-center"></th>
-                <th></th>
-                <th id="totalValor" class="text-end"></th>
-                <th id="totalDesc" class="text-end"></th>
-                <th id="totalGravada" class="text-end"></th>
-                <th id="totalExcenta" class="text-end"></th>
-                <th id="totalIva" class="text-end"></th>
-                <th id="totalTotal" class="text-end"></th>
-            </tr>
-        </tfoot>
+         
     </table>
     @else 
     <div class="alert alert-danger" role="alert">
@@ -70,34 +88,3 @@
     </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    let totalCantidad = 0;
-    let totalValor = 0;
-    let totalDesc = 0;
-    let totalGravada = 0;
-    let totalExcenta = 0;
-    let totalIva = 0;
-    let totalTotal = 0;
-
-    // Recorrer las filas de la tabla para sumar los valores
-    document.querySelectorAll('tbody tr').forEach(function(row) {
-        totalCantidad += parseFloat(row.children[2].innerText.replace(/,/g, ''));
-        totalValor += parseFloat(row.children[4].innerText.replace(/,/g, ''));
-        totalDesc += parseFloat(row.children[5].innerText.replace(/,/g, ''));
-        totalGravada += parseFloat(row.children[6].innerText.replace(/,/g, ''));
-        totalExcenta += parseFloat(row.children[7].innerText.replace(/,/g, ''));
-        totalIva += parseFloat(row.children[8].innerText.replace(/,/g, ''));
-        totalTotal += parseFloat(row.children[9].innerText.replace(/,/g, ''));
-    });
-
-    // Mostrar los totales en el pie de la tabla
-    document.getElementById('totalCantidad').innerText = totalCantidad.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    document.getElementById('totalValor').innerText = totalValor.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    document.getElementById('totalDesc').innerText = totalDesc.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    document.getElementById('totalGravada').innerText = totalGravada.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    document.getElementById('totalExcenta').innerText = totalExcenta.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    document.getElementById('totalIva').innerText = totalIva.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    document.getElementById('totalTotal').innerText = totalTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-});
-  </script>

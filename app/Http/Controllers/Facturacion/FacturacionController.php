@@ -29,6 +29,30 @@ class FacturacionController extends Controller
         return view('facturacion.index', compact('facturaciones', 'clientes', 'tiposDocumento'));
     }
 
+    public function facturar(Request $request){
+        
+        $ov = FactFacturacion::find($request->facturacion);
+        $doc = FactDocumento::where('facturacion_id',$request->doc)->first();
+
+        $ov->estado_id = 2;
+        $ov->monto_facturar = 0;
+        $ov->monto_facturado = $doc->total();
+        $ov->fecha_facturacion = $request->fecha_facturar;
+        $ov->save();
+        $detalles = $doc->detalles;
+
+        $doc->documento  = rand(1000,9999);
+        $doc->serial = rand(100000,999999);
+        $doc->estado_facturacion_id = 2;
+        $doc->monto = $ov->monto_facturado;
+        $doc->posteado = $request->agregar;
+        $doc->fecha_emision = $request->fecha_facturar;
+        $doc->save();
+
+        return redirect()->route('facturacion.index')->with('success','Se ha facturado correctamente');
+
+    }
+
     public function agregarItemsFactura(Request $request,$id){
         $ov = FactFacturacion::find($id);
         $doc = FactDocumento::where('facturacion_id',$id)->first();
@@ -54,7 +78,8 @@ class FacturacionController extends Controller
     }
 
     public function facturarItems(Request $request){
-
+       
+       
         $documento = FactDocumento::find($request->doc_id);
         $facturacion = FactFacturacion::find($request->facturacion_id);
         $facturacion->estado_id = 3;

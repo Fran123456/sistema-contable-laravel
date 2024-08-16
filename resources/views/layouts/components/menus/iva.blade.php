@@ -20,7 +20,7 @@
     <div id="submenu-iva" class="submenu submenu-socios collapse " data-bs-parent="#menu-accordion" style="">
         <ul class="submenu-list list-unstyled">
             <li class="submenu-item">
-                <a class="submenu-link" href="">Libro compra </a>
+                <a class="submenu-link" href="{{ route('iva.libro_compras.index') }}">Libro compra </a>
                 <a class="submenu-link" href="{{ route('iva.reporteLibroCompra.index') }}">Reporte Libro compra </a>
             </li>
         </ul>
