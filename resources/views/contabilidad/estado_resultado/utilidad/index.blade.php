@@ -27,7 +27,7 @@
                             <tr>
                                 <th scope="col" width="40">#</th>
                                 <th scope="col">Utilidad</th>                 
-                                <th scope="col" class="text-center"><i class="fas fa-edit"></i></th>
+                                <th scope="col" class="text-center">Acciones</th>
                             </tr>
                     </thead>
                     <tbody>
@@ -35,14 +35,14 @@
                         <tr>
                             <th scope="row">{{$key + 1}}</th>
                             <td>{{$item->utilidad}}</td>
-                            <td class="text-center">
-                                <a type="button" title="Editar" class="mx-0.5 edit-btn" data-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#editModal">
+                            <td class="text-center ">
+                                <a type="button" title="Editar" class="mx-0.5 edit-btn p-1" data-id="{{ $item->id }}" data-bs-toggle="modal" data-bs-target="#editModal">
                                     <i class="fas fa-edit fa-lg"></i>
                                 </a>
-                                <a type="button" title="Utilidad de Operaciones" class="mx-0.5" href="{{ route('contabilidad.utilidadOperaciones.index', $item->id)}}">
+                                <a type="button" title="Utilidad de Operaciones" class="mx-0.5 p-1" href="{{ route('contabilidad.utilidadOperaciones.index', $item->id)}}">
                                     <i class="fas fa-chart-bar"></i>
                                 </a>
-                                <a type="button" title="Grupo de utilidades" class="mx-0.5" href="{{ route('contabilidad.grupoResultado.index', $item->id)}}">
+                                <a type="button" title="Grupo de utilidades" class="mx-0.5 p-1" href="{{ route('contabilidad.grupoResultado.index', $item->id)}}">
                                     <i class="fas fa-users"></i>
                                 </a>
                                 <form id="form{{ $item->id }}"
@@ -52,7 +52,7 @@
                                     @csrf
                                     <a href="#"
                                         onclick="if(confirm('form{{ $item->id }}','¿Desea eliminar el contacto?')) { event.preventDefault(); this.closest('form').submit(); }"
-                                        title="Eliminar" class="mx-0.5"><i class="fas fa-trash fa-lg"
+                                        title="Eliminar" class="mx-0.5 p-1"><i class="fas fa-trash fa-lg"
                                             style="color: #f43e3e"></i></a>
                                 </form>
                             </td>
