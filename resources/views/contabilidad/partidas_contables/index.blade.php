@@ -137,7 +137,7 @@
                     @csrf
                     <input type="hidden" name="partida_id" id="partida_id">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Sí, Duplicar</button>
+                    <button type="submit" class="btn btn-primary text-white">Sí, Duplicar</button>
                 </form>
             </div>
         </div>

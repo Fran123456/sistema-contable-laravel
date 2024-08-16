@@ -50,7 +50,7 @@ class FacturacionController extends Controller
 
         // Consultar las facturaciones filtradas
         $facturaciones = FactFacturacion::where('empresa_id', $empresaId)
-                                        ->whereBetween('fecha_facturacion', [$fechaInicio, $fechaFin])
+                                        ->whereBetween('fecha_facturacion', [$fechaInicio, \Carbon\Carbon::parse($fechaFin)->endOfDay()])
                                         ->get();
 
         $clientes = SociosCliente::orderBy('id', 'desc')->get();
