@@ -64,7 +64,11 @@
                                 @foreach ($facturaciones as $facturacion)
                                 <tr>
                                     <td>{{ $facturacion->codigo }}</td>
+                                    @if ($facturacion->fecha_facturacion == null)
+                                    <td>Sin asignar</td>
+                                    @else 
                                     <td>{{ \Carbon\Carbon::parse($facturacion->fecha_facturacion)->format('d-m-Y') ?? "Sin asignar" }}</td>
+                                    @endif
                                     <td>{{ $facturacion->monto_facturar }}</td>
                                     <td>{{ $facturacion->monto_facturado }}</td>
                                     <td>{{ $facturacion->estado?->estado }}</td>
