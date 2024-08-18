@@ -4,21 +4,21 @@ namespace App\Http\Controllers\Contabilidad\EstadoResultado;
 
 use App\Help\Help;
 use App\Http\Controllers\Controller;
-use App\Models\Contabilidad\ContaUtilidadRpt;
+use App\Models\Contabilidad\ContaGrupoResultadoRpt;
 use Illuminate\Http\Request;
 
-class UtilidadController extends Controller
+class GrupoResultadoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($utilidad_id)
     {
-        $utilidades = ContaUtilidadRpt::orderBy('id', 'desc')->get();
+        $grupos = ContaGrupoResultadoRpt::OrderBy('id', 'desc')->where('utilidad_id','=',$utilidad_id)->with('utilidad')->get();
 
-        return view('contabilidad.estado_resultado.utilidad.index', compact('utilidades'));
+        return view('contabilidad.estado_resultado.grupoResultado.index', compact('grupos', 'utilidad_id'));
     }
 
     /**
@@ -28,7 +28,7 @@ class UtilidadController extends Controller
      */
     public function create()
     {
-        return redirect()->route('contabilidad.utilidades.index')->with('success', 'utilidad modificado correctamente ');
+        //
     }
 
     /**
@@ -37,26 +37,27 @@ class UtilidadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $utilidad_id)
     {
         $request->validate([
-            'utilidad'=> 'required|string|max:200',
+            'grupo'=> 'required|string|max:200',
+            'signo' => 'required|string|in:+,-',
         ]);
 
         if(Help::empresa()){
             $request->merge(["empresa_id" => Help::empresa()]);
+            $request->merge(["utilidad_id" => $utilidad_id]);
         }else{
             return back()->with('danger', 'Error, no se puede procesar la petición');
         }
 
-        $utilidad = (new ContaUtilidadRpt())->fill($request->all());
+        $utilidad = (new ContaGrupoResultadoRpt())->fill($request->all());
         try {
             $utilidad->save();
 
-            return redirect()->route('contabilidad.utilidades.index')->with('success', 'utilidad creado correctamente ');
+            return redirect()->route('contabilidad.grupoResultado.index', ['utilidad_id' => $utilidad_id])->with('success', 'Grupo creado correctamente ');
 
         } catch (Exception $e) {
-            // Log::log('SociosdeNegocio', 'contacto error al crear el contacto', $e);
             return back()->with('danger', 'Error, no se puede procesar la petición');
         }
     }
@@ -69,8 +70,7 @@ class UtilidadController extends Controller
      */
     public function show($id)
     {
-        $utilidad = ContaUtilidadRpt::findOrFail($id);
-            return response()->json($utilidad);
+        //
     }
 
     /**
@@ -81,9 +81,7 @@ class UtilidadController extends Controller
      */
     public function edit($id)
     {
-        $utilidad = ContaUtilidadRpt::find($id);
-
-        return response()->json($utilidad);
+        //
     }
 
     /**
@@ -93,24 +91,24 @@ class UtilidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $utilidad_id ,$id)
     {
         $request->validate([
-            'utilidad'=> 'required|string|max:200',
+            'grupo'=> 'required|string|max:200',
+            'signo' => 'required|string|in:+,-',
         ]);
+
+        $grupo = ContaGrupoResultadoRpt::findOrFail($id);
+
+        $grupo->grupo = $request->grupo;
+        $grupo->signo = $request->signo;
+
         try {
-            $utilidad = ContaUtilidadRpt::findOrFail($id);
-            $utilidad->update($request->all());
-            if ($request->ajax()) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Utilidad actualizada correctamente.'
-                ]);
-            }
-    
-            return redirect()->route('contabilidad.utilidades.index')->with('success', 'Utilidad actualizada correctamente.');
-        } catch (\Throwable $e) {
-            return back()->with('danger', 'no se puede procesar la petición');
+            $grupo->save();
+
+            return redirect()->route('contabilidad.grupoResultado.index', ['utilidad_id' => $utilidad_id])->with('success', 'Grupo actualizado correctamente');
+        } catch (Exception $e) {
+            return back()->with('danger', 'Error, no se puede procesar la petición');
         }
     }
 
@@ -120,12 +118,12 @@ class UtilidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($utilidad_id, $id)
     {
         try {
-            $utilidad = ContaUtilidadRpt::findOrFail($id);
-            $utilidad->delete();
-            return redirect()->route('contabilidad.utilidades.index')->with('success','Se ha eliminado utilidad correctamente');
+            $grupo = ContaGrupoResultadoRpt::findOrFail($id);
+            $grupo->delete();
+            return redirect()->route('contabilidad.grupoResultado.index', ['utilidad_id'=>$utilidad_id])->with('success','Se ha eliminado el grupo correctamente');
         } catch (\Throwable $th) {
             return back()->with('danger', 'no se puede procesar la petición');
         }
