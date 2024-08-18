@@ -30,6 +30,21 @@
                 <input name="abreviatura" type="text" class="form-control" max="10">
             </div>
 
+            <div class="col-md-6   mt-2 mb-21">
+                <label for="">NRC</label>
+                <input name="nrc" type="text" class="form-control" max="10">
+            </div>
+
+            <div class="col-md-6   mt-2 mb-21">
+                <label for="">NIT</label>
+                <input name="nit" type="text" class="form-control" max="10">
+            </div>
+
+            <div class="col-md-6   mt-2 mb-21">
+                <label for="">Razon social</label>
+                <input name="razon_social" type="text" class="form-control" max="10">
+            </div>
+
             <div class="col-md-12 mb-3 mt-3">
                 <button class="btn btn-primary mb-2" style="color:white;" type="submit"> <i class="fas fa-save"></i>
                 </button>
