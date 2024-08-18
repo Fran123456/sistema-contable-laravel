@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Iva;
 
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use App\Models\Contabilidad\ContaDetallePartida;
-use App\Models\Contabilidad\ContaPartidaContable;
-use App\Models\Facturacion\FactFacturacion;
+use Illuminate\Http\Request;
 use App\Models\Iva\LibroCompra;
 use App\Models\RRHH\RRHHEmpresa;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Facturacion\FactFacturacion;
+use App\Models\Contabilidad\ContaDetallePartida;
+use App\Models\Contabilidad\ContaPartidaContable;
 use App\Models\SociosdeNegocio\SociosProveedores;
-use Illuminate\Http\Request;
 
 class LibroCompraController extends Controller
 {

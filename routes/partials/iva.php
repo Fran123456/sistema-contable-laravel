@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Iva\LibroCompraController;
 use App\Http\Controllers\Iva\ReporteCompraController;
 
