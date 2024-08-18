@@ -41,7 +41,7 @@
                                     <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" value="{{ request('fecha_fin') }}" required>
                                 </div>
                                 <div class="col-md-1">
-                                    <button type="submit" class="btn btn-primary w-100 text-white">Filtrar</button>
+                                    <button type="submit" class="btn btn-primary w-100 text-white"><i class="fas fa-filter"></i></button>
                                 </div>
                             </div>
                         </form>
