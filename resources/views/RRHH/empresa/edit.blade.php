@@ -32,26 +32,23 @@
                             <label for=""><strong>Empresa</strong> </label>
                             <input type="text" name="empresa"  value="{{ $empresa->empresa }}"  required class="form-control">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mt-3 mb-2">
+                    
+                    
+                        <div class="col-md-4 mt-3 mb-2">
                             <label for=""><strong>Abreviatura</strong> </label>
                             <input type="text" name="abreviatura"  value="{{ $empresa->abreviatura }}" class="form-control" max="10">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mt-3 mb-2">
+                  
+                        <div class="col-md-4 mt-3 mb-2">
                             <label for=""><strong>NRC</strong> </label>
                             <input type="text" name="nrc"  value="{{ $empresa->nrc }}" class="form-control" max="10">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mt-3 mb-2">
+                    
+                        <div class="col-md-4 mt-3 mb-2">
                             <label for=""><strong>NIT</strong> </label>
                             <input type="text" name="nit"  value="{{ $empresa->nit }}" class="form-control" max="10">
                         </div>
-                    </div>
-                    <div class="row">
+                    
                         <div class="col-md-12 mt-3 mb-2">
                             <label for=""><strong>Razon social</strong> </label>
                             <input type="text" name="razon_social"  value="{{ $empresa->razon_social }}" class="form-control" max="10">

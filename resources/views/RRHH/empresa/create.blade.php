@@ -20,7 +20,10 @@
             </ol>
         </nav>
     </div>
-
+    
+    <div class="col-md-12">
+        <x-alert></x-alert>
+    </div>
 
     <div class="col-md-12">
         <form method="post" action="{{ route('rrhh.empresa.store') }}">
