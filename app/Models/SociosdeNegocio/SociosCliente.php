@@ -35,6 +35,7 @@ class SociosCliente extends Model
         'telefono',
         'celular',
         'observaciones',
+        'empresa_id',
         'created_at',
         'updated_at',
     ];

@@ -135,6 +135,9 @@
                             {{-- Obtenemos el id del usuario --}}
                             <input type="hidden" name="usuario_creo_id" value="{{$usuario_creo->id}}"  class="form-control">
                         </div>
+                        <div>
+                            <input type="hidden" name="empresa_id" value="{{$usuario_creo->empresa_id}}"class="form-control">
+                        </div>
                         <div class="col-md-12 mt-4 mb-1">
                             <button class="btn btn-success" style="color:aliceblue" type="submit">Guardar</button>
                         </div>
