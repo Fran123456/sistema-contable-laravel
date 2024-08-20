@@ -18,7 +18,7 @@ class CargoController extends Controller
      */
     public function index()
     {
-        $cargos = SociosCargo::all();
+        $cargos = SociosCargo::where('empresa_id', Help::empresa())->get();
         return view('sociosdeNegocio.Cargo.index', compact('cargos'));
 
     }
@@ -50,6 +50,7 @@ class CargoController extends Controller
             $cargo = SociosCargo::create([
                 'cargo' => $request->cargo,
                 'descripcion' => $request->descripcion,
+                'empresa_id' => Help::empresa()
             ]);
 
             $cargo->save();
@@ -96,7 +97,8 @@ class CargoController extends Controller
         $cargo = SociosCargo::find($id);
         $cargo->cargo = $request->cargo;
         $cargo->descripcion = $request->descripcion;
-
+        $cargo->empresa_id = Help::empresa();
+        
         try {
             $cargo->save();
             return to_route('socios.cargo.index')->with('success', 'Cargo actualizado correctamente');
