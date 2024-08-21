@@ -32,6 +32,17 @@
                 </a>
             </div>
 
+            <div class="col-md-3 mb-3">
+                <a href="{{ route('settings.accountingSettings') }}">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-file-invoice-dollar fa-4x"></i> <br>
+                            Contabilidad
+                        </div>
+                    </div>
+                </a>
+            </div>
+
         </div>
     </div>
 

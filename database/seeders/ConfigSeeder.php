@@ -22,6 +22,7 @@ class ConfigSeeder extends Seeder
             el estado, si se desea mostrar o no mostrarse',
             'field'=> 'copyTitleShow',
             'value'=>'1',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
@@ -32,6 +33,7 @@ class ConfigSeeder extends Seeder
             'description'=>'Boton que nos ayuda a copiar las filas de la tabla, podra modificarse el mensaje de confirmación',
             'field'=> 'copyTitle',
             'value'=>'Se ha copiado los registros correctamente',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
@@ -43,6 +45,7 @@ class ConfigSeeder extends Seeder
              el estado, si se desea mostrar o no mostrarse',
             'field'=> 'csvShow',
             'value'=>'1',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
@@ -54,6 +57,7 @@ class ConfigSeeder extends Seeder
              el estado, si se desea mostrar o no mostrarse',
             'field'=> 'excelShow',
             'value'=>'1',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
@@ -65,6 +69,7 @@ class ConfigSeeder extends Seeder
              el estado, si se desea mostrar o no mostrarse',
             'field'=> 'pdfShow',
             'value'=>'1',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
@@ -76,6 +81,7 @@ class ConfigSeeder extends Seeder
              el estado, si se desea mostrar o no mostrarse',
             'field'=> 'printShow',
             'value'=>'1',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
@@ -87,6 +93,7 @@ class ConfigSeeder extends Seeder
              el estado, si se desea mostrar o no mostrarse',
             'field'=> 'visibilityShow',
             'value'=>'1',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
@@ -98,6 +105,7 @@ class ConfigSeeder extends Seeder
              el estado, si se desea mostrar o no mostrarse',
             'field'=> 'select',
             'value'=>'1',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
@@ -108,6 +116,7 @@ class ConfigSeeder extends Seeder
             'description'=>'Acción que nos permite poder modificar el logo de la aplicación',
             'field'=> 'logo',
             'value'=>'assets/images/logo/logo.png',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
@@ -118,6 +127,7 @@ class ConfigSeeder extends Seeder
             'description'=>'Acción que nos permite poder modificar la cantidad de digitos que tendra el correlativo al crear partidads contables',
             'field'=> 'correlativo',
             'value'=>'5',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
@@ -128,6 +138,29 @@ class ConfigSeeder extends Seeder
             'description'=>'Acción que nos permite asignarle un identificador a cada producto, puede ser automatico o manual',
             'field'=> 'identificadorProducto',
             'value'=>'0',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+        
+        DB::table('config')->insert([
+            'category' => 'contabilidad',
+            'title' => 'Partida de venta/costo para facturación',
+            'description'=>'Crear una partida de venta/costo por documento facturado.',
+            'field'=> 'partidaVentaCosto',
+            'value'=>'1',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+
+        DB::table('config')->insert([
+            'category' => 'contabilidad',
+            'title' => 'Partida de venta/costo  se realizara via cuenta bolson?',
+            'description'=>'Determina si la partida de venta/costo se hara para cuentas diferentes por cliente o una solo cuenta bozon por ejemplo: “cuentas por cobrar a clientes” donde SI = si ocuparemos cuenta bolson, NO = ocuparemos cuentas por cliente',
+            'field'=> 'partidaVentaCostoCuentaClientes',
+            'value'=>'1',
+            'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
