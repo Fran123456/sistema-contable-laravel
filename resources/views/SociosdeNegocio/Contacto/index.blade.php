@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-select2></x-select2>
     <x-slot:title>
         Lista de contactos
     </x-slot>
@@ -19,8 +20,8 @@
         <form action="{{ route('socios.contacto.index') }}" method="get">
             <div class="row">
                 <div class="col-md-4">
-                    <label for="">Cargos</label>
-                    <select name="cargo" class="form-control"  id="">
+                    <label for="select-cargo" class="form-label">Cargos</label>
+                    <select name="cargo" class="form-select select2"  id="select-cargo">
                         <option value="" disabled selected >Seleccionar</option>
                         @foreach ($cargos as $c)
                             <option @if($cargo == $c->id) selected @endif value="{{ $c->id }}" >{{ $c->cargo }}</option>
@@ -29,8 +30,8 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="">Pais</label>
-                    <select name="pais" class="form-control"  id="">
+                    <label for="select-pais" class="form-label">Pais</label>
+                    <select name="pais" class="form-select select2"  id="select-pais">
                         <option value="" disabled selected >Seleccionar</option>
                         @foreach ($paises as $p)
                             <option @if($pais == $p->id) selected @endif value="{{ $p->id }}" >{{ $p->pais }}</option>
@@ -39,8 +40,8 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="">Estados</label>
-                    <select name="estado" class="form-control"  id="">
+                    <label for="select-estado" class="form-label">Estados</label>
+                    <select name="estado" class="form-select select2"  id="select-estado">
                         <option value="" disabled selected >Seleccionar</option>
                         @foreach ($estados as $e)
                             <option @if($pais == $e->id) selected @endif value="{{ $e->estado }}" >{{ $e->estado }}</option>
@@ -145,6 +146,10 @@
     </div>
 
     <script>
+        $('.select2').each(function() {
+            $(this).select2({ theme: "bootstrap-5",dropdownParent: $(this).parent()});
+        });
+
         document.addEventListener("DOMContentLoaded", function() {
             const checkboxes = document.querySelectorAll('.selector');
             const button = document.querySelector('#idButton');

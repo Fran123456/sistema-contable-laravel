@@ -1,32 +1,13 @@
 <x-app-layout>
     <x-chosen></x-chosen>
+    <x-select2></x-select2>
+    
    <x-slot:title>
        Editar contacto
     </x-slot>
 
-
-
     <x-slot:subtitle>
     </x-slot>
-
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-
-            // Se inicializa el richText
-            const quill = new Quill('#editor', {
-                theme: 'snow'
-            });
-
-            // El contenido del richText se pasa a un input
-            document.querySelector('#observacionForm').onsubmit = function() {
-                const content = quill.root.innerHTML;
-                document.querySelector('#anexo').value = content;
-            };
-        });
-    </script>
-
 
     <div class="col-md-12">
         <ol class="breadcrumb">
@@ -77,7 +58,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="cargo"> <strong>Cargo</strong></label>
-                            <select required id="cargo_id" name="cargo_id" class="form-control" value="{{$contacto->cargo_id}}">
+                            <select required id="cargo_id" name="cargo_id" class="form-select select2" value="{{$contacto->cargo_id}}">
                                 <option value="">Selecciona una opción</option>
                                 @foreach ($cargos as $cargo)
                                     <option value="{{$cargo->id}}" @if ($cargo->id == $contacto->cargo_id) selected @endif>{{$cargo->cargo}}</option>
@@ -86,7 +67,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="tipo_contrato"> <strong>Tipo de contrato</strong></label>
-                            <select required id="tipo_contrato" name="tipo_contrato" class="form-control" value="{{$contacto->tipo_contrato}}">
+                            <select required id="tipo_contrato" name="tipo_contrato" class="form-select select2" value="{{$contacto->tipo_contrato}}">
                                 <option value="">Selecciona una opción</option>
                                 <option value="Pasante" {{$contacto->tipo_contrato === 'Pasante' ? 'selected' : ' '}}>Pasante</option>
                                 {{-- Si es true devuelve el valor y si es false devuelve una cadena vacia --}}
@@ -97,7 +78,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="estado"> <strong>Estado</strong></label>
-                            <select required id="estado" name="estado" class="form-control" value="{{$contacto->estado}}" required>
+                            <select required id="estado" name="estado" class="form-select select2" value="{{$contacto->estado}}" required>
                                 <option value="">Selecciona una opción</option>
                                 <option value="Ingresado" {{$contacto->estado === 'Ingresado' ? 'selected' : ' '}}>Ingresado</option>
                                 <option value="Ingresado-Recomendado" {{$contacto->estado === 'Ingresado-Recomendado' ? 'selected' : ' '}}>Ingresado/Recomendado</option>
@@ -124,7 +105,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="pais_id"> <strong>Pais</strong></label>
-                            <select required id="pais_id" name="pais_id" class="form-control">
+                            <select required id="pais_id" name="pais_id" class="form-select select2">
                                 <option value="">Selecciona una opción</option>
                                 @foreach ($paises as $pais)
                                     <option value="{{$pais->id}}" @if ($pais->id == $contacto->pais_id) selected @endif>{{$pais->pais}}</option>                                                                      --}}
@@ -151,5 +132,25 @@
             </div>
         </div>
     </div>
-    
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script>
+        $('.select2').each(function() {
+            $(this).select2({ theme: "bootstrap-5",dropdownParent: $(this).parent()});
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // Se inicializa el richText
+            const quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+
+            // El contenido del richText se pasa a un input
+            document.querySelector('#observacionForm').onsubmit = function() {
+                const content = quill.root.innerHTML;
+                document.querySelector('#anexo').value = content;
+            };
+        });
+    </script>
 </x-app-layout>
