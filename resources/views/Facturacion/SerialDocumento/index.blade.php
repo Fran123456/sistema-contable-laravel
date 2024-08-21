@@ -58,7 +58,7 @@
                                         @method('DELETE')
                                         @csrf
                                         <a href="#" 
-                                            onclick="if(confirm('form{{ $serial->id }}','¿Desea eliminar este serial de facturacion?')) { event.preventDefault(); this.closest('form').submit(); }" 
+                                            onclick="if(confirm('form{{ $serial->id }}','¿Desea eliminar este serial de facturación?')) { event.preventDefault(); this.closest('form').submit(); }" 
                                             title="Eliminar" class="mx-0.5">
                                             <i class="fas fa-trash fa-lg" style="color: #f43e3e"></i>
                                         </a>
