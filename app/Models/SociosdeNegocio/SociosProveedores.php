@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\EntidadTerritorial\EntPais;
 use App\Models\Producto\ProProducto;
+use App\Models\RRHH\RRHHEmpresa;
 
 class SociosProveedores extends Model
 {
@@ -19,12 +20,14 @@ class SociosProveedores extends Model
         'forma_pago',
         'numero_registro',
         'nit',
+        'dui',
         'telefono',
         'direccion',
         'celular',
         'correo',
         'pais_id',
         'activo',
+        'empresa_id',
         'created_at',
         'updated_at',
     ];
@@ -35,5 +38,10 @@ class SociosProveedores extends Model
 
     public function productos(){
         return $this->belongsToMany(ProProducto::class, 'pro_producto_proveedor', 'producto_id', 'proveedor_id');
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo(RRHHEmpresa::class, 'empresa_id');
     }
 }
