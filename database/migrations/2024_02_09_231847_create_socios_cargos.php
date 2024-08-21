@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('cargo');
             $table->text('descripcion');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa');
             $table->timestamps();
         });
     }

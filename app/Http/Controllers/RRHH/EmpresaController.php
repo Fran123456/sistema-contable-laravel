@@ -41,7 +41,7 @@ class EmpresaController extends Controller
      */
     public function create()
     {
-        //
+        return view('RRHH.empresa.create');
     }
 
     /**
@@ -143,7 +143,7 @@ class EmpresaController extends Controller
 
             Log::log('RRHH', 'crear empresa', 'El usuario ' . Help::usuario()->name . ' ha creado la empresa ' . $request->empresa);
             DB::commit(); // <= Commit the changes
-            return back()->with('success', 'Se ha creado la empresa correctamente');
+            return redirect()->route('rrhh.empresa.index')->with('success', 'Se ha creado la empresa correctamente');
 
         } catch (\Exception $e) {
             report($e);

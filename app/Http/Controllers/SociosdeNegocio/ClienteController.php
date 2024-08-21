@@ -23,7 +23,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $cliente = SociosCliente::orderBy('id', 'desc')->get();
+        $cliente = SociosCliente::where('empresa_id', help::empresa())->orderBy('id', 'desc')->get();
         return view('SociosdeNegocio.Cliente.index', compact('cliente'));
     }
 
