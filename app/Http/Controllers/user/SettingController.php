@@ -44,6 +44,14 @@ class SettingController extends Controller
         return view('users.settings.general', compact('logo'));
     }
 
+    public function accountingSettings(){
+        $user = auth()->user();
+        $data = Config::where('category', 'contabilidad')
+                      ->where('empresa_id', $user->empresa_id) 
+                      ->get();
+        return view('users.settings.contabilidad', compact('data'));
+    }
+
     // public function changeLogo(Request $request, $id){
     //    $img =  Help::uploadFile($request, 'assets/images/logo', '' ,'image');
     //    $config = Config::find($id);

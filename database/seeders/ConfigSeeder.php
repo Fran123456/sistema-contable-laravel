@@ -142,5 +142,27 @@ class ConfigSeeder extends Seeder
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
+        
+        DB::table('config')->insert([
+            'category' => 'contabilidad',
+            'title' => 'Partida de venta/costo para facturación',
+            'description'=>'Crear una partida de venta/costo por documento facturado.',
+            'field'=> 'partidaVentaCosto',
+            'value'=>'1',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+
+        DB::table('config')->insert([
+            'category' => 'contabilidad',
+            'title' => 'Partida de venta/costo  se realizara via cuenta bolson?',
+            'description'=>'Determina si la partida de venta/costo se hara para cuentas diferentes por cliente o una solo cuenta bozon por ejemplo: “cuentas por cobrar a clientes” donde SI = si ocuparemos cuenta bolson, NO = ocuparemos cuentas por cliente',
+            'field'=> 'partidaVentaCostoCuentaClientes',
+            'value'=>'1',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
     }
 }
