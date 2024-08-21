@@ -130,4 +130,12 @@ class UtilidadController extends Controller
             return back()->with('danger', 'no se puede procesar la petición');
         }
     }
+
+    public static function getUtilidadesByEmpresa() {
+        return ContaUtilidadRpt::Where('empresa_id','=', Help::empresa())->get();
+    }
+
+    public static function getUtilidadById($id) {
+        return ContaUtilidadRpt::find($id);
+    }
 }

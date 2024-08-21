@@ -7,7 +7,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dasboard</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a href="{{route('contabilidad.utilidades.index')}}">Configuración Estado de resultado</a></li>
-            <li class="breadcrumb-item">Grupos</li>
+            <li class="breadcrumb-item">Grupos de {{$utilidadSeleccionada->utilidad}}</li>
         </ol>
     </div>
     <div class="col-md-12">
