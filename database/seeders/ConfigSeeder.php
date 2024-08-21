@@ -15,6 +15,7 @@ class ConfigSeeder extends Seeder
      */
     public function run()
     {
+        //Seeder para config categoria DATATABLE
         DB::table('config')->insert([
             'category' => 'datatable',
             'title' => 'Boton de copiar (Mostrar/No mostrar)',
@@ -110,12 +111,41 @@ class ConfigSeeder extends Seeder
             'updated_at'=> date("Y-m-d h:i:s")
         ]);
 
+
+        //Seeder para config categoria GENERAL
         DB::table('config')->insert([
             'category' => 'general',
             'title' => 'Logo de la aplicación',
             'description'=>'Acción que nos permite poder modificar el logo de la aplicación',
             'field'=> 'logo',
             'value'=>'assets/images/logo/logo.png',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+
+        
+
+        //Seeder para config categoria PRODUCTO
+        DB::table('config')->insert([
+            'category' => 'producto',
+            'title' => 'Identificador de producto',
+            'description'=>'Acción que nos permite asignarle un identificador a cada producto, puede ser automatico o manual',
+            'field'=> 'identificadorProducto',
+            'value'=>'0',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+        
+
+        //Seeder para config categoria CONTABILIDAD
+        DB::table('config')->insert([
+            'category' => 'contabilidad',
+            'title' => 'Partida de venta/costo para facturación',
+            'description'=>'Crear una partida de venta/costo por documento facturado.',
+            'field'=> 'partidaVentaCosto',
+            'value'=>'1',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
@@ -131,28 +161,6 @@ class ConfigSeeder extends Seeder
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
-        
-        DB::table('config')->insert([
-            'category' => 'producto',
-            'title' => 'Identificador de producto',
-            'description'=>'Acción que nos permite asignarle un identificador a cada producto, puede ser automatico o manual',
-            'field'=> 'identificadorProducto',
-            'value'=>'0',
-            'empresa_id' => 1,
-            'created_at'=>date("Y-m-d h:i:s"),
-            'updated_at'=>date("Y-m-d h:i:s"),
-        ]);
-        
-        DB::table('config')->insert([
-            'category' => 'contabilidad',
-            'title' => 'Partida de venta/costo para facturación',
-            'description'=>'Crear una partida de venta/costo por documento facturado.',
-            'field'=> 'partidaVentaCosto',
-            'value'=>'1',
-            'empresa_id' => 1,
-            'created_at'=>date("Y-m-d h:i:s"),
-            'updated_at'=>date("Y-m-d h:i:s"),
-        ]);
 
         DB::table('config')->insert([
             'category' => 'contabilidad',
@@ -160,6 +168,20 @@ class ConfigSeeder extends Seeder
             'description'=>'Determina si la partida de venta/costo se hara para cuentas diferentes por cliente o una solo cuenta bozon por ejemplo: “cuentas por cobrar a clientes” donde SI = si ocuparemos cuenta bolson, NO = ocuparemos cuentas por cliente',
             'field'=> 'partidaVentaCostoCuentaClientes',
             'value'=>'1',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+
+
+
+        //Seeder para config categoria FACTURACION_ELECTRONICA
+        DB::table('config')->insert([
+            'category' => 'facturacion_electronica',
+            'title' => 'Habilitar facturación electronica',
+            'description'=>'Indica si se generara DTE para factura electronica',
+            'field'=> 'fe_habilitar',
+            'value'=>'0',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
