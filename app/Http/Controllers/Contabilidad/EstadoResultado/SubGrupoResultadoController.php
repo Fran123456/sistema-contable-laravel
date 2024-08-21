@@ -4,22 +4,23 @@ namespace App\Http\Controllers\Contabilidad\EstadoResultado;
 
 use App\Help\Help;
 use App\Http\Controllers\Controller;
-use App\Models\Contabilidad\ContaGrupoResultadoRpt;
+use App\Models\Contabilidad\ContaGrupoSubResultadoRpt;
 use Illuminate\Http\Request;
 
-class GrupoResultadoController extends Controller
+class SubGrupoResultadoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($utilidad_id)
+    public function index($utilidad_id, $grupo_id)
     {
+        $grupo = GrupoResultadoController::getGrupoById($grupo_id);
         $utilidadSeleccionada = UtilidadController::getUtilidadById($utilidad_id);
-        $grupos = ContaGrupoResultadoRpt::OrderBy('id', 'desc')->where('utilidad_id','=',$utilidad_id)->with('utilidad')->get();
+        $subGrupos = ContaGrupoSubResultadoRpt::OrderBy('id', 'desc')->where('grupo_id','=',$grupo_id)->with(['utilidad',"grupo"])->get();
 
-        return view('contabilidad.estado_resultado.grupoResultado.index', compact('grupos', 'utilidad_id', 'utilidadSeleccionada'));
+        return view('contabilidad.estado_resultado.subGrupoResultado.index', compact('utilidadSeleccionada','subGrupos','grupo','utilidad_id','grupo_id'));
     }
 
     /**
@@ -38,25 +39,24 @@ class GrupoResultadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $utilidad_id)
+    public function store(Request $request,$utilidad_id,$grupo_id)
     {
         $request->validate([
-            'grupo'=> 'required|string|max:200',
-            'signo' => 'required|string|in:+,-',
+            'sub_grupo'=> 'required|string|max:200',
         ]);
 
         if(Help::empresa()){
             $request->merge(["empresa_id" => Help::empresa()]);
             $request->merge(["utilidad_id" => $utilidad_id]);
+            $request->merge(["grupo_id" => $grupo_id]);
         }else{
             return back()->with('danger', 'Error, no se puede procesar la petición');
         }
-
-        $utilidad = (new ContaGrupoResultadoRpt())->fill($request->all());
+        $subGrupo = (new ContaGrupoSubResultadoRpt())->fill($request->all());
         try {
-            $utilidad->save();
+            $subGrupo->save();
 
-            return redirect()->route('contabilidad.grupoResultado.index', ['utilidad_id' => $utilidad_id])->with('success', 'Grupo creado correctamente ');
+            return redirect()->route('contabilidad.subGrupoResultado.index', ['utilidad_id' => $utilidad_id, 'grupo_id'=>$grupo_id])->with('success', 'Sub grupo creado correctamente ');
 
         } catch (Exception $e) {
             return back()->with('danger', 'Error, no se puede procesar la petición');
@@ -92,22 +92,20 @@ class GrupoResultadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $utilidad_id ,$id)
+    public function update(Request $request,$utilidad_id, $grupo_id, $id)
     {
         $request->validate([
-            'grupo'=> 'required|string|max:200',
-            'signo' => 'required|string|in:+,-',
+            'sub_grupo'=> 'required|string|max:200',
         ]);
 
-        $grupo = ContaGrupoResultadoRpt::findOrFail($id);
+        $subGrupo = ContaGrupoSubResultadoRpt::findOrFail($id);
 
-        $grupo->grupo = $request->grupo;
-        $grupo->signo = $request->signo;
+        $subGrupo->sub_grupo = $request->sub_grupo;
 
         try {
-            $grupo->save();
+            $subGrupo->save();
 
-            return redirect()->route('contabilidad.grupoResultado.index', ['utilidad_id' => $utilidad_id])->with('success', 'Grupo actualizado correctamente');
+            return redirect()->route('contabilidad.subGrupoResultado.index', ['utilidad_id' => $utilidad_id, 'grupo_id' => $grupo_id])->with('success', 'Sub Grupo actualizado correctamente');
         } catch (Exception $e) {
             return back()->with('danger', 'Error, no se puede procesar la petición');
         }
@@ -119,18 +117,14 @@ class GrupoResultadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($utilidad_id, $id)
+    public function destroy($utilidad_id, $grupo_id, $id)
     {
         try {
-            $grupo = ContaGrupoResultadoRpt::findOrFail($id);
-            $grupo->delete();
-            return redirect()->route('contabilidad.grupoResultado.index', ['utilidad_id'=>$utilidad_id])->with('success','Se ha eliminado el grupo correctamente');
+            $subGrupo = ContaGrupoSubResultadoRpt::findOrFail($id);
+            $subGrupo->delete();
+            return redirect()->route('contabilidad.subGrupoResultado.index', ['utilidad_id'=>$utilidad_id, 'grupo_id'=>$grupo_id])->with('success','Se ha eliminado el sub grupo correctamente');
         } catch (\Throwable $th) {
             return back()->with('danger', 'no se puede procesar la petición');
         }
-    }
-
-    public static function getGrupoById($id){
-        return ContaGrupoResultadoRpt::find($id);
     }
 }

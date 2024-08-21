@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('sub_grupo', 200)->nullable();
             $table->unsignedBigInteger('grupo_id')->nullable();
             $table->unsignedBigInteger('utilidad_id')->nullable();
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->foreign('grupo_id')->references('id')->on('conta_grupo_resultado_rpt')->onUpdate('cascade');
             $table->foreign('utilidad_id')->references('id')->on('conta_utilidad_rpt')->onUpdate('cascade');
             $table->timestamps();
