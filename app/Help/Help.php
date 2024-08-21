@@ -89,7 +89,12 @@ class Help
 
     public static function getConfigByKey($category, $key)
     {
-        return Config::where('field', $key)->where('category', $category)->first();
+        $empresa_id = Help::empresa(); 
+        return Config::where('field', $key)
+                    ->where('category', $category)
+                    ->where('empresa_id', $empresa_id) // Filtra por empresa_id del usuario y así obtiene el valor del logo
+                    ->first();
+        // return Config::where('field', $key)->where('category', $category)->first();
     }
 
     public static function pathAssets($path)

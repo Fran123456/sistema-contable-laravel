@@ -6,7 +6,8 @@
 
           
          <div class="text-center">
-            <img class="img-fluid" width="200" height="200" src="{{ asset(Help::getConfigByKey('general','logo')->value ) }}" />
+            <img class="img-fluid" width="200" height="200" src="{{ asset('assets/images/logo/logo.png') }}" />
+            <!-- <img class="img-fluid" width="200" height="200" src=" {{-- asset(Help::getConfigByKey('general','logo')->value ) --}}" /> -->
          </div>
 
             <x-jet-validation-errors class="mb-3 rounded-0" />
