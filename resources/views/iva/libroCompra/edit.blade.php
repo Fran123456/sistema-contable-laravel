@@ -1,4 +1,27 @@
 <x-app-layout>
+<!-- estilos necesarios para el select -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2-bootstrap4.min.css" rel="stylesheet" />
+
+<!-- Estilos adicionales para ajustar la altura y alineación -->
+<style>
+    .select2-container--bootstrap4 .select2-selection--single {
+        height: calc(2.25rem + 2px); /* Ajusta la altura del campo */
+        padding: 0.375rem 0.75rem; /* Espaciado interno */
+        border-radius: 0.25rem; /* Bordes redondeados */
+        border: 1px solid #ced4da; /* Color del borde */
+        display: flex;
+        align-items: center; /* Centra el texto verticalmente */
+    }
+
+    .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+        line-height: 1.5; /* Alineación vertical del texto */
+    }
+
+    .select2-container--bootstrap4 .select2-selection--single .select2-selection__placeholder {
+        line-height: 1.5; /* Alinea el placeholder con el texto seleccionado */
+    }
+</style>
+
     <x-chosen></x-chosen>
     <x-slot:title>
         Editar Libro Compra
@@ -47,23 +70,28 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="proveedor_id" class="form-label"> <strong>Proveedor</strong> </label>
-                            <select class="form-control" id="proveedor_id" name="proveedor_id">
+                            <select class="form-control js-example-responsive" id="proveedor_id" name="proveedor_id" style="width: 100%">
                                 <option value="">Seleccione un proveedor</option>
                                 @foreach ($proveedores as $proveedor)
-                                    <option value="{{ $proveedor->id }}" {{ $libroCompra->proveedor_id == $proveedor->id ? 'selected' : '' }}>{{ $proveedor->nombre }}</option>
+                                    <option value="{{ $proveedor->id }}" {{ $libroCompra->proveedor_id == $proveedor->id ? 'selected' : '' }}
+                                        data-nit="{{ $proveedor->nit }}"
+                                        data-dui="{{ $proveedor->dui }}"
+                                        data-nrc="{{ $proveedor->numero_registro }}">
+                                        {{ $proveedor->nombre }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
-                            <label for="excentas_internas" class="form-label"> <strong>NIT</strong> </label>
+                            <label for="nit" class="form-label"> <strong>NIT</strong> </label>
                             <input type="number" step="1" class="form-control" id="nit" name="nit" value="{{ $libroCompra->nit }}" placeholder="Ingresar">
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
-                            <label for="excentas_importaciones" class="form-label"> <strong>DUI</strong>  </label>
+                            <label for="dui" class="form-label"> <strong>DUI</strong>  </label>
                             <input type="number" step="1" class="form-control" id="dui" name="dui" value="{{ $libroCompra->dui }}" placeholder="Ingresar">
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
-                            <label for="gravadas_internas" class="form-label"> <strong>NRC</strong> </label>
+                            <label for="nrc" class="form-label"> <strong>NRC</strong> </label>
                             <input type="number" step="1" class="form-control" id="nrc" name="nrc" value="{{ $libroCompra->nrc }}" placeholder="Ingresar">
                         </div>
                         <div class="col-md-12">
@@ -140,4 +168,37 @@
             </div>
         </div>
     </div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#proveedor_id').select2({
+            theme: 'bootstrap4',
+            placeholder: "Seleccione un proveedor",
+            allowClear: true,
+            width: 'resolve'
+        });
+        $('#proveedor_id').on('change', function() {
+            var selectedOption = $(this).find('option:selected');
+            var nit = selectedOption.data('nit');
+            var dui = selectedOption.data('dui');
+            var nrc = selectedOption.data('nrc');
+
+            $('#nit').val(nit).prop('disabled', !!nit);
+            $('#dui').val(dui).prop('disabled', !!dui);
+            $('#nrc').val(nrc).prop('disabled', !!nrc);
+        });
+        // Cargar datos del proveedor preseleccionado al cargar la página
+        var preselectedOption = $('#proveedor_id option:selected');
+        var nit = preselectedOption.data('nit');
+        var dui = preselectedOption.data('dui');
+        var nrc = preselectedOption.data('nrc');
+
+        $('#nit').val(nit).prop('disabled', !!nit);
+        $('#dui').val(dui).prop('disabled', !!dui);
+        $('#nrc').val(nrc).prop('disabled', !!nrc);
+    });
+</script>
 </x-app-layout>
