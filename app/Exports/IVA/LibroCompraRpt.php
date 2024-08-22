@@ -2,12 +2,15 @@
 
 namespace App\Exports\IVA;
 
+use DateTime;
 use App\Models\RRHH\RRHHEmpresa;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithEvents;
 
-class LibroCompraRpt implements FromView
+class LibroCompraRpt implements FromView, WithEvents
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -29,17 +32,36 @@ class LibroCompraRpt implements FromView
     public function view(): View
     {
         $empresa = auth()->user()->empresa;
-
-        $empresa = $empresa->empresa ?? ' SIN EMPRESA';
+        $empresa = $empresa->empresa;
         $nrc = $empresa->nrc ?? ' NO DISPONIBLE';
         $nit = $empresa->nit ?? ' NO DISPONIBLE';
+
+        setlocale(LC_TIME, 'es_ES.UTF-8');
+
+        $fecha = DateTime::createFromFormat('!m', $this->mes);
+        $nombreMes = strftime('%B', $fecha->getTimestamp());
+
         return view('iva.reporteLibroCompra.excel',[       
                         'data'=> $this->data ,
-                        'mes'=> $this->mes,
+                        'mes'=> ucfirst($nombreMes),
                         'anio'=> $this->anio,
                         'empresa'=> $empresa,
                         'nrc'=> $nrc,
                         'nit'=> $nit
         ]);
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+
+                $sheet = $event->sheet->getDelegate();
+
+                foreach(range('A', $sheet->getHighestColumn()) as $col){
+                    $sheet->getColumnDimension($col)->setAutoSize(true);
+                }
+            },
+        ];
     }
 }
