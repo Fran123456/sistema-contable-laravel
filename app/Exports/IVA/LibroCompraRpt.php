@@ -57,12 +57,6 @@ class LibroCompraRpt implements FromView, WithEvents
             AfterSheet::class => function(AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
     
-                // Establecer un ancho fijo para las columnas A a J en las primeras filas (1 a 6)
-                foreach (range('A', 'J') as $col) {
-                    $sheet->getColumnDimension($col)->setWidth(20);
-                }
-    
-                // Autoajustar el ancho de las columnas desde la fila 7 en adelante
                 foreach (range('A', 'Q') as $col) {
                     $sheet->getColumnDimension($col)->setAutoSize(true);
                 }
