@@ -11,20 +11,20 @@
     <div style="margin: 0; padding: 20px; box-sizing: border-box;">
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
             <tr>
-                <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
-                    <strong>NOMBRE DEL CONTRIBUYENTE: </strong> {{ $empresa }}
+                <td colspan="5" style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
+                    <strong>NOMBRE DEL CONTRIBUYENTE: </strong>&nbsp; {{ $empresa }}
                 </td>
-                <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
-                    <strong>NRC: </strong> {{ $empresa->nrc ?? ' NO DISPONIBLE' }}
+                <td colspan="1" style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
+                    <strong>NRC: </strong>&nbsp; {{ $empresa->nrc ?? ' NO DISPONIBLE' }}
                 </td>
-                <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
-                    <strong>NIT: </strong> {{ $empresa->nit ?? ' NO DISPONIBLE' }}
+                <td colspan="1" style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
+                    <strong>NIT: </strong>&nbsp; {{ $empresa->nit ?? ' NO DISPONIBLE' }}
                 </td>
-                <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
-                    <strong>MES: </strong> {{ $mes }}
+                <td colspan="1" style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
+                    <strong>MES: </strong>&nbsp; {{ $mes }}
                 </td>
-                <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
-                    <strong>AÑO: </strong> {{ $anio }}
+                <td colspan="1" style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">
+                    <strong>AÑO: </strong>&nbsp; {{ $anio }}
                 </td>
             </tr>
         </table>
