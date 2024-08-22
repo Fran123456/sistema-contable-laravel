@@ -3,7 +3,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dasboard</a></li>
             <li class="breadcrumb-item"><a href="{{ route('settings.settings') }}">Configuraciones</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Configuraciones contables</li>
+            <li class="breadcrumb-item active" aria-current="page">Configuraciones Facturación Electrónica</li>
           </ol>
     </div>
     <div class="col-md-12">
@@ -11,7 +11,7 @@
     </div>
     <div class="col-md-12 mb-3">
         <h5>
-            <x-badge titulo="Configuraciones de Contabilidad" icono="fas fa-user-cog "></x-badge>
+            <x-badge titulo="Configuraciones de Factura Electrónica" icono="fas fa-user-cog "></x-badge>
         </h5>
     </div>
 

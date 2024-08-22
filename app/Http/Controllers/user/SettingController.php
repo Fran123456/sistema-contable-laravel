@@ -51,6 +51,15 @@ class SettingController extends Controller
                       ->get();
         return view('users.settings.contabilidad', compact('data'));
     }
+    
+
+    public function electronicInvoiceSettings(){
+        $user = auth()->user();
+        $data = Config::where('category', 'facturacion_electronica')
+                      ->where('empresa_id', $user->empresa_id) 
+                      ->get();
+        return view('users.settings.facturaElectronica', compact('data'));
+    }
 
     // public function changeLogo(Request $request, $id){
     //    $img =  Help::uploadFile($request, 'assets/images/logo', '' ,'image');
