@@ -93,8 +93,13 @@
             <div class="sidepanel-inner d-flex flex-column">
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 <div class="app-branding" style="text-align:center">
+                    
+                    
                     <a class="app-logo" href="{{ route('dashboard') }}"><img style="width: 60px; height: 60px;text-align:center" class="logo-icon me-2"
-                           src="{{ asset(Help::getConfigByKey('general', 'logo')->value) }}" alt="logo"></a>
+                        src="{{ asset(Help::getConfigByKey('general', 'logo')->value) }}" alt="logo"></a>
+                    
+                    
+                    
 
                 </div>
                 <!--//app-nav-->

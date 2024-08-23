@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Contabilidad\BalanceContableController;
 use App\Http\Controllers\Contabilidad\TipoPartidaController;
-use App\Http\Controllers\Contabilidad\PeriodoContableController;
-use App\Http\Controllers\Contabilidad\CuentaContableController;
 use App\Http\Controllers\Contabilidad\ConfiguracionController;
+use App\Http\Controllers\Contabilidad\CuentaContableController;
+use App\Http\Controllers\Contabilidad\BalanceContableController;
+use App\Http\Controllers\Contabilidad\PeriodoContableController;
+use App\Http\Controllers\Contabilidad\ContaRubroGeneralController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
 use App\Http\Controllers\Contabilidad\BalanceConfiguracionController;
@@ -93,4 +94,10 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/grupoResultado/{utilidad_id}/{id}', [GrupoResultadoController::class, 'update'])->name('grupoResultado.update');
         Route::delete('/grupoResultado/{utilidad_id}/{id}', [GrupoResultadoController::class, 'destroy'])->name('grupoResultado.destroy');
     });
+
+    //CONFIGURACION RUBRO GENERAL
+    Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
+        Route::resource('rubros', ContaRubroGeneralController::class);
+    });
+
 });
