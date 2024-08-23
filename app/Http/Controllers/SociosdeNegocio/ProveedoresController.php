@@ -12,6 +12,7 @@ use App\Help\Log;
 use App\Help\Help;
 use App\Models\Producto\ProProducto;
 use App\Models\Producto\ProProductoProveedor;
+use Exception;
 
 class ProveedoresController extends Controller
 {
@@ -48,13 +49,16 @@ class ProveedoresController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'nombre' => 'required|string|max:200',
+            'nit' => 'required|string',
+            'dui' => 'required|string',
             'tipo_proveedor' => 'required|string',
             'tipo_personalidad' => 'required|string',
             'giro' => 'required|string|max:200',
             'forma_pago' => 'required|string',
-            
+            'empresa_id' => 'required|integer',
         ]);
 
         $proveedor = SociosProveedores::create($request->all());
@@ -107,12 +111,17 @@ class ProveedoresController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $request->validate([
             'nombre' => 'required|string|max:200',
+            'nit' => 'required|string',
+            'dui' => 'required|string',
             'tipo_proveedor' => 'required|string',
             'tipo_personalidad' => 'required|string',
             'giro' => 'required|string|max:200',
             'forma_pago' => 'required|string',
+            'pais_id'=> 'required|string',
+            'telefono'=> 'required|string',
             
         ]);
 
@@ -124,6 +133,7 @@ class ProveedoresController extends Controller
         $proveedor->forma_pago = $request->forma_pago;
         $proveedor->numero_registro = $request->numero_registro;
         $proveedor->nit = $request->nit;
+        $proveedor->dui = $request->dui;
         $proveedor->telefono = $request->telefono;
         $proveedor->direccion = $request->direccion;
         $proveedor->celular = $request->celular;

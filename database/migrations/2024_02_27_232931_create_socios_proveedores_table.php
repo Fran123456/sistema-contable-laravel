@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('forma_pago');
             $table->string('numero_registro')->nullable();
             $table->string('nit');
+            $table->string('dui');
             $table->string('telefono')->nullable();;
             $table->string('direccion')->nullable();;
             $table->string('celular')->nullable();
@@ -29,7 +30,7 @@ return new class extends Migration
             $table->bigInteger('pais_id')->nullable();
             $table->boolean('activo')->default(true);
 
-            $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_Id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
             $table->timestamps();
         });

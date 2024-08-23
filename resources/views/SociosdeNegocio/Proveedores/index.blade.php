@@ -29,9 +29,7 @@
                         <tr>
                             <th scope="col" width="40">#</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Giro</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">Dirección</th>
+                            <th scope="col">NIT/DUI</th>
                             <th scope="col" width="110">Productos</th>
                             <th scope="col" width="110px">Acciones</th>
                         </tr>
@@ -41,9 +39,15 @@
                             <tr class="@if($item->activo ==  false) table-danger @endif">
                                 <th scope="row">{{$key + 1}}</th>
                                 <td>{{$item->nombre}}</td>
-                                <td>{{$item->giro}}</td>
-                                <td>{{$item->telefono}}</td>
-                                <td>{{$item->direccion}}</td>
+                                <td>
+                                    @if ($item->nit)
+                                        {{$item->nit}}
+                                    @elseif ($item->dui)
+                                        {{$item->dui}}
+                                    @else
+                                        No asignado
+                                    @endif
+                                </td>
                                 <td><a href="{{ route('socios.listarProductos', $item->id) }}" title="Productos" class="mx-0.5"><i class="fab fa-product-hunt fa-lg"></i></a>
                                     <a target="_blank" href="{{ route('viewFormProveedor', $item->id) }}" title="Formulario" class="mx-0.5"><i class="fa fa-link fa-lg"></i></a>
                                 </td>
