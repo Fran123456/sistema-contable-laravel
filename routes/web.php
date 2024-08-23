@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update/{id}', [SettingController::class, 'updateSetting'])->name('.updateSetting');
         Route::get('/general', [SettingController::class, 'generalSettings'])->name('.generalSettings');
         Route::get('/accounting', [SettingController::class, 'accountingSettings'])->name('.accountingSettings');
+        Route::get('/electronic-invoice', [SettingController::class, 'electronicInvoiceSettings'])->name('.electronicInvoiceSettings');
         Route::get('/{key}', [SettingController::class, 'settingsByKey'])->name('.settingsByKey');
         Route::post('/{id}/change-logo', [SettingController::class, 'changeLogo'])->name('.changeLogo');
     });

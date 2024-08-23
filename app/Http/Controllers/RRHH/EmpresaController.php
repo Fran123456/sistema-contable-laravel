@@ -6,6 +6,7 @@ use App\Help\Help;
 use App\Help\Log;
 use App\Http\Controllers\Controller;
 use App\Models\RRHH\RRHHEmpresa;
+use App\Models\Config;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -140,6 +141,26 @@ class EmpresaController extends Controller
             ];
 
             DB::table('conta_balance_conf')->insert($data);
+
+            // Se crean las configuraciones para la empresa creada.
+            Config::insert([
+                ['category' => 'datatable', 'title' => 'Boton de copiar (Mostrar/No mostrar)', 'description' => 'Boton que nos ayuda a copiar las filas de la tabla, podra modificarse el estado, si se desea mostrar o no mostrarse', 'field' => 'copyTitleShow', 'value' => '1', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'datatable', 'title' => 'Boton de copiar (Mensaje de confirmación)', 'description' => 'Boton que nos ayuda a copiar las filas de la tabla, podra modificarse el mensaje de confirmación', 'field' => 'copyTitle', 'value' => 'Se ha copiado los registros correctamente', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'datatable', 'title' => 'Boton de CSV (Mostrar/No mostrar)', 'description' => 'Boton de CSV nos ayuda exportar en un archivo CSV, podra modificarse el estado, si se desea mostrar o no mostrarse', 'field' => 'csvShow', 'value' => '1', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'datatable', 'title' => 'Boton de Excel (Mostrar/No mostrar)', 'description' => 'Boton de Excel nos ayuda exportar en un archivo Excel, podra modificarse el estado, si se desea mostrar o no mostrarse', 'field' => 'excelShow', 'value' => '1', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'datatable', 'title' => 'Boton de PDF (Mostrar/No mostrar)', 'description' => 'Boton de PDF nos ayuda exportar en un archivo PDF, podra modificarse el estado, si se desea mostrar o no mostrarse', 'field' => 'pdfShow', 'value' => '1', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'datatable', 'title' => 'Boton de imprimir (Mostrar/No mostrar)', 'description' => 'Boton de imprimir nos ayuda imprimir la tabla, podra modificarse el estado, si se desea mostrar o no mostrarse', 'field' => 'printShow', 'value' => '1', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'datatable', 'title' => 'Boton para visibilidad de columnas (Mostrar/No mostrar)', 'description' => 'Boton que nos ayuda seleccionar que columnas queremos ver, podra modificarse el estado, si se desea mostrar o no mostrarse', 'field' => 'visibilityShow', 'value' => '1', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'datatable', 'title' => 'Habilidad para seleccionar filas o no (Mostrar/No mostrar)', 'description' => 'Acción que nos permite poder seleccionar una fila o varias, el estado, si se desea mostrar o no mostrarse', 'field' => 'select', 'value' => '1', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'general', 'title' => 'Logo de la aplicación', 'description' => 'Acción que nos permite poder modificar el logo de la aplicación', 'field' => 'logo', 'value' => 'assets/images/logo/logo.png', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'producto', 'title' => 'Identificador de producto', 'description' => 'Acción que nos permite asignarle un identificador a cada producto, puede ser automatico o manual', 'field' => 'identificadorProducto', 'value' => '0', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'contabilidad', 'title' => 'Partida de venta/costo para facturación', 'description' => 'Crear una partida de venta/costo por documento facturado.', 'field' => 'partidaVentaCosto', 'value' => '1', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'contabilidad', 'title' => 'Cantidad de digitos del correlativo de partidas contables', 'description' => 'Acción que nos permite poder modificar la cantidad de digitos que tendra el correlativo al crear partidads contables', 'field' => 'correlativo', 'value' => '5', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'contabilidad', 'title' => 'Partida de venta/costo se realizara via cuenta bolson?', 'description' => 'Determina si la partida de venta/costo se hara para cuentas diferentes por cliente o una solo cuenta bozon por ejemplo: “cuentas por cobrar a clientes” donde SI = si ocuparemos cuenta bolson, NO = ocuparemos cuentas por cliente', 'field' => 'partidaVentaCostoCuentaClientes', 'value' => '1', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+                ['category' => 'facturacion_electronica', 'title' => 'Habilitar facturación electronica', 'description' => 'Indica si se generara DTE para factura electronica', 'field' => 'fe_habilitar', 'value' => '0', 'empresa_id' => $empresa->id, 'created_at' => now(), 'updated_at' => now()],
+            ]);
+
+
 
             Log::log('RRHH', 'crear empresa', 'El usuario ' . Help::usuario()->name . ' ha creado la empresa ' . $request->empresa);
             DB::commit(); // <= Commit the changes
