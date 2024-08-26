@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('fe_actividad_economicas', function (Blueprint $table) {
-            $table->string('codigo',2)->primary();
+            $table->string('codigo',5)->primary();
             $table->string('valor',191);
             $table->timestamps();
         });
