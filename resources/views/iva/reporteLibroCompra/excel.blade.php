@@ -54,23 +54,23 @@
             <tbody>
                 @foreach ($data as $key => $compra)
                 <tr>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: center; white-space: nowrap;">{{ $key + 1 }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: left; white-space: nowrap;">{{ \Carbon\Carbon::parse($compra->fecha_emision)->format('d/m/Y') }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->documento }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->dui }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->nit }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->nrc }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->proveedor->nombre ?? 'N/A' }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->excentas_internas }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->excentas_importaciones }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->gravadas_internas }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->gravadas_importaciones }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->gravada_iva }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->contribucion_especial }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->anticipo_iva_retenido }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->anticipo_iva_recibido }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->total_compra }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->compras_excluidas }}</td>
+                    <td style="padding: 8px; text-align: center; white-space: nowrap;">{{ $key + 1 }}</td>
+                    <td style="padding: 8px; text-align: left; white-space: nowrap;">{{ \Carbon\Carbon::parse($compra->fecha_emision)->format('d/m/Y') }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->documento }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->dui }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->nit }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->nrc }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->proveedor->nombre ?? 'N/A' }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->excentas_internas }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->excentas_importaciones }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->gravadas_internas }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->gravadas_importaciones }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->gravada_iva }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->contribucion_especial }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->anticipo_iva_retenido }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->anticipo_iva_recibido }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->total_compra }}</td>
+                    <td style="padding: 8px; text-align: right; white-space: nowrap;">{{ $compra->compras_excluidas }}</td>
                 </tr>
                 @endforeach
             </tbody>

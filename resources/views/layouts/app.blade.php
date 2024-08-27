@@ -96,7 +96,7 @@
                     
                     
                     <a class="app-logo" href="{{ route('dashboard') }}"><img style="width: 60px; height: 60px;text-align:center" class="logo-icon me-2"
-                        src="{{ asset(Help::getConfigByKey('general', 'logo')->value) }}" alt="logo"></a>
+                        src="{{ asset(Help::getConfigByKey('general', 'logo')?->value) }}" alt="logo"></a>
                     
                     
                     
