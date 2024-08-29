@@ -15,8 +15,8 @@ use App\Help\Facturacion\Factura;
 use App\Models\Producto\Servicio;
 use App\Models\Producto\ProProducto;
 use App\Models\Facturacion\FactDocumentoDetalle;
-
-
+use App\Help\HttpClient;
+use Illuminate\Support\Facades\DB;
 class FacturacionController extends Controller
 {
     public function index(Request $request)
@@ -72,6 +72,7 @@ class FacturacionController extends Controller
 
     public function facturar(Request $request){
         
+        DB::beginTransaction();
         $ov = FactFacturacion::find($request->facturacion);
         $doc = FactDocumento::where('facturacion_id',$request->doc)->first();
 
@@ -89,6 +90,93 @@ class FacturacionController extends Controller
         $doc->posteado = $request->agregar;
         $doc->fecha_emision = $request->fecha_facturar;
         $doc->save();
+
+        //facturacion electronica.
+        $body = [
+            'email' => 'correo2@example.com',
+            'password' => 'password'
+        ];
+       // DB::commit();
+
+        $response = HttpClient::post("/api/login", config('app.path_api_hacienda'), $body);
+        return $response;
+
+        $data = [
+            "codigo_pago" => "01",
+            "pagoTributo" => [
+                [
+                    "código tributo" => "valor tributo"
+                ]
+            ],
+            "periodo_pago" => "periodo pago",
+            "plazo_pago" => "plazo pago",
+            "dteJson" => [
+                "receptor" => [
+                    "nit" => "nit receptor según esté registrado en los clientes existentes"
+                ],
+                "documentoRelacionado" => [
+                    [
+                        "tipoDocumento" => "código tipo documento catalogo MH",
+                        "tipoGeneracion" => "código de tipo generación catalogo MH",
+                        "numeroDocumento" => "código de documento MH",
+                        "fechaEmision" => "fecha emisión del documento"
+                    ]
+                ],
+                "otrosDocumentos" => [
+                    [
+                        "codDocAsociado" => "código del documento en MH",
+                        "descDocumento" => "descripción del documento asociado",
+                        "detalleDocumento" => "detalle del documento",
+                        "medico" => [
+                            "nombre" => "nombre del medico",
+                            "nit" => "nit del medico",
+                            "docIdentificacion" => "documento de identificación",
+                            "tipoServicio" => "código del servicio según catalogo MH"
+                        ]
+                    ]
+                ],
+                "ventaTercero" => [
+                    "nit" => "numero de nit",
+                    "nombre" => "nombre, denominación o razón social"
+                ],
+                "cuerpoDocumento" => [
+                    [
+                        "psv" => 0.0,
+                        "codigo" => "código del producto / null",
+                        "cantidad" => 0.00,
+                        "tipoItem" => "código tipo item según catalogo MH",
+                        "tributos" => [
+                            "tributos según catalogo MH"
+                        ],
+                        "noGravado" => 0.00,
+                        "precioUni" => 0.00,
+                        "uniMedida" => "código según catalogo MH",
+                        "codTributo" => "código del tributo según catalogo MH / null",
+                        "montoDescu" => 0.00,
+                        "ventaNoSuj" => 0.00,
+                        "descripcion" => "Descripcion producto",
+                        "ventaExenta" => 0.00,
+                        "ventaGravada" => 0.00,
+                        "numeroDocumento" => null
+                    ]
+                ],
+                "extension" => [
+                    "nombEntrega" => "nombre del responsable generador del DTE",
+                    "docuEntrega" => "identificación del generador del DTE",
+                    "nombRecibe" => "nombre del responsable receptor",
+                    "docuRecibe" => "identificación del receptor",
+                    "observaciones" => "observaciones",
+                    "placaVehiculo" => "placa vehiculo"
+                ],
+                "apendice" => [
+                    [
+                        "campo" => "Datos del Vendedor",
+                        "etiqueta" => "Nombre del Vendedor",
+                        "valor" => "000000000 - Administrador"
+                    ]
+                ]
+            ]
+        ];
 
         return redirect()->route('facturacion.index')->with('success','Se ha facturado correctamente');
 

@@ -16,6 +16,8 @@ Route::middleware(['auth'])->group(function () {
 
 
         Route::get('/reporte-iva-contribuyente', [ReporteIvaContribuyenteController::class, 'index'])->name('reporteIvaContribuyente.index');
+        Route::get('/reporte-libro-IvaContribuyente', [ReporteIvaContribuyenteController::class, 'getReporteLibroIvaContribuyente'])->name('reporteIvaContribuyente');
+
 
 
     });

@@ -30,7 +30,7 @@
         @endif
 
 
-        <form  method="get" target="_blank">
+        <form action="{{ route('iva.reporteIvaContribuyente') }}" method="get" target="_blank">
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="form-floating">
@@ -48,10 +48,10 @@
                     </div>
                 </div>
                 <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-danger text-white" name="pdf" value="pdf">
+                    <button type="submit" class="btn btn-danger text-white" name="type" value="pdf">
                         <i class="fa-regular fa-file-pdf fa-lg"></i> Generar Reporte PDF
                     </button>
-                    <button type="submit" class="btn btn-success" name="excel" value="excel">
+                    <button type="submit" class="btn btn-success" name="type" value="excel">
                         <i class="fa-regular fa-file-excel fa-lg"></i> Generar Reporte Excel
                     </button>
 
