@@ -27,6 +27,7 @@ class ReporteIvaContribuyenteController extends Controller
 
         $data = LibroVenta::whereYear('fecha_emision', $anio)
             ->whereMonth('fecha_emision', $mes)
+            ->where('empresa_id', $empresa_id)
             ->where('mostrar', true)
             ->get();
         

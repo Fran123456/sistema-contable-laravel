@@ -30,8 +30,11 @@ return new class extends Migration
             $table->decimal('debito_terceros', 8, 2)->default(0);
             $table->decimal('iva_percibido', 8, 2)->default(0);
             $table->decimal('iva_retenido', 8, 2)->default(0);
+            $table->unsignedBigInteger('empresa_id')->nullable();
             $table->boolean('mostrar')->default(true);
             $table->timestamps();
+
+            $table->foreign('empresa_id')->references('id')->on('rrhh_empresa');
         });
     }
 

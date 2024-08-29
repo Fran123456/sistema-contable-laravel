@@ -4,6 +4,7 @@ namespace App\Models\Facturacion;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\RRHH\RRHHEmpresa;
 
 class LibroVenta extends Model
 {
@@ -27,7 +28,12 @@ class LibroVenta extends Model
         'debito_terceros',
         'iva_percibido',
         'iva_retenido',
+        'empresa_id',
         'mostrar'
     ];
 
+    public function empresa()
+    {
+        return $this->belongsTo(RRHHEmpresa::class, 'empresa_id');
+    }
 }
