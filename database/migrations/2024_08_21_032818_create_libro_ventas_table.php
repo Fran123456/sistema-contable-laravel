@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('cliente')->nullable();
             $table->decimal('excenta', 8, 2)->default(0);
             $table->decimal('no_sujeta', 8, 2)->default(0);
+            $table->decimal('gravadas_locales', 8, 2)->default(0);
             $table->decimal('debito_fiscal', 8, 2)->default(0);
             $table->decimal('iva', 8, 2)->default(0);
             $table->decimal('ventas_terceros', 8, 2)->default(0);
