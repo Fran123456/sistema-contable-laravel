@@ -53,7 +53,7 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-
+   
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL'),
@@ -124,6 +124,10 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+
+
+    'path_api_hacienda' => env('PATH_API_HACIENDA', 'default_value_if_not_set'),
+    
 
     /*
     |--------------------------------------------------------------------------
