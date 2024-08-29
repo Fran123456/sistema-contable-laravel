@@ -47,7 +47,7 @@
 
     <div class="header">
         <h2>{{ $empresa->empresa }}</h2>
-        <p>Dirección:</p>
+        <!-- <p>Dirección:</p> -->
         <h2>LIBRO DE VENTAS A CONTRIBUYENTES</h2>
         <p>NRC: {{ $empresa->nrc }}</p>
         <p>NIT: {{ $empresa->nit }}</p>
@@ -76,8 +76,20 @@
                 <th>Total Ventas</th>
             </tr>
         </thead>
+        @php
+            $totalVentasSum = 0;
+        @endphp
         <tbody>
             @foreach ($data as $index => $venta)
+
+            @php
+                $totalVenta = $venta->excenta + $venta->no_sujeta + $venta->gravadas_locales +
+                            $venta->debito_fiscal + $venta->ventas_terceros + 
+                            $venta->debito_terceros + $venta->iva_percibido - 
+                            ($venta->iva_retenido >= 1 ? $venta->iva_retenido : number_format(0.00, 2));
+                $totalVentasSum += $totalVenta;  // Acumula el total
+            @endphp
+
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ \Carbon\Carbon::parse($venta->fecha_emision)->format('d/m/Y') }}</td>
@@ -92,30 +104,20 @@
                     <td>{{ number_format($venta->debito_terceros, 2) }}</td>
                     <td>{{ number_format($venta->iva_percibido, 2) }}</td>
                     <td>{{ number_format($venta->iva_retenido, 2) }}</td>
-                    <td>{{ number_format(
-                        $venta->excentas + $venta->no_sujetas + $venta->gravadas_locales +
-                        $venta->debito_fiscal + $venta->ventas_cuentas_de_tercero + 
-                        $venta->debito_cuentas_de_tercero + $venta->iva_percibido - 
-                        ($venta->iva_retenido >= 1 ? $venta->iva_retenido : number_format(0, 2)), 
-                        2) 
-                    }}</td>
+                    <td>{{ number_format($totalVenta, 2) }}</td>
                 </tr>
             @endforeach
             <tr>
                 <td colspan="5" class="text-center"><strong>Totales</strong></td>
                 <td>{{ number_format($data->sum('excenta'), 2) }}</td>
-                <td>{{ number_format($data->sum('gravadas_locales'), 2) }}</td>
                 <td>{{ number_format($data->sum('no_sujeta'), 2) }}</td>
+                <td>{{ number_format($data->sum('gravadas_locales'), 2) }}</td>
                 <td>{{ number_format($data->sum('debito_fiscal'), 2) }}</td>
                 <td>{{ number_format($data->sum('ventas_terceros'), 2) }}</td>
                 <td>{{ number_format($data->sum('debito_terceros'), 2) }}</td>
                 <td>{{ number_format($data->sum('iva_percibido'), 2) }}</td>
                 <td>{{ number_format($data->sum('iva_retenido'), 2) }}</td>
-                <td>{{ number_format(
-                    $data->sum('excenta') + $data->sum('no_sujeta') + $data->sum('gravadas_locales') + $data->sum('debito_fiscal') +
-                    $data->sum('ventas_terceros') + $data->sum('debito_terceros') + $data->sum('iva_percibido') + $data->sum('iva_retenido'),
-                    2)
-                }}</td>
+                <td>{{ number_format($totalVentasSum, 2) }}</td>
             </tr>
         </tbody>
     </table>
