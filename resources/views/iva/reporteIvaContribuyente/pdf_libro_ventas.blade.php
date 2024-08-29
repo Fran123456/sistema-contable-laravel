@@ -40,16 +40,17 @@
             margin: 0;
             padding: 0;
         }
+
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h2>THE PRINTT, S.A. DE C.V.</h2>
-        <p>31 AV, SUR #625, SOBRE 6A. 10A. COL. FLOR BLANCA</p>
+        <h2>{{ $empresa->empresa }}</h2>
+        <p>Dirección:</p>
         <h2>LIBRO DE VENTAS A CONTRIBUYENTES</h2>
-        <p>NRC: 2484613</p>
-        <p>NIT: 05110205951057</p>
+        <p>NRC: {{ $empresa->nrc }}</p>
+        <p>NIT: {{ $empresa->nit }}</p>
         <p>MES: {{ $mes }} - AÑO: {{ $anio }}</p>
     </div>
 
@@ -61,7 +62,7 @@
                 <th rowspan="2">Número del documento</th>
                 <th rowspan="2">NRC</th>
                 <th rowspan="2">Nombre del Contribuyente</th>
-                <th colspan="9">VENTAS</th> <!-- Cambio 1: Celda unida -->
+                <th colspan="9">VENTAS</th> 
             </tr>
             <tr>
                 <th>Exentas</th>
