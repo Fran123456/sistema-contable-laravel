@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot:title>
-        Reporte Libro Compra
+        Reporte Libro Ventas
     </x-slot>
     <x-slot:subtitle>
     </x-slot>
