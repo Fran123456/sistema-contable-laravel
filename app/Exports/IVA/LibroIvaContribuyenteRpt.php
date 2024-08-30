@@ -31,22 +31,20 @@ class LibroIvaContribuyenteRpt implements FromView, WithEvents
     }
 
     public function view(): View
-{
-    // Establecer el idioma a español
-    Carbon::setLocale('es');
+    {
 
-    // Crear una instancia de Carbon con el mes y año proporcionados
-    $fecha = Carbon::create()->month($this->mes);
+        Carbon::setLocale('es');
 
-    // Obtener el nombre del mes en español
-    $nombreMes = $fecha->translatedFormat('F');
+        $fecha = Carbon::create()->month($this->mes);
 
-    return view('iva.reporteIvaContribuyente.excel', [
-        'data' => $this->data,
-        'mes' => ucfirst($nombreMes), // Mes en español con la primera letra en mayúscula
-        'anio' => $this->anio,
-    ]);
-}
+        $nombreMes = $fecha->translatedFormat('F');
+
+        return view('iva.reporteIvaContribuyente.excel', [
+            'data' => $this->data,
+            'mes' => ucfirst($nombreMes),
+            'anio' => $this->anio,
+        ]);
+    }
 
     public function registerEvents(): array
     {
