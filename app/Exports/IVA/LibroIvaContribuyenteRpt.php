@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Carbon\Carbon;
 
 class LibroIvaContribuyenteRpt implements FromView, WithEvents
 {
@@ -30,22 +31,22 @@ class LibroIvaContribuyenteRpt implements FromView, WithEvents
     }
 
     public function view(): View
-    {
+{
+    // Establecer el idioma a español
+    Carbon::setLocale('es');
 
-        setlocale(LC_TIME, 'es_ES.UTF-8');
+    // Crear una instancia de Carbon con el mes y año proporcionados
+    $fecha = Carbon::create()->month($this->mes);
 
-        // $empresa = auth()->user()->empresa;
-        // $empresa = $empresa->empresa;
-        $fecha = DateTime::createFromFormat('!m', $this->mes);
-        $nombreMes = strftime('%B', $fecha->getTimestamp());
+    // Obtener el nombre del mes en español
+    $nombreMes = $fecha->translatedFormat('F');
 
-        return view('iva.reporteIvaContribuyente.excel', [
-            'data' => $this->data,
-            // 'empresa'=> $empresa,
-            'mes' => ucfirst($nombreMes),
-            'anio' => $this->anio,
-        ]);
-    }
+    return view('iva.reporteIvaContribuyente.excel', [
+        'data' => $this->data,
+        'mes' => ucfirst($nombreMes), // Mes en español con la primera letra en mayúscula
+        'anio' => $this->anio,
+    ]);
+}
 
     public function registerEvents(): array
     {
