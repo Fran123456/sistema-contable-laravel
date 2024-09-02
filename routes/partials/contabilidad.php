@@ -9,6 +9,8 @@ use App\Http\Controllers\Contabilidad\ContaRubroGeneralController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
 use App\Http\Controllers\Contabilidad\BalanceConfiguracionController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\CuentaResultado;
+use App\Http\Controllers\Contabilidad\EstadoResultado\CuentaResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\GrupoResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\SubGrupoResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadController;
@@ -98,6 +100,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/subGrupoResultado/{utilidad_id}/{grupo_id}', [SubGrupoResultadoController::class, 'store'])->name('subGrupoResultado.store');
         Route::put('/subGrupoResultado/{utilidad_id}/{grupo_id}/{id}', [SubGrupoResultadoController::class, 'update'])->name('subGrupoResultado.update');
         Route::delete('/subGrupoResultado/{utilidad_id}/{grupo_id}/{id}', [SubGrupoResultadoController::class, 'destroy'])->name('subGrupoResultado.destroy');
+        Route::get('/cuentaResultado/{utilidad_id}/{grupo_id}/{sub_grupo_id}', [CuentaResultadoController::class, 'index'])->name('cuentaResultado.index');
+        Route::post('/cuentaResultado/{utilidad_id}/{grupo_id}/{sub_grupo_id}', [CuentaResultadoController::class, 'store'])->name('cuentaResultado.store');
+        Route::put('/cuentaResultado/{utilidad_id}/{grupo_id}/{sub_grupo_id}/{id}', [CuentaResultadoController::class, 'update'])->name('cuentaResultado.update');
+        Route::delete('/cuentaResultado/{utilidad_id}/{grupo_id}/{sub_grupo_id}/{id}', [CuentaResultadoController::class, 'destroy'])->name('cuentaResultado.destroy');
     });
 
     //CONFIGURACION RUBRO GENERAL

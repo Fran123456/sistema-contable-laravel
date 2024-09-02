@@ -127,4 +127,8 @@ class SubGrupoResultadoController extends Controller
             return back()->with('danger', 'no se puede procesar la petición');
         }
     }
+
+    public static function subGrupoById($sub_grupo_id){
+        return ContaGrupoSubResultadoRpt::findOrFail($sub_grupo_id);
+    }
 }

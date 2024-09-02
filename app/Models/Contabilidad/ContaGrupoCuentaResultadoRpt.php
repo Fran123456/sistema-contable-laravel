@@ -9,12 +9,14 @@ class ContaGrupoCuentaResultadoRpt extends Model
 {
     use HasFactory;
 
-    protected $table = "conta_grupo_cuenta_resuldato_rpt";
+    protected $table = "conta_grupo_cuenta_resultado_rpt";
 
     protected $fillable = [
         'cuenta_id',
         'codigo',
         'grupo_id',
+        'empresa_id',
+        'utilidad_id',
         'sub_grupo_id',
     ];
 
@@ -24,5 +26,11 @@ class ContaGrupoCuentaResultadoRpt extends Model
 
     public function subGrupo(){
         return $this->belongsTo(ContaGrupoSubResultadoRpt::class, 'sub_grupo_id')->withDefault();
+    }
+    public function utilidad(){
+        return $this->belongsTo(ContaUtilidadRpt::class, 'utilidad_id')->withDefault();
+    }
+    public function cuenta(){
+        return $this->belongsTo(ContaCuentaContable::class, 'cuenta_id')->withDefault();
     }
 }
