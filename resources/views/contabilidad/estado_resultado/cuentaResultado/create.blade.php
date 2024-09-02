@@ -9,9 +9,9 @@
             <div class="modal-body">
                 <form id="crearform" action="{{ route('contabilidad.cuentaResultado.store', ['utilidad_id' => $utilidadSeleccionada->id, 'grupo_id' => $grupo->id, $subGrupo->id]) }}" method="POST" >
                     @csrf
-                    <div class="form-group">
+                    <div class="col-md-12">
                         <label for="sub_grupo">Cuentas contables</label>
-                        <select name="cuenta_id" id="cuenta_id" class="form-control" required>
+                        <select name="cuenta_id" id="cuenta_id" class="chosen-select form-select" required>
                             <option value="">Seleccione una ópcion</option>
                             @foreach ($cuentasContables as $item)
                                 <option value="{{$item->id}}">{{$item->codigo}} - {{$item->nombre_cuenta}}</option>
@@ -21,7 +21,13 @@
                     <button type="submit" class="btn btn-primary mt-3 text-white">Guardar</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
+
+<script>
+    $(".chosen-select").chosen({
+        no_results_text: "No se ha encontrado la cuenta contable",
+        width: "100%"
+    });
+</script>

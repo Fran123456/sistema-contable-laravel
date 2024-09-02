@@ -10,9 +10,9 @@
                 <form id="editForm" action="" method="POST">
                     @csrf
                     @method('PUT') 
-                    <div class="form-group">
+                    <div class="col-md-12">
                         <label for="sub_grupo">Cuentas contables</label>
-                        <select name="cuenta_id" id="editcuenta_id" class="form-control" required>
+                        <select name="cuenta_id" id="editcuenta_id" class="chosen-select form-select" required>
                             <option value="">Seleccione una ópcion</option>
                             @foreach ($cuentasContables as $item)
                                 <option value="{{$item->id}}">{{$item->codigo}} - {{$item->nombre_cuenta}}</option>
@@ -34,7 +34,6 @@
             let grupo_id = $(this).data('grupo_id');
             let utilidad_id = $(this).data('utilidad-id');
             let cuenta_id = $(this).data('cuenta-id');
-            // alert(subGrupo_id)
 
         // Llenar los campos del modal con los datos seleccionados
         $("#editcuenta_id").val(cuenta_id);
@@ -45,6 +44,13 @@
             .replace(':grupo_id', grupo_id)
             .replace(':sub_grupo_id', subGrupo_id)
             .replace(':id', id));
-    });
+
+            // actualiza los datos a busacar en el select 
+            $(".chosen-select").chosen({
+                no_results_text: "No se ha encontrado la cuenta contable",
+                width: "100%"
+            });
+        });
+
     });
 </script>
