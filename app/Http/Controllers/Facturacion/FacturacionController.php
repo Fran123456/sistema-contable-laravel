@@ -82,6 +82,13 @@ class FacturacionController extends Controller
         $ov->fecha_facturacion = $request->fecha_facturar;
         $ov->save();
         $detalles = $doc->detalles;
+        foreach ($detalles as $key => $value) {
+            $value->fecha_facturacion = $request->fecha_facturar;
+            if($value->precio_sugerido == null){
+                $value->precio_sugerido = $value->precio_unitario;
+            }
+            $value->save();
+        }
 
         $doc->documento  = rand(1000,9999);
         $doc->serial = rand(100000,999999);
@@ -96,9 +103,9 @@ class FacturacionController extends Controller
             'email' => 'correo2@example.com',
             'password' => 'password'
         ];
-       // DB::commit();
+        DB::commit();
 
-        $response = HttpClient::post("/api/login", config('app.path_api_hacienda'), $body);
+     /*   $response = HttpClient::post("/api/login", config('app.path_api_hacienda'), $body);
         return $response;
 
         $data = [
@@ -177,6 +184,7 @@ class FacturacionController extends Controller
                 ]
             ]
         ];
+        */
 
         return redirect()->route('facturacion.index')->with('success','Se ha facturado correctamente');
 
