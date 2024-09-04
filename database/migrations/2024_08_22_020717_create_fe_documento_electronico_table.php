@@ -26,8 +26,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('folio', 15);
             $table->unsignedBigInteger('documento_id');
-            $table->foreign('tipo_documento')
-                  ->references('codigo')->on('fe_tipo_documentos');
+            $table->foreign('tipo_documento')->references('codigo')->on('fe_tipo_documentos');
             $table->index('tipo_documento');
             $table->index('documento_id');
             $table->unsignedBigInteger('empresa_id')->nullable();
