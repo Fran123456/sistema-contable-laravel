@@ -26,7 +26,8 @@ class SociosContacto extends Model
         'pais_id' ,
         'created_at',
         'updated_at',
-        'anexo'
+        'anexo',
+        'empresa_id'
     ];
 
     public function usuario(){

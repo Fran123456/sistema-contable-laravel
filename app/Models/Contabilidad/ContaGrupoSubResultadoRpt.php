@@ -14,7 +14,8 @@ class ContaGrupoSubResultadoRpt extends Model
     protected $fillable = [
         'sub_grupo',
         'grupo_id',
-        'utilidad_id'
+        'utilidad_id',
+        'empresa_id'
     ];
 
     public function utilidad(){
@@ -22,6 +23,6 @@ class ContaGrupoSubResultadoRpt extends Model
     }
 
     public function grupo(){
-        return $this->belongsTo(ContaGrupoSubResultadoRpt::class, 'grupo_id')->withDefault();
+        return $this->belongsTo(ContaGrupoResultadoRpt::class, 'grupo_id')->withDefault();
     }
 }

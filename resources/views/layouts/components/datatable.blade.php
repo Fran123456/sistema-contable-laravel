@@ -42,9 +42,9 @@
 <script type="text/javascript">
 
     //BOTON DE COPIAR FILAS
-    let copyTitle = {!! "'" . $copyTitle->value . "'" !!}
+    let copyTitle = {!! "'" . $copyTitle?->value . "'" !!}
     let objCopyTile = null;
-    if ({{ $copyTitleShow->value }} == 1) {
+    if ({{ $copyTitleShow?->value }} == 1) {
         objCopyTile = {
             extend: 'copyHtml5',
             text: ' <i class="fas fa-copy fa-2x"></i>',
@@ -58,7 +58,7 @@
 
     //BOTON DE CSV
     let csvShow = null;
-    if ({{ $csvShow->value }} == 1) {
+    if ({{ $csvShow?->value }} == 1) {
         csvShow = {
             extend: 'csvHtml5',
             text: '<i class="fas fa-file-csv fa-2x"></i>',
@@ -72,7 +72,7 @@
 
     //BOTON DE Excel
     let excelShow = null;
-    if ({{ $excelShow->value }} == 1) {
+    if ({{ $excelShow?->value }} == 1) {
         excelShow = {
             extend: 'excelHtml5',
             text: '<i class="fas fa-file-excel fa-2x"></i>',
@@ -90,7 +90,7 @@
 
     //BOTON DE PDF
     let pdfShow = null;
-    if ({{ $pdfShow->value }} == 1) {
+    if ({{ $pdfShow?->value }} == 1) {
         pdfShow = {
             extend: 'pdfHtml5',
             title: "{{ $title ?? 'Sistema contable' }}", //titulo del archivo,
@@ -108,7 +108,7 @@
 
     //BOTON DE IMPRESION
     let printShow = null;
-    if ({{ $printShow->value }} == 1) {
+    if ({{ $printShow?->value }} == 1) {
         printShow = {
             extend: 'print',
             autoPrint: false,
@@ -122,7 +122,7 @@
 
     //BOTON DE VISIBILIDAD
     let visibilityShow = null;
-    if ({{ $visibilityShow->value }} == 1) {
+    if ({{ $visibilityShow?->value }} == 1) {
         visibilityShow = {
             extend: 'colvis',
             columns: ':not(.noVis)',
@@ -135,7 +135,7 @@
     //VISIBILIDAD DE FILAS
 
     let select = false;
-    if ({{ $select->value }} == 1) {
+    if ({{ $select?->value }} == 1) {
         select = true;
     }
     //VISIBILIDAD DE FILAS

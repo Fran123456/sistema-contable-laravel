@@ -23,7 +23,7 @@ class ContactoController extends Controller
     {
         $cargos = SociosCargo::all();
         $paises = EntPais::all();
-        $contactos = SociosContacto::orderBy('id', 'desc')->get();
+        $contactos = SociosContacto::where('empresa_id', Help::empresa())->orderBy('id', 'desc')->get();
         $estados = SociosContacto::select('estado')->groupBy('estado')->get();
        
         $filtro = false;
@@ -198,6 +198,7 @@ class ContactoController extends Controller
         $contacto->pais_id = $request->pais_id;
         $contacto->anexo = $request->anexo;
         $contacto->portafolio = $request->portafolio;
+        $contacto->empresa_id = Help::empresa();
 
         try {
             $contacto->save();

@@ -22,6 +22,7 @@
             <li class="submenu-item">
                 <a class="submenu-link" href="{{ route('iva.libro_compras.index') }}">Libro compra </a>
                 <a class="submenu-link" href="{{ route('iva.reporteLibroCompra.index') }}">Reporte Libro compra </a>
+                <a class="submenu-link" href="{{ route('iva.reporteIvaContribuyente.index') }}">Reporte libro iva contribuyente </a>
             </li>
         </ul>
     </div>

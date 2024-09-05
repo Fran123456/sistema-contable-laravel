@@ -9,7 +9,12 @@ use App\Http\Controllers\Contabilidad\ContaRubroGeneralController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
 use App\Http\Controllers\Contabilidad\BalanceConfiguracionController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\CuentaResultado;
+use App\Http\Controllers\Contabilidad\EstadoResultado\CuentaResultadoController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\GrupoResultadoController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\SubGrupoResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadOperacionController;
 
 Route::middleware(['auth'])->group(function () {
 
@@ -48,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/partida/reporte/{id}', [PartidasContablesController::class, 'reportePartidaContable'])->name('reportePartidaContable');
         Route::post('/partida/detalle/actualizar/{id}', [PartidasContablesController::class, 'actualizarDetallePartida'])->name('actualizarDetallePartida');
         Route::delete('/partida/detalle/eliminar/{id}', [PartidasContablesController::class, 'eliminarDetallePartida'])->name('eliminarDetallePartida');
+        Route::post('/partida/duplicar', [PartidasContablesController::class, 'duplicar'])->name('duplicarPartida');
 
     });
 
@@ -83,6 +89,21 @@ Route::middleware(['auth'])->group(function () {
     //CONFIGURACION DE ESTADO DE RESULTADO DE UTILIDAD
     Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
         Route::resource('utilidades', UtilidadController::class);
+        Route::get('/utilidadOperaciones/{utilidad_id}', [UtilidadOperacionController::class, 'index'])->name('utilidadOperaciones.index');
+        Route::post('/utilidadOperaciones/{utilidad_id}', [UtilidadOperacionController::class, 'store'])->name('utilidadOperaciones.store');
+        Route::delete('/utilidadOperaciones/{utilidad_id}/{id}', [UtilidadOperacionController::class, 'destroy'])->name('utilidadOperaciones.destroy');
+        Route::get('/grupoResultado/{utilidad_id}', [GrupoResultadoController::class, 'index'])->name('grupoResultado.index');
+        Route::post('/grupoResultado/{utilidad_id}', [GrupoResultadoController::class, 'store'])->name('grupoResultado.store');
+        Route::put('/grupoResultado/{utilidad_id}/{id}', [GrupoResultadoController::class, 'update'])->name('grupoResultado.update');
+        Route::delete('/grupoResultado/{utilidad_id}/{id}', [GrupoResultadoController::class, 'destroy'])->name('grupoResultado.destroy');
+        Route::get('/subGrupoResultado/{utilidad_id}/{grupo_id}', [SubGrupoResultadoController::class, 'index'])->name('subGrupoResultado.index');
+        Route::post('/subGrupoResultado/{utilidad_id}/{grupo_id}', [SubGrupoResultadoController::class, 'store'])->name('subGrupoResultado.store');
+        Route::put('/subGrupoResultado/{utilidad_id}/{grupo_id}/{id}', [SubGrupoResultadoController::class, 'update'])->name('subGrupoResultado.update');
+        Route::delete('/subGrupoResultado/{utilidad_id}/{grupo_id}/{id}', [SubGrupoResultadoController::class, 'destroy'])->name('subGrupoResultado.destroy');
+        Route::get('/cuentaResultado/{utilidad_id}/{grupo_id}/{sub_grupo_id}', [CuentaResultadoController::class, 'index'])->name('cuentaResultado.index');
+        Route::post('/cuentaResultado/{utilidad_id}/{grupo_id}/{sub_grupo_id}', [CuentaResultadoController::class, 'store'])->name('cuentaResultado.store');
+        Route::put('/cuentaResultado/{utilidad_id}/{grupo_id}/{sub_grupo_id}/{id}', [CuentaResultadoController::class, 'update'])->name('cuentaResultado.update');
+        Route::delete('/cuentaResultado/{utilidad_id}/{grupo_id}/{sub_grupo_id}/{id}', [CuentaResultadoController::class, 'destroy'])->name('cuentaResultado.destroy');
     });
 
     //CONFIGURACION RUBRO GENERAL

@@ -2,14 +2,14 @@
 
 namespace App\ReportsPDF\Contabilidad;
 
+use App\Help\Contabilidad\ReportesContables;
+use App\Help\Help;
 use App\Help\PDF\EasyTable\easyTable;
 use App\Help\PDF\EasyTable\exfpdf;
-use App\Help\Help;
 use App\Help\PDF\EasyTable\Styles;
-use App\Help\Contabilidad\ReportesContables;
+use App\Models\Contabilidad\ContaClasificacionCuenta;
 use App\Models\Contabilidad\ContaCuentaContable;
 
-use App\Models\Contabilidad\ContaClasificacionCuenta;
 class BalanceComprobacionRptNew
 {
 
@@ -22,7 +22,6 @@ class BalanceComprobacionRptNew
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->SetFont('Arial', '', 7);
-
 
         //ESTILOS POR DEFECTO PARA CELDAS DEL HEADER Y TABLA EN GENERAL
         $style = Styles::alignPaddingY('1.07', 'C');
@@ -44,22 +43,22 @@ class BalanceComprobacionRptNew
         $table->printRow();
 
         $cuentas1 = null;
-        $numeros = [1, 2, 3, 4, 5, 6,7,8 ];
+        $numeros = [1, 2, 3, 4, 5, 6];
         $superTotalHaber = 0;
         $superTotalDebe = 0;
         $supersaldo = 0;
         $debetotal = 0;
         $habertotal = 0;
         $empresaId = Help::empresa();
-        $clasificacion =ContaClasificacionCuenta::where('clasificacion', 'detalle')->where('empresa_id', $empresaId)->first();
+        $clasificacion = ContaClasificacionCuenta::where('clasificacion', 'detalle')->where('empresa_id', $empresaId)->first();
+        $totalNumeroSaldo = 0;
         foreach ($numeros as $key => $n) {
 
             $cuentas1 = ContaCuentaContable::where('codigo', 'like', $n . '%')
-            ->where('clasificacion_id', $clasificacion->id)
-            ->where('empresa_id', $empresaId)
-            ->orderBy('codigo')->get();
+                ->where('clasificacion_id', $clasificacion->id)
+                ->where('empresa_id', $empresaId)
+                ->orderBy('codigo')->get();
             $data1 = array();
-
 
             foreach ($cuentas1 as $key => $value) {
 
@@ -71,9 +70,9 @@ class BalanceComprobacionRptNew
                     "haber" => $aux2 ?? "0",
                     "codigo" => $value->codigo,
                     "nombre_cuenta" =>
-                        $value->nombre_cuenta,
+                    $value->nombre_cuenta,
                     "naturaleza" => $value->tipo_cuenta,
-                    "obj" => $value
+                    "obj" => $value,
                 ));
             }
             $total = 0;
@@ -90,63 +89,48 @@ class BalanceComprobacionRptNew
                 $aux = $dt['haber'] - $dt['debe'];
                 if (round($aux, 2) != 0 || $saldoInicial != 0) {
 
-
-
                     $table->easyCell($dt['codigo']);
                     $table->easyCell(utf8_decode($dt['nombre_cuenta']));
                     $table->easyCell(number_format($saldoInicial, 2));
                     $table->easyCell(number_format($dt['debe'] < 0 ? $dt['debe'] * -1 : $dt['debe'], 2), ' align:R;');
                     $table->easyCell(number_format($dt['haber'] < 0 ? $dt['haber'] * -1 : $dt['haber'], 2), ' align:R;');
 
+                    if ($dt['naturaleza'] == "deudora" || $dt['naturaleza'] == "DEUDORA" || $dt['naturaleza'] == "deudadora") {
 
-
-                    /*  if ($dt['naturaleza'] =="acreedora") {
-
-                          $total = $saldoInicial+ ($dt['debe']-$dt['haber']);
-                          $supersaldo = $supersaldo+$total;
-                      }else{
-                          $total =$saldoInicial+($dt['haber']-$dt['debe']);
-                          $supersaldo = $supersaldo+$total;
-                      }*/
-
-
-
-
-
-                        if ($dt['naturaleza'] == "deudora") {
-
-                            $total = $saldoInicial + $dt['debe'] - $dt['haber'];
+                        $total = $saldoInicial + $dt['debe'] - $dt['haber'];
+                        $supersaldo = $supersaldo + $total;
+                        $totalNumeroSaldo = $totalNumeroSaldo+$total;
+                        $table->easyCell(number_format($total, 2), ' align:R;');
+                        $table->printRow();
+                    } else {
+                        if ($dt['haber'] == 0) {
+                            $total = ($saldoInicial + $dt['debe']);
                             $supersaldo = $supersaldo + $total;
                         } else {
-                            if ($dt['haber'] == 0) {
-                                $total = ($saldoInicial + $dt['debe']);
-                                $supersaldo = $supersaldo + $total;
-                            }else{
-                                $total = ($saldoInicial + $dt['haber'] - $dt['debe']);
-                                $supersaldo = $supersaldo + $total;
-                            }
-
+                            $total = ($saldoInicial + $dt['haber'] - $dt['debe']);
+                            $supersaldo = $supersaldo + $total;
                         }
-
-
-
-                    /*
-                    if($cuenta->tipo_cuenta =="acreedora"){//cuentta 1, 4,6
-                    }else{
-                        $debe = $debe*(-1);
-                    }*/
-
-
-                    $table->easyCell(number_format($total, 2), ' align:R;');
-                    $table->printRow();
-
+                        $totalNumeroSaldo = $totalNumeroSaldo+$total;
+                        $table->easyCell(number_format($total, 2), ' align:R;');
+                        $table->printRow();
+                    }
+                    
 
                     $superTotalDebe = ($dt['debe'] < 0 ? $dt['debe'] * -1 : $dt['debe']) + $superTotalDebe;
                     $superTotalHaber = ($dt['haber'] < 0 ? $dt['haber'] * -1 : $dt['haber']) + $superTotalHaber;
 
-
                 }
             }
+
+            $table->easyCell("",'border:T');
+            $table->easyCell("",'border:T');
+            $table->easyCell("",'border:T');
+            $table->easyCell("", ' align:R;border:T');
+            $table->easyCell("", ' align:R;border:T');
+            $table->easyCell(number_format($totalNumeroSaldo, 2), ' align:R;font-style:B;border:T');
+            $table->printRow();
+
+            $totalNumeroSaldo = 0;
         }
 
         $table->easyCell("");
@@ -156,7 +140,6 @@ class BalanceComprobacionRptNew
         $table->easyCell(number_format($superTotalHaber, 2), ' align:R;');
         $table->easyCell(number_format($supersaldo, 2), ' align:R;');
         $table->printRow();
-
 
         $table->endTable(15);
         $pdf->Output('I', 'balance-comprobacion-del' . Help::date($fechai) . "-al-" . Help::date($fechaf) . '.pdf');

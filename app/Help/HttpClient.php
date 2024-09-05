@@ -5,19 +5,25 @@ use Illuminate\Support\Facades\Http;
 class HttpClient  
 {
     
-    public static function  post($url){
+    public static function post($url, $path, $body = [])
+    {
+        $init = null;
+        if($path == null)$init=env('PATH_API_HACIENDA');
+        else $init= $path;
+        // Enviar la solicitud POST con el cuerpo de datos
+        $response = Http::post($init.$url, $body);
 
-        $response = Http::post( env('PATH_API').'/'.$url);
+        // Retornar la respuesta en formato JSON
         return $response->json($key = null);
     }
 
     public static function  get($relativePath, $path =null, $queryParams = [], $responseType='json'){
         $init = null;
-        if($path == null)$init=env('PATH_API');
+        if($path == null)$init=env('PATH_API_HACIENDA');
         else $init= $path;
       
         
-        $response = Http::get( $init.'/'.$relativePath, $queryParams);
+        $response = Http::get( $init.$relativePath, $queryParams);
         return HttpClient::typeResponse($responseType, $response);
     }
 

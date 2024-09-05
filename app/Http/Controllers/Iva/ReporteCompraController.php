@@ -87,7 +87,6 @@ class ReporteCompraController extends Controller
         }
 
         if ($data->isEmpty()) {
-            dd($data);
             return back()->with('error', 'No hay datos para generar');
         }
 

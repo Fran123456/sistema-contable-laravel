@@ -10,6 +10,6 @@ class Config extends Model
     use HasFactory;
     protected $table = 'config';
     protected $fillable = [
-        'category','field','value','id', 'title','description'
+        'category','field','value','id', 'title','description','empresa_id'
     ];
 }

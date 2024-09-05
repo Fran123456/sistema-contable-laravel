@@ -36,10 +36,9 @@ class LibroCompraController extends Controller
         $usuario = auth()->user();
         $proveedores = SociosProveedores::all();
         $empresas = RRHHEmpresa::all();
-        $facturas = FactFacturacion::all();
-        $partidas = ContaPartidaContable::all();
-        $detPartidas = ContaDetallePartida::all();
-        return view('iva.libroCompra.create', compact('proveedores', 'empresas', 'facturas', 'partidas', 'detPartidas'));
+       
+       
+        return view('iva.libroCompra.create', compact('proveedores', 'empresas'));
     }
 
     /**
@@ -50,6 +49,7 @@ class LibroCompraController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'fecha_emision' => 'required|date',
             'fecha_emision_en_pdf' => 'required|date',
@@ -62,6 +62,12 @@ class LibroCompraController extends Controller
         try {
             $libroCompra = (new LibroCompra)->fill($request->all());
             $libroCompra->save();
+            $p =  SociosProveedores::find($request->proveedor_id);
+            $libroCompra->dui = $p->dui;
+            $libroCompra->nit = $p->nit;
+            $libroCompra->nrc = $p->nrc;
+            $libroCompra->save();
+
             return to_route('iva.libro_compras.index')->with('success', 'Libro de compra creado exitosamente ');
         } catch (Exception $e) {
             Log::log('LibroCompra', 'contacto error al crear el libro compra', $e);

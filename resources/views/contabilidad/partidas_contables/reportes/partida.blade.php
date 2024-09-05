@@ -9,7 +9,9 @@
             -ms-text-size-adjust: 100%;
             -ms-overflow-style: scrollbar;
             -webkit-tap-highlight-color: transparent;
-        } p {
+        }
+
+        p {
             font-size: 13px;
             margin-top: -5px;
         }
@@ -19,6 +21,7 @@
             padding: 0.0cm;
             /* background-image:url('/img/fac.png'); */
         }
+
         body {
             font-family: sans-serif;
         }
@@ -91,6 +94,7 @@
         footer .izq {
             text-align: left;
         }
+
         table {
             font-size: 10.5px;
             padding: 1rem;
@@ -149,7 +153,7 @@
     <header>
         <p class="header1">{{ strtoupper(auth()->user()->empresa->empresa) }}</p>
         <p>PARTIDA DE : {{ strtoupper($partida->tipoPartida->tipo) }}</p>
-        <p>PERIODO : {{ $partida->periodo->year.$partida->periodo->mes }}
+        <p>PERIODO : {{ $partida->periodo->year . $partida->periodo->mes }}
 
         </p>
         <p>
@@ -157,6 +161,7 @@
         </p>
         <p>FECHA: {{ Help::date($partida->fecha_contable) }}</p>
         <p class="legend">(Cifras Expresadas en Dólares de los Estados Unidos de América)</p>
+        <p style="padding-bottom:20px;">CONCEPTO: {{ $partida->concepto }}</p>
         <br>
     </header>
     <footer>
@@ -175,7 +180,7 @@
             </tr>
         </table>
     </footer>
-    <div id="content">
+    <div id="content" style="margin-top: 30px ">
         <div class="">
             <table class="table">
                 <thead>

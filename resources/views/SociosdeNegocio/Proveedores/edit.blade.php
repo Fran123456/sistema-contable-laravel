@@ -47,9 +47,16 @@
                             @enderror
                         </div>
                         <div class="col-md-4 mt-2 mb-12">
-                            <label for="proveedores_nit"> <strong>NIT/DUI</strong> </label>
+                            <label for="proveedores_nit"> <strong>NIT</strong> </label>
                             <input type="text" name="nit" class="form-control"  value="{{$proveedor->nit}}" required>
                             @error('nit')
+                                {{$message}}
+                            @enderror
+                        </div>
+                        <div class="col-md-4 mt-2 mb-12">
+                            <label for="proveedores_dui"> <strong>DUI</strong> </label>
+                            <input type="text" name="dui" class="form-control"  value="{{$proveedor->dui}}" required>
+                            @error('dui')
                                 {{$message}}
                             @enderror
                         </div>
@@ -107,7 +114,7 @@
                             <select  id="pais_id" name="pais_id" class="form-control" >
                                 <option value="">Selecciona una opción</option>
                                 @foreach ($pais as $pais )
-                                <option value="{{$pais->id}}" @if ($pais->id == $pais->id) selected @endif>{{$pais->pais}}</option>                                                                                                                                            
+                                <option value="{{$pais->id}}" @if ($pais->id == $proveedor->pais_id) selected @endif>{{$pais->pais}}</option>                                                                                                                                            
                                 @endforeach    
                             </select>
                         </div>

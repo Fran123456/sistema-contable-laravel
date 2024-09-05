@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(ConfigSeeder::class);
         $this->call(RRHHSeeder::class);
+        $this->call(ConfigSeeder::class);
         $this->call(ContabilidadSeeder::class);
         $this->call(PermisosSeeder::class);
         $this->call(TipoEmpleadoSeeder::class);
@@ -31,6 +31,13 @@ class DatabaseSeeder extends Seeder
         $this->call(SociosCargoSeeder::class);
         $this->call(ProTipoProductoSeeder::class);
         $this->call(PaisesSeeder::class);
+        $this->call(FeTipoDocumentosSeeder::class);
+        $this->call(FeUnidadMedidasSeeder::class);
+        $this->call(FeDepartamentosSeeder::class);
+        $this->call(FeMunicipiosSeeder::class);
+        $this->call(FeActividadEconomicasSeeder::class);
+
+
 
         // \App\Models\User::factory(10)->create();
 

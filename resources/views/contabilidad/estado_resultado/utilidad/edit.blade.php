@@ -15,7 +15,7 @@
                         <input type="text" class="form-control" id="utilidadEdit" name="utilidad" required>
                         <input type="hidden" class="form-control" id="id" name="id">
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+                    <button type="submit" class="btn btn-primary mt-3 text-white">Guardar</button>
                 </form>
             </div>
 

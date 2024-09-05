@@ -1,5 +1,7 @@
 <x-app-layout>
+    
     <x-chosen></x-chosen>
+    <x-select2></x-select2>
    <x-slot:title>
        Crear contacto
     </x-slot>
@@ -54,7 +56,7 @@
                         </div>                      
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="cargo"> <strong>Cargo</strong></label>
-                            <select required id="cargo_id" name="cargo_id" class="form-control">
+                            <select required id="cargo_id" name="cargo_id" class="form-select select2">
                                 <option value="">Selecciona una opción</option>
                                 @foreach ($cargos as $cargo)
                                     <option value="{{$cargo->id}}">{{$cargo->cargo}}</option>                                                                      
@@ -63,7 +65,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="tipo_contrato"> <strong>Tipo de contrato</strong></label>
-                            <select required id="tipo_contrato" name="tipo_contrato" class="form-control">
+                            <select required id="tipo_contrato" name="tipo_contrato" class="form-select select2">
                                 <option value="">Selecciona una opción</option>
                                 <option value="Pasante">Pasante</option>
                                 <option value="Servicios profesionales">Servicios profesionales</option>
@@ -73,7 +75,7 @@
                         </div>
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="estado"> <strong>Estado</strong></label>
-                            <select required id="estado" name="estado" class="form-control" required>
+                            <select required id="estado" name="estado" class="form-select select2" required>
                                 <option value="">Selecciona una opción</option>
                                 <option value="Ingresado">Ingresado</option>
                                 <option value="Ingresado-Recomendado">Ingresado/Recomendado</option>
@@ -89,7 +91,7 @@
 
                         <div class="col-md-6 mt-2 mb-12">
                             <label for="pais_id"> <strong>Pais</strong></label>
-                            <select required id="pais_id" name="pais_id" class="form-control">
+                            <select required id="pais_id" name="pais_id" class="form-select select2">
                                 <option value="">Selecciona una opción</option>
                                 @foreach ($paises as $pais)
                                     <option value="{{$pais->id}}">{{$pais->pais}}</option>                                                                      
@@ -118,6 +120,9 @@
                         <div>
                             <input type="hidden" name="persona_encuentra_id" value="{{$usuario->id}}"  class="form-control">                       
                         </div>
+                        <div>
+                            <input type="hidden" name="empresa_id" value="{{$usuario->empresa_id}}"  class="form-control">                       
+                        </div>
                         <br>
                         <br>
                         <div class="col-md-12 mt-4 mb-1">
@@ -131,6 +136,10 @@
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
     <script>
+        $('.select2').each(function() {
+            $(this).select2({ theme: "bootstrap-5",dropdownParent: $(this).parent()});
+        });
+
         document.addEventListener("DOMContentLoaded", function() {
 
             // Se inicializa el richText
