@@ -15,6 +15,7 @@ use App\Help\Facturacion\Factura;
 use App\Models\Producto\Servicio;
 use App\Models\Producto\ProProducto;
 use App\Models\Facturacion\FactDocumentoDetalle;
+use App\Models\Facturacion\LibroVenta;
 use App\Help\HttpClient;
 use Illuminate\Support\Facades\DB;
 class FacturacionController extends Controller
@@ -97,6 +98,32 @@ class FacturacionController extends Controller
         $doc->posteado = $request->agregar;
         $doc->fecha_emision = $request->fecha_facturar;
         $doc->save();
+
+        
+        //Incorporación de CCF a libro ventas.
+        if ($doc->tipo_documento_id == 1) { 
+            //Sumar todos los items (detalles) y asociarlos a un solo documento en el libro de ventas
+            $libroVenta = new LibroVenta();
+            $libroVenta->fecha_emision = $request->fecha_facturar;
+            $libroVenta->documento = $doc->documento;
+            $libroVenta->cliente = $ov->cliente->nombre . " " . $ov->cliente->apellido;
+            $libroVenta->nit = $ov->cliente->nit;
+            $libroVenta->nrc = $ov->cliente->nrc;
+            $libroVenta->dui = $ov->cliente->dui;
+            $libroVenta->empresa_id = $ov->empresa_id;
+            $libroVenta->cliente_id = $doc->cliente_id;
+            $libroVenta->documento_id = $doc->id;
+            $libroVenta->empresa_id = $ov->empresa_id;
+        
+            // Sumamos los valores de los detalles
+            $libroVenta->gravadas_locales = $doc->detalles->sum('gravada');
+            $libroVenta->debito_fiscal = $doc->detalles->sum('iva');
+            $libroVenta->excenta = $doc->detalles->sum('exenta');
+            $libroVenta->no_sujeta = $doc->detalles->sum('nosujeta');
+            
+            // Guardar el registro en libro de ventas
+            $libroVenta->save();
+        }
 
         //facturacion electronica.
         $body = [

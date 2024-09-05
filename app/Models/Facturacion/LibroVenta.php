@@ -29,11 +29,23 @@ class LibroVenta extends Model
         'iva_percibido',
         'iva_retenido',
         'empresa_id',
+        'cliente_id',
+        'documento_id', 
         'mostrar'
     ];
 
     public function empresa()
     {
         return $this->belongsTo(RRHHEmpresa::class, 'empresa_id');
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(SociosCliente::class, 'cliente_id');
+    }
+
+    public function documento()
+    {
+        return $this->belongsTo(FactDocumento::class, 'documento_id');
     }
 }
