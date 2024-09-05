@@ -89,5 +89,4 @@ Route::middleware(['auth'])->group(function () {
     Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
         Route::resource('rubros', ContaRubroGeneralController::class);
     });
-
 });
