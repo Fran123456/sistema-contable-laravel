@@ -14,6 +14,7 @@ class FactSerialDocumento extends Model
         'tipo_documento_id',
         'serial',
         'correlativo_inicial',
+        'correlativo_actual',
         'ultimo_correlativo',
         'empresa_id',
         'activo',

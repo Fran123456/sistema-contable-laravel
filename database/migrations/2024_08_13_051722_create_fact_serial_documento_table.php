@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tipo_documento_id');
             $table->string('serial')->nullable();
             $table->integer('correlativo_inicial')->nullable();
+            $table->string('correlativo_actual')->nullable();
             $table->integer('ultimo_correlativo')->nullable();
             $table->unsignedBigInteger('empresa_id');
             $table->boolean('activo');
