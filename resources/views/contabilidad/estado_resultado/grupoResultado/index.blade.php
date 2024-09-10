@@ -60,7 +60,7 @@
                                     @method('DELETE')
                                     @csrf
                                     <a href="#"
-                                        onclick="if(confirm('form{{ $item->id }}','¿Desea eliminar el contacto?')) { event.preventDefault(); this.closest('form').submit(); }"
+                                        onclick="if(confirm('form{{ $item->id }}','¿Desea eliminar el grupo?')) { event.preventDefault(); this.closest('form').submit(); }"
                                         title="Eliminar" class="mx-0.5"><i class="fas fa-trash fa-lg"
                                             style="color: #f43e3e"></i></a>
                                 </form>
