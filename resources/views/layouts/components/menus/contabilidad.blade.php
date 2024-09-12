@@ -32,9 +32,9 @@
                     href="{{ route('contabilidad.copiar-data') }}">Copiar información</a></li>
             <li class="submenu-item"><a class="submenu-link"
                     href="{{ route('contabilidad.reportes') }}">Reportes</a></li>
-            <li class="submenu-item">
+            {{-- <li class="submenu-item">
                 <a class="submenu-link" href="{{ route('contabilidad.configuracion') }}"> Configuración de contabilidad </a>
-            </li>
+            </li> --}}
             <li class="submenu-item">
                 <a class="submenu-link" href="{{ route('contabilidad.utilidades.index') }}"> Configuración Estado de resultado</a>
             </li>

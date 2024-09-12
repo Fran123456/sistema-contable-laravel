@@ -10,6 +10,7 @@ use App\Models\EntidadTerritorial\EntPais;
 use App\Models\SociosdeNegocio\SociosClasificacionCliente;
 use App\Models\EntidadTerritorial\EntDepartamento;
 use App\Models\EntidadTerritorial\EntDistrito;
+use App\Models\FacturacionElectronica\FeActividadEconomica;
 use App\Help\Log;
 use App\Help\Help;
 
@@ -39,7 +40,8 @@ class ClienteController extends Controller
         $paises = EntPais::all();
         $clasificacion = SociosClasificacionCliente::orderBy('tipo')->get();
         $usuario_creo = auth()->user();
-        return view('sociosdeNegocio.Cliente.create', compact('tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'usuario_creo'));
+        $actividadesEconomicas = FeActividadEconomica::orderBy('valor', 'asc')->get();
+        return view('sociosdeNegocio.Cliente.create', compact('tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'usuario_creo', 'actividadesEconomicas'));
     }
 
     /**
@@ -103,8 +105,9 @@ class ClienteController extends Controller
         $clasificacion = SociosClasificacionCliente::all();
         $departamento = $cliente->departamento_id;
         $distrito = $cliente->distrito_id;
+        $actividadesEconomicas = FeActividadEconomica::orderBy('valor', 'asc')->get();
     
-        return view('sociosdeNegocio.Cliente.edit', compact('cliente','tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'departamento','distrito'));
+        return view('sociosdeNegocio.Cliente.edit', compact('cliente','tipoCliente', 'magnitudCliente', 'paises', 'clasificacion', 'departamento','distrito','actividadesEconomicas'));
 
     }
 

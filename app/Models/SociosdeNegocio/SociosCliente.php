@@ -5,6 +5,7 @@ namespace App\Models\SociosdeNegocio;
 use App\Models\EntidadTerritorial\EntDepartamento;
 use App\Models\EntidadTerritorial\EntDistrito;
 use App\Models\EntidadTerritorial\EntPais;
+use App\Models\FacturacionElectronica\FeActividadEconomica;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
@@ -36,6 +37,7 @@ class SociosCliente extends Model
         'celular',
         'observaciones',
         'empresa_id',
+        'actividad_economica',
         'created_at',
         'updated_at',
     ];
@@ -55,5 +57,8 @@ class SociosCliente extends Model
     public function distrito(){
         return $this->belongsTo(EntDistrito::class, 'distrito_id')->withDefault();
     }
-    
+
+    public function actividadEconomica(){
+        return $this->belongsTo(FeActividadEconomica::class, 'actividad_economica', 'codigo');
+    }
 }

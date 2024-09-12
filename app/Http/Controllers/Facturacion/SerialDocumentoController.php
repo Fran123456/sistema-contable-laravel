@@ -53,7 +53,8 @@ class SerialDocumentoController extends Controller
 
         // Crear el registro
         try {
-            $serial = (new FactSerialDocumento)->fill($request->all());
+            $serial = new FactSerialDocumento($request->all());
+            $serial->correlativo_actual = $request->correlativo_inicial;  // Inicializar correlativo_actual igual al inicial
             $serial->save();
             return redirect()->route('serial-facturacion.index')->with('success', 'Serial creado exitosamente.');
         } catch (Exception $e) {
