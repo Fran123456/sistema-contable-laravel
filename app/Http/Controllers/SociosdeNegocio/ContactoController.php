@@ -11,6 +11,7 @@ use App\Models\SociosdeNegocio\SociosRegistro;
 use App\Help\Log;
 use App\Help\Help;
 use App\Models\EntidadTerritorial\EntPais;
+use  App\Models\RRHH\RRHHEmpresa;
 
 class ContactoController extends Controller
 {
@@ -252,5 +253,72 @@ class ContactoController extends Controller
 
         // Retorna la vista con los contactos seleccionados
         return view('sociosdeNegocio.Contacto.shared', compact('contactosSeleccionados'));
+    }
+
+    public function formPublicContacto(Request $request){
+        $empresa_id = $request->query('empresa');
+        $exist = RRHHEmpresa::find($empresa_id);
+        
+        if (!$exist) {
+            abort(404);
+        }
+        $paises = EntPais::all();
+        $cargos = SociosCargo::all();
+    
+        return view('sociosdeNegocio.Contacto.formPublicContacto', compact('empresa_id','paises','cargos'));
+
+    }
+
+    public function SaveformPublicContacto(Request $request){
+        $request->validate([
+            'nombre'=> 'required|string|max:200',
+            'apellido'=> 'required|string|max:200',
+            'telefono'=> 'required|string|max:40',
+            'cargo_id'=> 'required|Integer',
+            'pais_id'=> 'required|Integer',
+            'cv' => 'mimes:pdf,docx',
+            'portafolio' => 'nullable|string',
+        ]);
+        
+        $contacto = new SociosContacto;
+        $contacto->nombre = $request->nombre;
+        $contacto->apellido = $request->apellido;
+        $contacto->correo = $request->correo;
+        $contacto->telefono = $request->telefono;
+        $contacto->contactado_en = $request->correo;
+        $contacto->estado = "Ingresado";
+        $contacto->cargo_id = $request->cargo_id;
+        $contacto->pais_id = $request->pais_id;
+        $contacto->anexo = $request->anexo;
+        $contacto->portafolio = $request->portafolio;
+        $contacto->empresa_id = $request->empresa_id;
+
+        // ?? campo obligatorio segun la db
+        $contacto->persona_encuentra_id = $request->empresa_id;
+
+        
+
+        //Valida si el campo cv tiene un archivo, para no enviar datos null
+        if ($request->hasFile('cv')) {
+            $contacto->cv = Help::uploadFile($request, 'cv', '', 'cv', true);
+        }
+
+        try {
+            $contacto->portafolio = $request->portafolio;
+            if($contacto->save()){
+                $registro = SociosRegistro::create([
+                    'observacion' => "Se acaba de crear el contacto con estado Ingresado",
+                    'contacto_id' => $contacto->id,
+                ]);
+
+                $registro->save();
+            }
+           
+            return back()->with('success', 'Contacto creado correctamente ');
+
+        } catch (Exception $e) {
+            Log::log('SociosdeNegocio', 'contacto error al crear el contacto', $e);
+            return back()->with('danger', 'Error, no se puede procesar la petición');
+        }
     }
 }
