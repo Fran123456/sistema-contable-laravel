@@ -193,6 +193,10 @@ class ClienteController extends Controller
         return response()->json($distritos);
     }
 
+    public function ShowExcel () {
+        return view('SociosdeNegocio.Cliente.showExcel');
+    }
+
     // funcion para descargar el documento de excel
     public function descargarExcel()
     {
