@@ -13,6 +13,7 @@ use App\Models\EntidadTerritorial\EntDistrito;
 use App\Models\FacturacionElectronica\FeActividadEconomica;
 use App\Help\Log;
 use App\Help\Help;
+use Illuminate\Support\Facades\Response;
 
 
 class ClienteController extends Controller
@@ -194,4 +195,25 @@ class ClienteController extends Controller
         $distritos = EntDistrito::where('departamento_id', $departamentoId)->orderBy('distrito')->get();
         return response()->json($distritos);
     }
+
+    public function ShowExcel () {
+        return view('SociosdeNegocio.Cliente.showExcel');
+    }
+
+    // funcion para descargar el documento de excel
+    public function descargarExcel()
+    {
+        // Define la ruta completa del archivo
+        $rutaArchivo = public_path('importaciones/Clientes.xlsx');
+
+        // Verifica si el archivo existe
+        if (file_exists($rutaArchivo)) {
+            // Devuelve el archivo como una respuesta de descarga
+            return Response::download($rutaArchivo);
+        } else {
+            // Maneja el error si el archivo no existe
+            return redirect()->back()->with('error', 'El archivo no existe.');
+        }
+    }
+    
 }
