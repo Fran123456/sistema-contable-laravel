@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('correo')->nullable();
             $table->string('telefono');
             $table->text('contactado_en')->nullable();
-            $table->unsignedBigInteger('persona_encuentra_id');
+            $table->unsignedBigInteger('persona_encuentra_id')->nullable();
             $table->string('tipo_contrato');
             $table->string('estado');
             $table->text('cv');

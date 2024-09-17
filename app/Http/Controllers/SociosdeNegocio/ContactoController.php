@@ -293,8 +293,6 @@ class ContactoController extends Controller
         $contacto->portafolio = $request->portafolio;
         $contacto->empresa_id = $request->empresa_id;
 
-        // ?? campo obligatorio segun la db
-        $contacto->persona_encuentra_id = $request->empresa_id;
 
         
 
