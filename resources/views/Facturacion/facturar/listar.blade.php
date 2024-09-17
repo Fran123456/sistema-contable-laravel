@@ -68,9 +68,9 @@
               <th></th>
               <th id="totalValor" class="text-end">{{ number_format($valor,2) }}</th>
               <th id="totalDesc" class="text-end">{{ number_format($desc,2) }}</th>
-              <th id="totalGravada" class="text-end">{{ number_format($nosujeta,2) }}</th>
-              <th id="totalExcenta" class="text-end">{{ number_format($gravada,2) }}</th>
-              <th  class="text-end">{{ number_format($nosujeta,2) }}</th>
+              <th id="totalGravada" class="text-end">{{ number_format($gravada,2) }}</th>
+              <th id="totalExenta" class="text-end">{{ number_format($excenta,2) }}</th>
+              <th id="totalNoSujeta" class="text-end">{{ number_format($nosujeta,2) }}</th>
               <th id="totalIva" class="text-end">{{ number_format($iva,2) }}</th>
               <th id="totalTotal" class="text-end">{{ number_format($total,2) }}</th>
           </tr>

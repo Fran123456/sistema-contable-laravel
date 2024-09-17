@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-chosen></x-chosen>
     <x-slot:title>
     Configuración de contabilidad
     </x-slot>
@@ -64,7 +65,7 @@
                                     @method('DELETE')
                                     @csrf
                                     <a href="#"
-                                        onclick="if(confirm('form{{ $item->id }}','¿Desea eliminar el contacto?')) { event.preventDefault(); this.closest('form').submit(); }"
+                                        onclick="if(confirm('form{{ $item->id }}','¿Desea eliminar la cuenta contable?')) { event.preventDefault(); this.closest('form').submit(); }"
                                         title="Eliminar" class="mx-0.5 p-1"><i class="fas fa-trash fa-lg"
                                             style="color: #f43e3e"></i></a>
                                 </form>
@@ -75,7 +76,8 @@
                 </table>
             </div>
         </div>
-
+   
     </div>
+
     
 </x-app-layout>

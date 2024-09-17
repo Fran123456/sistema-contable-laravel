@@ -4,16 +4,17 @@ use App\Http\Controllers\Contabilidad\TipoPartidaController;
 use App\Http\Controllers\Contabilidad\ConfiguracionController;
 use App\Http\Controllers\Contabilidad\CuentaContableController;
 use App\Http\Controllers\Contabilidad\BalanceContableController;
+use App\Http\Controllers\Contabilidad\ContaRubroGrupoController;
 use App\Http\Controllers\Contabilidad\PeriodoContableController;
 use App\Http\Controllers\Contabilidad\ContaRubroGeneralController;
 use App\Http\Controllers\Contabilidad\PartidasContablesController;
 use App\Http\Controllers\Contabilidad\ReportesContablesController;
 use App\Http\Controllers\Contabilidad\BalanceConfiguracionController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\CuentaResultado;
-use App\Http\Controllers\Contabilidad\EstadoResultado\CuentaResultadoController;
-use App\Http\Controllers\Contabilidad\EstadoResultado\GrupoResultadoController;
-use App\Http\Controllers\Contabilidad\EstadoResultado\SubGrupoResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\GrupoResultadoController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\CuentaResultadoController;
+use App\Http\Controllers\Contabilidad\EstadoResultado\SubGrupoResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadOperacionController;
 
 Route::middleware(['auth'])->group(function () {
@@ -109,6 +110,10 @@ Route::middleware(['auth'])->group(function () {
     //CONFIGURACION RUBRO GENERAL
     Route::name('contabilidad.')->prefix('contabilidad')->group(function () {
         Route::resource('rubros', ContaRubroGeneralController::class);
-    });
 
+        Route::get('rubros/{rubro}/grupos', [ContaRubroGrupoController::class, 'index'])->name('grupos.index');
+        Route::post('rubros/{rubro}/grupos', [ContaRubroGrupoController::class, 'store'])->name('grupos.store');
+        Route::put('grupos/{grupo}', [ContaRubroGrupoController::class, 'update'])->name('grupos.update');
+        Route::delete('grupos/{grupo}', [ContaRubroGrupoController::class, 'destroy'])->name('grupos.destroy');
+    });
 });

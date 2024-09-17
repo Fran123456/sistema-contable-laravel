@@ -15,6 +15,10 @@ use App\Help\Facturacion\Factura;
 use App\Models\Producto\Servicio;
 use App\Models\Producto\ProProducto;
 use App\Models\Facturacion\FactDocumentoDetalle;
+
+use App\Models\Facturacion\FactSerialDocumento;
+
+use App\Models\Facturacion\LibroVenta;
 use App\Help\HttpClient;
 use Illuminate\Support\Facades\DB;
 class FacturacionController extends Controller
@@ -118,77 +122,98 @@ class FacturacionController extends Controller
         $doc->fecha_emision = $request->fecha_facturar;
         $doc->save();
 
+        
+        //Incorporación de CCF a libro ventas.
+        if ($doc->tipo_documento_id == 1) { 
+            //Sumar todos los items (detalles) y asociarlos a un solo documento en el libro de ventas
+            $libroVenta = new LibroVenta();
+            $libroVenta->fecha_emision = $request->fecha_facturar;
+            $libroVenta->documento = $doc->documento;
+            $libroVenta->cliente = $ov->cliente->nombre . " " . $ov->cliente->apellido;
+            $libroVenta->nit = $ov->cliente->nit;
+            $libroVenta->nrc = $ov->cliente->nrc;
+            $libroVenta->dui = $ov->cliente->dui;
+            $libroVenta->empresa_id = $ov->empresa_id;
+            $libroVenta->cliente_id = $doc->cliente_id;
+            $libroVenta->documento_id = $doc->id;
+            $libroVenta->empresa_id = $ov->empresa_id;
+        
+            // Sumamos los valores de los detalles
+            $libroVenta->gravadas_locales = $doc->detalles->sum('gravada');
+            $libroVenta->debito_fiscal = $doc->detalles->sum('iva');
+            $libroVenta->excenta = $doc->detalles->sum('exenta');
+            $libroVenta->no_sujeta = $doc->detalles->sum('nosujeta');
+            
+            // Guardar el registro en libro de ventas
+            $libroVenta->save();
+        }
         // Incrementar el correlativo actual para el siguiente uso
         $serialDocumento->increment('correlativo_actual');
 
-        //facturacion electronica.
+        //facturacion electronica.*/
         $body = [
             'email' => 'correo2@example.com',
             'password' => 'password'
         ];
-        DB::commit();
+        
 
-        /*   $response = HttpClient::post("/api/login", config('app.path_api_hacienda'), $body);
-           return $response;
+          $response = HttpClient::post("/api/login", config('app.path_api_hacienda'), $body);
+       
+
+           //peticion hacia el metodo post para mandar el ccf
 
            $data = [
                "codigo_pago" => "01",
-               "pagoTributo" => [
+               "pagoTributos" => [
                    [
-                       "código tributo" => "valor tributo"
+                       "20" => "13"
                    ]
                ],
-               "periodo_pago" => "periodo pago",
-               "plazo_pago" => "plazo pago",
+               "periodo_pago" => "CONTADO",
+               "plazo_pago" => "CONTADO",
                "dteJson" => [
                    "receptor" => [
-                       "nit" => "nit receptor según esté registrado en los clientes existentes"
+                       "nit" => "012345678901234",
+                       "dui" => "012345678-9",
+                       "nombre" => "Carlos Alfaro",
+                       "descActividad" => "Otros",
+                       "nombreComercial" => "Carlos Alfaro",
+                       "nrc"=> "0123456789",
+                       "codActividad"=>  "10005", 
+                       "direccion" =>[
+                        "departamento"=> "San Salvador",
+                        "municipio"=> "San Salvador",
+                        "complemento"=> null
+                       ],
+                       "telefono"=> "0123-4567",
+                       "correo"=> "Correo@gmail.com"
+                   
+                
                    ],
-                   "documentoRelacionado" => [
-                       [
-                           "tipoDocumento" => "código tipo documento catalogo MH",
-                           "tipoGeneracion" => "código de tipo generación catalogo MH",
-                           "numeroDocumento" => "código de documento MH",
-                           "fechaEmision" => "fecha emisión del documento"
-                       ]
-                   ],
-                   "otrosDocumentos" => [
-                       [
-                           "codDocAsociado" => "código del documento en MH",
-                           "descDocumento" => "descripción del documento asociado",
-                           "detalleDocumento" => "detalle del documento",
-                           "medico" => [
-                               "nombre" => "nombre del medico",
-                               "nit" => "nit del medico",
-                               "docIdentificacion" => "documento de identificación",
-                               "tipoServicio" => "código del servicio según catalogo MH"
-                           ]
-                       ]
-                   ],
-                   "ventaTercero" => [
-                       "nit" => "numero de nit",
-                       "nombre" => "nombre, denominación o razón social"
-                   ],
+                   "documentoRelacionado"=> null,
+                   "otrosDocumentos" => null,
+                   "ventaTercero" => null,
                    "cuerpoDocumento" => [
                        [
                            "psv" => 0.0,
-                           "codigo" => "código del producto / null",
-                           "cantidad" => 0.00,
-                           "tipoItem" => "código tipo item según catalogo MH",
+                           "codigo" => "SR001",
+                           "cantidad" => 1,
+                           "tipoItem" => "4",
                            "tributos" => [
-                               "tributos según catalogo MH"
+                               "20"
                            ],
                            "noGravado" => 0.00,
                            "precioUni" => 0.00,
-                           "uniMedida" => "código según catalogo MH",
+                           "uniMedida" => "99",
                            "codTributo" => "código del tributo según catalogo MH / null",
                            "montoDescu" => 0.00,
                            "ventaNoSuj" => 0.00,
-                           "descripcion" => "Descripcion producto",
+                           "descripcion" => "Programación",
                            "ventaExenta" => 0.00,
-                           "ventaGravada" => 0.00,
+                           "ventaGravada" => 100,
                            "numeroDocumento" => null
-                       ]
+                        ]
+                        
                    ],
                    "extension" => [
                        "nombEntrega" => "nombre del responsable generador del DTE",
@@ -207,8 +232,10 @@ class FacturacionController extends Controller
                    ]
                ]
            ];
-           */
-
+        
+        $response = HttpClient::post("/api/services/mh/enviar/dte/unitario/ccf", config('app.path_api_hacienda'), $data, $response['access_token']);
+        return $response;
+        DB::commit();
         return redirect()->route('facturacion.index')->with('success', 'Se ha facturado correctamente');
 
     }

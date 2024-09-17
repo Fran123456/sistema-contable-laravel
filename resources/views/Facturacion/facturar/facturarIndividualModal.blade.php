@@ -19,13 +19,13 @@
                 <input type="date" required name="fecha_facturar" type="fecha" class="form-control">
              </div>
              <br>
-             <div>
+             <!-- <div>
                 <label for=""> <strong>Agregar a Libro</strong> </label>
                 <select name="agregar" id="" class="form-control">
                     <option value="1">SI</option>
                     <option value="0">NO</option>
                 </select>
-             </div>
+             </div> -->
           
         </div>
         <div class="modal-footer">

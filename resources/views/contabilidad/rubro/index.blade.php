@@ -53,7 +53,9 @@
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#editRubroModal{{ $rubro->id }}" title="Editar">
                                             <i class="fa-solid fa-pen-to-square text-success"></i>
                                         </a>
-
+                                        <a href="{{ route('contabilidad.grupos.index', $rubro->id) }}" title="Grupos">
+                                            <i class="fa-solid fa-user-group text-primary"></i>
+                                        </a>
                                         <form id="form{{ $rubro->id }}" action="{{ route('contabilidad.rubros.destroy', $rubro->id) }}" method="post" class="d-inline">
                                             @method('DELETE')
                                             @csrf
