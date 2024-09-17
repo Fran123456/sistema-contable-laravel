@@ -16,6 +16,7 @@
     </div>
 
     <div class="col-md-12 text-end mb-4">
+        <a class="btn" style="background-color:blue; color: white" href="{{ route('socios.showExcel') }}" title="cargar Excel">Cargar via excel <i class="fa fa-file-excel" style="color: green" aria-hidden="true"></i></a>
         <a class="btn btn-success" href="{{ route('socios.cliente.create') }}" title="Crear"><i class="fas fa-user-plus"></i></a>
     </div>
 
