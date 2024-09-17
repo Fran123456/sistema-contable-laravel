@@ -10,6 +10,11 @@ use App\Http\Controllers\SociosdeNegocio\ClienteController;
 //Rutas públicas
 Route::get('/public-contactos/{selected_ids}', [ContactoController::class, 'verContactosCompartidosPublico'])->name('public-contactos');
 
+Route::get('/public-contactos-formulario', [ContactoController::class, 'formPublicContacto'])->name('formPublicContacto');
+Route::post('/public-contactos-formulario', [ContactoController::class, 'SaveformPublicContacto'])->name('SaveformPublicContacto');
+
+
+
 //Rutas de contactos
 Route::middleware(['auth'])->group(function () {
     Route::name('socios.')->prefix('socios')->group(function () {

@@ -69,16 +69,23 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/support', [SupportController::class, 'ask'])->name('ask');
 });
 
+include base_path('routes/partials/users.php');
+include base_path('routes/partials/contabilidad.php');
+include base_path('routes/partials/rrhh.php');
+include base_path('routes/partials/config.php');
+include base_path('routes/partials/sociosdenegocio.php');
+include base_path('routes/partials/producto.php');
+include base_path('routes/partials/facturacion.php');
+include base_path('routes/partials/iva.php');
 
-
-include ('routes/partials/users.php');
-include ('routes/partials/contabilidad.php');
-include ('routes/partials/rrhh.php');
-include ('routes/partials/config.php');
-include ('routes/partials/sociosdenegocio.php');
-include ('routes/partials/producto.php');
-include ('routes/partials/facturacion.php');
-include ('routes/partials/iva.php');
+// include ('routes/partials/users.php');
+// include ('routes/partials/contabilidad.php');
+// include ('routes/partials/rrhh.php');
+// include ('routes/partials/config.php');
+// include ('routes/partials/sociosdenegocio.php');
+// include ('routes/partials/producto.php');
+// include ('routes/partials/facturacion.php');
+// include ('routes/partials/iva.php');
 
 // include_once __DIR__ . '/partials/users.php';
 // include_once __DIR__ . '/partials/contabilidad.php';
