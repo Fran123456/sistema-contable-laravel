@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -34,9 +33,14 @@ return new class extends Migration
             $table->string('telefono')->nullable();
             $table->string('celular')->nullable();
             $table->string('observaciones')->nullable();
-
             $table->unsignedBigInteger('empresa_id')->nullable();
             $table->foreign('empresa_Id')->references('id')->on('rrhh_empresa')->onUpdate('cascade');
+            $table->string('actividad_economica')->nullable();
+            // $table->foreign('actividad_economica')
+            //     ->references('codigo')
+            //     ->on('fe_actividad_economicas')
+            //     ->onUpdate('cascade')
+            //     ->onDelete('set null');
             $table->timestamps();
         });
     }
