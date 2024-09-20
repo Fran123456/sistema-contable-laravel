@@ -13,8 +13,9 @@ use App\Models\EntidadTerritorial\EntDistrito;
 use App\Models\FacturacionElectronica\FeActividadEconomica;
 use App\Help\Log;
 use App\Help\Help;
+use App\Imports\ClienteImport;
 use Illuminate\Support\Facades\Response;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClienteController extends Controller
 {
@@ -214,6 +215,22 @@ class ClienteController extends Controller
             // Maneja el error si el archivo no existe
             return redirect()->back()->with('error', 'El archivo no existe.');
         }
+    }
+
+    function importExcel(Request $request) {
+
+        $import = new ClienteImport();
+        Excel::import($import, $request->file('excel'));
+
+        // if ($import->getErrores()) {
+        //     return back()->with('errors', "{$import->getErrores()} errores");
+        // }
+        $errores = $import->getErrores();
+        $ingresados = $import->getIngresados();
+        $rows = $import->getNumeroFilas();
+
+        return back()->with('errores',$errores)->with('ingresados', $ingresados)->with("rows", $rows);
+
     }
     
 }
