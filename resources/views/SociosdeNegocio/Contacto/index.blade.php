@@ -65,6 +65,11 @@
     </div>
 
     <div class="col-md-12 text-end mb-4">
+        <a class="btn btn-success me-3" href="{{ route('formPublicContacto', ['empresa' => auth()->user()->empresa_id]) }}" title="Crear"> 
+            <i class="fas fa-user-plus"></i>
+            Formulario publico
+        </a>
+
         <a class="btn btn-success" href="{{ route('socios.contacto.create') }}" title="Crear"> <i
                 class="fas fa-user-plus"></i> </a>
     </div>
