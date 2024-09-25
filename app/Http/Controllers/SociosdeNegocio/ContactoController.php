@@ -260,7 +260,7 @@ class ContactoController extends Controller
         $exist = RRHHEmpresa::find($empresa_id);
         
         if (!$exist) {
-            abort(404);
+            return view('sociosdeNegocio.Contacto.notFound', compact('empresa_id'));
         }
         $paises = EntPais::all();
         $cargos = SociosCargo::all();
@@ -292,9 +292,6 @@ class ContactoController extends Controller
         $contacto->anexo = $request->anexo;
         $contacto->portafolio = $request->portafolio;
         $contacto->empresa_id = $request->empresa_id;
-
-
-        
 
         //Valida si el campo cv tiene un archivo, para no enviar datos null
         if ($request->hasFile('cv')) {
