@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Facturacion\FactFacturacion;
 use App\Models\Facturacion\FactTipoDocumento;
+use App\Models\Facturacion\FactEstadoFacturacion;
 use App\Models\SociosdeNegocio\SociosCliente;
 use App\Models\Facturacion\FactDocumento;
 use App\Help\Help;
@@ -330,6 +331,26 @@ class FacturacionController extends Controller
 
 
         return redirect()->route('facturacion.agregarItemsFactura', $facturacion->id);
+
+    }
+
+    public function anularFacturacion(Request $request)
+    {
+        $idFacturacion = $request->idFacturacion;
+        $facturacion = FactFacturacion::find($idFacturacion);
+        $documento = FactDocumento::where('facturacion_id',$idFacturacion)->first();
+
+        if ($facturacion && $documento) {
+            $facturacion->anulado = true;
+            $documento->anulado = true;
+    
+            $facturacion->save();
+            $documento->save();
+    
+            return redirect()->back()->with('success', 'Documento anulados exitosamente.');
+        } else {
+            return redirect()->back()->with('danger', 'No se pudo anular el documento.');
+        }
 
     }
 }

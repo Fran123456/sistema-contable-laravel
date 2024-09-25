@@ -31,7 +31,8 @@ class LibroVenta extends Model
         'empresa_id',
         'cliente_id',
         'documento_id', 
-        'mostrar'
+        'mostrar',
+        'anulado'
     ];
 
     public function empresa()

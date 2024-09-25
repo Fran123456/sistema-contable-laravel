@@ -16,7 +16,7 @@ class FactDocumento extends Model
 
     protected $fillable = ['id',
         'documento','facturacion_id','serial','tipo_documento_id','cliente_id','proveedor_id','monto',
-        'estado_facturacion_id','posteado_id','fecha_emision','creado_por','empresa_id','created_at','updated_at'
+        'estado_facturacion_id','posteado_id','fecha_emision','creado_por','empresa_id','anulado','created_at','updated_at'
     ];
 
     public function estado()

@@ -23,7 +23,8 @@ class FactFacturacion extends Model
         'fecha_facturacion',
         'empresa_id',
         'cliente_id',
-        'tipo_factura_id'
+        'tipo_factura_id',
+        'anulado'
     ];
 
     public function estado()

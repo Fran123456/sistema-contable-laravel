@@ -36,6 +36,8 @@ return new class extends Migration
 
 
             $table->boolean('mostrar')->default(true);
+            $table->boolean('anulado')->default(false);
+
             $table->timestamps();
 
             $table->foreign('empresa_id')->references('id')->on('rrhh_empresa');
