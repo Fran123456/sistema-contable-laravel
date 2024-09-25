@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProCombo extends Model
 {
-    use HasFactory;
+    use HasFactory; //
 
     // Define the table associated with the model (optional if the table name matches the plural form of the model name)
     protected $table = 'pro_combo';

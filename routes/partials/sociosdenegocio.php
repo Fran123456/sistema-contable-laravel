@@ -50,6 +50,10 @@ Route::middleware(['auth'])->group(function () {
     //Ruta de clientes
     Route::name('socios.')->prefix('socios')->group(function () {
         Route::resource('cliente', ClienteController::class);
+        Route::get('/cliente/show/Excel/', [ClienteController::class, 'showExcel'])->name('showExcel');
+        Route::get('/cliente/descargar/excel/', [ClienteController::class, 'descargarExcel'])->name('descargar.excel');
+        Route::post('/cliente/importar/excel', [ClienteController::class, 'importExcel'])->name('importar.excel');
+        // Route::get('/cliente/downloadExcel',[ClienteController::class, 'descargarExcel'])->name('.descargarExcel');
     });
 
     //Ruta que ejecuta el codigo javascript para obtener el departamento y distrito correcto
