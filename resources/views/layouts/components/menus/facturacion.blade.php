@@ -29,6 +29,9 @@
             <li class="submenu-item">
                 <a class="submenu-link" href="{{ route('facturacionElectronica.index') }}">Documentos electronicos</a>
             </li>
+            <li class="submenu-item">
+                <a class="submenu-link" href="{{ route('partidasAutomaticas.index') }}">Partidas Automaticas</a>
+            </li>
         </ul>
     </div>
     

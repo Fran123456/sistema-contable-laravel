@@ -4,6 +4,9 @@ use App\Http\Controllers\Facturacion\DocumentoElectronicoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Facturacion\FacturacionController;
 use App\Http\Controllers\Facturacion\SerialDocumentoController;
+use PHPUnit\TextUI\XmlConfiguration\Group;
+use App\Http\Controllers\Facturacion\PartidasAutomaticasController;
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/facturacion', [FacturacionController::class, 'index'])->name('facturacion.index');
@@ -23,5 +26,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/store', [SerialDocumentoController::class, 'store'])->name('store');
         Route::put('/{id}', [SerialDocumentoController::class, 'update'])->name('update');
         Route::delete('/{id}', [SerialDocumentoController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('partidasAutomaticas')->name('partidasAutomaticas.')->group( function(){
+        Route::get('/partidas-automaticas', [PartidasAutomaticasController::class, 'index'])->name('index');
+        Route::put('/partidas-automaticas/update/{id}', [PartidasAutomaticasController::class, 'update'])->name('update');
     });
 });

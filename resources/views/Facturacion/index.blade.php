@@ -85,44 +85,44 @@
                                     <!-- Si el campo 'anulado' es true, no mostrar el botón de anulación -->
                                     @if (!$facturacion->anulado)
                                         <i class="fas fa-times-circle text-success" data-bs-toggle="modal"
-                                            data-bs-target="#anularModal"
-                                            style="cursor: pointer;"></i>
+                                            data-bs-target="#anularModal-{{$facturacion->id}}" style="cursor: pointer;"></i>
                                     @endif
                                 </td>
-                            </tr>
 
-                            <!-- Modal anulado -->
-                            <div class="modal fade" id="anularModal" tabindex="-1" aria-labelledby="anularModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="clienteModalLabel">Anular documento</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                <!-- Modal anulado -->
+                                <div class="modal fade" id="anularModal-{{$facturacion->id}}" tabindex="-1"
+                                    aria-labelledby="anularModalLabel-{{$facturacion->id}}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="clienteModalLabel">Anular documento</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('facturacion.anular') }}" method="POST">
+
+                                                <div class="modal-body">
+                                                    @csrf
+                                                    <p class="text-center">
+                                                        ¿Esta seguro de anular el documento seleccionado?
+                                                    </p>
+                                                    <input type="hidden" name="idFacturacion" id="facturacionId"
+                                                        value="{{ $facturacion->id }}">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+                                                    <button type="success" class="btn btn-success">
+                                                        <i class="fas fa-check-circle"></i>
+                                                        Aceptar
+                                                    </button>
+                                                </div>
+                                            </form>
+
                                         </div>
-                                        <form action="{{ route('facturacion.anular') }}" method="POST">
-
-                                            <div class="modal-body">
-                                                @csrf
-                                                <p class="text-center">
-                                                    ¿Esta seguro de anular el documento seleccionado?
-                                                </p>
-                                                <input type="hidden" name="idFacturacion" id="facturacionId" value="{{$facturacion->id}}">
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                                    aria-label="Close">Cerrar</button>
-                                                <button type="success" class="btn btn-success">
-                                                    <i class="fas fa-check-circle"></i>
-                                                    Aceptar
-                                                </button>
-                                            </div>
-                                        </form>
-
                                     </div>
                                 </div>
-                            </div>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
