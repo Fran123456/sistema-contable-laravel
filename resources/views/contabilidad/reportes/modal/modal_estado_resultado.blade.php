@@ -10,7 +10,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-           <form action="{{route('contabilidad.reporteEstadoResultado')}}" method="get" target="_blank">
+           <form action="{{route('contabilidad.reporteEstadoResultadoNuevo')}}" method="get" target="_blank">
             <div class="row">
               <div class="col-md-12">
                 <LABEL>Fecha inicio</LABEL>

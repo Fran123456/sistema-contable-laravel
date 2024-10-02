@@ -68,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/reportes/libro-diario-mayor', [ReportesContablesController::class, 'libroDiarioMayor'])->name('libroDiarioMayor');
 
         Route::get('/reportes/estado-resultado', [ReportesContablesController::class, 'reporteEstadoResultado'])->name('reporteEstadoResultado');
+        Route::get('/reportes/estado-resultado-nuevo', [ReportesContablesController::class, 'reporteEstadoResultadoNuevo'])->name('reporteEstadoResultadoNuevo');
 
 
     });

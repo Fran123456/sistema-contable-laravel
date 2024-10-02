@@ -23,6 +23,6 @@ class ContaGrupoSubResultadoRpt extends Model
     }
 
     public function grupo(){
-        return $this->belongsTo(ContaGrupoResultadoRpt::class, 'grupo_id')->withDefault();
+        return $this->belongsTo(ContaGrupoResultadoRpt::class, 'grupo_id');
     }
 }
