@@ -21,7 +21,7 @@
         <div class="card">
             <div class="card-body">
                 <h5>Grupos del Rubro: {{ $rubro->rubro }}</h5>
-                <table class="table table-sm">
+                <table class="table table-sm" id="datatable-responsive">
                     <thead>
                         <tr>
                             <th scope="col" width="40">#</th>
