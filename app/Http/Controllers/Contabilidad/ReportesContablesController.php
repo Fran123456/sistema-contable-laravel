@@ -209,6 +209,12 @@ class ReportesContablesController extends Controller
     }
 
 
+    
+
+
+
+
+
 
 
     public function explout($string){
