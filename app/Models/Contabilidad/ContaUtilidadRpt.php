@@ -16,5 +16,9 @@ class ContaUtilidadRpt extends Model
         'saldo',
         'empresa_id'
     ];
+
+    public function grupos(){
+        return $this->hasMany(ContaGrupoResultadoRpt::class,'utilidad_id');
+    }
     
 }

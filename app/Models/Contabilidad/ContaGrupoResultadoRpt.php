@@ -19,6 +19,10 @@ class ContaGrupoResultadoRpt extends Model
     ];
 
     public function utilidad(){
-        return $this->belongsTo(ContaUtilidadRpt::class, 'utilidad_id')->withDefault();
+        return $this->belongsTo(ContaUtilidadRpt::class, 'utilidad_id');
+    }
+
+    public function subGrupos(){
+        return $this->hasMany(ContaGrupoSubResultadoRpt::class,'grupo_id');
     }
 }
