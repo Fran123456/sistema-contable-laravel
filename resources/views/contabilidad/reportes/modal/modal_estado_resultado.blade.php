@@ -25,8 +25,8 @@
               <div class="col-md-12">
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button style="color: white" type="submit" class="btn btn-primary">PDF</button>
-                  <button style="color: white" type="button" class="btn btn-primary">EXCEL</button>
+                  <button style="color: white" type="submit" class="btn btn-primary" name="formato" value="pdf">PDF</button>
+                  <button style="color: white" type="submit" class="btn btn-primary" name="formato" value="excel">EXCEL</button>
                 </div>
               </div>
              </div>

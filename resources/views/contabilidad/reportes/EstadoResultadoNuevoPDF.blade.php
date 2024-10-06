@@ -146,13 +146,12 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                   
                     <th style="text-align: center;" width="120"></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($utilidades as $utilidad)
-
+                    
                     @foreach ($utilidad->grupos as $grupo)
                         <tr colspan="1">
                             <td style="padding-top:10px"><strong>{{ $grupo->grupo }}</strong></td>
@@ -192,6 +191,12 @@
                               {{-- $ {{ number_format($utilidad->calcularUtilidadOperacion($utilidad->id),2) }} --}}
                         </td>
                     </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
                     
                 @endforeach
 

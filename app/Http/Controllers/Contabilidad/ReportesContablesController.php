@@ -20,6 +20,7 @@ use App\Exports\Contabilidad\LibroDiarioMayorRpt as LibroDiarioMayorRptExcel;
 use App\ReportsPDF\Contabilidad\LibroDiarioMayorRpt;
 use App\ReportsPDF\Contabilidad\BalanceComprobacionRpt;
 use App\Exports\Contabilidad\BalanceComprobacionRpt as BalanceComprobacionRptExcel;
+use App\Exports\Contabilidad\ExportEstadoResultado;
 use App\Models\Contabilidad\ContaPartidaContable;
 use App\ReportsPDF\Contabilidad\BalanceComprobacionRptNew;
 use App\Help\Fecha;
@@ -220,6 +221,14 @@ class ReportesContablesController extends Controller
         $context = compact('fechaReporte','utilidades');
         // vista de html del pdf
         $view = 'contabilidad.reportes.EstadoResultadoNuevoPDF';
+        
+        // validar si se quiere descargar en excel 
+        if ($request->formato === "excel") {
+            return Excel::download(
+                new ExportEstadoResultado($fechaReporte, $utilidades),
+                "Estado Resultado.xlsx"
+            );
+        }
 
         $pdf = PDF::loadView($view, $context)->setPaper('letter', 'portrait');
         $pdf->output();
