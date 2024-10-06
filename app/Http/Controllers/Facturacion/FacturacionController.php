@@ -160,7 +160,7 @@ class FacturacionController extends Controller
 
           $response = HttpClient::post("/api/login", config('app.path_api_hacienda'), $body);
        
-
+        
            //peticion hacia el metodo post para mandar el ccf
 
            $data = [
@@ -234,8 +234,8 @@ class FacturacionController extends Controller
                ]
            ];
         
-        $response = HttpClient::post("/api/services/mh/enviar/dte/unitario/ccf", config('app.path_api_hacienda'), $data, $response['access_token']);
-        return $response;
+       // $response = HttpClient::post("/api/services/mh/enviar/dte/unitario/ccf", config('app.path_api_hacienda'), $data, $response['access_token']);
+       // return $response;
         DB::commit();
         return redirect()->route('facturacion.index')->with('success', 'Se ha facturado correctamente');
 
