@@ -10,6 +10,10 @@
             <li class="breadcrumb-item active" aria-current="page">Grupos</li>
         </ol>
     </div>
+    
+    <div class="col-md-12">
+        <x-alert></x-alert>
+    </div>
 
     <div class="col-md-12 text-end mb-4">
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createGrupoModal" title="Agregar Grupo">
@@ -41,6 +45,10 @@
                                     <i class="fa-solid fa-pen-to-square text-success"></i>
                                 </a>
 
+                                <a href="{{ route('contabilidad.grupo.cuentaContable.index', ['rubro' => $rubro->id, 'grupo' => $grupo->id]) }}" title="cuentasContable">
+                                    <i class="fa-solid fa-tags text-primary"></i>
+                                </a>
+
                                 <form id="form{{ $grupo->id }}" action="{{ route('contabilidad.grupos.destroy', $grupo->id) }}" method="post" class="d-inline">
                                     @method('DELETE')
                                     @csrf
@@ -48,6 +56,7 @@
                                         <i class="fa-solid fa-trash text-danger"></i>
                                     </button>
                                 </form>
+
                             </td>
                         </tr>
 

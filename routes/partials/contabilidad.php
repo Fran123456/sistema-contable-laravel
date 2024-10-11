@@ -16,6 +16,7 @@ use App\Http\Controllers\Contabilidad\EstadoResultado\GrupoResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\CuentaResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\SubGrupoResultadoController;
 use App\Http\Controllers\Contabilidad\EstadoResultado\UtilidadOperacionController;
+use App\Http\Controllers\Contabilidad\ContaRubroCuentaController;
 
 Route::middleware(['auth'])->group(function () {
 
@@ -115,5 +116,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('rubros/{rubro}/grupos', [ContaRubroGrupoController::class, 'store'])->name('grupos.store');
         Route::put('grupos/{grupo}', [ContaRubroGrupoController::class, 'update'])->name('grupos.update');
         Route::delete('grupos/{grupo}', [ContaRubroGrupoController::class, 'destroy'])->name('grupos.destroy');
+
+        Route::get('rubros/{rubro}/grupos/{grupo}/cuentas-contables',[ContaRubroCuentaController::class, 'index'])->name('grupo.cuentaContable.index');
+        Route::post('rubros/{rubro}/grupos/{grupo}/cuentas-contables',[ContaRubroCuentaController::class, 'store'])->name('grupo.cuentaContable.store');
+        Route::put('grupo/cuenta-contable-asociada/{id}',[ContaRubroCuentaController::class, 'update'])->name('grupo.cuentaContable.update');
+        Route::delete('grupo/cuenta-contable-asociada/delete/{id}',[ContaRubroCuentaController::class, 'destroy'])->name('grupo.cuentaContable.destroy');
+
+
     });
 });
