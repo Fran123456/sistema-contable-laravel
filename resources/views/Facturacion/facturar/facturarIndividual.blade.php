@@ -126,69 +126,103 @@
         </div>
     </div>
     <br>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-
-                <h4>Resumen</h4>
-                <table class=" table" >
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">SUMAS</th>
-                            <th scope="col">&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>VENTA NO SUJETA</td>
-                            <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
-                                    style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->noSujeto() }}</label></td>
-                        </tr>
-                        <tr>
-                            <td>VENTA EXENTA</td>
-                            <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
-                                    style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->excentas() }}</label></td>
-                        </tr>
-                        <tr>
-                            <td>VENTA GRAVADAS</td>
-                            <td class="text-end"> <label style="font-weight: bold;margin:0;">$&nbsp;</label><label
-                                    style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->gravadas() }}</label></td>
-                        </tr>
-                        <tr>
-                            <td>IVA</td>
-                            <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
-                                    style="font-weight: bold;margin:0;" class="float-right"> 
-                                    {{ $ov->documentos[0]->iva() }}
-                                    </label></td>
-                        </tr>
-                        <tr>
-                            <td>SUB-TOTAL</td>
-                            <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
-                                    style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->subTotal() }}</label></td>
-                        </tr>
-                        <tr>
-                            <td>(+) IVA PERCIBIDO</td>
-                            <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
-                                    style="font-weight: bold;margin:0;" class="float-right">0.00</label></td>
-                        </tr>
-                        <tr>
-                            <td>(-) IVA RETENIDO</td>
-                            <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
-                                    style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->ivaRetenido() }}</label></td>
-                        </tr>
-                        
-                        <tr>
-                            <td>VENTA TOTAL</td>
-                            <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
-                                    style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->total() }}</label></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+    
+                    <h4>Resumen</h4>
+                    <table class=" table" >
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">SUMAS</th>
+                                <th scope="col">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>VENTA NO SUJETA</td>
+                                <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
+                                        style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->noSujeto() }}</label></td>
+                            </tr>
+                            <tr>
+                                <td>VENTA EXENTA</td>
+                                <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
+                                        style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->excentas() }}</label></td>
+                            </tr>
+                            <tr>
+                                <td>VENTA GRAVADAS</td>
+                                <td class="text-end"> <label style="font-weight: bold;margin:0;">$&nbsp;</label><label
+                                        style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->gravadas() }}</label></td>
+                            </tr>
+                            <tr>
+                                <td>IVA</td>
+                                <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
+                                        style="font-weight: bold;margin:0;" class="float-right"> 
+                                        {{ $ov->documentos[0]->iva() }}
+                                        </label></td>
+                            </tr>
+                            <tr>
+                                <td>SUB-TOTAL</td>
+                                <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
+                                        style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->subTotal() }}</label></td>
+                            </tr>
+                            <tr>
+                                <td>(+) IVA PERCIBIDO</td>
+                                <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
+                                        style="font-weight: bold;margin:0;" class="float-right">0.00</label></td>
+                            </tr>
+                            <tr>
+                                <td>(-) IVA RETENIDO</td>
+                                <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
+                                        style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->ivaRetenido() }}</label></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>VENTA TOTAL</td>
+                                <td class="text-end"><label style="font-weight: bold;margin:0;">$&nbsp;</label><label
+                                        style="font-weight: bold;margin:0;" class="float-right">{{ $ov->documentos[0]->total() }}</label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+    
+    
+                </div>
             </div>
         </div>
+
+        @if ($partidas && count($partidas))
+        <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="col-md-3">Fecha</th>
+                                    <th class="col-md-3">Concepto</th>
+                                    <th class="col-md-1">Debe</th>
+                                    <th class="col-md-1">Haber</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($partidas as $item)
+                                    <tr>
+                                        <td>{{ date('Y-m-d', strtotime($item->fecha_contable)) }}</th>
+                                        <td>{{$item->concepto}}</th>
+                                        <td>{{$item->debe}}</th>
+                                        <td>{{$item->haber}}</th>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
+    
+
+    
 
 
 

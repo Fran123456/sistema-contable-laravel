@@ -20,6 +20,7 @@ use App\Models\Facturacion\FactSerialDocumento;
 
 use App\Models\Facturacion\LibroVenta;
 use App\Help\HttpClient;
+use App\Http\Controllers\Contabilidad\PartidaContableTempController;
 use Illuminate\Support\Facades\DB;
 class FacturacionController extends Controller
 {
@@ -121,6 +122,8 @@ class FacturacionController extends Controller
         $doc->posteado = $request->agregar;
         $doc->fecha_emision = $request->fecha_facturar;
         $doc->save();
+
+        PartidaContableTempController::agregarPartidaTemp($doc->id);
 
         
         //Incorporación de CCF a libro ventas.
@@ -244,6 +247,7 @@ class FacturacionController extends Controller
     {
         $ov = FactFacturacion::find($id);
         $doc = FactDocumento::where('facturacion_id', $id)->first();
+        $partidas = PartidaContableTempController::partidasContables($doc->id);
         $servicios = Servicio::where('empresa_id', Help::empresa())->get();
         $productos = ProProducto::where('empresa_id', Help::empresa())->get();
         $tipo = null;
@@ -260,7 +264,7 @@ class FacturacionController extends Controller
             }
         }
 
-        return view('facturacion.facturar.facturarIndividual', compact('ov', 'servicios', 'tipo', 'item', 'itemObj', 'productos', 'doc'));
+        return view('facturacion.facturar.facturarIndividual', compact('ov', 'servicios', 'tipo', 'item', 'itemObj', 'productos', 'doc','partidas'));
 
 
     }
@@ -280,6 +284,9 @@ class FacturacionController extends Controller
         if ($documento->tipo_documento_id == 3) {
             $data = Factura::operacion($request);
         }
+
+        PartidaContableTempController::agregarPartidaTemp($documento->id);
+
 
         if ($data['error']) {
             return redirect()->route('facturacion.agregarItemsFactura', $request->facturacion_id)->with('danger', $data['mensaje']);
