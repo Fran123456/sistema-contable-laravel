@@ -16,7 +16,7 @@ class FactDocumento extends Model
 
     protected $fillable = ['id',
         'documento','facturacion_id','serial','tipo_documento_id','cliente_id','proveedor_id','monto',
-        'estado_facturacion_id','posteado_id','fecha_emision','creado_por','empresa_id','created_at','updated_at'
+        'estado_facturacion_id','posteado_id','fecha_emision','creado_por','empresa_id','created_at','updated_at', 'tipo_pago_id'
     ];
 
     public function estado()
@@ -32,7 +32,10 @@ class FactDocumento extends Model
     {
         return $this->belongsTo(FactTipoDocumento::class, 'tipo_documento_id');
     }
-
+    public function formaPago()
+    {
+        return $this->belongsTo(FeFormaPago::class, 'tipo_pago_id');
+    }
     public function detalles()
     {
         return $this->hasMany(FactDocumentoDetalle::class, 'documento_id');

@@ -9,6 +9,7 @@ use App\Models\Facturacion\FactFacturacion;
 use App\Models\Facturacion\FactTipoDocumento;
 use App\Models\SociosdeNegocio\SociosCliente;
 use App\Models\Facturacion\FactDocumento;
+use App\Models\Facturacion\FeFormaPago;
 use App\Help\Help;
 use App\Help\Facturacion\CCF;
 use App\Help\Facturacion\Factura;
@@ -63,8 +64,9 @@ class FacturacionController extends Controller
 
         $clientes = SociosCliente::orderBy('id', 'desc')->get();
         $tiposDocumento = FactTipoDocumento::whereIn('id', [1, 2, 3, 5])->get();
+        $formaPago = FeFormaPago::where('activo', true)->get();
 
-        return view('facturacion.index', compact('facturaciones', 'clientes', 'tiposDocumento'));
+        return view('facturacion.index', compact('facturaciones', 'clientes', 'tiposDocumento', 'formaPago'));
     }
 
     // Método para validar el formato de una fecha
@@ -296,6 +298,7 @@ class FacturacionController extends Controller
         $request->validate([
             'cliente_id' => 'required|exists:socios_cliente,id',
             'tipo_documento_id' => 'required|exists:fact_tipo_documento,id',
+            'tipo_pago_id' => 'required|exists:fe_forma_pago,id',
         ]);
 
         $empresaId = Auth::user()->empresa_id;
@@ -321,6 +324,7 @@ class FacturacionController extends Controller
             'serial' => null,
             'tipo_documento_id' => $request->tipo_documento_id,
             'cliente_id' => $request->cliente_id,
+            'tipo_pago_id' => $request->tipo_pago_id,
             'monto' => 0,
             'estado_facturacion_id' => 1,
             'posteado' => false,

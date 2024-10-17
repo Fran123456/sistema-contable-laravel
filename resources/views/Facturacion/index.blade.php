@@ -114,6 +114,16 @@
                                     </select>
                                 </div>
 
+                                <div class="mb-3">
+                                    <label for="forma-pago-select" class="form-label">Forma de pago:</label>
+                                    <select class="form-select w-100" id="forma-pago-select" name="tipo_pago_id">
+                                        <option></option>
+                                        @foreach ($formaPago as $valor)
+                                            <option value="{{ $valor->id }}">{{ $valor->valor }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <button type="submit" class="btn btn-success w-100"><i class="fas fa-check-circle"></i> Guardar</button>
                             </form>
                         </div>
@@ -125,7 +135,7 @@
 
             <script>
                 $(document).ready(function() {
-                    $('#cliente-select, #tipo-documento-select').select2({
+                    $('#cliente-select, #tipo-documento-select, #forma-pago-select').select2({
                         placeholder: 'Seleccione una opción',
                         dropdownParent: $('#clienteModal'),
                         allowClear: true,
