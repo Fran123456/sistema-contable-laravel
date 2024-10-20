@@ -157,8 +157,7 @@ class FacturacionController extends Controller
             'password' => 'password'
         ];
         
-
-          $response = HttpClient::post("/api/login", config('app.path_api_hacienda'), $body);
+        $response = HttpClient::post("/api/login", config('app.path_api_hacienda'), $body);
        
         
            //peticion hacia el metodo post para mandar el ccf

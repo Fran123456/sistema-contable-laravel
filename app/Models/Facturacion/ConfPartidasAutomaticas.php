@@ -18,7 +18,7 @@ class ConfPartidasAutomaticas extends Model
         'tipo',
         'descripcion',
         'titulo',
-        'empresa_id',
+        'empresa_id','codigo'
     ];
 
     public function cuentaContable()

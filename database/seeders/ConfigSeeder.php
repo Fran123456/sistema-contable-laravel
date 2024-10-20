@@ -186,5 +186,54 @@ class ConfigSeeder extends Seeder
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
+
+
+
+
+
+        //CONFIGS PARA PARTIDAS AUTOMATICAS
+        DB::table('conf_partidas_automaticas')->insert([
+            'cuenta_id' => null,
+            'codigo' => null,
+            'descripcion'=>'INGRESO POR VENTA DEL DIA',
+            'titulo'=>'INGRESO POR VENTA DEL DIA',
+            'tipo'=> 'partida_venta',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+        DB::table('conf_partidas_automaticas')->insert([
+            'cuenta_id' => null,
+            'codigo' => null,
+            'descripcion'=>'IVA-DEBITO FISCAL POR VENTAS DEL DIA',
+            'titulo'=>'IVA-DEBITO FISCAL POR VENTAS DEL DIA',
+            'tipo'=> 'partida_venta',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+        DB::table('conf_partidas_automaticas')->insert([
+            'cuenta_id' => null,
+            'codigo' => null,
+            'descripcion'=>'CUENTA POR COBRAR A CLIENTES DEL EXTERIOR',
+            'titulo'=>'CUENTA POR COBRAR A CLIENTES DEL EXTERIOR',
+            'tipo'=> 'partida_venta',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+        DB::table('conf_partidas_automaticas')->insert([
+            'cuenta_id' => null,
+            'codigo' => null,
+            'descripcion'=>'CUENTA POR COBRAR A CLIENTES LOCALES',
+            'titulo'=>'CUENTA POR COBRAR A CLIENTES LOCALES',
+            'tipo'=> 'partida_venta',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+
+
+
     }
 }

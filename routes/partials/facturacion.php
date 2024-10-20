@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [SerialDocumentoController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('partidasAutomaticas')->name('partidasAutomaticas.')->group( function(){
+    Route::prefix('facturacion/configuracion')->name('partidasAutomaticas.')->group( function(){
         Route::get('/partidas-automaticas', [PartidasAutomaticasController::class, 'index'])->name('index');
         Route::put('/partidas-automaticas/update/{id}', [PartidasAutomaticasController::class, 'update'])->name('update');
     });

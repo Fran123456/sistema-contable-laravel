@@ -12,7 +12,7 @@ class ReportesContables
     public static function saldoAcreedorDeudor($debe, $haber, $saldo, $tipo){
 
         $aux = 0;
-        if ($tipo == "deudora") {
+        if ($tipo != "deudora") {
             $aux = $debe - $haber;
         } else {
             $aux = $haber - $debe;

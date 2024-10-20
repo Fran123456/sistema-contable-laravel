@@ -27,7 +27,9 @@ class PartidasAutomaticasController extends Controller
     public function update(Request $request, $id)
     {
         $partida = ConfPartidasAutomaticas::findOrFail($id);
+        $cuenta = ContaCuentaContable::find($id);
         $partida->cuenta_id = $request->cuenta_id;
+        $partida->codigo = $cuenta->codigo;
         if(!$partida->save()){
             return redirect()->back()->with('danger', 'Problemas al actualizar'); 
         }
