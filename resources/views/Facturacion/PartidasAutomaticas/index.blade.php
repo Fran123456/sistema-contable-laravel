@@ -1,4 +1,7 @@
 <x-app-layout>
+
+
+
     <x-slot:title>
         Partidas Automaticas
     </x-slot>
@@ -35,7 +38,9 @@
                             <tr>
                                 <td>{{ $partida->titulo }}</td>
                                 <td>{{ $partida->descripcion }}</td>
-                                <td>{{ $partida->cuentaContable ? $partida->cuentaContable->nombre_cuenta : 'No asignada' }}</td>
+                                <td>
+                                    {{ $partida->cuentaContable ? $partida->cuentaContable->codigo . ' - ' . $partida->cuentaContable->nombre_cuenta : 'No asignada' }}
+                                </td>
                                 <td>
                                     <i class="fas fa-edit text-success" data-bs-toggle="modal"
                                         data-bs-target="#editModal-{{ $partida->id }}" style="cursor: pointer;"></i>
@@ -61,12 +66,13 @@
                                                 @method('PUT')
                                                 <div class="mb-3">
                                                     <label for="cuenta_id" class="form-label">Cuenta Contable</label>
-                                                    <select class="form-select" id="cuenta_id" name="cuenta_id">
+                                                    <select class="form-select select2"
+                                                        id="cuentaID{{$partida->id}}" name="cuenta_id">
                                                         <option selected disabled>Seleccione</option>
                                                         @foreach ($cuentas as $cuenta)
                                                             <option value="{{ $cuenta->id }}"
-                                                                {{ $cuenta->id == $partida->cuenta_id ? 'selected' : '' }}>
-                                                                {{ $cuenta->nombre_cuenta }}
+                                                                @if ($cuenta->id == $partida->cuenta_id) selected @endif>
+                                                                {{ $cuenta->codigo }} - {{ $cuenta->nombre_cuenta }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -91,16 +97,18 @@
         </div>
     </div>
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
     <script>
-        $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: 'Seleccione una opción',
-                dropdownParent: $('#editModal'),
-                allowClear: true,
-                closeOnSelect: true,
-                width: '100%'
+     $(document).ready(function() {
+            $('.select2').each(function() {
+                $(this).select2({
+                    theme: "bootstrap-5",
+                    dropdownParent: $(this).parent()
+                });
             });
         });
     </script>
