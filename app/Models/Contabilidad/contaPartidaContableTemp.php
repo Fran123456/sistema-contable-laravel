@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class contaPartidaContableTemp extends Model
+class ContaPartidaContableTemp extends Model
 {
     use HasFactory;
 

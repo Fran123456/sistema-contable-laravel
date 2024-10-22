@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('cuenta_id')->references('id')->on('conta_cuenta_contable')->onUpdate('cascade');
             $table->string('codigo')->nullable();
             $table->string('tipo')->nullable();
+            $table->string('keygen')->nullable();
+            
             $table->text('descripcion')->nullable();
             $table->string('titulo')->nullable();
             $table->unsignedBigInteger('empresa_id')->nullable();

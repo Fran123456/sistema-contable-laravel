@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FeDepartamentosSeeder::class);
         $this->call(FeMunicipiosSeeder::class);
         $this->call(FeActividadEconomicasSeeder::class);
-
+        $this->call(FeFormaPagoSeeder::class);
 
 
         // \App\Models\User::factory(10)->create();

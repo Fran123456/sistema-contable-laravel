@@ -27,7 +27,7 @@ return new class extends Migration
             $table->dateTime('fecha_cierre')->nullable();
             $table->unsignedBigInteger('empresa_id')->nullable();
             $table->unsignedBigInteger('documento_id')->nullable();
-            $table->foreign('cocumento_id')->references('id')
+            $table->foreign('documento_id')->references('id')
             ->on('fact_documento')->onUpdate('cascade')->onDelete('cascade');
 
             $table->unsignedBigInteger('creador_id')->nullable();

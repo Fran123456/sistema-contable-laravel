@@ -10,19 +10,20 @@ use App\Models\Facturacion\FactTipoDocumento;
 use App\Models\Facturacion\FactEstadoFacturacion;
 use App\Models\SociosdeNegocio\SociosCliente;
 use App\Models\Facturacion\FactDocumento;
+use App\Models\Facturacion\FeFormaPago;
 use App\Help\Help;
 use App\Help\Facturacion\CCF;
 use App\Help\Facturacion\Factura;
 use App\Models\Producto\Servicio;
 use App\Models\Producto\ProProducto;
 use App\Models\Facturacion\FactDocumentoDetalle;
-
 use App\Models\Facturacion\FactSerialDocumento;
-
 use App\Models\Facturacion\LibroVenta;
 use App\Help\HttpClient;
-use App\Http\Controllers\Contabilidad\PartidaContableTempController;
 use Illuminate\Support\Facades\DB;
+use App\Help\Contabilidad\PartidasAutomaticasVenta;
+
+
 class FacturacionController extends Controller
 {
     public function index(Request $request)
@@ -65,8 +66,9 @@ class FacturacionController extends Controller
 
         $clientes = SociosCliente::orderBy('id', 'desc')->get();
         $tiposDocumento = FactTipoDocumento::whereIn('id', [1, 2, 3, 5])->get();
+        $formaPago = FeFormaPago::where('activo', true)->get();
 
-        return view('facturacion.index', compact('facturaciones', 'clientes', 'tiposDocumento'));
+        return view('facturacion.index', compact('facturaciones', 'clientes', 'tiposDocumento', 'formaPago'));
     }
 
     // Método para validar el formato de una fecha
@@ -124,7 +126,7 @@ class FacturacionController extends Controller
         $doc->fecha_emision = $request->fecha_facturar;
         $doc->save();
 
-        PartidaContableTempController::agregarPartidaTemp($doc->id);
+       // PartidaContableTempController::agregarPartidaTemp($doc->id);
 
         
         //Incorporación de CCF a libro ventas.
@@ -247,7 +249,6 @@ class FacturacionController extends Controller
     {
         $ov = FactFacturacion::find($id);
         $doc = FactDocumento::where('facturacion_id', $id)->first();
-        $partidas = PartidaContableTempController::partidasContables($doc->id);
         $servicios = Servicio::where('empresa_id', Help::empresa())->get();
         $productos = ProProducto::where('empresa_id', Help::empresa())->get();
         $tipo = null;
@@ -263,7 +264,7 @@ class FacturacionController extends Controller
                 $itemObj = ProProducto::find($item);
             }
         }
-
+        $partidas =PartidasAutomaticasVenta::partidaTemp($doc->id);
         return view('facturacion.facturar.facturarIndividual', compact('ov', 'servicios', 'tipo', 'item', 'itemObj', 'productos', 'doc','partidas'));
 
 
@@ -271,9 +272,9 @@ class FacturacionController extends Controller
 
     public function facturarItems(Request $request)
     {
-
-
         $documento = FactDocumento::find($request->doc_id);
+        $partida =PartidasAutomaticasVenta::partidaTemp($documento->id);
+
         $facturacion = FactFacturacion::find($request->facturacion_id);
         $facturacion->estado_id = 3;
         $facturacion->save();
@@ -285,7 +286,7 @@ class FacturacionController extends Controller
             $data = Factura::operacion($request);
         }
 
-        PartidaContableTempController::agregarPartidaTemp($documento->id);
+        
 
 
         if ($data['error']) {
@@ -303,6 +304,7 @@ class FacturacionController extends Controller
         $request->validate([
             'cliente_id' => 'required|exists:socios_cliente,id',
             'tipo_documento_id' => 'required|exists:fact_tipo_documento,id',
+            'tipo_pago_id' => 'required|exists:fe_forma_pago,id',
         ]);
 
         $empresaId = Auth::user()->empresa_id;
@@ -328,6 +330,7 @@ class FacturacionController extends Controller
             'serial' => null,
             'tipo_documento_id' => $request->tipo_documento_id,
             'cliente_id' => $request->cliente_id,
+            'tipo_pago_id' => $request->tipo_pago_id,
             'monto' => 0,
             'estado_facturacion_id' => 1,
             'posteado' => false,

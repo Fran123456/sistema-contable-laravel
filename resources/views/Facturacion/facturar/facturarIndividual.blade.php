@@ -34,7 +34,8 @@
                     Dui: {{ $ov->cliente->dui ?? 'Sin documento' }} <br>
                     Nit: {{ $ov->cliente->nit ?? 'Sin documento' }} <br>
                     Correo: {{ $ov->cliente->correo ?? 'Sin correo' }} <br>
-                    Tipo cliente: {{ $ov->cliente->tipo_cliente ?? 'Sin clasificación' }}
+                    Tipo cliente: {{ $ov->cliente->tipo_cliente ?? 'Sin clasificación' }} <br>
+                    Forma de pago: {{ $ov->documentos[0]->formaPago?->valor ?? 'Sin clasificación' }}
 
                 </p>
             </div>

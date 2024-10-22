@@ -37,8 +37,8 @@ return new class extends Migration
             ->on('users')->onUpdate('cascade')->onDelete('set null');
             
 
-            $table->foreign('cuenta_contable_id')->references('id')
-            ->on('conta_cuenta_contable')->onUpdate('cascade')->onDelete('cascade');
+         /*   $table->foreign('cuenta_contable_id')->references('id')
+            ->on('conta_cuenta_contable')->onUpdate('cascade')->onDelete('cascade');*/
             
             $table->foreign('partida_id')->references('id')
             ->on('conta_partida_contable')->onUpdate('cascade')->onDelete('cascade');

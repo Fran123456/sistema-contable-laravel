@@ -197,6 +197,7 @@ class ConfigSeeder extends Seeder
             'codigo' => null,
             'descripcion'=>'INGRESO POR VENTA DEL DIA',
             'titulo'=>'INGRESO POR VENTA DEL DIA',
+            'keygen'=>'ingreso_venta',
             'tipo'=> 'partida_venta',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
@@ -205,33 +206,74 @@ class ConfigSeeder extends Seeder
         DB::table('conf_partidas_automaticas')->insert([
             'cuenta_id' => null,
             'codigo' => null,
-            'descripcion'=>'IVA-DEBITO FISCAL POR VENTAS DEL DIA',
-            'titulo'=>'IVA-DEBITO FISCAL POR VENTAS DEL DIA',
+            'descripcion'=>'IVA-DEBITO FISCAL CONTRIBUYENTE POR VENTAS DEL DIA',
+            'titulo'=>'IVA-DEBITO FISCAL CONTRIBUYENTE POR VENTAS DEL DIA',
+            'keygen'=>'iva_debito_fiscal_contribuyente',
             'tipo'=> 'partida_venta',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
+
+        DB::table('conf_partidas_automaticas')->insert([
+            'cuenta_id' => null,
+            'codigo' => null,
+            'descripcion'=>'IVA-DEBITO FISCAL CONSUMIDOR FINAL POR VENTAS DEL DIA',
+            'titulo'=>'IVA-DEBITO FISCAL CONSUMIDOR FINAL POR VENTAS DEL DIA',
+            'keygen'=>'iva_debito_fiscal_consumidor',
+            'tipo'=> 'partida_venta',
+            'empresa_id' => 1,
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+
         DB::table('conf_partidas_automaticas')->insert([
             'cuenta_id' => null,
             'codigo' => null,
             'descripcion'=>'CUENTA POR COBRAR A CLIENTES DEL EXTERIOR',
             'titulo'=>'CUENTA POR COBRAR A CLIENTES DEL EXTERIOR',
+            'keygen'=>'cxc_exterior',
             'tipo'=> 'partida_venta',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
+
         DB::table('conf_partidas_automaticas')->insert([
             'cuenta_id' => null,
             'codigo' => null,
             'descripcion'=>'CUENTA POR COBRAR A CLIENTES LOCALES',
             'titulo'=>'CUENTA POR COBRAR A CLIENTES LOCALES',
+            'keygen'=>'cxc_local',
             'tipo'=> 'partida_venta',
             'empresa_id' => 1,
             'created_at'=>date("Y-m-d h:i:s"),
             'updated_at'=>date("Y-m-d h:i:s"),
         ]);
+
+        DB::table('conf_partidas_automaticas')->insert([
+            'cuenta_id' => null,
+            'tipo' => 'partida_venta',
+            'empresa_id' => 1,
+            'descripcion' => "Cuenta contable asignada a retención 1%",
+            'titulo'=>'CUENTAD DE RETENCION 1%',
+            'keygen'=>'retension1',
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+
+        DB::table('conf_partidas_automaticas')->insert([
+            'cuenta_id' => null,
+            'tipo' => 'partida_venta',
+            'empresa_id' => 1,
+            'descripcion' => "Cuenta contable asignada a Renta",
+            'keygen'=>'renta_venta',
+            'titulo'=>'CUENTA DE RENTA',
+            'created_at'=>date("Y-m-d h:i:s"),
+            'updated_at'=>date("Y-m-d h:i:s"),
+        ]);
+
+
 
 
 
