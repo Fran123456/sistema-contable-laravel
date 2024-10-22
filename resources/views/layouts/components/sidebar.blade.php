@@ -42,6 +42,7 @@
 
                 @include('layouts.components.menus.productos')
                 @include('layouts.components.menus.facturacion')
+                @include('layouts.components.menus.cuentasporcobrar')
 
         
 
