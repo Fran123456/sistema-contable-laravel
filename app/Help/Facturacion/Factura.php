@@ -100,7 +100,7 @@ class Factura
         $gravada = self::gravada($montoConDescuento, $request->iva,$request->sujeto ) +$iva;
         $sujeto = self::sujeto($montoConDescuento , $request->sujeto);
 
-        FactDocumentoDetalle::create([
+        $dt = FactDocumentoDetalle::create([
             'documento_id'=>$request->doc_id,
             'facturacion_id'=>$request->facturacion_id,
             'cliente_id'=>$request->cliente_id,
@@ -123,7 +123,7 @@ class Factura
             'creador_id'=>Help::usuario()->id,
             'empresa_id'=>Help::empresa(),
         ]);
-        return array("error"=> false, 'mensaje'=> "Se ha agregado el item correctamente");
+        return array("error"=> false, 'mensaje'=> "Se ha agregado el item correctamente", "data"=> $dt);
 
     }
 

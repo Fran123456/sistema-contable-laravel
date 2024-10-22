@@ -15,9 +15,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Models\Facturacion\ConfPartidasAutomaticas;
+
 
 class Help
 {
+
+    public static function partidaAutomaticaConf($key){
+       return  ConfPartidasAutomaticas::where('keygen', $key)->where('empresa_id', Help::empresa())->first();
+    }
 
     public static function groupPermissions($group)
     {

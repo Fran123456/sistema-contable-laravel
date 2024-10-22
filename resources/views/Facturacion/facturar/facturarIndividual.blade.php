@@ -192,23 +192,23 @@
             </div>
         </div>
 
-        @if ($partidas && count($partidas))
+        
         <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="col-md-3">Fecha</th>
+                                   
                                     <th class="col-md-3">Concepto</th>
                                     <th class="col-md-1">Debe</th>
                                     <th class="col-md-1">Haber</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($partidas as $item)
+                                @foreach ($partidas->detalles as $item)
                                     <tr>
-                                        <td>{{ date('Y-m-d', strtotime($item->fecha_contable)) }}</th>
+                                        
                                         <td>{{$item->concepto}}</th>
                                         <td>{{$item->debe}}</th>
                                         <td>{{$item->haber}}</th>
@@ -219,7 +219,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+        
     </div>
     
 

@@ -265,6 +265,8 @@ class FacturacionController extends Controller
             }
         }
         $partidas =PartidasAutomaticasVenta::partidaTemp($doc->id);
+        
+      
         return view('facturacion.facturar.facturarIndividual', compact('ov', 'servicios', 'tipo', 'item', 'itemObj', 'productos', 'doc','partidas'));
 
 
@@ -285,8 +287,12 @@ class FacturacionController extends Controller
         if ($documento->tipo_documento_id == 3) {
             $data = Factura::operacion($request);
         }
-
         
+
+        PartidasAutomaticasVenta::detallesTemp(
+            $documento->id, /*id del documento*/
+            $partida, /*objeto de instancia PartidaContable*/
+        $data /*detalle de venta*/ );
 
 
         if ($data['error']) {

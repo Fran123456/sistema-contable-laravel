@@ -8,6 +8,8 @@ use App\Models\Contabilidad\ContaPartidaContable;
 use App\Models\Contabilidad\ContaPeriodoContable;
 use App\Models\Contabilidad\ContaCuentaContable;
 use App\Models\Contabilidad\ContaPartidaContableTemp;
+use App\Models\Contabilidad\ContaPartidaDetalleContableTemp;
+
 use App\Models\Facturacion\FactDocumento;
 
 use Illuminate\Support\Facades\DB;
@@ -37,19 +39,35 @@ class PartidasAutomaticasVenta
             $partida->save();
             DB::commit();
         }
-        
+        return $partida;
+    }
+    
+
+    public static function detalleTemp($partidaTemp, $cuentaId, $cuentaCodigo, $debe, $haber, $concepto = null ){
+        ContaPartidaDetalleContableTemp::create([
+            'partida_id'=> $partidaTemp->id,
+            'empresa_id'=> $partidaTemp->empresa_id,
+            'cuenta_contable_id'=> $cuentaId,
+            'codigo_cuenta'=> $cuentaCodigo,
+            'debe'=> $debe,
+            'haber'=> $haber,
+            'fecha_contable'=> $partidaTemp->fecha_contable ,
+            'concepto'=> $concepto?? $partidaTemp->concepto
+
+        ]);
+
     }
 
-    public static function detalleTemp(
+    public static function detallesTemp(
         $documento_id, /*id del documento*/
         $partida, /*objeto de instancia PartidaContable*/
         $detalleVenta /*detalle de venta*/ ){
 
         $doc = FactDocumento::where('id', $documento_id)->first();
-        if($documento->tipo_documento_id == 1){ //Comprobante de Credito Fiscal
+        if($doc->tipo_documento_id == 1){ //Comprobante de Credito Fiscal
             //IVA DEBITO FISCAL VENTAS A CONTRIBUYENTES CCF
-            $cuentaIva =  Help::configuracion('conta-cuenta-iva-debito-fiscal-contribuyente')->valor;
-                
+            $cuentaIva =  Help::partidaAutomaticaConf('iva_debito_fiscal_contribuyente');
+            self::detalleTemp($partida, $cuentaIva->cuenta_id, $cuentaIva->codigo_id, $detalleVenta['data']['iva'], 0, null );
             //IVA DEBITO FISCAL VENTAS A CONTRIBUYENTES CCF
         }
 

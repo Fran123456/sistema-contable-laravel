@@ -41,6 +41,6 @@ class ContaPartidaContableTemp extends Model
     }
 
     public function detalles(){
-        return $this->hasMany(ContaDetallePartida::class,'partida_id');
+        return $this->hasMany(ContaPartidaDetalleContableTemp::class,'partida_id');
     }
 }
