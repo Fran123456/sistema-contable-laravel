@@ -62,14 +62,33 @@ class PartidasAutomaticasVenta
         $documento_id, /*id del documento*/
         $partida, /*objeto de instancia PartidaContable*/
         $detalleVenta /*detalle de venta*/ ){
+        
+        $ventaSinIva = 0;
 
+        //************************************IVA*******************************************************
         $doc = FactDocumento::where('id', $documento_id)->first();
         if($doc->tipo_documento_id == 1){ //Comprobante de Credito Fiscal
             //IVA DEBITO FISCAL VENTAS A CONTRIBUYENTES CCF
             $cuentaIva =  Help::partidaAutomaticaConf('iva_debito_fiscal_contribuyente');
             self::detalleTemp($partida, $cuentaIva->cuenta_id, $cuentaIva->codigo_id, $detalleVenta['data']['iva'], 0, null );
             //IVA DEBITO FISCAL VENTAS A CONTRIBUYENTES CCF
+            $ventaSinIva = $detalleVenta['data']['gravada'];
         }
+        if($doc->tipo_documento_id == 3){ //factura
+            //IVA-DEBITO FISCAL CONSUMIDOR FINAL POR VENTAS DEL DIA 
+            $cuentaIva =  Help::partidaAutomaticaConf('iva_debito_fiscal_consumidor');
+            self::detalleTemp($partida, $cuentaIva->cuenta_id, $cuentaIva->codigo_id, $detalleVenta['data']['iva'], 0, null );
+            //IVA-DEBITO FISCAL CONSUMIDOR FINAL POR VENTAS DEL DIA
+            $ventaSinIva = $detalleVenta['data']['gravada'];
+        }
+        //************************************IVA*******************************************************
+
+        //*************************************abono en el caso sea efectivo***************************
+        if($doc->tipo_pago_id == 1){
+            $ingresoVentaDia =  Help::partidaAutomaticaConf('ingreso_venta');
+            self::detalleTemp($partida, $ingresoVentaDia->cuenta_id, $ingresoVentaDia->codigo_id, $ventaSinIva, 0, null );
+        }
+
 
     }
 

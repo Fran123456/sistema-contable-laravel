@@ -41,7 +41,7 @@ return new class extends Migration
             ->on('conta_cuenta_contable')->onUpdate('cascade')->onDelete('cascade');*/
             
             $table->foreign('partida_id')->references('id')
-            ->on('conta_partida_contable')->onUpdate('cascade')->onDelete('cascade');
+            ->on('conta_partida_contable_temporal')->onUpdate('cascade')->onDelete('cascade');
 
             $table->foreign('empresa_id')->references('id')->on('rrhh_empresa')
             ->onUpdate('cascade')->onDelete('cascade');
