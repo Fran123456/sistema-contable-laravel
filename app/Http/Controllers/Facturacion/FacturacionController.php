@@ -163,83 +163,15 @@ class FacturacionController extends Controller
         ];
         
         $response = HttpClient::post("/api/login", config('app.path_api_hacienda'), $body);
-       
+     
         
            //peticion hacia el metodo post para mandar el ccf
 
-           $data = [
-               "codigo_pago" => "01",
-               "pagoTributos" => [
-                   [
-                       "20" => "13"
-                   ]
-               ],
-               "periodo_pago" => "CONTADO",
-               "plazo_pago" => "CONTADO",
-               "dteJson" => [
-                   "receptor" => [
-                       "nit" => "012345678901234",
-                       "dui" => "012345678-9",
-                       "nombre" => "Carlos Alfaro",
-                       "descActividad" => "Otros",
-                       "nombreComercial" => "Carlos Alfaro",
-                       "nrc"=> "0123456789",
-                       "codActividad"=>  "10005", 
-                       "direccion" =>[
-                        "departamento"=> "San Salvador",
-                        "municipio"=> "San Salvador",
-                        "complemento"=> null
-                       ],
-                       "telefono"=> "0123-4567",
-                       "correo"=> "Correo@gmail.com"
-                   
-                
-                   ],
-                   "documentoRelacionado"=> null,
-                   "otrosDocumentos" => null,
-                   "ventaTercero" => null,
-                   "cuerpoDocumento" => [
-                       [
-                           "psv" => 0.0,
-                           "codigo" => "SR001",
-                           "cantidad" => 1,
-                           "tipoItem" => "4",
-                           "tributos" => [
-                               "20"
-                           ],
-                           "noGravado" => 0.00,
-                           "precioUni" => 0.00,
-                           "uniMedida" => "99",
-                           "codTributo" => "código del tributo según catalogo MH / null",
-                           "montoDescu" => 0.00,
-                           "ventaNoSuj" => 0.00,
-                           "descripcion" => "Programación",
-                           "ventaExenta" => 0.00,
-                           "ventaGravada" => 100,
-                           "numeroDocumento" => null
-                        ]
-                        
-                   ],
-                   "extension" => [
-                       "nombEntrega" => "nombre del responsable generador del DTE",
-                       "docuEntrega" => "identificación del generador del DTE",
-                       "nombRecibe" => "nombre del responsable receptor",
-                       "docuRecibe" => "identificación del receptor",
-                       "observaciones" => "observaciones",
-                       "placaVehiculo" => "placa vehiculo"
-                   ],
-                   "apendice" => [
-                       [
-                           "campo" => "Datos del Vendedor",
-                           "etiqueta" => "Nombre del Vendedor",
-                           "valor" => "000000000 - Administrador"
-                       ]
-                   ]
-               ]
-           ];
+           
+          // return $data;
         
        // $response = HttpClient::post("/api/services/mh/enviar/dte/unitario/ccf", config('app.path_api_hacienda'), $data, $response['access_token']);
-       // return $response;
+      
         DB::commit();
         return redirect()->route('facturacion.index')->with('success', 'Se ha facturado correctamente');
 

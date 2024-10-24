@@ -70,23 +70,26 @@ class PartidasAutomaticasVenta
         if($doc->tipo_documento_id == 1){ //Comprobante de Credito Fiscal
             //IVA DEBITO FISCAL VENTAS A CONTRIBUYENTES CCF
             $cuentaIva =  Help::partidaAutomaticaConf('iva_debito_fiscal_contribuyente');
-            self::detalleTemp($partida, $cuentaIva->cuenta_id, $cuentaIva->codigo_id, $detalleVenta['data']['iva'], 0, null );
+            self::detalleTemp($partida, $cuentaIva->cuenta_id, $cuentaIva->codigo_id, 0, $detalleVenta['data']['iva'], null );
             //IVA DEBITO FISCAL VENTAS A CONTRIBUYENTES CCF
             $ventaSinIva = $detalleVenta['data']['gravada'];
         }
         if($doc->tipo_documento_id == 3){ //factura
             //IVA-DEBITO FISCAL CONSUMIDOR FINAL POR VENTAS DEL DIA 
             $cuentaIva =  Help::partidaAutomaticaConf('iva_debito_fiscal_consumidor');
-            self::detalleTemp($partida, $cuentaIva->cuenta_id, $cuentaIva->codigo_id, $detalleVenta['data']['iva'], 0, null );
+            self::detalleTemp($partida, $cuentaIva->cuenta_id, $cuentaIva->codigo_id,0 , $detalleVenta['data']['iva'], null );
             //IVA-DEBITO FISCAL CONSUMIDOR FINAL POR VENTAS DEL DIA
             $ventaSinIva = $detalleVenta['data']['gravada'];
         }
         //************************************IVA*******************************************************
 
         //*************************************abono en el caso sea efectivo***************************
-        if($doc->tipo_pago_id == 1){
+        if($doc->tipo_pago_id == 13){
+            $ingresoVentaDia =  Help::partidaAutomaticaConf('cxc_local');
+            self::detalleTemp($partida, $ingresoVentaDia->cuenta_id, $ingresoVentaDia->codigo_id,  0,$ventaSinIva, null );
+        }else{
             $ingresoVentaDia =  Help::partidaAutomaticaConf('ingreso_venta');
-            self::detalleTemp($partida, $ingresoVentaDia->cuenta_id, $ingresoVentaDia->codigo_id, $ventaSinIva, 0, null );
+            self::detalleTemp($partida, $ingresoVentaDia->cuenta_id, $ingresoVentaDia->codigo_id, 0, $ventaSinIva, null );
         }
 
 
