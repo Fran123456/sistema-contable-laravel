@@ -30,7 +30,8 @@
 
             @if (Help::usuario()->empresa_id != null)
                
-                
+                @include('layouts.components.menus.configuracion')
+
                 @include('layouts.components.menus.seguridad')
 
                 @include('layouts.components.menus.rrhh')

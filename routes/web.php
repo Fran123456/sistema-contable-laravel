@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 include base_path('routes/partials/users.php');
+include base_path('routes/partials/Configuracion.php');
 include base_path('routes/partials/contabilidad.php');
 include base_path('routes/partials/rrhh.php');
 include base_path('routes/partials/config.php');
