@@ -45,12 +45,12 @@
                         <div class=" row ">
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="nombres">Nombres</label><span class="text-danger">*</span>
-                                <input name="nombre_empresa" id="nombre_empresa" value="{{ old('nombres') }}" required
+                                <input name="nombre_empresa" id="nombre_empresa" value="" required
                                     type="text" class="form-control" max="300">
                             </div>
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="">NIT</label><span class="text-danger">*</span>
-                                <input name="nit" id="nit" value="{{ old('apellidos') }}" placeholder="0000-000000-000-0" required
+                                <input name="nit" id="nit" value="" placeholder="0000-000000-000-0" required
                                     type="text" class="form-control" max="300">
                             </div>
                         </div>
@@ -65,7 +65,7 @@
 
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="">Dirección</label><span class="text-danger">*</span>
-                                <input class="form-control" name="direccion" id="direccion" value="{{ old('telefono') }}"
+                                <input class="form-control" name="direccion" id="direccion" value=""
                                     type="text" max="200" required>
                             </div>
                         </div>
@@ -75,13 +75,13 @@
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="">Correo de la empresa</label>
                                 <input name="email" id="email_empresa"
-                                    value="{{ old('correo_empresarial') }}" type="email" class="form-control"
+                                    value="" type="email" class="form-control"
                                     max="200">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="direccion">Teléfono</label><span class="text-danger">*</span>
-                                <input name="telefono_empresa" id="telefono" value="{{ old('direccion') }}" type="phone"
+                                <input name="telefono_empresa" id="telefono" value="" type="phone"
                                     class="form-control" max="200">
                             </div>
                         </div>
@@ -91,13 +91,13 @@
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="correo_empresarial">Representante legal</label>
                                 <input name="representante_legal" id="repre_legal"
-                                    value="{{ old('correo_empresarial') }}" type="text" class="form-control"
+                                    value="" type="text" class="form-control"
                                     max="200">
                             </div>
 
                             <div class=" col-md-6 mt-2 mb-12 ">
                                 <label for="direccion">Teléfono representante legal</label><span class="text-danger">*</span>
-                                <input name="telefono_repre_legal" id="telefono_repre_legal" value="{{ old('direccion') }}" type="phone"
+                                <input name="telefono_repre_legal" id="telefono_repre_legal" value="" type="phone"
                                     class="form-control" max="200">
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                         <div class="row">
                             <div class=" col-md-4 mt-2 mb-12 ">
                                 <label for="edad">Responsable del contrato</label><span class="text-danger">*</span>
-                                <input name="responsable_contrato" id="responsable_contrato" value="{{ old('edad') }}" type="text"
+                                <input name="responsable_contrato" id="responsable_contrato" value="" type="text"
                                     class="form-control" required>
                             </div>
 
@@ -141,47 +141,25 @@
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#area').on('change',function () {
-                var areaId = $(this).val();
-                $.ajax({
-                    url: '/rrhh/obtener-departamentos/' + areaId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
-                        $('#departamento').empty();
-                        $('#departamento').append("<option value=''>Selecciona un departamento</option>");
-                        $.each(data, function (key, value) {
-                            $('#departamento').append('<option value="'+ value.id +'">' + value.departamento + '</option>');
-                        });
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
-            });
-            $('#departamento').on('change',function () {
-                var departamentoId = $(this).val();
-                $.ajax({
-                    url: '/rrhh/obtener-cargos/' + departamentoId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
-                        $('#cargo').empty();
-                        $('#cargo').append("<option value=''>Selecciona un cargo</option>");
-                        $.each(data, function (key, value) {
-                            $('#cargo').append('<option value="'+ value.id +'">' + value.cargo + '</option>');
-                        });
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
-            });
+        document.getElementById('nit').addEventListener('input', function(e) {
+        
+        let input = e.target;
+        let value = input.value.replace(/\D/g, ''); // Solo números
+        
+        
+        if (value.length > 0) {
+            value = value.match(new RegExp('.{1,15}'))[0]; 
+            
+            
+            let formatted = '';
+            if (value.length > 0) formatted = value.substring(0, 4);
+            if (value.length > 4) formatted += '-' + value.substring(4, 10);
+            if (value.length > 10) formatted += '-' + value.substring(10, 13);
+            if (value.length > 13) formatted += '-' + value.substring(13, 14);
+            
+            input.value = formatted;
+        }
         });
-        $(".chosen-select").chosen({
-            no_results_text: "Oops, nothing found!"
-        })
     </script>
 
 
