@@ -10,6 +10,7 @@ use App\Models\RRHH\RRHHTipoEmpleado;
 use App\Models\RRHH\RRHHArea;
 use App\Models\RRHH\RRHHDepartamento;
 use App\Models\RRHH\RRHHPuesto;
+use App\Models\Configuracion\ConProvisionEmpresa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -98,6 +99,26 @@ class EmpleadoController extends Controller
 
         $empresa_id = Help::empresa();
 
+        $provisions = ConProvisionEmpresa::where('empresa_id', $empresa_id)->whereDate('fecha_inicio', '<=', now())->whereDate('fecha_fin', '>=', now())->where('estado', 1)->where('tipo_empleado',$request->tipo_empleado)->get();
+
+        // Aguinaldo
+        $aguinaldo = $provisions->firstWhere('tipo_provision', 'aguinaldo');
+        if ($aguinaldo) {
+            $monto_aguinaldo = ($request->salario / 12) * ($aguinaldo->porcentaje / 100);
+        }
+
+        // Vacaciones
+        $vacaciones = $provisions->firstWhere('tipo_provision', 'vacaciones');
+        if ($vacaciones) {
+            $monto_vacaciones = ($request->salario / 12) * ($vacaciones->porcentaje / 100);
+        }
+
+        // Indemnización
+        $indemnizacion = $provisions->firstWhere('tipo_provision', 'indemnización');
+        if ($indemnizacion) {
+            $monto_indemnizacion = ($request->salario / 12) * ($indemnizacion->porcentaje / 100);
+        }
+
         $empleado = RRHHEmpleado::create([
             'empresa_id' => $empresa_id,
             'id_afp' => $request->afp,
@@ -121,6 +142,9 @@ class EmpleadoController extends Controller
             'area_id' => $request->area_id,
             'departamento_id' => $request->departamento_id,
             'cargo_id' => $request->cargo_id,
+            'monto_aguinaldo' => isset($monto_aguinaldo) ? $monto_aguinaldo : 0,
+            'monto_vacaciones' => isset($monto_vacaciones) ? $monto_vacaciones : 0,
+            'monto_indemnización' => isset($monto_indemnizacion) ? $monto_indemnizacion : 0
         ]);
 
         try {
@@ -252,6 +276,25 @@ class EmpleadoController extends Controller
             $imagen->storeAs($carpeta, $nombreImagen);
         }
 
+        $provisions = ConProvisionEmpresa::where('empresa_id', $empleado->empresa_id)->where('estado', 1)->whereDate('fecha_inicio', '<=', now())->whereDate('fecha_fin', '>=', now())->where('tipo_empleado',$request->tipo_empleado)->get();
+
+        // Aguinaldo
+        $aguinaldo = $provisions->firstWhere('tipo_provision', 'aguinaldo');
+        if ($aguinaldo) {
+            $monto_aguinaldo = ($request->salario / 12) * ($aguinaldo->porcentaje / 100);
+        }
+
+        // Vacaciones
+        $vacaciones = $provisions->firstWhere('tipo_provision', 'vacaciones');
+        if ($vacaciones) {
+            $monto_vacaciones = ($request->salario / 12) * ($vacaciones->porcentaje / 100);
+        }
+
+        // Indemnización
+        $indemnizacion = $provisions->firstWhere('tipo_provision', 'indemnización');
+        if ($indemnizacion) {
+            $monto_indemnizacion = ($request->salario / 12) * ($indemnizacion->porcentaje / 100);
+        }
 
         $empleado->id_afp = $request->afp;
         $empleado->tipo_empleado_id = $request->tipo_empleado;
@@ -273,6 +316,9 @@ class EmpleadoController extends Controller
         $empleado->area_id = $request->area_id;
         $empleado->departamento_id = $request->departamento_id;
         $empleado->cargo_id = $request->cargo_id;
+        $empleado->monto_aguinaldo = isset($monto_aguinaldo) ? $monto_aguinaldo : 0;
+        $empleado->monto_vacaciones = isset($monto_vacaciones) ? $monto_vacaciones : 0;
+        $empleado->monto_indemnización = isset($monto_indemnizacion) ? $monto_indemnizacion : 0;
         if ( $fotoSubida )
             $empleado->foto = $url_foto;
 

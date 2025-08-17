@@ -78,6 +78,8 @@ include base_path('routes/partials/producto.php');
 include base_path('routes/partials/facturacion.php');
 include base_path('routes/partials/iva.php');
 include base_path('routes/partials/cuentasporcobrar.php');
+include base_path('routes/partials/Configuracion.php');
+include base_path('routes/partials/provisiones.php');
 
 // include ('routes/partials/users.php');
 // include ('routes/partials/contabilidad.php');

@@ -32,6 +32,9 @@ class RRHHEmpleado extends Model
         'salario_diario',
         'created_at',
         'updated_at',
+        'monto_aguinaldo',
+        'monto_vacaciones',
+        'monto_indemnización',
     ];
 
     public function rrhhIncapacidad() {

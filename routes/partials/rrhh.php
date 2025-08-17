@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RRHH\AfpController;
 use App\Http\Controllers\RRHH\ReportesRRHHController;
 use App\Http\Controllers\RRHH\PermisoController;
