@@ -66,6 +66,11 @@ class Help
         return  Auth::user()->empresa_id;
     }
 
+    public static function Usuarios()
+    {
+        return Auth::user()->id_usuario;
+    }
+
     public static function periodoContable()
     {
         return ContaPeriodoContable::where('empresa_id', Help::empresa())->where('activo', true)->first();
