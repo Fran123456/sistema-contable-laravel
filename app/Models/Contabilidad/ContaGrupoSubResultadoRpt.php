@@ -4,6 +4,8 @@ namespace App\Models\Contabilidad;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Contabilidad\ContaGrupoCuentaResultadoRpt;
+use App\Help\Contabilidad\ReportesContables;
 
 class ContaGrupoSubResultadoRpt extends Model
 {
@@ -24,5 +26,27 @@ class ContaGrupoSubResultadoRpt extends Model
 
     public function grupo(){
         return $this->belongsTo(ContaGrupoResultadoRpt::class, 'grupo_id');
+    }
+
+    public function cuentas(){
+        return $this->hasMany(ContaGrupoCuentaResultadoRpt::class, 'sub_grupo_id');
+    }
+
+    public function sumaCuentasResultado($subGrupoId, $fechaInicio, $fechaFin, $empresaId)
+    {
+        $cuentas = ContaGrupoCuentaResultadoRpt::where('sub_grupo_id', $subGrupoId)->where('empresa_id', $empresaId)->get();
+        $saldo = 0;
+        foreach ($cuentas as $key => $cuenta) {
+            $auxiliar = ReportesContables::getSaldoCuenta($cuenta->cuenta_id, $fechaInicio, $fechaFin);
+            $cuenta->saldo = $auxiliar;
+            $cuenta->save();
+            $saldo = $saldo + $auxiliar;
+        }
+
+        $g = self::find($subGrupoId);
+        $g->saldo = $saldo;
+        $g->save();
+
+        return $saldo;
     }
 }

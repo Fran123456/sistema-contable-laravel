@@ -151,44 +151,61 @@
             </thead>
             <tbody>
                 @foreach ($utilidades as $utilidad)
-                    
+                    @php
+                        $utilidad->calcularSaldos($fechaInicio, $fechaFin, $utilidad->id, $empresaId);
+                        $utilidad->refresh();
+                    @endphp
                     @foreach ($utilidad->grupos as $grupo)
+                        @php
+                            $saldoGrupo = $grupo->saldo >= 0 ? $grupo->saldo : ($grupo->saldo * -1);
+                        @endphp
                         <tr colspan="1">
                             <td style="padding-top:10px"><strong>{{ $grupo->grupo }}</strong></td>
                             <td ></td>
-                            <td style="text-align: right">$ 
-                                @if ($grupo->saldo>=0)
-                                {{ number_format($grupo->saldo,2) }}
-                                @else 
-                                {{ number_format($grupo->saldo*-1,2) }}
-                                @endif
+                            <td ></td>
+                            <td style="text-align: right">
+                               $ {{ number_format($saldoGrupo,2) }}
                             </td>
                         </tr>
 
                         @foreach ($grupo->subGrupos as $subGrupo)
+                            @php
+                                $saldoSubGrupo = $subGrupo->saldo >= 0 ? $subGrupo->saldo : ($subGrupo->saldo * -1);
+                            @endphp
                             <tr >
                                 <td style="padding-top:5px; padding-left:25px;">
                                     {{ $subGrupo->sub_grupo }} </td>
+                                <td ></td>
                                 <td style="text-align:right; padding-right:25px;">
-                                       @if ($subGrupo->saldo>=0)
-                                       $ {{ number_format($subGrupo->saldo,2) }}
-                                       @else
-                                       $ {{ number_format($subGrupo->saldo*-1,2) }}
-                                       @endif
+                                       $ {{ number_format($saldoSubGrupo,2) }}
                                 </td>
                             </tr>
+
+                            @foreach ($subGrupo->cuentas as $cuenta)
+                                @php
+                                    $saldoCuenta = $cuenta->saldo >= 0 ? $cuenta->saldo : ($cuenta->saldo * -1);
+                                @endphp
+                                <tr>
+                                    <td style="padding-top:5px; padding-left:25px;">{{ $cuenta->cuenta->codigo }} - {{ $cuenta->cuenta->nombre_cuenta }}</td>
+                                    <td style="text-align:right; padding-right:25px;">$ {{ number_format($saldoCuenta,2) }}</td>
+                                </tr>
+                            @endforeach
                         @endforeach
 
                     @endforeach
+                    @php
+                        $saldoUtilidad = $utilidad->calcularSaldoUtilidad($utilidad->id);
+                    @endphp
                     <tr style="padding-top:5px;padding-bottom:30px" >
                         <td style="padding-top:10px"></td>
                         
                         <td style="text-align: right; border-top: 2px solid; padding-bottom:30px">
                             <strong> {{ $utilidad->utilidad }}</strong>
                         </td>
+                        <td></td>
                         <td style="text-align: right; border-top: 2px solid; padding-bottom:30px">
-                            $ 0.00
-                              {{-- $ {{ number_format($utilidad->calcularUtilidadOperacion($utilidad->id),2) }} --}}
+                           <strong> $ {{ number_format($saldoUtilidad,2) }}</strong>
+                              
                         </td>
                     </tr>
 
@@ -199,6 +216,12 @@
                 </tr>
                     
                 @endforeach
+
+                @php
+                    foreach($utilidades as $key => $uti){
+                        $uti::where('saldo', '!=', null)->update(['saldo' => 0]);
+                    }
+                @endphp
 
             </tbody>
         </table>

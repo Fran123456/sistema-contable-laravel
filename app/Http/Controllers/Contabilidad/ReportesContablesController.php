@@ -27,6 +27,12 @@ use App\Help\Fecha;
 use App\Models\Contabilidad\ContaClasificacionCuenta;
 use App\Models\Contabilidad\ContaUtilidadRpt;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Help\PDF\EasyTable\exfpdf;
+use App\Help\PDF\EasyTable\easyTable;
+use App\Models\RRHH\RRHHEmpresa;
+use App\Help\PDF\Contabilidad\BalanceGeneral;
+use App\Help\PDF\Contabilidad\EstadoResultado;
+use App\Exports\Contabilidad\BalanceGeneralRptExcel;
 
 class ReportesContablesController extends Controller
 {
@@ -36,23 +42,26 @@ class ReportesContablesController extends Controller
        
         $c  = ContaClasificacionCuenta::where('clasificacion', 'detalle')
         ->where('empresa_id', Help::empresa())->first();
-        $cuentas = ContaCuentaContable::where('clasificacion_id', $c->id)->get();
+        $cuentas = collect();
+        if($c){
+            $cuentas = ContaCuentaContable::where('clasificacion_id', $c->id)->get();
+        }
         return view('contabilidad.reportes.home', compact('cuentas'));
     }
 
     public function reporteBalanceComprobacion(Request $request){
 
-        /*$cuentas =ContaDetallePartida::
+        $cuentas =ContaDetallePartida::
         whereBetween('fecha_contable', [$request->fechai, $request->fechaf])
         ->orderBy('codigo_cuenta', 'asc')->with(['cuentaContable'=>function($query){
             $query->select('nombre_cuenta','nombre_cuenta','id','tipo_cuenta');
         }])
-        ->get()->toArray();*/
-
-        /*$f = date("d-m-Y h:i:s");
+        ->get()->toArray();
+        $f = date('d-m-Y');
+        
         if($request->excel){
             return Excel::download(new BalanceComprobacionRptExcel($request->fechai, $request->fechaf, $cuentas), "balance-comprobacion-${f}.xlsx");
-        }*/
+        }
         $data = ReportesContables::debeHaberPorCuentaByFechaGroupByCuenta($request->fechai, $request->fechaf);
        
         return BalanceComprobacionRptNew::report($request->fechai, $request->fechaf, $data);
@@ -217,6 +226,7 @@ class ReportesContablesController extends Controller
         $fechaReporte = "DEL ".Fecha::obtenerDia($fechai)." DE ".strtoupper(Fecha::obtenerMesyDiaPorFecha($fechai) )." AL ".Fecha::obtenerDia($fechaf)." DE ".strtoupper(Fecha::obtenerMesyDiaPorFecha($fechaf))." DE " . Fecha::obtenerYear( $fechaf);
         // consulta de utilidades con grupos y subgrupos
         $utilidades = ContaUtilidadRpt::where('empresa_id', Help::empresa())->with('grupos.subgrupos')->get();
+        $nombreEmpresa = RRHHEmpresa::find(Help::empresa())->empresa;
 
         $context = compact('fechaReporte','utilidades');
         // vista de html del pdf
@@ -225,19 +235,20 @@ class ReportesContablesController extends Controller
         // validar si se quiere descargar en excel 
         if ($request->formato === "excel") {
             return Excel::download(
-                new ExportEstadoResultado($fechaReporte, $utilidades),
-                "Estado Resultado.xlsx"
+                new ExportEstadoResultado($fechaReporte, $fechai, $fechaf, $utilidades),
+                "Estado Resultado ".$nombreEmpresa.".xlsx"
             );
+        } else {
+            return EstadoResultado::report($fechai, $fechaf, $fechaReporte, $utilidades);
         }
-
-        $pdf = PDF::loadView($view, $context)->setPaper('letter', 'portrait');
-        $pdf->output();
-        $dom_pdf = $pdf->getDomPDF();
-        $canvas = $dom_pdf->get_canvas();
-        $w = $canvas->get_width();
-        $h = $canvas->get_height();
-        $canvas->page_text($w - 55, $h - 28, "{PAGE_NUM} / {PAGE_COUNT}", null, 9, array(0, 0, 0));
-        return $pdf->stream("Estado de Resultados.pdf");
+        // $pdf = PDF::loadView($view, $context)->setPaper('letter', 'portrait');
+        // $pdf->output();
+        // $dom_pdf = $pdf->getDomPDF();
+        // $canvas = $dom_pdf->get_canvas();
+        // $w = $canvas->get_width();
+        // $h = $canvas->get_height();
+        // $canvas->page_text($w - 55, $h - 28, "{PAGE_NUM} / {PAGE_COUNT}", null, 9, array(0, 0, 0));
+        // return $pdf->stream("Estado de Resultados.pdf");
     }
 
 
@@ -360,6 +371,24 @@ class ReportesContablesController extends Controller
         return LibroDiarioMayorRpt::report($request->fechai, $request->fechaf, $data);
 
 
+    }
+
+    public function reporteBalanceGeneral(Request $request)
+    {
+        $f = date("d-m-Y h:i:s");
+        $fechaInicial = $request->fechai;
+        $fechaFinal = $request->fechaf;
+        $formato = $request->formato;
+
+        $fechaReporte = "DEL ".Fecha::obtenerDia($fechaInicial)." DE ".strtoupper(Fecha::obtenerMesyDiaPorFecha($fechaInicial) )." AL ".Fecha::obtenerDia($fechaFinal)." DE ".strtoupper(Fecha::obtenerMesyDiaPorFecha($fechaFinal))." DE " . Fecha::obtenerYear( $fechaFinal);
+        $nombreEmpresa = RRHHEmpresa::find(Help::empresa())->empresa;
+        
+        if($formato == 'excel'){
+            return Excel::download(new BalanceGeneralRptExcel($fechaInicial, $fechaFinal, $fechaReporte), "balance-general-${f}.xlsx");
+        } else {
+            return BalanceGeneral::report($fechaInicial, $fechaFinal, $fechaReporte);
+        }
+        
     }
 
 }

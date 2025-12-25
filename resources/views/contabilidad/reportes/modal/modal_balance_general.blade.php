@@ -9,25 +9,24 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-           <form action="">
+           <form action="{{route('contabilidad.reporteBalanceGeneral')}}" method="get" target="_blank">
             <div class="row">
               <div class="col-md-12">
                 <LABEL>Fecha inicio</LABEL>
-                <input type="date" name="fechai" class="form-control">
+                <input type="date" name="fechai" class="form-control" required>
               </div>
   
               <div class="col-md-12 mt-3">
                 <LABEL>Fecha fin</LABEL>
-                <input type="date" name="fechaf" class="form-control">
+                <input type="date" name="fechaf" class="form-control" required>
               </div>
   
               <div class="col-md-12">
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button disabled style="color: white" type="button" class="btn btn-primary">En remodelación</button>
-                
-                 {{--  <button style="color: white" type="button" class="btn btn-primary">PDF</button>
-                  <button style="color: white" type="button" class="btn btn-primary">EXCEL</button> --}}
+                  <!-- <button disabled style="color: white" type="button" class="btn btn-primary">En remodelación</button> -->
+                 <button style="color: white" type="submit" class="btn btn-primary" name="formato" value="excel">EXCEL</button>
+                 <button style="color: white" type="submit" class="btn btn-primary" name="formato" value="pdf">PDF</button>
                 </div>
               </div>
              </div>

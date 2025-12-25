@@ -4,6 +4,7 @@ namespace App\Models\Contabilidad;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Contabilidad\ContaRubroCuentas;
 
 class ContaRubroGrupo extends Model
 {
@@ -22,5 +23,10 @@ class ContaRubroGrupo extends Model
     public function rubro()
     {
         return $this->belongsTo(ContaRubroGeneral::class, 'rubro_id');
+    }
+
+    public function cuentas()
+    {
+        return $this->hasMany(ContaRubroCuentas::class, 'grupo_id');
     }
 }

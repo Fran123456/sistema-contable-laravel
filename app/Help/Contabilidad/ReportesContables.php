@@ -382,4 +382,29 @@ class ReportesContables
         return self::obtenerSaldoMayorNuevo($cuenta, $fechaInicial, $fechaFinal = null, true);
     }
 
+    public static function getSaldoCuenta($cuentaId, $fechaInicial, $fechaFinal = null)
+    {
+        $debe = 0;
+        $haber = 0;
+        $cuenta = ContaCuentaContable::find($cuentaId);
+
+
+        $debe = self::obtenerSaldoMayorNuevoDebe($cuenta, $fechaInicial, $fechaFinal);
+        $haber = self::obtenerSaldoMayorNuevoHeber($cuenta, $fechaInicial, $fechaFinal);
+        $pr = substr($cuenta->codigo, 0, 1);
+        //dd('debe - haber ' . $debe - $haber . ' haber - debe ' . $haber - $debe);
+        $total = 0;
+
+        //comparamoos si es acreedora sin importar si es mayuscula o minuscula
+        if (strtolower($cuenta->tipo_cuenta) == "deudora") { // deudora 1 acreedora 0
+            $total = $debe - $haber;
+        } else {
+            $total = $haber - $debe;
+        }
+
+
+      
+        return  abs($total);
+    }
+
 }

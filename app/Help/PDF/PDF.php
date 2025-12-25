@@ -24,33 +24,54 @@ class PDF extends  Fpdf
     {
         // Logo
         // dd(public_path('images\logo.png'));
-        if($this->orientation=='P') {
+        // if($this->orientation=='P') {
 
-           // $this->Image(public_path(  Help::getConfigByKey('general','logo')->value   ), 185, 12, 18, 0, 'PNG');
-            $this->SetFont('Arial', 'B', 13);
-            $this->Cell(80);        // Move to the right
-            $this->Cell(30, 10, Help::usuario()->empresa->empresa, 0, 0, 'C');// Title
-            $this->Ln(7);
-            $this->Cell(80);  
-            $this->Cell(30, 10, $this->title, 0, 0, 'C');// Title
+        //    // $this->Image(public_path(  Help::getConfigByKey('general','logo')->value   ), 185, 12, 18, 0, 'PNG');
+        //     $this->SetFont('Arial', 'B', 13);
+        //     $this->Cell(80);        // Move to the right
+        //     $this->Cell(30, 10, Help::usuario()->empresa->empresa, 0, 0, 'C');// Title
+        //     $this->Ln(7);
+        //     $this->Cell(80);  
+        //     $this->Cell(30, 10, $this->title, 0, 0, 'C');// Title
 
-            //TODO validar para vacio
-            $this->Ln(7);
+        //     //TODO validar para vacio
+        //     $this->Ln(7);
+        //     $this->SetFont('Arial', 'B', $this->subtitle_font_size);
+        //     $this->Cell(190, 10, $this->subtittle, 0, 0, 'C');
+        // }
+        // else{
+        //   //  $this->Image(public_path( Help::getConfigByKey('general','logo')->value ),240,5,18,0,'PNG');
+        //     $this->SetFont('Arial','B',13);
+        //     $this->Cell(80);// Move to the right
+        //     $this->Cell(100,10,$this->title??Help::usuario()->empresa->empresa,0,0,'C');// Title
+        //     //TODO validar para vacio
+        //     $this->Ln(7);
+        //     $this->SetFont('Arial','B',$this->subtitle_font_size);
+        //     $this->Cell(250,10,$this->subtittle,0,0,'C');
+        // }
+
+        // $this->Ln(12);// Line break
+        $pageWidth = $this->GetPageWidth();
+        $usableWidth = $pageWidth - $this->lMargin - $this->rMargin;
+
+        // Empresa
+        $this->SetFont('Arial', 'B', 13);
+        $this->SetX($this->lMargin);
+        $this->Cell($usableWidth, 8, Help::usuario()->empresa->empresa, 0, 1, 'C');
+
+        // Título
+        if ($this->title) {
+            $this->SetFont('Arial', 'B', 12);
+            $this->Cell($usableWidth, 7, $this->title, 0, 1, 'C');
+        }
+
+        // Subtítulo
+        if ($this->subtittle) {
             $this->SetFont('Arial', 'B', $this->subtitle_font_size);
-            $this->Cell(190, 10, $this->subtittle, 0, 0, 'C');
-        }
-        else{
-          //  $this->Image(public_path( Help::getConfigByKey('general','logo')->value ),240,5,18,0,'PNG');
-            $this->SetFont('Arial','B',13);
-            $this->Cell(80);// Move to the right
-            $this->Cell(100,10,$this->title??Help::usuario()->empresa->empresa,0,0,'C');// Title
-            //TODO validar para vacio
-            $this->Ln(7);
-            $this->SetFont('Arial','B',$this->subtitle_font_size);
-            $this->Cell(250,10,$this->subtittle,0,0,'C');
+            $this->Cell($usableWidth, 7, $this->subtittle, 0, 1, 'C');
         }
 
-        $this->Ln(12);// Line break
+        $this->Ln(5);
     }
 
 // Page footer

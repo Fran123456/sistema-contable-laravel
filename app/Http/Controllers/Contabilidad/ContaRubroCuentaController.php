@@ -8,17 +8,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Contabilidad\ContaRubroCuentas;
 use App\Models\Contabilidad\ContaCuentaContable;
-
+use App\Help\Help;
 
 class ContaRubroCuentaController extends Controller
 {
-    public function index($grupo, $rubro)
+    public function index($rubro, $grupo)
     {
-
         $grupo_id = $grupo;
         $rubro_id = $rubro;
         $rubroCuentas = ContaRubroCuentas::where('grupo_id', $grupo)->get();
-        $cuentasContables = ContaCuentaContable::all();
+        $cuentasContables = ContaCuentaContable::where('empresa_id', Help::empresa())->get();
 
         return view('contabilidad.rubro_grupo_cuentas_contables.index', compact('rubroCuentas', 'cuentasContables', 'grupo_id', 'rubro_id'));
     }
@@ -26,23 +25,24 @@ class ContaRubroCuentaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'numero_cuenta' => 'required|string',
+            // 'numero_cuenta' => 'required|string',
             'signo' => 'required|string',
-            'saldo' => 'required|integer',
+            // 'saldo' => 'required|integer',
         ]);
 
         $rubroCuentas = new ContaRubroCuentas();
         $rubroCuentas->cuenta_id = $request->cuenta_id;
-        $rubroCuentas->numero_cuenta = $request->numero_cuenta;
+        // $rubroCuentas->numero_cuenta = $request->numero_cuenta;
         $rubroCuentas->grupo_id = $request->grupo_id;
         $rubroCuentas->rubro_id = $request->rubro_id;
         $rubroCuentas->signo = $request->signo;
-        $rubroCuentas->saldo = $request->saldo;
+        // $rubroCuentas->saldo = $request->saldo;
         $rubroCuentas->empresa_id = Auth::user()->empresa_id;
+        $rubroCuentas->save();
 
-        if (!$rubroCuentas->save()) {
-            return back()->with('danger', 'Ocurrio un error al crear la asociación');
-        }
+        // if (!$rubroCuentas->save()) {
+        //     return back()->with('danger', 'Ocurrio un error al crear la asociación');
+        // }
 
 
         return back()->with('success', 'Cuenta contable asociada con exito');
@@ -51,9 +51,7 @@ class ContaRubroCuentaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'numero_cuenta' => 'required|string',
             'signo' => 'required|string',
-            'saldo' => 'required|numeric',
         ]);
 
         $rubroCuentas = ContaRubroCuentas::findOrFail($id);

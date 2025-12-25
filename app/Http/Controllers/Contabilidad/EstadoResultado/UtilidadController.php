@@ -16,7 +16,7 @@ class UtilidadController extends Controller
      */
     public function index()
     {
-        $utilidades = ContaUtilidadRpt::orderBy('id', 'desc')->get();
+        $utilidades = ContaUtilidadRpt::orderBy('id', 'desc')->where('empresa_id', Help::empresa())->get();
 
         return view('contabilidad.estado_resultado.utilidad.index', compact('utilidades'));
     }

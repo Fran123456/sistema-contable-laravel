@@ -37,9 +37,7 @@
                         <tr>
                             <th scope="col" width="40">#</th>
                             <th scope="col">Cuenta Contable</th>
-                            <th scope="col">Numero Cuenta</th>
                             <th scope="col">Signo</th>
-                            <th scope="col">Saldo</th>
                             <th scope="col" width="160px">Acciones</th>
                         </tr>
                     </thead>
@@ -48,9 +46,7 @@
                             <tr>
                                 <th scope="row">{{ $key + 1 }}</th>
                                 <td>{{ $rubroCuenta->cuenta->codigo }} - {{ $rubroCuenta->cuenta->nombre_cuenta }}</td>
-                                <td>{{ $rubroCuenta->numero_cuenta }}</td>
                                 <td>{{ $rubroCuenta->signo }}</td>
-                                <td>{{ $rubroCuenta->saldo }}</td>
                                 <td class="text-center">
                                     <a href="#" data-bs-toggle="modal"
                                         data-bs-target="#editGrupoModal{{ $rubroCuenta->id }}" title="Editar">
@@ -88,13 +84,13 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="modal-body">
-                                                <div class="mb-3">
+                                                <!-- <div class="mb-3">
                                                     <label for="numero_cuenta{{ $rubroCuenta->id }}"
                                                         class="form-label">Numero Cuenta</label>
                                                     <input type="text" class="form-control"
                                                         id="numero_cuenta{{ $rubroCuenta->id }}" name="numero_cuenta"
                                                         value="{{ $rubroCuenta->numero_cuenta }}">
-                                                </div>
+                                                </div> -->
                                                 <div class="mb-3">
                                                     <label for="signo{{ $rubroCuenta->id }}"
                                                         class="form-label">Signo</label>
@@ -108,13 +104,13 @@
                                                         </option>
                                                     </select>
                                                 </div>
-                                                <div class="mb-3">
+                                                <!-- <div class="mb-3">
                                                     <label for="saldo{{ $rubroCuenta->id }}"
                                                         class="form-label">Saldo</label>
                                                     <input type="number" class="form-control"
                                                         id="saldo{{ $rubroCuenta->id }}" name="saldo"
                                                         value="{{ $rubroCuenta->saldo }}" step="0.01">
-                                                </div>
+                                                </div> -->
                                                 <div class="mb-3">
                                                     <label for="cuenta_id{{ $rubroCuenta->id }}"
                                                         class="form-label">Cuenta contable</label>
@@ -162,11 +158,11 @@
                     method="POST">
                     @csrf
                     <div class="modal-body">
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="numero_cuenta" class="form-label">Numero Cuenta</label>
                             <input type="text" class="form-control" id="numero_cuenta" name="numero_cuenta"
                                 required>
-                        </div>
+                        </div> -->
                         <div class="mb-3">
                             <label for="signo" class="form-label">Signo</label>
                             <select class="form-select" id="signo" name="signo" required>
@@ -174,10 +170,10 @@
                                 <option value="-">-</option>
                             </select>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="saldo" class="form-label">Saldo</label>
                             <input type="number" class="form-control" id="saldo" name="saldo" required>
-                        </div>
+                        </div> -->
                         <div class="mb-3">
                             <label for="cuenta_id" class="form-label">Cuenta contable</label>
                             <select class="form-select select2" id="cuenta_id" name="cuenta_id" required>
