@@ -16,6 +16,7 @@
               <div class="col-md-12 mt-2">
                 <label for="">Cuenta</label>
                 <select class="form-control select2" style="width: 100%" name="cuenta" id="">
+                  <option value=""></option>
                   @foreach ($cuentas as $item)
                       <option value="{{ $item->id }}">{{ $item->codigo }} {{ $item->nombre_cuenta }}</option>
                   @endforeach

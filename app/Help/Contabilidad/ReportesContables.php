@@ -12,7 +12,8 @@ class ReportesContables
     public static function saldoAcreedorDeudor($debe, $haber, $saldo, $tipo){
 
         $aux = 0;
-        if ($tipo != "deudora") {
+
+        if ($tipo == "DEUDORA") {
             $aux = $debe - $haber;
         } else {
             $aux = $haber - $debe;
@@ -74,10 +75,20 @@ class ReportesContables
               }else{
                 $monto = self::obtenerSaldoMayorNuevoDebe($cuenta_hija, $fechaInicial, $fechaFinal);
 
-                if ($cuenta_hija->tipo_cuenta == 'deudora') {
+                if ($cuenta_hija->tipo_cuenta == 'DEUDORA') {
                     $saldo = $saldo + $monto;
                 } else {
                     $saldo = $saldo - $monto;
+                }
+
+                if ($saldo <= 0 && strpos($cuenta_hija->codigo, '2') === 0) {
+                    $saldo = $saldo * -1;
+                }
+                if ($saldo <= 0 && strpos($cuenta_hija->codigo, '5') === 0) {
+                    $saldo = $saldo * -1;
+                }
+                if ($saldo <= 0 && strpos($cuenta_hija->codigo, '3') === 0) {
+                    $saldo = $saldo * -1;
                 }
               }
             }
@@ -104,10 +115,10 @@ class ReportesContables
             $haber = 0;
 
 
-            if($cuenta->tipo_cuenta =="deudora"){//cuentta 1, 4,6
-            }else{
-                $debe = $debe*(-1);
-            }
+            // if($cuenta->tipo_cuenta =="DEUDORA"){//cuentta 1, 4,6
+            // }else{
+            //     $debe = $debe*(-1);
+            // }
 
 
             $saldo= $debe+$saldo;
@@ -139,10 +150,27 @@ class ReportesContables
                 }
             }else{
                 $monto = self::obtenerSaldoMayorNuevoHeber($cuenta_hija, $fechaInicial, $fechaFinal);
-                if ($cuenta_hija->tipo_cuenta == 'deudora') {
+                if ($cuenta_hija->tipo_cuenta == 'DEUDORA') {
                     $saldo = $saldo + $monto;
                 } else {
-                    $saldo = $saldo - $monto;
+                    $saldo = $saldo + $monto; // se debe sumar
+                }
+
+                if ($saldo <= 0 && strpos($cuenta_hija->codigo, '2') === 0) {
+                    $saldo = $saldo * -1;
+                }
+                if ($saldo <= 0 && strpos($cuenta_hija->codigo, '5') === 0) {
+                    $saldo = $saldo * -1;
+                }
+                if ($saldo <= 0 && strpos($cuenta_hija->codigo, '3') === 0) {
+                    $saldo = $saldo * -1;
+                }
+                if ($saldo <= 0 && strpos($cuenta_hija->codigo, '4') === 0) {
+                    $saldo = $saldo * -1;
+                }
+
+                if ($saldo <= 0 && strpos($cuenta_hija->codigo, '1') === 0) {
+                    $saldo = $saldo * -1;
                 }
             }
             }
@@ -170,10 +198,10 @@ class ReportesContables
             $debe = 0;
             $haber = $habera[0]->monto;
 
-            if($cuenta->tipo_cuenta =="deudora"){//cuentta 1, 4,6
-            }else{
-                $haber = $haber*(-1);
-            }
+            // if($cuenta->tipo_cuenta =="DEUDORA"){//cuentta 1, 4,6
+            // }else{
+            //     $haber = $haber*(-1);
+            // }
 
 
             $saldo= $haber+$saldo;
@@ -313,7 +341,7 @@ class ReportesContables
                     }
                 } else {
                     $monto = self::obtenerSaldoMayorNuevo($cuenta_hija, $fechaInicial, $fechaFinal,$detalle);
-                    if ($cuenta_hija->tipo_cuenta == 'deudora') {
+                    if ($cuenta_hija->tipo_cuenta == 'DEUDORA') {
                         $saldo = $saldo + $monto;
                     } else {
                         $saldo = $saldo - $monto;
@@ -351,7 +379,7 @@ class ReportesContables
             $debe = $debea[0]->monto;
             $haber = $habera[0]->monto;
             //(deudora y abono) o (acreedora y cargos) restaran
-            if ($cuenta->naturaleza == "deudora") {
+            if ($cuenta->tipo_cuenta == "DEUDORA") {
                 $total = $debe - $haber;
             } else {
                 $total = $haber - $debe;
@@ -363,6 +391,11 @@ class ReportesContables
         }
         $pr = substr($cuenta->codigo, 0, 1);
         if ($pr == 2) {
+            if ($saldo < 0) {
+                $saldo = $saldo * -1;
+            }
+        }
+         if ($pr == 3) {
             if ($saldo < 0) {
                 $saldo = $saldo * -1;
             }
@@ -404,7 +437,34 @@ class ReportesContables
 
 
       
-        return  abs($total);
+        return  $total;
+    }
+
+    public static function getTotalDeCuentasRango($cuentaInicio, $cuentaFinal, $fechaInicial, $fechaFinal, $clasificacionCuentaId)
+    {
+
+        return DB::select("SELECT cc.id FROM conta_detalle_partida_contable dt
+                            LEFT JOIN conta_cuenta_contable cc ON cc.id = dt.cuenta_contable_id
+                            WHERE cc.clasificacion_id = ?
+                            AND (dt.fecha_contable BETWEEN ? AND ?)
+                            AND (cc.id BETWEEN ? AND ?)
+                            GROUP BY cc.id
+                            ORDER BY cc.codigo ASC", [$clasificacionCuentaId, $fechaInicial, $fechaFinal, $cuentaInicio, $cuentaFinal]);
+
+    }
+
+    public static function getTransactiosDetails($cuentaId, $fechaInicial, $fechaFinal)
+    {
+        return DB::table('conta_detalle_partida_contable as td')
+                ->leftJoin('conta_partida_contable as pt', 'pt.id', '=', 'td.partida_id')
+                ->leftJoin('conta_cuenta_contable as cc', 'cc.id', '=', 'td.cuenta_contable_id')
+                ->select('cc.id','td.id', 'td.fecha_contable', 'cc.nombre_cuenta', 'cc.codigo as codCuenta', 'pt.id as partidaId', 'td.debe', 'td.haber',
+                'pt.concepto')
+                ->where('cc.id', $cuentaId)
+                ->whereBetween('td.fecha_contable', [$fechaInicial, $fechaFinal])
+                ->orderBy('td.fecha_contable', 'asc')
+                ->get();
+
     }
 
 }

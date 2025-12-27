@@ -80,7 +80,7 @@ class SaldoCuentaRpt
             $table->easyCell(number_format($haber,2 ),$numberStyle.'border:T;');
 
 
-            $table->easyCell("",$numberStyle.'border:T;');
+            $table->easyCell(number_format($saldoAc,2 ),$numberStyle.'border:T;');
             $table->printRow();
 
         $table->endTable(15);

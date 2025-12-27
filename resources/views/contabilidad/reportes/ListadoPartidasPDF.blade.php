@@ -173,6 +173,7 @@
                 <thead>
                     <tr>
                         <td>#</td>
+                        <th>Fecha Contable</th>
                         <th>Partida</th>
                         <th>Concepto</th>
                         <th>Debe</th>
@@ -183,6 +184,7 @@
                     @foreach ($partida as $key => $item)
                         <tr @if ($item->debe != $item->haber) style="font-weight: bold; color: red" @endif >
                             <td>{{ $key + 1 }}</td>
+                            <td>{{ Help::date($item->fecha_contable) }}</td>
                             <td>{{ Help::codigoPartida($item) }}</td>
                             <td>{{ $item->concepto}} </td>
                             <td class="money"> {{ number_format($item->debe, 2) }}</td>

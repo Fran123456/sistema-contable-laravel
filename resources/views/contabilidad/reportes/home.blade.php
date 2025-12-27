@@ -122,6 +122,19 @@ $(document).ready(function(){
         </div>
         @include('contabilidad.reportes.modal.modal_listado_partidas')
 
+        <div class="col-md-4 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Libro Auxiliar </h5>
+                    <button style="color:white" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#libro_auxiliar">
+                        Generar
+                    </button>
+                </div>
+            </div>
+        </div>
+        @include('contabilidad.reportes.modal.modal_libro_auxiliar')
+
     </div>
 
 

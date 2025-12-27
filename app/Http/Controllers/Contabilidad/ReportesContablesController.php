@@ -33,6 +33,8 @@ use App\Models\RRHH\RRHHEmpresa;
 use App\Help\PDF\Contabilidad\BalanceGeneral;
 use App\Help\PDF\Contabilidad\EstadoResultado;
 use App\Exports\Contabilidad\BalanceGeneralRptExcel;
+use App\Help\PDF\Contabilidad\LibroAuxiliar;
+use App\Exports\Contabilidad\LibroAuxiliar as LibroAuxiliarExcel;
 
 class ReportesContablesController extends Controller
 {
@@ -62,9 +64,9 @@ class ReportesContablesController extends Controller
         if($request->excel){
             return Excel::download(new BalanceComprobacionRptExcel($request->fechai, $request->fechaf, $cuentas), "balance-comprobacion-${f}.xlsx");
         }
-        $data = ReportesContables::debeHaberPorCuentaByFechaGroupByCuenta($request->fechai, $request->fechaf);
+        //$data = ReportesContables::debeHaberPorCuentaByFechaGroupByCuenta($request->fechai, $request->fechaf);
        
-        return BalanceComprobacionRptNew::report($request->fechai, $request->fechaf, $data);
+        return BalanceComprobacionRptNew::report($request->fechai, $request->fechaf);
         //return BalanceComprobacionRpt::report($request->fechai, $request->fechaf, $cuentas);
     }
 
@@ -296,8 +298,8 @@ class ReportesContablesController extends Controller
     public function reporteSaldoCuenta(Request $request){
 
         $fechaFinSaldo = $request->fechai;
-       // $fechaFinSaldo= date("Y-m-d",strtotime($fechaFinSaldo."- 1 day"));
-        $saldo = ReportesContables::getSaldo($request->cuenta, null , $fechaFinSaldo);
+        //$fechaFinSaldo= date("Y-m-d",strtotime($fechaFinSaldo."- 1 day"));
+        $saldo = ReportesContables::getSaldo($request->cuenta, null, $fechaFinSaldo);
         $data = ContaDetallePartida::where('cuenta_contable_id', $request->cuenta)
         ->whereBetween('fecha_contable', [$request->fechai, $request->fechaf])->get();
         $cuenta = ContaCuentaContable::find($request->cuenta);
@@ -312,7 +314,7 @@ class ReportesContablesController extends Controller
 
     public function reporteLibroDiario(Request $request){
 
-        $data = ContaDetallePartida::whereBetween('fecha_contable',[$request->fechai, $request->fechaf])
+        $data = ContaDetallePartida::whereBetween('fecha_contable',[$request->fechai, $request->fechaf])->where('empresa_id', Help::empresa())
         ->orderBy('fecha_contable','DESC')->with('cuentaContable','partida')->get();
         $f = date("d-m-Y h:i:s");
         if($request->excel){
@@ -387,6 +389,19 @@ class ReportesContablesController extends Controller
             return Excel::download(new BalanceGeneralRptExcel($fechaInicial, $fechaFinal, $fechaReporte), "balance-general-${f}.xlsx");
         } else {
             return BalanceGeneral::report($fechaInicial, $fechaFinal, $fechaReporte);
+        }
+        
+    }
+
+    public function reporteLibroAuxiliar(Request $request)
+    {
+        $fechaInicial = $request->fechai;
+        $fechaFinal = $request->fechaf;
+        $f = date("d-m-Y h:i:s");
+        if($request->excel){
+            return Excel::download(new LibroAuxiliarExcel($fechaInicial, $fechaFinal, $request->cuenta_inicial, $request->cuenta_final), "libro-auxiliar-${f}.xlsx");
+        } else {
+            return LibroAuxiliar::report($fechaInicial, $fechaFinal, $request->cuenta_inicial, $request->cuenta_final);   
         }
         
     }
